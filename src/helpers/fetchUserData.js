@@ -4,7 +4,8 @@ import { doc, getDoc } from 'firebase/firestore'
 export const fetchUserData = () => {
   return new Promise((resolve, reject) => {
     auth.onAuthStateChanged(async (user) => {
-      if (user) {
+      console.log('user', user.uid)
+      if (user.uid) {
         console.log('fetchUserData', user)
         const docRef = doc(db, 'Users', user.uid)
         try {

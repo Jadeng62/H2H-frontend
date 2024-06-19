@@ -24,21 +24,20 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      await createUserWithEmailAndPassword(
-        auth,
-        newUser.email,
-        newUser.password
-      )
-      const user = auth.currentUser
-      console.log('registeredUser', user)
-      if (user) {
+      const { email, password } = newUser
+
+      await createUserWithEmailAndPassword(auth, email, password)
+      const { currentUser } = auth
+
+      if (currentUser.uid) {
         const { email, firstName, lastName, password } = newUser
-        await setDoc(doc(db, 'Users', user.uid), {
+        await setDoc(doc(db, 'Users', currentUser.uid), {
           email,
           firstName,
           lastName,
           photo: '',
         })
+        console.log(auth, email, password)
         await signInWithEmailAndPassword(auth, email, password)
       }
       console.log('User Registered Successfully!!')

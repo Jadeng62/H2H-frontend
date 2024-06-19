@@ -34,6 +34,11 @@ function Profile() {
       const user = await fetchUserData()
       console.log('profile', user)
       if (user) setUserDetails(user)
+      else {
+        toast.error('User Not Found', {
+          position: 'bottom-center',
+        })
+      }
     }
 
     getUser()
@@ -66,7 +71,10 @@ function Profile() {
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
-        <h2>Loading...</h2>
+        <>
+          <h2>Loading...</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </>
       )}
     </div>
   )
