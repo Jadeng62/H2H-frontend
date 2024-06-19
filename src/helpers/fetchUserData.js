@@ -18,7 +18,6 @@ export const fetchUserData = () => {
             resolve(docSnap.data())
           } else {
             reject(new Error('No user data found'))
-            return false
           }
         } catch (error) {
           reject(error)
