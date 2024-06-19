@@ -1,7 +1,47 @@
-import React from "react";
+import { useEffect, useState } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-const App = () => {
-  return <div>Basic Pursuit React Starter</div>;
-};
+import { auth } from './helpers/firebase'
 
-export default App;
+import Login from './Components/Login'
+import SignUp from './Components/Register'
+import Profile from './Components/Profile'
+import Test from './Components/Test'
+
+import 'react-toastify/dist/ReactToastify.css'
+import './App.css'
+
+function App() {
+  const [user, setUser] = useState()
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user)
+    })
+  })
+  return (
+    <div>
+      <Routes
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 100,
+        }}
+      >
+        <Route
+          path="/"
+          element={user ? <Navigate to="/profile" /> : <Login />}
+        />
+        <Route path="/test" element={user ? <Test /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+      <ToastContainer />
+    </div>
+  )
+}
+
+export default App
