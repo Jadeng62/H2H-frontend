@@ -3,25 +3,18 @@ import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
-// Your web app's Firebase configuration which is located in the app in your firebase console
-const {
-  VITE_FIREBASE_API_KEY,
-  VITE_FIREBASE_AUTH_DOMAIN,
-  VITE_FIREBASE_PROJECT_ID,
-  VITE_FIREBASE_STORAGE_BUCKET,
-  VITE_FIREBASE_MESSAGING_SENDER_ID,
-  VITE_FIREBASE_APP_ID,
-  VITE_FIREBASE_MEASUREMENT_ID,
-} = import.meta.env
+// more DRY than repeating import.mete.env=VITE_FIREBASE_ over and over
+const envKey = import.meta.env[`VITE_FIREBASE_${key}`]
 
+// Your firebase configuration which you will see in your manual Firebase app on the platform. You will have to store those key values in your .env file. Check the .env.example file for reference
 const firebaseConfig = {
-  apiKey: VITE_FIREBASE_API_KEY,
-  authDomain: VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: VITE_FIREBASE_PROJECT_ID,
-  storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: VITE_FIREBASE_APP_ID,
-  measurementId: VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: envKey(API_KEY),
+  authDomain: envKey(AUTH_DOMAIN),
+  projectId: envKey(PROJECT_ID),
+  storageBucket: envKey(STORAGE_BUCKET),
+  messagingSenderId: envKey(MESSAGING_SENDER_ID),
+  appId: envKey(APP_ID),
+  measurementId: envKey(MEASUREMENT_ID),
 }
 
 // Initialize Firebase
