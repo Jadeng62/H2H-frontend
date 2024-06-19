@@ -8,4 +8,4 @@ It includes the use of [Firebase Firestore](https://firebase.google.com/docs/fir
 
 Here is the [original REPO](https://github.com/the-debug-arena/Login-Auth-Firebase-ReactJS). The original project was created using `create-react-app` toolchain instead of `vite`
 
-This refactor uses `vite`
+This refactor uses [vite](https://vitejs.dev/guide/)
