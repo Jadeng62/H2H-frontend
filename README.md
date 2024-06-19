@@ -31,5 +31,14 @@ service cloud.firestore {
     }
   }
 }
-``
+
 ```
+
+You are not required to use both Email/Password sign in and Google sign in. You can refactor the code to only use one or the other.
+
+## User
+
+The User will be automatically set in the `App.jsx`
+This allows you to protect your routes using a ternary in your `element` attribute.
+
+Do Not pass the user as a prop. Instead, Use the `fetchUserData` helper function in a `useEffect` in the component you are navigating to. This will allow you to `refresh` the page.
