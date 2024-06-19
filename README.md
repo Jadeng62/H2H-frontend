@@ -10,7 +10,9 @@ Here is the [original REPO](https://github.com/the-debug-arena/Login-Auth-Fireba
 
 This refactor uses [vite](https://vitejs.dev/guide/)
 
-## Note: You will still need to manually go to your Firebase account and:
+## Note: You will still need to manually configure your Firebase account
+
+### TO DO:
 
 - create your firebase web app
 - set up and `Enable` authentication methods
