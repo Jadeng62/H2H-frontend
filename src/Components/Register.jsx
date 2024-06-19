@@ -26,9 +26,11 @@ function Register() {
     try {
       const { email, password } = newUser
 
+      // createUser in firebase
       await createUserWithEmailAndPassword(auth, email, password)
       const { currentUser } = auth
 
+      // store user in the Firestore DB
       if (currentUser.uid) {
         const { email, firstName, lastName, password } = newUser
         await setDoc(doc(db, 'Users', currentUser.uid), {
@@ -38,6 +40,8 @@ function Register() {
           photo: '',
         })
         console.log(auth, email, password)
+
+        //Login
         await signInWithEmailAndPassword(auth, email, password)
       }
       console.log('User Registered Successfully!!')
@@ -48,6 +52,7 @@ function Register() {
         photo: '',
       })
 
+      //Display success alert
       toast.success('User Registered Successfully!!', {
         position: 'top-center',
       })

@@ -20,6 +20,7 @@ function Login() {
 
     const { email, password } = loginUser
     try {
+      //sign in to firebase
       await signInWithEmailAndPassword(auth, email, password)
       console.log('User logged in Successfully')
 

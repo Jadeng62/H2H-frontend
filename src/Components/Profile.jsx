@@ -14,6 +14,7 @@ function Profile() {
 
   async function handleLogout() {
     try {
+      //call function to log out of firebase, no need to call backend
       await logout()
       toast.success('User logged out successfully!', {
         position: 'top-center',
