@@ -13,7 +13,7 @@ This refactor uses [vite](https://vitejs.dev/guide/)
 **Note:** You will still need to manually go to your Firebase account and
 
 - create your firebase web app
-- set up authentication methods
+- set up and `Enable` authentication methods
   - Email/Password
   - Google
 - add the Firebase Firestore NoSQL database
