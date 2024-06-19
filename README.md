@@ -10,14 +10,14 @@ Here is the [original REPO](https://github.com/the-debug-arena/Login-Auth-Fireba
 
 This refactor uses [vite](https://vitejs.dev/guide/)
 
-**Note:** You will still need to manually go to your Firebase account and
+**Note:** You will still need to manually go to your Firebase account and:
 
 - create your firebase web app
 - set up and `Enable` authentication methods
   - Email/Password
   - Google
 - add the Firebase Firestore NoSQL database
-- change the rules in your Firestore DB to
+- change the `Rules` in your Firestore DB to
 
 ```js
 rules_version = '2';
