@@ -1,4 +1,4 @@
-# Firebase Debug Arena - Frontend
+# Firebase Auth Portfolio Project Example - Frontend
 
 This is a client side login for Firebase. It includes the [login with email and password](https://firebase.google.com/docs/auth/web/password-auth) functionality and the [sign in with Google functionaility](https://firebase.google.com/docs/auth/web/google-signin) from Firebase.
 
