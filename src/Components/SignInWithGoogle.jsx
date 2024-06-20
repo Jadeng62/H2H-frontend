@@ -15,16 +15,16 @@ async function handleGoogleSignIn() {
     const token = await user.getIdToken()
     localStorage.setItem('token', token)
 
+    // Check if user exists in your backend
     const foundUser = await fetchUser(user, token)
-    if (foundUser.uid) {
-      return { navigateTo: '/profile' }
-    } else {
+    if (!foundUser.uid) {
+      // User does not exist in backend, create the user
       const { photoURL, uid } = user
-      const registeredUser = await register(user, photoURL, uid)
-      return registeredUser.uid
-        ? { navigateTo: '/profile' }
-        : { navigateTo: '/register' }
+      await register(user, photoURL, uid)
     }
+    // Now fetch the user data again after ensuring they are registered
+    const userData = await fetchUser(user, token)
+    return { navigateTo: '/profile' }
   } catch (error) {
     localStorage.removeItem('token')
     throw error

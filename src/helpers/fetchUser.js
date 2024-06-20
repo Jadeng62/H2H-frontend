@@ -9,15 +9,8 @@ export const fetchUser = async (user, token) => {
     },
   }
 
-  try {
-    const response = await fetch(`${URL}/api/auth/user/${user.uid}`, options)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    return response.json()
-  } catch (error) {
-    console.error('Failed to fetch user data:', error)
-    // Optionally re-throw the error if you want calling code to handle it
-    throw error
-  }
+  // check if user exists
+  const response = await fetch(`${URL}/api/auth/user/${user.uid}`, options)
+
+  return response.json()
 }
