@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { setDoc, doc } from 'firebase/firestore'
 
-import { auth, db } from '../helpers/firebase'
+import { auth } from '../helpers/firebase'
 import googleBadge from '../assets/google.png'
 
 const URL = import.meta.env.VITE_BASE_URL
@@ -67,14 +66,6 @@ function SignInWithGoogle() {
         } else {
           navigate('/profile')
         }
-
-        // if (user) {
-        //   toast.success('User logged in Successfully', {
-        //     position: 'top-center',
-        //   })
-
-        //   navigate('/profile')
-        // }
       })
     } catch (error) {
       localStorage.removeItem('token')
