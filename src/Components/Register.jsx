@@ -28,7 +28,6 @@ function Register() {
 
     try {
       const { email, password } = newUser
-
       // createUser in firebase
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -38,14 +37,12 @@ function Register() {
 
       // you need the JWT token to authenticate protected routes on the backend
       const token = await userCredential.user.getIdToken()
-
       localStorage.setItem('token', token)
 
       const { uid, photoURL } = auth.currentUser
 
       if (uid) {
         const retrievedUser = await register(newUser, photoURL, uid)
-
         if (retrievedUser.uid) {
           await signInWithEmailAndPassword(auth, email, password)
 
