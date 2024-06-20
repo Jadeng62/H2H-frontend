@@ -19,11 +19,12 @@ function Login() {
     e.preventDefault()
 
     const { email, password } = loginUser
-    try {
-      //sign in to firebase
-      const loggedUser = await signInWithEmailAndPassword(auth, email, password)
-      console.log('User logged in Successfully')
 
+    try {
+      const loggedUser = await signInWithEmailAndPassword(auth, email, password)
+      console.log('User logged in to Firebase Successfully')
+
+      // store the JWT token so that you know the user is logged in.
       const token = await loggedUser.user.getIdToken()
       localStorage.setItem('token', token)
 
@@ -31,6 +32,9 @@ function Login() {
       toast.success('User logged in Successfully', {
         position: 'top-center',
       })
+
+      // you do not have to create a login in the backend because firebase is handling it.
+      // when you navigate to profile, you will see a fetch for the user.
       navigate('/profile')
     } catch (error) {
       console.log(error.message)
