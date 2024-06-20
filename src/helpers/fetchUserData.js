@@ -1,29 +1,32 @@
-import { auth, db } from './firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { auth } from './firebase'
 
+const URL = import.meta.env.VITE_BASE_URL
 export const fetchUserData = () => {
-  return new Promise((resolve, reject) => {
+  console.log('fetchuserdata running')
+  return new Promise((resolve, _reject) => {
     //tracks current auth state in Firebase
     auth.onAuthStateChanged(async (user) => {
-      console.log('user', user.uid)
+      if (!user || !user.uid) return
       if (user.uid) {
-        console.log('fetchUserData', user)
+        const token = localStorage.getItem('token')
 
-        // retrieve the information from the Firestore DB
-        const docRef = doc(db, 'Users', user.uid)
-        try {
-          const docSnap = await getDoc(docRef)
-          console.log('docsnap', docSnap.data())
-          if (docSnap.exists()) {
-            resolve(docSnap.data())
-          } else {
-            reject(new Error('No user data found'))
-          }
-        } catch (error) {
-          reject(error)
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         }
+
+        const response = await fetch(
+          `${URL}/api/auth/user/${user.uid}`,
+          options
+        )
+        const retrievedUser = response.json()
+
+        resolve(retrievedUser)
       } else {
-        reject(new Error('No user logged in'))
+        return
       }
     })
   })

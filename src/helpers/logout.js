@@ -4,6 +4,7 @@ import { auth } from './firebase'
 export const logout = async () => {
   try {
     //firebase logout
+    localStorage.removeItem('token')
     await auth.signOut()
     return true
   } catch (error) {

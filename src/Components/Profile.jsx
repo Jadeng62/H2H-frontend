@@ -33,13 +33,8 @@ function Profile() {
   useEffect(() => {
     async function getUser() {
       const user = await fetchUserData()
-      console.log('profile', user)
+
       if (user) setUserDetails(user)
-      else {
-        toast.error('User Not Found', {
-          position: 'bottom-center',
-        })
-      }
     }
 
     getUser()
@@ -61,10 +56,10 @@ function Profile() {
             }}
           />
 
-          <h1>{userDetails.firstName}'s Profile Page</h1>
+          <h1>{userDetails.first_name}'s Profile Page</h1>
 
           <p>Email: {userDetails.email}</p>
-          <p>First Name: {userDetails.firstName}</p>
+          <p>First Name: {userDetails.first_name}</p>
           <p>
             Last Name: {userDetails.lastName ? userDetails.lastName : 'Unknown'}
           </p>

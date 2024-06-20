@@ -6,6 +6,8 @@ import { setDoc, doc } from 'firebase/firestore'
 import { auth, db } from '../helpers/firebase'
 import googleBadge from '../assets/google.png'
 
+const URL = import.meta.env.VITE_BASE_URL
+
 function SignInWithGoogle() {
   const navigate = useNavigate()
 
@@ -13,24 +15,69 @@ function SignInWithGoogle() {
     try {
       const provider = new GoogleAuthProvider()
 
+      console.log('provider', provider)
+
       signInWithPopup(auth, provider).then(async ({ user }) => {
-        const { email, displayName, photoURL } = user
-        if (user) {
-          await setDoc(doc(db, 'Users', user.uid), {
-            email,
-            firstName: displayName,
-            photo: photoURL,
-            lastName: '',
-          })
+        const token = await user.getIdToken()
+        localStorage.setItem('token', token)
 
-          toast.success('User logged in Successfully', {
-            position: 'top-center',
-          })
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
 
+        // check if user exists
+        const response = await fetch(
+          `${URL}/api/auth/user/${user.uid}`,
+          options
+        )
+
+        const retrievedUser = await response.json()
+
+        if (
+          token &&
+          (retrievedUser?.message === 'Invalid Token' ||
+            retrievedUser.error === 'Error fetching user')
+        ) {
+          const { email, displayName, photoURL, uid } = user
+
+          const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            // every field that is in the backend query should be here as well
+            body: JSON.stringify({
+              uid,
+              username: '',
+              first_name: displayName,
+              last_name: '',
+              email,
+              photo: photoURL || '',
+            }),
+          }
+          const response = await fetch(`${URL}/api/auth/register`, options)
+
+          if (response.ok) {
+            navigate('/profile')
+          }
+        } else {
           navigate('/profile')
         }
+
+        // if (user) {
+        //   toast.success('User logged in Successfully', {
+        //     position: 'top-center',
+        //   })
+
+        //   navigate('/profile')
+        // }
       })
     } catch (error) {
+      localStorage.removeItem('token')
       toast.error(error.message, {
         position: 'bottom-center',
       })
