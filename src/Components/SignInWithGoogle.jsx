@@ -4,7 +4,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import { auth } from '../helpers/firebase'
 import { register } from '../helpers/register'
-import { getUser } from '../helpers/getUser'
+import { fetchUser } from '../helpers/fetchUser'
 
 import googleBadge from '../assets/google.png'
 
@@ -15,7 +15,7 @@ async function handleGoogleSignIn() {
     const token = await user.getIdToken()
     localStorage.setItem('token', token)
 
-    const foundUser = await getUser(user, token)
+    const foundUser = await fetchUser(user, token)
     if (foundUser.uid) {
       return { navigateTo: '/profile' }
     } else {

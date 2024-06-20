@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { fetchUserData } from '../helpers/fetchUserData'
+import { getUserData } from '../helpers/getUserData'
 import { logout } from '../helpers/logout'
 
 import placeholderImage from '../assets/placeholder.png'
@@ -32,7 +32,7 @@ function Profile() {
 
   useEffect(() => {
     async function getUser() {
-      const user = await fetchUserData()
+      const user = await getUserData()
 
       if (user) setUserDetails(user)
     }

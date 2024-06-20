@@ -41,4 +41,4 @@ You are not required to use both Email/Password sign in and Google sign in. You 
 The logged in user is automatically set in state in the `App.jsx` parent component.
 This allows you to protect your routes using a ternary in your `element` attribute.
 
-Do Not pass the user as a prop. Instead, Use the `fetchUserData` helper function in a `useEffect` in the component you are navigating to. This will allow you to `refresh` the page.
+Do Not pass the user as a prop. Instead, Use the `getUserData` helper function in a `useEffect` in the component you are navigating to. This will allow you to `refresh` the page.
