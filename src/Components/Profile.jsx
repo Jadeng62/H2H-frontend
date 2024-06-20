@@ -42,11 +42,12 @@ function Profile() {
 
   return (
     <div style={{ textAlign: 'center' }}>
+      {console.log(userDetails)}
       {userDetails ? (
         <>
           <img
             src={userDetails.photo || placeholderImage}
-            alt={userDetails.firstName}
+            alt={userDetails.first_name}
             style={{
               marginTop: 100,
               marginBottom: 20,
@@ -61,7 +62,8 @@ function Profile() {
           <p>Email: {userDetails.email}</p>
           <p>First Name: {userDetails.first_name}</p>
           <p>
-            Last Name: {userDetails.lastName ? userDetails.lastName : 'Unknown'}
+            Last Name:{' '}
+            {userDetails.last_name ? userDetails.last_name : 'Unknown'}
           </p>
 
           <button onClick={handleLogout}>Logout</button>
