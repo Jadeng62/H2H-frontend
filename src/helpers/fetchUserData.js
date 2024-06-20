@@ -1,32 +1,24 @@
 import { auth } from './firebase'
+import { getUser } from './getUser'
 
-const URL = import.meta.env.VITE_BASE_URL
 export const fetchUserData = () => {
-  console.log('fetchuserdata running')
-  return new Promise((resolve, _reject) => {
+  return new Promise((resolve, reject) => {
     //tracks current auth state in Firebase
     auth.onAuthStateChanged(async (user) => {
-      if (!user || !user.uid) return
-      if (user.uid) {
+      if (!user || !user.uid) {
+        reject(new Error('No user or user ID found'))
+        return
+      }
+
+      try {
+        // checking local storage will prove user is logged in
         const token = localStorage.getItem('token')
 
-        const options = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-
-        const response = await fetch(
-          `${URL}/api/auth/user/${user.uid}`,
-          options
-        )
-        const retrievedUser = response.json()
+        const retrievedUser = await getUser(user, token)
 
         resolve(retrievedUser)
-      } else {
-        return
+      } catch (error) {
+        reject(new Error('Failed to retrieve user data: ' + error.message))
       }
     })
   })

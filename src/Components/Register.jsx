@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth'
 
 import { auth } from '../helpers/firebase'
-
 import { register } from '../helpers/register'
 
 function Register() {
@@ -46,32 +45,8 @@ function Register() {
 
       if (uid) {
         const retrievedUser = await register(newUser, photoURL, uid)
-        // const { email, first_name, last_name } = newUser
 
-        // const URL = import.meta.env.VITE_BASE_URL
-
-        // const options = {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-
-        //   // every field that is in the backend query should be here as well
-        //   body: JSON.stringify({
-        //     uid,
-        //     username: '',
-        //     first_name,
-        //     last_name,
-        //     email,
-        //     photo: photoURL || '',
-        //   }),
-        // }
-        // const response = await fetch(`${URL}/api/auth/register`, options)
-
-        // const retrievedUser = await response.json()
-        console.log('retrievedUser', retrievedUser)
-
-        if (retrievedUser) {
+        if (retrievedUser.uid) {
           await signInWithEmailAndPassword(auth, email, password)
 
           //Display success alert
