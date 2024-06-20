@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
 
 // more DRY than repeating import.mete.env=VITE_FIREBASE_ over and over
 const envKey = (key) => import.meta.env[`VITE_FIREBASE_${key}`]

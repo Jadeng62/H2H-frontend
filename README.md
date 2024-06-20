@@ -4,7 +4,7 @@ This is a client side login for Firebase. It includes the [login with email and 
 
 This firebase refactor and scaffold is based on [The Debug Arena's implementation of firebase](https://www.youtube.com/watch?v=7jOq6SXBF-k)
 
-It includes the use of [Firebase Firestore](https://firebase.google.com/docs/firestore) which is the NoSQL Database that can be added to Firebase projects.
+It does not use [Firebase Firestore](https://firebase.google.com/docs/firestore) which is the NoSQL Database that can be added to Firebase projects.
 
 Here is the [original REPO](https://github.com/the-debug-arena/Login-Auth-Firebase-ReactJS). The original project was created using `create-react-app` toolchain instead of `vite`
 
@@ -39,6 +39,6 @@ You are not required to use both Email/Password sign in and Google sign in. You 
 ## User
 
 The logged in user is automatically set in state in the `App.jsx` parent component.
-This allows you to protect your routes using a ternary in your `element` attribute.
+This allows you to protect your front end routes using a ternary in your `element` attribute.
 
 Do Not pass the user as a prop. Instead, Use the `getUserData` helper function in a `useEffect` in the component you are navigating to. This will allow you to `refresh` the page.
