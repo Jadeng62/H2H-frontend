@@ -8,6 +8,8 @@ import {
 
 import { auth } from '../helpers/firebase'
 
+import { register } from '../helpers/register'
+
 function Register() {
   const [newUser, setNewUser] = useState({
     email: '',
@@ -37,34 +39,36 @@ function Register() {
 
       // you need the JWT token to authenticate protected routes on the backend
       const token = await userCredential.user.getIdToken()
+
       localStorage.setItem('token', token)
 
       const { uid, photoURL } = auth.currentUser
 
       if (uid) {
-        const { email, first_name, last_name } = newUser
+        const retrievedUser = await register(newUser, photoURL, uid)
+        // const { email, first_name, last_name } = newUser
 
-        const URL = import.meta.env.VITE_BASE_URL
+        // const URL = import.meta.env.VITE_BASE_URL
 
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        // const options = {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
 
-          // every field that is in the backend query should be here as well
-          body: JSON.stringify({
-            uid,
-            username: '',
-            first_name,
-            last_name,
-            email,
-            photo: photoURL || '',
-          }),
-        }
-        const response = await fetch(`${URL}/api/auth/register`, options)
+        //   // every field that is in the backend query should be here as well
+        //   body: JSON.stringify({
+        //     uid,
+        //     username: '',
+        //     first_name,
+        //     last_name,
+        //     email,
+        //     photo: photoURL || '',
+        //   }),
+        // }
+        // const response = await fetch(`${URL}/api/auth/register`, options)
 
-        const retrievedUser = await response.json()
+        // const retrievedUser = await response.json()
         console.log('retrievedUser', retrievedUser)
 
         if (retrievedUser) {

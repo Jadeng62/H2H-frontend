@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import { auth } from '../helpers/firebase'
+import { register } from '../helpers/register'
+
 import googleBadge from '../assets/google.png'
 
 const URL = import.meta.env.VITE_BASE_URL
@@ -13,8 +15,6 @@ function SignInWithGoogle() {
   function googleLogin() {
     try {
       const provider = new GoogleAuthProvider()
-
-      console.log('provider', provider)
 
       signInWithPopup(auth, provider).then(async ({ user }) => {
         const token = await user.getIdToken()
@@ -34,37 +34,45 @@ function SignInWithGoogle() {
           options
         )
 
-        const retrievedUser = await response.json()
+        const foundUser = await response.json()
+
+        if (foundUser.uid) {
+          navigate('/profile')
+          return
+        }
 
         if (
           token &&
-          (retrievedUser?.message === 'Invalid Token' ||
-            retrievedUser.error === 'Error fetching user')
+          (foundUser?.message === 'Invalid Token' ||
+            foundUser.error === 'Error fetching user')
         ) {
-          const { email, displayName, photoURL, uid } = user
+          const { photoURL, uid } = user
 
-          const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            // every field that is in the backend query should be here as well
-            body: JSON.stringify({
-              uid,
-              username: '',
-              first_name: displayName,
-              last_name: '',
-              email,
-              photo: photoURL || '',
-            }),
-          }
-          const response = await fetch(`${URL}/api/auth/register`, options)
+          const retrievedUser = await register(user, photoURL, uid)
 
-          if (response.ok) {
+          console.log('google', retrievedUser)
+          //   const options = {
+          //     method: 'POST',
+          //     headers: {
+          //       'Content-Type': 'application/json',
+          //     },
+          //     // every field that is in the backend query should be here as well
+          //     body: JSON.stringify({
+          //       uid,
+          //       username: '',
+          //       first_name: displayName,
+          //       last_name: '',
+          //       email,
+          //       photo: photoURL || '',
+          //     }),
+          //   }
+          //   const response = await fetch(`${URL}/api/auth/register`, options)
+
+          if (retrievedUser.uid) {
             navigate('/profile')
           }
         } else {
-          navigate('/profile')
+          navigate('/register')
         }
       })
     } catch (error) {
