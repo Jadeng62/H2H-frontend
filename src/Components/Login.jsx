@@ -28,7 +28,6 @@ function Login() {
       localStorage.setItem('token', token)
 
       setLoginNewUser({ password: '', email: '' })
-
       toast.success('User logged in Successfully', {
         position: 'top-center',
       })

@@ -23,6 +23,15 @@ function Register() {
     setNewUser({ ...newUser, [e.target.id]: e.target.value })
   }
 
+  const handleClearState = () => {
+    setNewUser({
+      email: '',
+      first_name: '',
+      last_name: '',
+      photo: '',
+    })
+  }
+
   const handleRegister = async (e) => {
     e.preventDefault()
 
@@ -46,18 +55,10 @@ function Register() {
         if (retrievedUser.uid) {
           await signInWithEmailAndPassword(auth, email, password)
 
-          //Display success alert
+          handleClearState()
           toast.success('User Registered Successfully!!', {
             position: 'top-center',
           })
-
-          setNewUser({
-            email: '',
-            first_name: '',
-            last_name: '',
-            photo: '',
-          })
-
           navigate('/profile')
         } else {
           toast.error('User Not Found', {
