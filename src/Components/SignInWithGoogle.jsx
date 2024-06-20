@@ -20,21 +20,6 @@ function SignInWithGoogle() {
       signInWithPopup(auth, provider).then(async ({ user }) => {
         const token = await user.getIdToken()
         localStorage.setItem('token', token)
-        // localStorage.setItem('token', token)
-
-        // const options = {
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // }
-
-        // // check if user exists
-        // const response = await fetch(
-        //   `${URL}/api/auth/user/${user.uid}`,
-        //   options
-        // )
 
         const foundUser = await getUser(user, token)
 
