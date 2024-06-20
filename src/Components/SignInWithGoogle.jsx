@@ -8,8 +8,6 @@ import { getUser } from '../helpers/getUser'
 
 import googleBadge from '../assets/google.png'
 
-// const URL = import.meta.env.VITE_BASE_URL
-
 function SignInWithGoogle() {
   const navigate = useNavigate()
 
