@@ -32,7 +32,7 @@ function Profile() {
 
   useEffect(() => {
     async function getUser() {
-      // this is a helper function that will check the state of the current user and fetches the user using the JWT token from localstorage and the uid
+      // this is a helper function that will check the state of the current user in firebase and fetch the user using the JWT token from localstorage and the uid
       const user = await getUserData()
 
       if (user) setUserDetails(user)
