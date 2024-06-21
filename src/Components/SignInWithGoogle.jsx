@@ -11,7 +11,9 @@ import googleBadge from '../assets/google.png'
 async function handleGoogleSignIn() {
   const provider = new GoogleAuthProvider()
   try {
+    //sign into Firebase
     const { user } = await signInWithPopup(auth, provider)
+    //retrieve JWT token from firebase
     const token = await user.getIdToken()
     localStorage.setItem('token', token)
 
@@ -22,8 +24,8 @@ async function handleGoogleSignIn() {
       const { photoURL, uid } = user
       await register(user, photoURL, uid)
     }
-    // Now fetch the user data again after ensuring they are registered
-    const userData = await fetchUser(user, token)
+
+    // return key/value to use for the navigate in the googleLogin function below
     return { navigateTo: '/profile' }
   } catch (error) {
     localStorage.removeItem('token')
