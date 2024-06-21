@@ -34,7 +34,7 @@ service cloud.firestore {
 
 ```
 
-You are not required to use both Email/Password sign in and Google sign in. You can refactor the code to only use one or the other.
+**\*\*** You are not required to use both Email/Password sign in and Google sign in. You can refactor the code to only use one or the other.
 
 ## User
 
