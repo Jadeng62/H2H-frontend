@@ -18,7 +18,7 @@ function App() {
     auth.onAuthStateChanged((user) => {
       setUser(user)
     })
-  })
+  }, [])
   return (
     <div>
       <Routes
@@ -37,7 +37,7 @@ function App() {
         <Route path="/test" element={user ? <Test /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={user ? <Profile /> : <Login />} />
       </Routes>
       <ToastContainer />
     </div>
