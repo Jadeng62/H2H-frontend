@@ -20,7 +20,7 @@ function App() {
     })
   }, [])
 
-  if (!user) return alert(`No user Found`)
+  // if (!user) return alert(`No user Found`)
   
   return (
     <div>
