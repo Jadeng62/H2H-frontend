@@ -9,6 +9,8 @@ import {
 import { auth } from "../helpers/firebase";
 import { register } from "../helpers/register";
 
+import "../Styles/register.css"
+
 function Register() {
   const [newUser, setNewUser] = useState({
     email: "",
@@ -77,11 +79,11 @@ function Register() {
     }
   };
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="register-container">
       <form onSubmit={handleRegister}>
-        <h3>Sign Up</h3>
-        <div>
-          <label htmlFor="first_name">
+        <h3 className="register-h3">Sign Up</h3>
+        <div className="register-input-container">
+          <label htmlFor="first_name" className="register-label">
             First Name:{" "}
             <input
               type="text"
@@ -91,10 +93,11 @@ function Register() {
               value={newUser.first_name}
               onChange={handleChange}
               required
+              className="register-input"
             />
           </label>
 
-          <label htmlFor="last_name">
+          <label htmlFor="last_name" className="register-label">
             Last Name:{" "}
             <input
               type="text"
@@ -103,10 +106,11 @@ function Register() {
               placeholder="Last name"
               value={newUser.last_name}
               onChange={handleChange}
+              className="register-input"
             />
           </label>
 
-          <label htmlFor="email">
+          <label htmlFor="email" className="register-label">
             Email Address:{" "}
             <input
               type="email"
@@ -116,10 +120,11 @@ function Register() {
               value={newUser.email}
               onChange={handleChange}
               required
+              className="register-input"
             />
           </label>
 
-          <label htmlFor="password">
+          <label htmlFor="password" className="register-label">
             Password:{" "}
             <input
               type="password"
@@ -129,18 +134,19 @@ function Register() {
               value={newUser.password}
               onChange={handleChange}
               required
+              className="register-input"
             />
           </label>
-
-          <button type="submit" style={{ width: 140 }}>
+        </div>
+          <button type="submit" className="register-btn">
             Sign Up
           </button>
-        </div>
-        <p>
+        <p className="register-p">
           Already registered <Link to="/login">Login</Link>
         </p>
       </form>
     </div>
+    
   );
 }
 

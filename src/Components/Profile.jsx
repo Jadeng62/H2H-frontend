@@ -34,7 +34,7 @@ function Profile() {
     async function getUser() {
       // this is a helper function that will check the state of the current user in firebase and fetch the user using the JWT token from localstorage and the uid
       const user = await getUserData()
-
+        // console.log(`Get user:`,user)
       if (user) setUserDetails(user)
     }
 
