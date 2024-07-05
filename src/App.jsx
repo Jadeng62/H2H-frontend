@@ -42,7 +42,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/profile" element={user ? <Profile /> : <Login />} />
-        <Route path="/" element={LandingPage} />
+        <Route path="/landing" element={<LandingPage />} />
       </Routes>
       <ToastContainer />
     </div>
