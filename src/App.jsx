@@ -12,6 +12,7 @@ import Test from "./Components/Test";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import LandingPage from "./Components/LandingPage";
+import NavBar from "./Components/NavBar";
 
 function App() {
   const [user, setUser] = useState();
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <NavBar user={user} />
       <Routes
         style={{
           display: "flex",
