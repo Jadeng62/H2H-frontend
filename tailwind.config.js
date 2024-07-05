@@ -24,3 +24,5 @@ export default {
   },
   plugins: [],
 };
+
+// 575 Breakpoint
