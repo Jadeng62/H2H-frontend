@@ -6,6 +6,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import SignInWithGoogle from './SignInWithGoogle'
 import { auth } from '../helpers/firebase'
 
+import "../Styles/login.css"
+
 function Login() {
   const navigate = useNavigate()
 
@@ -46,10 +48,10 @@ function Login() {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h3>Login</h3>
+    <div className='login-container'>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
+      <h3 className='login-h3'>Login</h3>
+        <label htmlFor="email" className='login-label'>
           Email Address:{' '}
           <input
             type="email"
@@ -58,10 +60,11 @@ function Login() {
             placeholder="Enter email"
             value={loginUser.email}
             onChange={handleChange}
+            className='login-input'
           />
         </label>
 
-        <label htmlFor="password">
+        <label htmlFor="password" className='login-label'>
           Password:{' '}
           <input
             type="password"
@@ -70,14 +73,15 @@ function Login() {
             placeholder="Enter password"
             value={loginUser.password}
             onChange={handleChange}
+            className='login-input'
           />
         </label>
 
-        <button type="submit">Submit</button>
+        <button type="submit" className='login-btn'>Submit</button>
       </form>
-      <div>
+      <div className='login-switch'>
         New user <Link to="/register">Register Here</Link>
-        <p>--Or continue with--</p>
+        <p className='login-p'>--Or continue with--</p>
       </div>
       <SignInWithGoogle />
     </div>
