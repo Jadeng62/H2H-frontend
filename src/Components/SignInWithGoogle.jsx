@@ -49,7 +49,7 @@ function SignInWithGoogle() {
 
   return (
     <div style={{ cursor: 'pointer' }} onClick={googleLogin}>
-      <img src={googleBadge} width={'20%'} />
+      <img src={googleBadge} width={'60%'} />
     </div>
   )
 }
