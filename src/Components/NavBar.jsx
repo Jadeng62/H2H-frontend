@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import useWindowSize from "./useWindowSize";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ user }) => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
 
   const { width } = useWindowSize();
 
+  const navigate = useNavigate();
+
   const LargeNavBar = ({ user }) => (
-    <div className="flex justify-between items-center p-4 bg-blue-400">
-      <h1 className="font-bold text-3xl">H2H</h1>
+    <div className="flex justify-between items-center p-8 bg-accent text-text">
+      <h1
+        className="font-extrabold text-3xl hover: cursor-pointer"
+        onClick={() => navigate("/landing")}
+      >
+        H2H
+      </h1>
       {user && (
-        <ul className="flex space-x-6">
+        <ul className="flex space-x-6 font-bold">
           <li className="border-b-2 border-transparent hover:border-white duration-500">
             Matches
           </li>
@@ -29,7 +37,7 @@ const NavBar = ({ user }) => {
   );
 
   const SmallNavBar = ({ user }) => (
-    <div className="flex justify-between items-center p-4 bg-purple-400">
+    <div className="flex justify-between items-center p-8 bg-accent text-text">
       <h1 className="font-bold text-3xl">H2H</h1>
       {user && (
         <div>

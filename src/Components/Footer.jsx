@@ -1,17 +1,18 @@
 import React from "react";
+import "../Styles/Footer.css";
 
 const Footer = () => {
   return (
-    <div className="flex justify-evenly bg-gray-300 py-10">
-      <div>
+    <div className="grid grid-cols-3 py-6 bg-secondary text-accent font-bold text-lg footer-position footer-height">
+      <div className="flex justify-center items-center">
         <p>About</p>
       </div>
-      <div className="flex items-center">
+      <div className="flex justify-center items-center">
         <a href="https://github.com/Jadeng62/H2H-frontend" target="blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -25,7 +26,7 @@ const Footer = () => {
           </svg>
         </a>
       </div>
-      <div>
+      <div className="flex justify-center text-center items-center">
         <p>© 2024 Head2Head Inc</p>
       </div>
     </div>
