@@ -82,9 +82,8 @@ function Register() {
     <div className="register-container">
       <form onSubmit={handleRegister}>
         <h3 className="register-h3">Sign Up</h3>
-        <div className="register-input-container">
           <label htmlFor="first_name" className="register-label">
-            First Name:{" "}
+            First Name{" "}
             <input
               type="text"
               id="first_name"
@@ -98,7 +97,7 @@ function Register() {
           </label>
 
           <label htmlFor="last_name" className="register-label">
-            Last Name:{" "}
+            Last Name{" "}
             <input
               type="text"
               id="last_name"
@@ -111,7 +110,7 @@ function Register() {
           </label>
 
           <label htmlFor="email" className="register-label">
-            Email Address:{" "}
+            Email Address{" "}
             <input
               type="email"
               id="email"
@@ -125,7 +124,7 @@ function Register() {
           </label>
 
           <label htmlFor="password" className="register-label">
-            Password:{" "}
+            Password{" "}
             <input
               type="password"
               placeholder="Enter password"
@@ -137,12 +136,11 @@ function Register() {
               className="register-input"
             />
           </label>
-        </div>
           <button type="submit" className="register-btn">
             Sign Up
           </button>
         <p className="register-p">
-          Already registered <Link to="/login">Login</Link>
+          Already registered <Link to="/login"><span className="register-span">Login</span></Link>
         </p>
       </form>
     </div>

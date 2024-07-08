@@ -52,7 +52,7 @@ function Login() {
       <form onSubmit={handleSubmit}>
       <h3 className='login-h3'>Login</h3>
         <label htmlFor="email" className='login-label'>
-          Email Address:{' '}
+          Email Address{' '}
           <input
             type="email"
             id="email"
@@ -61,11 +61,12 @@ function Login() {
             value={loginUser.email}
             onChange={handleChange}
             className='login-input'
+            required
           />
         </label>
 
         <label htmlFor="password" className='login-label'>
-          Password:{' '}
+          Password{' '}
           <input
             type="password"
             id="password"
@@ -74,6 +75,7 @@ function Login() {
             value={loginUser.password}
             onChange={handleChange}
             className='login-input'
+            required
           />
         </label>
 
@@ -81,9 +83,11 @@ function Login() {
       </form>
       <div className='login-switch'>
         New user <Link to="/register">Register Here</Link>
-        <p className='login-p'>--Or continue with--</p>
       </div>
-      <SignInWithGoogle />
+        <div className='flex flex-col justify-center '>
+        <p className='login-p'>--Or continue with--</p>
+          <SignInWithGoogle />
+        </div>
     </div>
   )
 }
