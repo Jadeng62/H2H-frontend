@@ -13,7 +13,7 @@ const NavBar = ({ user }) => {
     <div className="flex justify-between items-center p-8 bg-accent text-text">
       <h1
         className="font-extrabold text-3xl hover: cursor-pointer"
-        onClick={() => navigate("/landing")}
+        onClick={() => navigate("/")}
       >
         H2H
       </h1>

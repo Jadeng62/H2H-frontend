@@ -37,13 +37,12 @@ function App() {
       >
         <Route
           path="/"
-          element={user ? <Navigate to="/profile" /> : <Login />}
+          element={user ? <Navigate to="/profile" /> : <LandingPage />}
         />
         <Route path="/test" element={user ? <Test /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/profile" element={user ? <Profile /> : <Login />} />
-        <Route path="/landing" element={<LandingPage />} />
       </Routes>
       <ToastContainer />
       <Footer />
