@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-black">
       <NavBar user={user} />
       <Routes
         style={{

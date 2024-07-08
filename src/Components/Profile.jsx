@@ -41,14 +41,17 @@ function Profile() {
     getUser()
   }, [])
 
+  if (!userDetails) return alert(`Error with backend fetch data lost`)
+
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center' }} className='profile-container'>
       {console.log(userDetails)}
       {userDetails ? (
         <>
           <img
             src={userDetails.photo || placeholderImage}
             alt={userDetails.first_name}
+            className='profile-img'
             style={{
               marginTop: 100,
               marginBottom: 20,
@@ -58,7 +61,7 @@ function Profile() {
             }}
           />
 
-          <h1>{userDetails.first_name}'s Profile Page</h1>
+          <h1 className='profile-h1'>{userDetails.first_name}'s Profile Page</h1>
 
           <p>Email: {userDetails.email}</p>
           <p>First Name: {userDetails.first_name}</p>
