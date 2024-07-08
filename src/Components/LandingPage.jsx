@@ -3,7 +3,7 @@ import React from "react";
 const LandingPage = () => {
   return (
     <>
-      <div className=" h-screen bg-background">
+      <div className=" h-screen bg-background bebas-neue-regular">
         <h1 className="text-7xl leading-normal text-left text-text px-10 pt-10">
           Your
         </h1>
