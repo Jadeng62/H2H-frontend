@@ -116,6 +116,9 @@ function Profile() {
                 <img src={placeholderImage} className="w-1/3" alt="" />
               </div>
             </div>
+            <button onClick={handleLogout} className="border-2">
+              Logout
+            </button>
           </div>
           <div className="col-span-2">
             <UpcomingGames />
