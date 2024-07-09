@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import useWindowSize from "./useWindowSize";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { logout } from "../helpers/logout";
 
-import "../Styles/nav.css"
+import "../Styles/nav.css";
 
 const NavBar = ({ user }) => {
+  async function handleLogout() {
+    try {
+      //call function to log out of firebase, no need to call backend
+      await logout();
+      toast.success("User logged out successfully!", {
+        position: "top-center",
+      });
+      navigate("/");
+      console.log("User logged out successfully!");
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+
+      console.error("Error logging out:", error.message);
+    }
+  }
   const [toggleHamburger, setToggleHamburger] = useState(false);
 
   const { width } = useWindowSize();
@@ -21,18 +40,32 @@ const NavBar = ({ user }) => {
       </h1>
       {user && (
         <ul className="flex space-x-6 font-bold">
-       <Link to="/matches"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            Matches
-          </li></Link> 
-        <Link to="/myTeam"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            My Team
-          </li></Link>
-         {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+          <Link to="/matches">
+            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+              Matches
+            </li>
+          </Link>
+          <Link to="/myTeam">
+            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+              My Team
+            </li>
+          </Link>
+          {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Leaderboard
           </li></Link> */}
-         <Link to="/profile"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            My Player
-          </li></Link>
+          <Link to="/profile">
+            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+              My Player
+            </li>
+          </Link>
+          <Link to="/">
+            <li
+              className="nav-li border-b-2 border-transparent hover:border-white duration-500"
+              onClick={handleLogout}
+            >
+              Logout
+            </li>
+          </Link>
         </ul>
       )}
     </div>
