@@ -24,15 +24,15 @@ const NavBar = ({ user }) => {
        <Link to="/matches"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Matches
           </li></Link> 
-          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+        <Link to="/myTeam"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             My Team
-          </li>
-          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+          </li></Link>
+         {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Leaderboard
-          </li>
-          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+          </li></Link> */}
+         <Link to="/profile"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             My Player
-          </li>
+          </li></Link>
         </ul>
       )}
     </div>
