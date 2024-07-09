@@ -12,6 +12,8 @@ import LandingPage from "./Components/LandingPage";
 import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 import Matches from "./Components/Matches";
+import MyTeam from "./Components/MyTeam";
+import Leaderboard from "./Components/Leaderboard";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -45,6 +47,8 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/profile" element={user ? <Profile /> : <Login />} />
         <Route path="/matches" element={<Matches />}/>
+        <Route path="/myTeam" element={<MyTeam />}/>
+        <Route path="/leaderboard" element={<Leaderboard />}/>
       </Routes>
       <ToastContainer />
       <Footer />
