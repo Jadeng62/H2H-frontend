@@ -7,6 +7,8 @@ import { logout } from '../helpers/logout'
 
 import placeholderImage from '../assets/placeholder.png'
 
+import "../Styles/profile.css"
+
 function Profile() {
   const navigate = useNavigate()
 
@@ -19,7 +21,7 @@ function Profile() {
       toast.success('User logged out successfully!', {
         position: 'top-center',
       })
-      navigate('/login')
+      navigate('/')
       console.log('User logged out successfully!')
     } catch (error) {
       toast.error(error.message, {
@@ -44,7 +46,8 @@ function Profile() {
   if (!userDetails) return alert(`Error with backend fetch data lost`)
 
   return (
-    <div style={{ textAlign: 'center' }} className='profile-container'>
+   <div className='profile'>
+    <div className='profile-container'>
       {console.log(userDetails)}
       {userDetails ? (
         <>
@@ -60,25 +63,29 @@ function Profile() {
               height: 150,
             }}
           />
-
+         <div className='profile-info-container'>
           <h1 className='profile-h1'>{userDetails.first_name}'s Profile Page</h1>
 
-          <p>Email: {userDetails.email}</p>
-          <p>First Name: {userDetails.first_name}</p>
-          <p>
+          <p className='profile-p'>Email: {userDetails.email}</p>
+          <p className='profile-p'>First Name: {userDetails.first_name}</p>
+          <p className='profile-p'>
             Last Name:{' '}
             {userDetails.last_name ? userDetails.last_name : 'Unknown'}
           </p>
 
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout} className='profile-btn'>Logout</button>
+         </div>
         </>
       ) : (
         <>
-          <h2>Loading...</h2>
-          <button onClick={handleLogout}>Logout</button>
+        <div className='profile-ternary'>
+          <h2 className='profile-h2'>Loading...</h2>
+          <button onClick={handleLogout} className='profile-btn'>Logout</button>
+          </div>
         </>
       )}
     </div>
+   </div>
   )
 }
 

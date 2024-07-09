@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+import "../Styles/nav.css"
 
 const NavBar = ({ user }) => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
@@ -12,23 +14,23 @@ const NavBar = ({ user }) => {
   const LargeNavBar = ({ user }) => (
     <div className="flex justify-between items-center p-8 bg-accent text-text">
       <h1
-        className="font-extrabold text-3xl hover: cursor-pointer"
+        className="nav-h1 font-extrabold text-3xl hover: cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
       </h1>
       {user && (
         <ul className="flex space-x-6 font-bold">
-          <li className="border-b-2 border-transparent hover:border-white duration-500">
+       <Link to="/matches"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Matches
-          </li>
-          <li className="border-b-2 border-transparent hover:border-white duration-500">
+          </li></Link> 
+          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             My Team
           </li>
-          <li className="border-b-2 border-transparent hover:border-white duration-500">
+          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Leaderboard
           </li>
-          <li className="border-b-2 border-transparent hover:border-white duration-500">
+          <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             My Player
           </li>
         </ul>
