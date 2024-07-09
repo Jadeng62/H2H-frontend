@@ -14,23 +14,23 @@ function Profile() {
 
   const [userDetails, setUserDetails] = useState(null);
 
-  async function handleLogout() {
-    try {
-      //call function to log out of firebase, no need to call backend
-      await logout();
-      toast.success("User logged out successfully!", {
-        position: "top-center",
-      });
-      navigate("/login");
-      console.log("User logged out successfully!");
-    } catch (error) {
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
+  // async function handleLogout() {
+  //   try {
+  //     //call function to log out of firebase, no need to call backend
+  //     await logout();
+  //     toast.success("User logged out successfully!", {
+  //       position: "top-center",
+  //     });
+  //     navigate("/login");
+  //     console.log("User logged out successfully!");
+  //   } catch (error) {
+  //     toast.error(error.message, {
+  //       position: "bottom-center",
+  //     });
 
-      console.error("Error logging out:", error.message);
-    }
-  }
+  //     console.error("Error logging out:", error.message);
+  //   }
+  // }
 
   useEffect(() => {
     async function getUser() {
@@ -116,9 +116,6 @@ function Profile() {
                 <img src={placeholderImage} className="w-1/3" alt="" />
               </div>
             </div>
-            <button onClick={handleLogout} className="border-2">
-              Logout
-            </button>
           </div>
           <div className="col-span-2">
             <UpcomingGames />
@@ -127,7 +124,7 @@ function Profile() {
       ) : (
         <>
           <h2>Loading...</h2>
-          <button onClick={handleLogout}>Logout</button>
+          {/* <button onClick={handleLogout}>Logout</button> */}
         </>
       )}
     </div>

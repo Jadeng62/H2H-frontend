@@ -63,7 +63,22 @@ const NavBar = ({ user }) => {
               className="nav-li border-b-2 border-transparent hover:border-white duration-500"
               onClick={handleLogout}
             >
-              Logout
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-log-out"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" x2="9" y1="12" y2="12" />
+              </svg>
             </li>
           </Link>
         </ul>
@@ -73,7 +88,9 @@ const NavBar = ({ user }) => {
 
   const SmallNavBar = ({ user }) => (
     <div className="flex justify-between items-center p-8 bg-accent text-text">
-      <h1 className="font-bold text-3xl">H2H</h1>
+      <h1 className="font-bold text-3xl" onClick={() => navigate("/")}>
+        H2H
+      </h1>
       {user && (
         <div>
           <svg
@@ -103,7 +120,7 @@ const NavBar = ({ user }) => {
             >
               <div className="py-1" role="none">
                 {/* Replace a tags with Link to appropriate routes */}
-                <a
+                {/* <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
@@ -111,45 +128,67 @@ const NavBar = ({ user }) => {
                   id="menu-item-0"
                 >
                   Matches
-                </a>
-                <a
-                  href="#"
+                </a> */}
+                <Link
+                  to="/matches"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="menu-item-0"
+                  onClick={() => setToggleHamburger(false)}
+                >
+                  Matches
+                </Link>
+                <Link
+                  to="/myTeam"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-1"
+                  onClick={() => setToggleHamburger(false)}
                 >
                   My Team
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/profile"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-2"
-                >
-                  Leaderboard
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="menu-item-2"
+                  onClick={() => setToggleHamburger(false)}
                 >
                   My Player
-                </a>
-                {/* <form method="POST" action="#" role="none">
-                  <button
-                    type="submit"
-                    className="block w-full px-4 py-2 text-left text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="menu-item-3"
-                  >
-                    Sign Out
-                  </button>
-                </form> */}
+                </Link>
+                <button
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="menu-item-2"
+                  onClick={() => {
+                    handleLogout();
+                    setToggleHamburger(false);
+                  }}
+                >
+                  <div className="flex space-x-1 justify-center items-center">
+                    <p>Sign Out</p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-log-out"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" x2="9" y1="12" y2="12" />
+                    </svg>
+                  </div>
+                </button>
               </div>
             </div>
           )}
