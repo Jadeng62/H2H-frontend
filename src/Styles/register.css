@@ -1,55 +1,55 @@
 body {
-    background-color: #0F0E0E
-    ;
+  background-color: #0f0e0e;
+  height: 100vh;
 }
 
 .register-container {
-    margin: auto;
-    margin-top: 25vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    border: none;
-    background-color:  #C7CCCF;
-    margin-bottom: 200px;
-    box-shadow: 0 0 10px #353535;
+  margin: auto;
+  margin-top: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: none;
+  background-color: #c7cccf;
+  margin-bottom: 200px;
+  box-shadow: 0 0 10px #353535;
 }
 
 .register-h3 {
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    padding-bottom: 30px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 30px;
 }
 
 .register-label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .register-input {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
 }
 
 .register-btn {
-    width: 40%;
-    padding: 10px;
-    background-color: #FD6326;
-    margin-left: 200px;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  width: 40%;
+  padding: 10px;
+  background-color: #fd6326;
+  margin-left: 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .register-btn:hover {
@@ -58,12 +58,12 @@ body {
 }
 
 .register-p {
-   padding-right: 30px;
-   padding-top: 40px;
-   text-decoration: underline;
+  padding-right: 30px;
+  padding-top: 40px;
+  text-decoration: underline;
 }
 
 .register-span {
- font-weight: bold;
- color: #F4F3FC;
+  font-weight: bold;
+  color: #f4f3fc;
 }

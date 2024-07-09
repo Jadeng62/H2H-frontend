@@ -10,3 +10,19 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.top-2\/5 {
+  top: 40%;
+}
+
+.top-9\/10 {
+  top: 90%;
+}
+
+.top-8\/10 {
+  top: 80%;
+}
+
+.top-93\/100 {
+  top: 93%;
+}
