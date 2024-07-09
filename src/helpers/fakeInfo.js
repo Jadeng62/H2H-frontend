@@ -1,0 +1,15 @@
+export const fakeUser = {
+  id: 1,
+  uid: "123e4567-e89b-12d3-a456-426614174000",
+  email: "john.doe@example.com",
+  username: "johndoe",
+  first_name: "John",
+  last_name: "Doe",
+  photo: "profile_pic.jpg",
+  dob: "1990-01-01",
+  user_wins: 10,
+  user_losses: 5,
+  matches_played: 15,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
