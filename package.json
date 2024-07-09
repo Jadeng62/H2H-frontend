@@ -13,6 +13,7 @@
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.8.9",
     "firebase": "^10.12.3",
+    "lucide-react": "^0.407.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

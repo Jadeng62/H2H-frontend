@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useWindowSize from "./useWindowSize";
 import { useNavigate, Link } from "react-router-dom";
 
-import "../Styles/nav.css"
+import "../Styles/nav.css";
 
 const NavBar = ({ user }) => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
@@ -12,27 +12,33 @@ const NavBar = ({ user }) => {
   const navigate = useNavigate();
 
   const LargeNavBar = ({ user }) => (
-    <div className="flex justify-between items-center p-8 bg-accent text-text">
+    <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       <h1
-        className="nav-h1 font-extrabold text-3xl hover: cursor-pointer"
+        className="nav-h1 font-extrabold text-4xl hover: cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
       </h1>
       {user && (
-        <ul className="flex space-x-6 font-bold">
-       <Link to="/matches"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            Matches
-          </li></Link> 
-        <Link to="/myTeam"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            My Team
-          </li></Link>
-         {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+        <ul className="flex space-x-6 font-bold text-3xl">
+          <Link to="/matches">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
+              Matches
+            </li>
+          </Link>
+          <Link to="/myTeam">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
+              My Team
+            </li>
+          </Link>
+          {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Leaderboard
           </li></Link> */}
-         <Link to="/profile"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
-            My Player
-          </li></Link>
+          <Link to="/profile">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
+              My Player
+            </li>
+          </Link>
         </ul>
       )}
     </div>

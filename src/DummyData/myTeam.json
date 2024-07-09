@@ -1,0 +1,74 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "uid": "player1_uid",
+      "email": "player1@example.com",
+      "username": "player1_username",
+      "firstName": "John",
+      "lastName": "Doe",
+      "photo": "path/to/photo1.jpg",
+      "dob": "1995-08-12",
+      "position": "point guard",
+      "userWins": 25,
+      "userLosses": 10,
+      "matchesPlayed": 35
+    },
+    {
+      "id": 2,
+      "uid": "player2_uid",
+      "email": "player2@example.com",
+      "username": "player2_username",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "photo": "path/to/photo2.jpg",
+      "dob": "1992-04-25",
+      "position": "shooting guard",
+      "userWins": 20,
+      "userLosses": 15,
+      "matchesPlayed": 35
+    },
+    {
+      "id": 3,
+      "uid": "player3_uid",
+      "email": "player3@example.com",
+      "username": "player3_username",
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "photo": "path/to/photo3.jpg",
+      "dob": "1993-11-03",
+      "position": "small forward",
+      "userWins": 18,
+      "userLosses": 12,
+      "matchesPlayed": 30
+    },
+    {
+      "id": 4,
+      "uid": "player4_uid",
+      "email": "player4@example.com",
+      "username": "player4_username",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "photo": "path/to/photo4.jpg",
+      "dob": "1994-07-19",
+      "position": "power forward",
+      "userWins": 22,
+      "userLosses": 8,
+      "matchesPlayed": 30
+    },
+    {
+      "id": 5,
+      "uid": "player5_uid",
+      "email": "player5@example.com",
+      "username": "player5_username",
+      "firstName": "Johnny",
+      "lastName": "Cash",
+      "photo": "path/to/photo4.jpg",
+      "dob": "1997-03-22",
+      "position": "center",
+      "userWins": 20,
+      "userLosses": 12,
+      "matchesPlayed": 32
+    }
+  ]
+}
