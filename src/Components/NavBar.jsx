@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useWindowSize from "./useWindowSize";
 import { useNavigate, Link } from "react-router-dom";
+import { Zap } from "lucide-react";
 
 import "../Styles/nav.css";
 
@@ -18,6 +19,9 @@ const NavBar = ({ user }) => {
         onClick={() => navigate("/")}
       >
         H2H
+        {/* <span className="flex flex-row">
+          H <Zap className="mt-1" /> H
+        </span> */}
       </h1>
       {user && (
         <ul className="flex space-x-6 font-bold text-3xl">
