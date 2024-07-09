@@ -1,0 +1,8 @@
+.nav-h1:hover {
+  color: #dfddf0;
+}
+
+.nav-li:hover {
+  cursor: pointer;
+  color: #dfddf0;
+}
