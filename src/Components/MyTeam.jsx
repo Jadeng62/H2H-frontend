@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X } from "lucide-react";
 const MyTeam = () => {
-  console.log(playersData.players);
+  //   console.log(playersData.players);
 
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
@@ -84,7 +84,7 @@ const MyTeam = () => {
             <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-5">
               Roster
             </h2>{" "}
-            <table class="table-auto bg-background rounded-lg mx-10 mb-10 mt-5">
+            <table className="table-auto bg-background rounded-lg mx-10 mb-10 mt-5">
               <thead className="text-left uppercase text-text">
                 <tr>
                   <th className="pl-7 py-4">Player</th>
@@ -119,12 +119,14 @@ const MyTeam = () => {
                           </div>
                         </td>
                         {isUserTeamCaptain && (
-                          <button
-                            className="py-5 pr-3 hover:text-red-500"
-                            onClick={() => handleDelete(player.id)}
-                          >
-                            <X size={28} />
-                          </button>
+                          <td>
+                            <button
+                              className="py-5 pr-3 hover:text-red-500"
+                              onClick={() => handleDelete(player.id)}
+                            >
+                              <X size={28} />
+                            </button>
+                          </td>
                         )}
                       </tr>
                     );
