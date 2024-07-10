@@ -46,10 +46,10 @@ function Profile() {
   // if (!userDetails) return alert(`Error with backend fetch data lost`);
 
   return (
-    <div className="text-text h-screen">
+    <div className="text-text h-screen flex items-center">
       {fakeUser ? (
-        <div className="grid grid-cols-3 p-8">
-          <div className="col-span-1">
+        <div className="grid grid-cols-1 sm:grid-cols-3 p-8">
+          <div className="col-span-1 flex justify-center items-center">
             <div className="flex justify-center items-center bg-gray-500 w-3/4 rounded-lg">
               <div className="min-w-fit p-4">
                 <div className="flex flex-row items-center justify-center mb-2">
@@ -60,10 +60,10 @@ function Profile() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-shield-half mr-2"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-shield-half mr-2"
                   >
                     <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
                     <path d="M12 22V2" />
@@ -82,10 +82,10 @@ function Profile() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-crown"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-crown"
                     >
                       <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
                       <path d="M5 21h14" />
@@ -100,10 +100,10 @@ function Profile() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-circle-x"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-circle-x"
                     >
                       <circle cx="12" cy="12" r="10" />
                       <path d="m15 9-6 6" />
@@ -117,7 +117,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 sm:col-span-2">
             <UpcomingGames />
           </div>
         </div>
