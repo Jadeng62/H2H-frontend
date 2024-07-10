@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
-import { X } from "lucide-react";
+import { X, Accessibility, Award } from "lucide-react";
 const MyTeam = () => {
   //   console.log(playersData.players);
 
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
+
+  const [teamData, setTeamData] = useState(null);
 
   const handleDelete = (playerID) => {
     console.log("Clicked delete for playerID:", playerID);
@@ -16,10 +18,28 @@ const MyTeam = () => {
     setPlayersInTeam(playersData.players);
   }, []);
 
+  useEffect(() => {
+    setTeamData(playersData.teams[0]);
+  }, []);
+
   const handleWL = (w, l) => {
     const wLRatio = w / l;
-      const flooredRatio = Math.floor(wLRatio * 10) / 10;
-      return flooredRatio;
+    const flooredRatio = Math.floor(wLRatio * 10) / 10;
+    return flooredRatio;
+  };
+
+  // Function to convert ISO 8601 date string to formatted date and time
+  function dateToString(dateString) {
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      //   hour: "numeric",
+      //   minute: "numeric",
+      //   second: "numeric",
+      //   timeZoneName: "short",
+    };
+    return new Date(dateString).toLocaleDateString("en-US", options);
   }
 
 
@@ -30,9 +50,55 @@ const MyTeam = () => {
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
+      {teamData && (
+        <div className="mx-10 mb-5 mt-10">
+          <div className="flex flex-row w-full md:w-1/2 bg-background rounded-lg">
+            <div className=" rounded-l-xl">
+              {/* this is where we'd put the dynamic team icon */}
+              <Accessibility
+                size={96}
+                className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
+              />
+            </div>
+            <div className="flex flex-col p-1">
+              <div className="text-white text-3xl">{teamData.team_name}</div>
+              <div className="text-white text-2xl">
+                Total Matches: {teamData.matches_played}
+              </div>
+              <div className="flex flex-row">
+                <div className="text-white text-2xl">
+                  Won:{" "}
+                  <span className="text-primary">{teamData.team_wins}</span>
+                </div>
+                <div className="text-white text-2xl ml-4">
+                  Lost:{" "}
+                  <span className="text-accent">{teamData.team_loss}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-background py-2 px-2 text-text inline-block rounded-lg mt-10">
+            {" "}
+            <div className="flex flex-row items-center">
+              <Award size={30} />
+              <span className="text-xl">
+                Balling since {dateToString(teamData.created_at)}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className=" flex justify-center">
-
+        <div>
+          {/* className=" flex justify-center" */}
+          <div>
+            <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-5 ">
+              Stats
+            </h2>
+            <div className="bg-red-400 p-16 flex mx-10 mb-10 mt-5">
+              <div className=" bg-green-300 p-2">Charts + metrics</div>
+            </div>
+          </div>
         </div>
         <div className=" flex justify-center">
           <div>
