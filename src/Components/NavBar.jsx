@@ -3,7 +3,7 @@ import useWindowSize from "./useWindowSize";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "../helpers/logout";
-
+import { Zap } from "lucide-react";
 import "../Styles/nav.css";
 
 const NavBar = ({ user }) => {
@@ -31,22 +31,25 @@ const NavBar = ({ user }) => {
   const navigate = useNavigate();
 
   const LargeNavBar = ({ user }) => (
-    <div className="flex justify-between items-center p-8 bg-accent text-text">
+    <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       <h1
-        className="nav-h1 font-extrabold text-3xl hover: cursor-pointer"
+        className="nav-h1 font-extrabold text-4xl hover: cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
+        {/* <span className="flex flex-row">
+          H <Zap className="mt-1" /> H
+        </span> */}
       </h1>
       {user && (
-        <ul className="flex space-x-6 font-bold">
+        <ul className="flex space-x-6 font-bold text-3xl">
           <Link to="/matches">
-            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               Matches
             </li>
           </Link>
           <Link to="/myTeam">
-            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               My Team
             </li>
           </Link>
@@ -54,7 +57,7 @@ const NavBar = ({ user }) => {
             Leaderboard
           </li></Link> */}
           <Link to="/profile">
-            <li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               My Player
             </li>
           </Link>
