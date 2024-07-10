@@ -10,9 +10,9 @@
       "photo": "path/to/photo1.jpg",
       "dob": "1995-08-12",
       "position": "point guard",
-      "userWins": 25,
-      "userLosses": 10,
-      "matchesPlayed": 35
+      "userWins": 27,
+      "userLosses": 52,
+      "matchesPlayed": 79
     },
     {
       "id": 2,

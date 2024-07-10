@@ -11,6 +11,7 @@ import "../Styles/login.css";
 function Login() {
   const navigate = useNavigate();
 
+  const [demo, setDemo] = useState({password:"Johndoe1", email:"johndoe@mail.com"})
   const [loginUser, setLoginNewUser] = useState({ password: "", email: "" });
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ function Login() {
         email,
         password
       );
-      console.log("User logged in to Firebase Successfully");
+      console.log("demo logged in to Firebase Successfully");
 
       // store the JWT token so that you know the user is logged in.
       const token = await loggedUser.user.getIdToken();
@@ -51,11 +52,13 @@ function Login() {
     }
   };
 
+
   return (
     <div className="login-container my-16 md:my-24 ">
       <div className="flex justify-center">
         <form onSubmit={handleSubmit}>
           <h3 className="login-h3 ">Login</h3>
+           <button onClick={handleDemo} className="login-btn demo">Demo(Dev use only!)</button>
           <label htmlFor="email" className="login-label">
             Email Address{" "}
             <input

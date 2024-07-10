@@ -1,0 +1,14 @@
+.matches-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+    border: 2px solid whitesmoke;
+    border-radius: 6px;
+}
+
+.matches-h1 {
+    padding-top: 30px;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+

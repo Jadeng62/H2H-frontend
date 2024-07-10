@@ -16,6 +16,12 @@ const MyTeam = () => {
     setPlayersInTeam(playersData.players);
   }, []);
 
+  const handleWL = (w, l) => {
+    const wLRatio = w / l;
+      const flooredRatio = Math.floor(wLRatio * 10) / 10;
+      return flooredRatio;
+  }
+
   console.log("playersInTeam-->", playersInTeam);
   return (
     <div className="min-h-screen">
@@ -24,60 +30,7 @@ const MyTeam = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className=" flex justify-center">
-          {/* <div className="text-text">hell</div>
-          <div className="bg-red-400 w-96 py-12">is here</div> */}
-          {/* <div>
-            <h2 className="text-white text-4xl bebas-neue-regular ml-10 my-5">
-              Roster
-            </h2>{" "}
-            <table class="table-auto bg-background rounded-lg mx-10 mb-10 mt-5">
-              <thead className="text-left uppercase text-text">
-                <tr>
-                  <th className="pl-7 py-4">Player</th>
-                  <th className="pl-7 py-4">Position</th>
-                  <th className="px-6 py-4">
-                    Wins <span>/</span> <span>Losses</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {playersInTeam &&
-                  playersInTeam.map((player) => {
-                    return (
-                      // whitespace-nowrap
-                      <tr
-                        key={player.id}
-                        className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
-                      >
-                        <td className="px-6 py-5 text-black/80">
-                          {player.firstName} {player.lastName}
-                        </td>
-                        <td className="px-6 py-5">{player.position}</td>
-                        <td className="px-6 py-5">
-                          <div className="bg-background px-2 rounded inline-block">
-                            <span className="text-primary font-bold">
-                              {player.userWins}
-                            </span>{" "}
-                            <span className="font-bold text-text">/</span>{" "}
-                            <span className="text-accent font-bold">
-                              {player.userLosses}
-                            </span>
-                          </div>
-                        </td>
-                        {isUserTeamCaptain && (
-                          <button
-                            className="py-5 pr-3 hover:text-red-500"
-                            onClick={() => handleDelete(player.id)}
-                          >
-                            <X size={28} />
-                          </button>
-                        )}
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div> */}
+
         </div>
         <div className=" flex justify-center">
           <div>
