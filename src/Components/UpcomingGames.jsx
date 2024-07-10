@@ -2,7 +2,7 @@ import React from "react";
 
 const UpcomingGames = () => {
   return (
-    <div className="border-2 border-white rounded-lg p-2">
+    <div className="border-2 border-white rounded-lg p-2 w-full">
       <h1 className="text-3xl mb-4">Upcoming Games</h1>
 
       <div className="relative overflow-x-auto rounded-lg">
