@@ -58,7 +58,6 @@ function Login() {
       <div className="flex justify-center">
         <form onSubmit={handleSubmit}>
           <h3 className="login-h3 ">Login</h3>
-           <button onClick={handleDemo} className="login-btn demo">Demo(Dev use only!)</button>
           <label htmlFor="email" className="login-label">
             Email Address{" "}
             <input
