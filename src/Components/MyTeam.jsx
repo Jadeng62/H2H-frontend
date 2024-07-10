@@ -22,6 +22,8 @@ const MyTeam = () => {
       return flooredRatio;
   }
 
+
+
   console.log("playersInTeam-->", playersInTeam);
   return (
     <div className="min-h-screen">
@@ -50,6 +52,7 @@ const MyTeam = () => {
               <tbody>
                 {playersInTeam &&
                   playersInTeam.map((player) => {
+                    
                     return (
                       // whitespace-nowrap
                       <tr
