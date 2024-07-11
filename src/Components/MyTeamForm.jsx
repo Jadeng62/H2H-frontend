@@ -1,106 +1,141 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 const MyTeamForm = () => {
-  const [teamName, setTeamName] = useState('');
-  const [teamPic, setTeamPic] = useState('');
-  const [logo, setLogo] = useState('');
-  const [player1Id, setPlayer1Id] = useState('');
-  const [player2Id, setPlayer2Id] = useState('');
-  const [player3Id, setPlayer3Id] = useState('');
-  const [player4Id, setPlayer4Id] = useState('');
-  const [player5Id, setPlayer5Id] = useState('');
-  const [captainId, setCaptainId] = useState('');
+    const { id } = useParams();
+    const [formData, setFormData] = useState({
+        team_name: '',
+        team_pic: '',
+        logo: '',
+        // point_guard_id: 0,
+        // shooting_guard_id: 0,
+        // small_forward_id: 0,
+        // power_forward_id: 0,
+        // center_id: 0,
+        // captain_id: 0,
+        // team_wins: 0,
+        // team_loss: 0,
+        // matches_played: 0,
+    });
+    const [teamCreated, setTeamCreated] = useState(null);
+    const [error, setError] = useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = {
-      team_name: teamName,
-      team_pic: teamPic,
-      logo: logo,
-      player1_id: player1Id,
-      player2_id: player2Id,
-      player3_id: player3Id,
-      player4_id: player4Id,
-      player5_id: player5Id,
-      captain_id: captainId,
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === 'point_guard_id' || name === 'shooting_guard_id' || name === 'small_forward_id' || 
+                    name === 'power_forward_id' || name === 'center_id' || name === 'captain_id' ||
+                    name === 'team_wins' || name === 'team_loss' || name === 'matches_played' ? parseInt(value, 10) : value
+        });
     };
-    console.log(formData);
-    
-    // Add fetch aqui!!
-    
-    // Clear form fields after submission
-    setTeamName('');
-    setTeamPic('');
-    setLogo('');
-    setPlayer1Id('');
-    setPlayer2Id('');
-    setPlayer3Id('');
-    setPlayer4Id('');
-    setPlayer5Id('');
-    setCaptainId('');
-  };
 
-  return (
-    <form onSubmit={handleSubmit} className='bg-white'>
-      <div>
-        <label>
-          Team Name:
-          <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Team Picture URL:
-          <input type="text" value={teamPic} onChange={(e) => setTeamPic(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Logo URL:
-          <input type="text" value={logo} onChange={(e) => setLogo(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Player 1 ID:
-          <input type="text" value={player1Id} onChange={(e) => setPlayer1Id(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Player 2 ID:
-          <input type="text" value={player2Id} onChange={(e) => setPlayer2Id(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Player 3 ID:
-          <input type="text" value={player3Id} onChange={(e) => setPlayer3Id(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Player 4 ID:
-          <input type="text" value={player4Id} onChange={(e) => setPlayer4Id(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Player 5 ID:
-          <input type="text" value={player5Id} onChange={(e) => setPlayer5Id(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Captain ID:
-          <input type="text" value={captainId} onChange={(e) => setCaptainId(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:3003/api/teams/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (!response.ok) {
+                throw new Error('Team creation failed');
+            }
+            const data = await response.json();
+            setTeamCreated(data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    useEffect(() => {
+        if (teamCreated) {
+            console.log('Team created:', teamCreated);
+        }
+    }, [teamCreated]);
+
+    const {
+        team_name,
+        team_pic,
+        logo,
+        // point_guard_id,
+        // shooting_guard_id,
+        // small_forward_id,
+        // power_forward_id,
+        // center_id,
+        // captain_id,
+        // team_wins,
+        // team_loss,
+        // matches_played,
+    } = formData;
+
+    return (
+        <form onSubmit={handleSubmit} className='bg-white'>
+            <h2>Team ID: {id}</h2>
+            <label>
+                Team Name:
+                <input type="text" name="team_name" value={team_name} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Team Picture URL:
+                <input type="text" name="team_pic" value={team_pic} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Logo URL:
+                <input type="text" name="logo" value={logo} onChange={handleChange} />
+            </label>
+            <br />
+            {/* <label>
+                Point Guard ID:
+                <input type="number" name="point_guard_id" value={point_guard_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Shooting Guard ID:
+                <input type="number" name="shooting_guard_id" value={shooting_guard_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Small Forward ID:
+                <input type="number" name="small_forward_id" value={small_forward_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Power Forward ID:
+                <input type="number" name="power_forward_id" value={power_forward_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Center ID:
+                <input type="number" name="center_id" value={center_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Captain ID:
+                <input type="number" name="captain_id" value={captain_id} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Team Wins:
+                <input type="number" name="team_wins" value={team_wins} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Team Loss:
+                <input type="number" name="team_loss" value={team_loss} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+                Matches Played:
+                <input type="number" name="matches_played" value={matches_played} onChange={handleChange} />
+            </label>
+            <br /> */}
+            <button type="submit">Submit</button>
+        </form>
+    );
 };
 
 export default MyTeamForm;
