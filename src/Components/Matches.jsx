@@ -29,11 +29,11 @@ const Matches = () => {
              <section className="mathes-utility-section">
                 <button className="matches-btn text-white" onClick={handleCreate}>Create Match</button>
                   <select name="borough" id="borough" className="matches-select">
-                    <option>-- Filter Borough --</option>
-                    <option value="brooklyn" className="matches-option">Brooklyn</option>
-                    <option value="manhattan" className="matches-option">Manhattan</option>
-                    <option value="bronx" className="matches-option">Bronx</option>
-                    <option value="queens" className="matches-option">Queens</option>
+                    <option>-- Match Type --</option>
+                    <option value="all-games" className="matches-option">All Games</option>
+                    <option value="open" className="matches-option">Open</option>
+                    <option value="locked" className="matches-option">Locked</option>
+                    <option value="today" className="matches-option">Today</option>
                   </select>
              </section>
           </div>
