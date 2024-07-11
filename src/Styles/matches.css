@@ -1,14 +1,76 @@
 .matches-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     margin: 40px;
     border: 2px solid whitesmoke;
     border-radius: 6px;
 }
 
 .matches-h1 {
-    padding-top: 30px;
+    padding: 50px;
+    text-align: center;
     font-size: xx-large;
     font-weight: bolder;
 }
 
+.matches-utility-container{
+    display: flex;
+    justify-content: flex-end;
+    align-content: space-between;
+    margin-top: 16px;
+}
+
+.matches-btn {
+  text-align: center;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fd6326;
+  margin-right: 18px;
+}
+
+.matches-select {
+    border-radius: 20px;
+    background-color: #1f1e1e;
+    color: #f4f3fc;
+    padding: 6px;
+}
+
+.matches-games-container {
+    display: grid;
+    text-align: center;
+    width: 120px;
+    height: 180px;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 12px;
+    background-color: #C7CCCF;
+}
+
+
+
+
+
+
+@media (max-width:390) {
+    .matches-select {
+        font-size: 200px;
+        padding: 15px;
+    }
+
+
+    .matches-option {
+        font-size: 200px;
+        padding: 15px;
+    }
+    
+    .matches-utility-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 30px;
+        position: absolute;
+    }
+}
