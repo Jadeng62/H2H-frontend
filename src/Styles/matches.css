@@ -6,12 +6,12 @@
     border-radius: 6px;
 }
 
-.matches-h1 {
+/* .matches-h1 {
     padding: 50px;
     text-align: center;
     font-size: xx-large;
     font-weight: bolder;
-}
+} */
 
 .matches-utility-container{
     display: flex;
