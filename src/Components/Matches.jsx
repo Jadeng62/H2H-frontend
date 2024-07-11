@@ -22,6 +22,8 @@ const Matches = () => {
 
 
     return (
+      <>
+          <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">All Matches</h1>
         <div className="matches-container h-screen">
             <div className="matches-utility-container">
              <section className="mathes-utility-section">
@@ -35,11 +37,11 @@ const Matches = () => {
                   </select>
              </section>
           </div>
-          <h1 className="matches-h1 text-white">All Matches</h1>
            <div className="matches-games-container text-yellow-50">
              Dummy Card
            </div>
         </div>
+        </>
     )
 }
 
