@@ -13,11 +13,12 @@ export const getUserData = () => {
 
       try {
         // checking local storage will prove user is logged in
-        const token = localStorage.getItem('token')
+        const idtoken = await user.getIdToken(true)
+         console.log("Id:", idtoken)
 
         //helper function to do the actual fetched. abstracted because it is used in two placees in this code
-        const retrievedUser = await fetchUser(user, token)
-          // console.log(`Retrieved user:`,retrievedUser)
+        const retrievedUser = await fetchUser(user, idtoken)
+          console.log(`Retrieved user:`,retrievedUser)
         // this is the same as a return but returns a promise
         resolve(retrievedUser)
       } catch (error) {
