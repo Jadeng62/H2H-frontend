@@ -2,13 +2,16 @@ import React from "react";
 
 const UpcomingGames = () => {
   return (
-    <div className="border-2 border-white rounded-lg p-2 w-full">
-      <h1 className="text-3xl mb-4">Upcoming Games</h1>
-
-      <div className="relative overflow-x-auto rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-text uppercase bg-accent ">
-            <tr>
+    <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
+      <div className="align-middle flex">
+        <h1 className="text-4xl font-extrabold bebas-neue-regular p-4">
+          Upcoming Games
+        </h1>
+      </div>
+      <div className="px-4 pb-4 flex relative overflow-x-auto overflow-y-auto">
+        <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-text uppercase bg-accent">
+            <tr className="">
               <th scope="col" className="px-6 py-4">
                 Date
               </th>
