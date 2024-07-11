@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const MyTeamForm = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +16,9 @@ const MyTeamForm = () => {
         matchesPlayed: 0,
     });
 
+    const [teamCreated, setTeamCreated] = useState(null);
+    const [error, setError] = useState(null);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -26,11 +29,31 @@ const MyTeamForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //useeffect for POST fetch
-        console.log(formData);
+        try {
+            const response = await fetch(`http://localhost:3003/api/teams/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (!response.ok) {
+                throw new Error('Team creation failed');
+            }
+            const data = await response.json();
+            setTeamCreated(data);
+        } catch (error) {
+            setError(error.message);
+        }
     };
+
+    useEffect(() => {
+        if (teamCreated) {
+            console.log('Team created:', teamCreated);
+        }
+    }, [teamCreated]);
 
     const {
         teamName,
@@ -48,7 +71,7 @@ const MyTeamForm = () => {
     } = formData;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='bg-white'>
             <label>
                 Team Name:
                 <input type="text" name="teamName" value={teamName} onChange={handleChange} />
