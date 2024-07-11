@@ -35,7 +35,7 @@ const UpcomingGames = ({ userDetails }) => {
             +
           </button>
         </div>
-      ) : (
+      ) : userDetails && upcomingGames.length > 0 ? (
         <div className="px-4 pb-4 flex relative overflow-x-auto overflow-y-auto">
           <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-text uppercase bg-accent">
@@ -84,6 +84,21 @@ const UpcomingGames = ({ userDetails }) => {
               </tr>
             </tbody>
           </table>
+        </div>
+      ) : (
+        <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto w-full sm:mt-20">
+          <h1 className="text-center text-xl font-bold">
+            Your Team Has No Upcoming Matches
+          </h1>
+          <h1 className="text-center text-xl font-bold my-4">
+            Click Here to View Matches
+          </h1>
+          <button
+            className=" bg-primary hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+            onClick={() => navigate("/myTeam")}
+          >
+            +
+          </button>
         </div>
       )}
     </div>
