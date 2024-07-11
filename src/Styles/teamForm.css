@@ -1,0 +1,53 @@
+.team-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 90px;
+}
+
+.team-form {
+    background: whitesmoke;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgb(242, 234, 234);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-form-h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-style: oblique;
+}
+
+.team-form-label {
+    margin-bottom: 10px;
+}
+
+.team-form-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #4f4f4f;
+    border-radius: 8px;
+}
+
+.team-form-btn {
+    width: 40%;
+    margin-left: 70px;
+    padding: 10px;
+    border: none;
+    background-color: #fd6326;
+    color: #0f0e0e;
+    border-radius: 4px;
+}
+
+.team-form-btn:hover {
+    cursor: pointer;
+    background-color: #f25112;
+}

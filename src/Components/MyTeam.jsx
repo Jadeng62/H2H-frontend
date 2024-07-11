@@ -50,7 +50,7 @@ const MyTeam = () => {
         My Team
       </h1>
 
-      {!isUserTeamCaptain ? (
+      {isUserTeamCaptain ? (
         <>
           {teamData && (
             <div className="mx-10 mb-5 mt-10">
