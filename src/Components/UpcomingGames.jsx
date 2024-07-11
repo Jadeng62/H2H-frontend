@@ -3,18 +3,62 @@ import { useNavigate } from "react-router-dom";
 
 const UpcomingGames = ({ userDetails }) => {
   const [upcomingGames, setUpcomingGames] = useState([]);
-
   const navigate = useNavigate();
-
   const URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    if (userDetails) {
+    if (userDetails && userDetails.id) {
       fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
         .then((res) => res.json())
         .then((data) => setUpcomingGames(data));
     }
-  }, []);
+  }, [userDetails]); // Only run when userDetails changes
+
+  function formattedDate(iso) {
+    const date = new Date(iso);
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDate();
+
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return `${monthNames[month]} ${day}, ${year}`;
+  }
+
+  function formattedTime(iso) {
+    const date = new Date(iso);
+    const hour = date.getUTCHours();
+    const minute = date.getUTCMinutes();
+    let period = "AM";
+
+    // Convert hours to 12-hour format and determine AM/PM
+    let formattedHour = hour;
+    if (hour >= 12) {
+      formattedHour = hour === 12 ? 12 : hour - 12;
+      period = "PM";
+    }
+    if (formattedHour === 0) {
+      formattedHour = 12; // 0 should be displayed as 12 AM
+    }
+
+    // Ensure minutes are formatted properly (e.g., "05" instead of "5")
+    const formattedMinute = minute < 10 ? `0${minute}` : minute;
+
+    return `${formattedHour}:${formattedMinute} ${period}`;
+  }
 
   return (
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
@@ -39,7 +83,7 @@ const UpcomingGames = ({ userDetails }) => {
         <div className="px-4 pb-4 flex relative overflow-x-auto overflow-y-auto">
           <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-text uppercase bg-accent">
-              <tr className="">
+              <tr>
                 <th scope="col" className="px-6 py-4">
                   Date
                 </th>
@@ -52,36 +96,20 @@ const UpcomingGames = ({ userDetails }) => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b">
-                <th
-                  scope="row"
-                  className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  Apple MacBook Pro 17"
-                </th>
-                <td className="px-6 py-5">Silver</td>
-                <td className="px-6 py-5">Laptop</td>
-              </tr>
-              <tr className="bg-white border-b">
-                <th
-                  scope="row"
-                  className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  Microsoft Surface Pro
-                </th>
-                <td className="px-6 py-5">White</td>
-                <td className="px-6 py-5">Laptop PC</td>
-              </tr>
-              <tr className="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  Magic Mouse 2
-                </th>
-                <td className="px-6 py-5">Black</td>
-                <td className="px-6 py-5">Accessories</td>
-              </tr>
+              {upcomingGames.map((game) => (
+                <tr className="bg-white border-b" key={game.id}>
+                  <th
+                    scope="row"
+                    className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                    {formattedDate(game.start_datetime)}
+                  </th>
+                  <td className="px-6 py-5">
+                    {formattedTime(game.start_datetime)}
+                  </td>
+                  <td className="px-6 py-5">{game.team2_id}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
