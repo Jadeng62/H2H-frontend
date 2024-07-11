@@ -3,7 +3,7 @@ import "../Styles/Footer.css";
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-3 py-6 bg-secondary text-accent font-bold text-lg footer-position footer-height">
+    <div className="grid grid-cols-3 py-6 bg-secondary text-accent font-bold text-lg footer-position footer-height sticky">
       <div className="flex justify-center items-center">
         <p>About</p>
       </div>

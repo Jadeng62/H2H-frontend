@@ -27,29 +27,23 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-black">
+    <div className="flex flex-col min-h-screen bg-black">
       <NavBar user={user} />
-      <Routes
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 100,
-        }}
-      >
-        <Route
-          path="/"
-          element={user ? <Navigate to="/profile" /> : <LandingPage />}
-        />
-        <Route path="/test" element={user ? <Test /> : <Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/profile" element={user ? <Profile /> : <Login />} />
-        <Route path="/matches" element={<Matches />}/>
-        <Route path="/myTeam" element={<MyTeam />}/>
-        <Route path="/leaderboard" element={<Leaderboard />}/>
-      </Routes>
+      <div className="flex-grow">
+        <Routes>
+          <Route
+            path="/"
+            element={user ? <Navigate to="/profile" /> : <LandingPage />}
+          />
+          <Route path="/test" element={user ? <Test /> : <Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/profile" element={user ? <Profile /> : <Login />} />
+          <Route path="/matches" element={<Matches />} />
+          <Route path="/myTeam" element={<MyTeam />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Routes>
+      </div>
       <ToastContainer />
       <Footer />
     </div>

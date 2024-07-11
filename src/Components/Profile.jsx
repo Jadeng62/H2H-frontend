@@ -21,15 +21,15 @@ function Profile() {
   }, []);
 
   return (
-    <div className="text-text h-screen">
+    <div className="text-text flex flex-col">
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
         <h2>My Player</h2>
       </div>
-      <div className="flex flex-col p-8 sm:flex-row">
-        <div className="flex justify-center mb-8 sm:w-1/3 sm:mb-0">
+      <div className="flex flex-col p-8 sm:flex-row flex-grow">
+        <div className="flex justify-center w-fit mb-8 sm:w-1/3 sm:mb-0">
           <PlayerCard />
         </div>
-        <div className="flex justify-center sm:w-2/3">
+        <div className="flex justify-center sm:w-2/3 flex-grow">
           <UpcomingGames />
         </div>
       </div>
