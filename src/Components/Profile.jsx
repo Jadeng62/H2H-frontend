@@ -6,8 +6,6 @@ import UpcomingGames from "./UpcomingGames";
 import PlayerCard from "./PlayerCard";
 
 function Profile({ userDetails, userTeam }) {
-  const navigate = useNavigate();
-
   return (
     <div className="text-text flex flex-col">
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
@@ -18,7 +16,7 @@ function Profile({ userDetails, userTeam }) {
           <PlayerCard userDetails={userDetails} userTeam={userTeam} />
         </div>
         <div className="flex justify-center sm:w-2/3 flex-grow">
-          <UpcomingGames />
+          <UpcomingGames userDetails={userDetails} />
         </div>
       </div>
     </div>
