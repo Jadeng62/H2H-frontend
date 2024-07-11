@@ -17,6 +17,7 @@ import Leaderboard from "./Components/Leaderboard";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import MyTeamForm from "./Components/MyTeamForm";
 
 function App() {
   const [user, setUser] = useState();
@@ -42,6 +43,7 @@ function App() {
           <Route path="/matches" element={<Matches />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/createTeam" element={<MyTeamForm/>}/>
         </Routes>
       </div>
       <ToastContainer />
