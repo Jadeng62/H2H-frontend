@@ -6,15 +6,15 @@ const MyTeamForm = () => {
         team_name: '',
         team_pic: '',
         logo: '',
-        point_guard_id: 0,
-        shooting_guard_id: 0,
-        small_forward_id: 0,
-        power_forward_id: 0,
-        center_id: 0,
-        captain_id: 0,
-        team_wins: 0,
-        team_loss: 0,
-        matches_played: 0,
+        // point_guard_id: 0,
+        // shooting_guard_id: 0,
+        // small_forward_id: 0,
+        // power_forward_id: 0,
+        // center_id: 0,
+        // captain_id: 0,
+        // team_wins: 0,
+        // team_loss: 0,
+        // matches_played: 0,
     });
     const [teamCreated, setTeamCreated] = useState(null);
     const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ const MyTeamForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3003/api/teams', {
+            const response = await fetch(`http://localhost:3003/api/teams/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,15 +59,15 @@ const MyTeamForm = () => {
         team_name,
         team_pic,
         logo,
-        point_guard_id,
-        shooting_guard_id,
-        small_forward_id,
-        power_forward_id,
-        center_id,
-        captain_id,
-        team_wins,
-        team_loss,
-        matches_played,
+        // point_guard_id,
+        // shooting_guard_id,
+        // small_forward_id,
+        // power_forward_id,
+        // center_id,
+        // captain_id,
+        // team_wins,
+        // team_loss,
+        // matches_played,
     } = formData;
 
     return (
@@ -88,7 +88,7 @@ const MyTeamForm = () => {
                 <input type="text" name="logo" value={logo} onChange={handleChange} />
             </label>
             <br />
-            <label>
+            {/* <label>
                 Point Guard ID:
                 <input type="number" name="point_guard_id" value={point_guard_id} onChange={handleChange} />
             </label>
@@ -132,7 +132,7 @@ const MyTeamForm = () => {
                 Matches Played:
                 <input type="number" name="matches_played" value={matches_played} onChange={handleChange} />
             </label>
-            <br />
+            <br /> */}
             <button type="submit">Submit</button>
         </form>
     );
