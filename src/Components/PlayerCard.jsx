@@ -2,13 +2,20 @@ import React from "react";
 import { fakeUser } from "../helpers/fakeInfo";
 import placeholderImage from "../assets/placeholder.png";
 import { ShieldHalf } from "lucide-react";
+import profileBg from "../assets/profile-bg.jpeg";
 
 const PlayerCard = ({ userDetails, userTeam }) => {
-  // console.log("User Info: ", userDetails);
-  // console.log("User Team: ", userTeam);
+  console.log("User Info: ", userDetails);
+  console.log("User Team: ", userTeam);
 
   return (
-    <div className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl bg-gradient-to-tr from-orange-400 to-orange-700">
+    <div
+      className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl"
+      style={{
+        backgroundImage: `url(${profileBg})`,
+        backgroundSize: "cover",
+      }}
+    >
       <div className="flex flex-col justify-center row-span-2 p-4 text-center">
         <div className="flex justify-center items-center">
           <h1 className="text-2xl">{userTeam && userTeam.team_name}</h1>
@@ -21,11 +28,7 @@ const PlayerCard = ({ userDetails, userTeam }) => {
           <h1 className="text-2xl">
             {userTeam &&
               userDetails &&
-              (userTeam.captain_id === userDetails.id ? (
-                <h1>Captain</h1>
-              ) : (
-                <h1>Player</h1>
-              ))}
+              (userTeam.captain_id === userDetails.id ? "Captain" : "Player")}
           </h1>
         </div>
       </div>

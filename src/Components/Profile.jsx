@@ -2,38 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserData } from "../helpers/getUserData";
 import placeholderImage from "../assets/placeholder.png";
-import { fakeUser } from "../helpers/fakeInfo";
 import UpcomingGames from "./UpcomingGames";
 import PlayerCard from "./PlayerCard";
-import { fetchUser } from "../helpers/fetchUser";
 
-function Profile() {
+function Profile({ userDetails, userTeam }) {
   const navigate = useNavigate();
-
-  const [userDetails, setUserDetails] = useState(null);
-  const [userTeam, setUserTeam] = useState("");
-
-  const URL = import.meta.env.VITE_BASE_URL;
-
-  useEffect(() => {
-    async function getUser() {
-      const user = await getUserData();
-      if (user) {
-        setUserDetails(user);
-      }
-    }
-
-    getUser();
-  }, []);
-
-  useEffect(() => {
-    if (userDetails) {
-      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-        .then((res) => res.json())
-        .then((data) => setUserTeam(data))
-        .catch((error) => console.error("Error fetching team data:", error));
-    }
-  }, [userDetails]);
 
   return (
     <div className="text-text flex flex-col">
