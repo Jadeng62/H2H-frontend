@@ -14,13 +14,39 @@ import Footer from "./Components/Footer";
 import Matches from "./Components/Matches";
 import MyTeam from "./Components/MyTeam";
 import Leaderboard from "./Components/Leaderboard";
-
+import { getUserData } from "./helpers/getUserData";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
 
 function App() {
   const [user, setUser] = useState();
+
+  const [userDetails, setUserDetails] = useState(null);
+  const [userTeam, setUserTeam] = useState("");
+
+  const URL = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await getUserData();
+      if (user) {
+        setUserDetails(user);
+      }
+    }
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (userDetails) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => setUserTeam(data))
+        .catch((error) => console.error("Error fetching team data:", error));
+    }
+  }, [userDetails]);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -39,11 +65,20 @@ function App() {
           <Route path="/test" element={user ? <Test /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
-          <Route path="/profile" element={user ? <Profile /> : <Login />} />
+          <Route
+            path="/profile"
+            element={
+              user ? (
+                <Profile userDetails={userDetails} userTeam={userTeam} />
+              ) : (
+                <Login />
+              )
+            }
+          />
           <Route path="/matches" element={<Matches />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/createTeam" element={<MyTeamForm/>}/>
+          <Route path="/createTeam" element={<MyTeamForm />} />
         </Routes>
       </div>
       <ToastContainer />
