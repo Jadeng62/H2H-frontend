@@ -13,6 +13,7 @@ const PlayerCard = () => {
         </div>
         <div className="">
           <h1 className="text-5xl font-bold text-primary ">{`${fakeUser.first_name} ${fakeUser.last_name}`}</h1>
+          <h1 className="text-2xl">Captain</h1>
         </div>
       </div>
       <div className="flex justify-center row-span-2">

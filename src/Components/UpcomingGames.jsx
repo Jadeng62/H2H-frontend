@@ -4,7 +4,9 @@ const UpcomingGames = () => {
   return (
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
       <div className="align-middle flex">
-        <h1 className="text-4xl bebas-neue-regular p-4">Upcoming Games</h1>
+        <h1 className="text-4xl font-extrabold bebas-neue-regular p-4">
+          Upcoming Games
+        </h1>
       </div>
       <div className="px-4 pb-4 flex relative overflow-x-auto overflow-y-auto">
         <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
