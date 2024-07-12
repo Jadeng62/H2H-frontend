@@ -35,34 +35,42 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
   }, [userTeam, match.id]);
 
   return (
-    <div className="text-text">
-      <h1>Match Details: {id}</h1>
-      <div className="flex">
-        <div>
-          {match.id && (
-            <div>
-              <h1>{match.address}</h1>
-              <h1>{match.city}</h1>
-              <h1>{match.state}</h1>
-              <h1>{match.zip}</h1>
-            </div>
-          )}
+    <div className="text-text h-fit">
+      <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
+        <h1>Match Details</h1>
+      </div>
+      <div className="grid grid-cols-6 p-8">
+        <div className="col-span-2 w-fit">
+          <div className="border-2 flex-row flex-1 p-4 overflow-y-auto">
+            {match.id && (
+              <div>
+                <h1>{match.address}</h1>
+                <h1>{match.city}</h1>
+                <h1>{match.state}</h1>
+                <h1>{match.zip}</h1>
+                <h1>{match.start_datetime}</h1>
+              </div>
+            )}
+          </div>
+          <div className="border-2 flex-1 p-4 overflow-y-auto">
+            {opponentLineup.length > 0 &&
+              opponentLineup.map((player) => (
+                <div key={player.id}>
+                  <h1>{player.first_name}</h1>
+                </div>
+              ))}
+          </div>
+          <div className="border-2 flex-1 p-4 overflow-y-auto">
+            {teamLineup.length > 0 &&
+              teamLineup.map((player) => (
+                <div key={player.id}>
+                  <h1>{player.first_name}</h1>
+                </div>
+              ))}
+          </div>
         </div>
         <div>
-          {opponentLineup.length > 0 &&
-            opponentLineup.map((player) => (
-              <div>
-                <h1>{player.first_name}</h1>
-              </div>
-            ))}
-        </div>
-        <div>
-          {teamLineup.length > 0 &&
-            teamLineup.map((player) => (
-              <div>
-                <h1>{player.first_name}</h1>
-              </div>
-            ))}
+          <h1>Hello</h1>
         </div>
       </div>
     </div>
