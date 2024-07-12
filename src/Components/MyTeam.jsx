@@ -2,32 +2,17 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X, Accessibility, Award } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
-const MyTeam = () => {
-  //   console.log(playersData.players);
 
+const MyTeam = ({ userDetails }) => {
+  const URL = import.meta.env.VITE_BASE_URL;
+  // user obj w/ user data
+  const myUserDetails = { ...userDetails };
+  // team obj w/ playerids, matches, captain id, etc
+  const [teamData, setTeamData] = useState(null);
+  // an array of team member user objs
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
-
-  const [teamData, setTeamData] = useState(null);
-
-  const handleDelete = (playerID) => {
-    console.log("Clicked delete for playerID:", playerID);
-  };
-
-  useEffect(() => {
-    setPlayersInTeam(playersData.players);
-  }, []);
-
-  useEffect(() => {
-    setTeamData(playersData.teams[0]);
-  }, []);
-
-  const handleWL = (w, l) => {
-    const wLRatio = w / l;
-    const flooredRatio = Math.floor(wLRatio * 10) / 10;
-    return flooredRatio;
-  };
 
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
@@ -43,23 +28,72 @@ const MyTeam = () => {
     return new Date(dateString).toLocaleDateString("en-US", options);
   }
 
-  console.log("playersInTeam-->", playersInTeam);
+  const handleWL = (w, l) => {
+    const wLRatio = w / l;
+    const flooredRatio = Math.floor(wLRatio * 10) / 10;
+    return flooredRatio;
+  };
+
+  const handleDelete = (playerID) => {
+    console.log("Clicked delete for playerID:", playerID);
+  };
+
+  // sets captainstate for user, and teamdata needed for this view
+  useEffect(() => {
+    if (myUserDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // Update teamData state with the entire team data
+          setTeamData(data);
+          // Check if current user is team captain
+          if (captain_id === myUserDetails.id) {
+            setIsUserTeamCaptain(true);
+          } else {
+            setIsUserTeamCaptain(false);
+          }
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [myUserDetails.user_team_id]);
+
+  // sets state with all players on the user's team
+  useEffect(() => {
+    if (myUserDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}/users`)
+        .then((res) => res.json())
+        .then((data) => {
+          setPlayersInTeam(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [myUserDetails.user_team_id]);
+
   return (
     <div className="min-h-screen">
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
 
-      {isUserTeamCaptain ? (
+      {myUserDetails && myUserDetails.user_team_id ? (
         <>
           {teamData && (
             <div className="mx-10 mb-5 mt-10">
               <div className="flex flex-row w-full md:w-1/2 bg-background rounded-lg">
                 <div className=" rounded-l-xl">
                   {/* this is where we'd put the dynamic team icon */}
-                  <Accessibility
+                  {/* <Accessibility
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
+                  /> */}
+                  <img
+                    src={teamData.team_pic}
+                    alt="team_pic"
+                    className="w-48 border-secondary border-4 m-2"
                   />
                 </div>
                 <div className="flex flex-col p-1">
@@ -137,7 +171,7 @@ const MyTeam = () => {
                             className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                           >
                             <td className="px-6 py-5 text-black/80">
-                              {player.firstName} {player.lastName}
+                              {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
                             <td className="px-6 py-5">
@@ -151,7 +185,7 @@ const MyTeam = () => {
                                 </span>
                               </div>
                             </td>
-                            {isUserTeamCaptain && (
+                            {teamData && (
                               <td>
                                 <button
                                   className="py-5 pr-3 hover:text-red-500"

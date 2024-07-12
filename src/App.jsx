@@ -19,12 +19,14 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
 import EditMyTeam from "./Components/EditMyTeam";
+import MatchDetails from "./Components/MatchDetails";
+
 
 function App() {
   const [user, setUser] = useState();
-
   const [userDetails, setUserDetails] = useState(null);
   const [userTeam, setUserTeam] = useState("");
+  const [upcomingGames, setUpcomingGames] = useState([]);
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -45,6 +47,30 @@ function App() {
         .then((res) => res.json())
         .then((data) => setUserTeam(data))
         .catch((error) => console.error("Error fetching team data:", error));
+    }
+  }, [userDetails]);
+
+  useEffect(() => {
+    if (userDetails && userDetails.id) {
+      fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
+        .then((res) => res.json())
+        .then(async (data) => {
+          const gamesWithTeamNames = await Promise.all(
+            data.map(async (game) => {
+              const opponentId =
+                userDetails.user_team_id === game.team1_id
+                  ? game.team2_id
+                  : game.team1_id;
+              const res = await fetch(`${URL}/api/teams/${opponentId}`);
+              const team = await res.json();
+              return {
+                ...game,
+                opponentTeamName: team.team_name,
+              };
+            })
+          );
+          setUpcomingGames(gamesWithTeamNames);
+        });
     }
   }, [userDetails]);
 
@@ -70,14 +96,24 @@ function App() {
             path="/profile"
             element={
               user ? (
-                <Profile userDetails={userDetails} userTeam={userTeam} />
+                <Profile
+                  userDetails={userDetails}
+                  userTeam={userTeam}
+                  upcomingGames={upcomingGames}
+                />
               ) : (
                 <Login />
               )
             }
           />
-          <Route path="/matches" element={<Matches />} />
-          <Route path="/myTeam" element={<MyTeam />} />
+          <Route path="/matches" element={<Matches userDetails={userDetails} userTeam={userTeam}/>} />
+          <Route
+            path="/matches/:id"
+            element={
+              <MatchDetails upcomingGames={upcomingGames} userTeam={userTeam} />
+            }
+          />
+          <Route path="/myTeam" element={<MyTeam userDetails={userDetails} />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route
             path="/createTeam"

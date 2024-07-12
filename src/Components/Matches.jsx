@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 
+import MatchForm from "../Components/MatchForm"
+import Match from "../Components/Match";
+
 import "../Styles/matches.css"
 
-const Matches = () => {
+const Matches = ({userDetails, userTeam}) => {
     const [matchData, setMatchData] = useState([])
     const [toggle, setToggle] = useState(false)
     
 
+    const URL = import.meta.env.VITE_BASE_URL
 
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:3003/`)
-    //     .then((res) => res.data())
-    //     .then((data) => setMatch())
-    // }, [])
+
+    useEffect(() => {
+        fetch(`${URL}/api/matches`)
+        .then((res) => res.json())
+        .then((data) => 
+        setMatchData(data))
+    }, [])
+
 
     const handleCreate = (e) => {
         setToggle(!toggle)
@@ -23,6 +30,13 @@ const Matches = () => {
 
     return (
       <>
+      {toggle && <MatchForm 
+      toggle={toggle}
+      setToggle={setToggle}
+      setMatchData={setMatchData}
+      userDetails={userDetails}
+      userTeam={userTeam}
+      />}
           <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">All Matches</h1>
         <div className="matches-container h-screen">
             <div className="matches-utility-container">
@@ -37,8 +51,10 @@ const Matches = () => {
                   </select>
              </section>
           </div>
-           <div className="matches-games-container text-yellow-50">
-             Dummy Card
+           <div className="matches-games-container text-yellow-50 grid gap-8 p-8">
+             {matchData.length > 0 && matchData.map((match, index) => (
+               <Match match={match} key={index}/>
+             ))}
            </div>
         </div>
         </>
