@@ -85,7 +85,7 @@ function App() {
           />
           <Route
             path="/editTeam"
-            element={<EditMyTeam userDetails={userDetails} userTeam={userTeam}/>}
+            element={userDetails && <EditMyTeam userDetails={userDetails} userTeam={userTeam}/>}
           />
         </Routes>
       </div>

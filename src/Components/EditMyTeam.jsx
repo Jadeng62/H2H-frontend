@@ -5,11 +5,28 @@ import '../Styles/teamForm.css';
 
 const EditMyTeam = ({ userDetails, userTeam }) => {
     // const { id } = useParams();
+    // const [formData, setFormData] = useState({
+    //     team_name: '',
+    //     team_pic: '',
+    //     logo: ''
+    // });
+
+    // ALL THE KEYS are needed so that values aren't replaced by null when user edits form
     const [formData, setFormData] = useState({
         team_name: '',
         team_pic: '',
-        logo: ''
-    });
+        logo: '',
+        point_guard_id: 0,
+        shooting_guard_id: 0,
+        small_forward_id: 0,
+        power_forward_id: 0,
+        center_id: 0,
+        captain_id: 0,
+        team_wins: 0,
+        team_loss: 0,
+        matches_played: 0
+    });        
+    
     const [team, setTeam] = useState(null);
 
     // pass on prop instead
@@ -32,6 +49,9 @@ const EditMyTeam = ({ userDetails, userTeam }) => {
 
     useEffect(() => {
         const fetchTeam = async () => {
+            if (!userDetails || !userDetails.user_team_id) {
+                return;
+            }
             try {
                 const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`);
                 if (!response.ok) {
@@ -40,25 +60,41 @@ const EditMyTeam = ({ userDetails, userTeam }) => {
                 const data = await response.json();
                 setTeam(data);
                 setFormData({
+                    ...data,
                     team_name: data.team_name,
                     team_pic: data.team_pic,
-                    logo: data.logo
+                    logo: data.logo,
+                    // added rest of the fields which should be numbers aka INT on backend
+                    point_guard_id: data.point_guard_id || 0,
+                    shooting_guard_id: data.shooting_guard_id || 0,
+                    small_forward_id: data.small_forward_id || 0,
+                    power_forward_id: data.power_forward_id || 0,
+                    center_id: data.center_id || 0,
+                    captain_id: data.captain_id || 0,
+                    team_wins: data.team_wins || 0,
+                    team_loss: data.team_loss || 0,
+                    matches_played: data.matches_played || 0
                 });
             } catch (error) {
                 console.log('Error fetching team:', error);
             }
         };
-
+    
         fetchTeam();
-    }, [userDetails.user_team_id]);
+    }, [userDetails?.user_team_id]);
 
+
+    // added line 88 (if statement) so only allowed fields gets changed by user
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        if (['team_name', 'team_pic', 'logo'].includes(name)) {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
