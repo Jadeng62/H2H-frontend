@@ -22,7 +22,6 @@ import MatchDetails from "./Components/MatchDetails";
 
 function App() {
   const [user, setUser] = useState();
-
   const [userDetails, setUserDetails] = useState(null);
   const [userTeam, setUserTeam] = useState("");
   const [upcomingGames, setUpcomingGames] = useState([]);
@@ -113,7 +112,7 @@ function App() {
               <MatchDetails upcomingGames={upcomingGames} userTeam={userTeam} />
             }
           />
-          <Route path="/myTeam" element={<MyTeam />} />
+          <Route path="/myTeam" element={<MyTeam userDetails={userDetails} />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={<MyTeamForm />} />
         </Routes>
