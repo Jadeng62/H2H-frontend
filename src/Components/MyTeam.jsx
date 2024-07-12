@@ -6,7 +6,7 @@ const MyTeam = ({ user, userDetails }) => {
   const URL = import.meta.env.VITE_BASE_URL;
   const myUser = { ...user };
   const myUserDetails = { ...userDetails };
-  // const [teamPlayersIDs, setTeamPlayersIDs] = useState([]);
+  const [teamPlayersIDs, setTeamPlayersIDs] = useState([]);
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
@@ -21,8 +21,33 @@ const MyTeam = ({ user, userDetails }) => {
     if (myUserDetails.user_team_id) {
       fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
         .then((res) => res.json())
-        .then((data) => setTeamData(data))
-        .catch((error) => console.error("Error fetching team data:", error));
+        .then((data) => {
+          // Extract player IDs from the fetched team data
+          const {
+            point_guard_id,
+            shooting_guard_id,
+            small_forward_id,
+            power_forward_id,
+            center_id,
+            captain_id,
+          } = data;
+
+          // Update teamPlayersIDs state with the extracted IDs
+          setTeamPlayersIDs([
+            point_guard_id,
+            shooting_guard_id,
+            small_forward_id,
+            power_forward_id,
+            center_id,
+            captain_id,
+          ]);
+
+          // Update teamData state with the entire team data
+          setTeamData(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
     }
   }, [myUserDetails.user_team_id]);
 
@@ -31,6 +56,7 @@ const MyTeam = ({ user, userDetails }) => {
   }, []);
 
   console.log("PLayer's in team:", playersInTeam);
+  console.log("teamIDs-->", teamPlayersIDs);
 
   const handleWL = (w, l) => {
     const wLRatio = w / l;
@@ -169,7 +195,7 @@ const MyTeam = ({ user, userDetails }) => {
                                 </span>
                               </div>
                             </td>
-                            {isUserTeamCaptain && (
+                            {teamData && (
                               <td>
                                 <button
                                   className="py-5 pr-3 hover:text-red-500"
