@@ -60,6 +60,7 @@ const MyTeamForm = () => {
             <label htmlFor='team-name' className='team-form-label'>
                 Team Name:
                 <input
+                 required
                  id='team-name'
                  type="text" 
                  name="team_name"
@@ -71,6 +72,7 @@ const MyTeamForm = () => {
             <label htmlFor='team-pic' className='team-form-label'>
                 Team Picture URL:
                 <input
+                required
                  id='team-pic'
                  type="text"
                  name="team_pic"
@@ -82,6 +84,7 @@ const MyTeamForm = () => {
             <label htmlFor='team-logo' className='team-form-label'>
                 Logo URL:
                 <input 
+                required
                  id='team-log'
                  type="text"
                  name="logo"
@@ -90,7 +93,7 @@ const MyTeamForm = () => {
                  className='team-form-input'
                  onChange={handleChange} />
             </label>
-            <button className='team-form-btn'>Submit</button>
+            <button className='team-form-btn' onClick={handleSubmit()}>Submit</button>
         </form>
         </div>
     );

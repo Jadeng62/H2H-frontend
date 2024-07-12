@@ -75,7 +75,7 @@ function App() {
               )
             }
           />
-          <Route path="/matches" element={<Matches />} />
+          <Route path="/matches" element={<Matches userDetails={userDetails} userTeam={userTeam}/>} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={<MyTeamForm />} />
