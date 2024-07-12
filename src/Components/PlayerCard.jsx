@@ -5,12 +5,12 @@ import { ShieldHalf } from "lucide-react";
 import profileBg from "../assets/profile-bg.jpeg";
 
 const PlayerCard = ({ userDetails, userTeam }) => {
-  console.log("User Info: ", userDetails);
-  console.log("User Team: ", userTeam);
+  // console.log("User Info: ", userDetails);
+  // console.log("User Team: ", userTeam);
 
   return (
     <div
-      className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl"
+      className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl text-black"
       style={{
         backgroundImage: `url(${profileBg})`,
         backgroundSize: "cover",
@@ -21,9 +21,9 @@ const PlayerCard = ({ userDetails, userTeam }) => {
           <h1 className="text-2xl">{userTeam && userTeam.team_name}</h1>
           {/* <ShieldHalf className="mb-1 mx-1" size={26} /> */}
         </div>
-        <div className="">
+        <div>
           {userDetails && (
-            <h1 className="text-5xl font-bold text-primary ">{`${userDetails.first_name} ${userDetails.last_name}`}</h1>
+            <h1 className="text-5xl font-bold text-black ">{`${userDetails.first_name} ${userDetails.last_name}`}</h1>
           )}
           <h1 className="text-2xl">
             {userTeam &&
@@ -35,7 +35,7 @@ const PlayerCard = ({ userDetails, userTeam }) => {
       <div className="flex justify-center row-span-2">
         <img src={placeholderImage} alt="" className="w-36 h-36 rounded-xl" />
       </div>
-      <div className="flex flex-col row-span-2 text-2xl justify-center text-center">
+      <div className="flex flex-col row-span-2 text-2xl justify-center text-center text-white">
         {userDetails && (
           <h1>
             <span>Position:</span> {userDetails.position}
