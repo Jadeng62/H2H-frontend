@@ -1,43 +1,36 @@
-import { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { getUserData } from '../helpers/getUserData';
-import "../Styles/teamForm.css"
+import "../Styles/teamForm.css";
 
 const MyTeamForm = ({ userDetails, userTeam }) => {
-    // const { id } = useParams();
     const [formData, setFormData] = useState({
         team_name: '',
         team_pic: '',
-        logo: ''
+        logo: '',
+        point_guard_id: 0,
+        shooting_guard_id: 0,
+        small_forward_id: 0,
+        power_forward_id: 0,
+        center_id: 0,
+        captain_id: 0,
+        team_wins: 0,
+        team_loss: 0,
+        matches_played: 0
     });
-    const [teamCreated, setTeamCreated] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-           [name]: value
-        });
+        if (['team_name', 'team_pic', 'logo'].includes(name)) {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
 
-    // pass on prop to get teams specific to the user
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const userData = await getUserData();
-    //             console.log('User data:', userData);
-    //         } catch (error) {
-    //             console.error('Error fetching user data:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-    console.log(userDetails)
-    console.log(userDetails.user_team_id)
+    // maybe gotta get team as well using userTeam prop (fx is in myTeam.jsx)
+    // gotta log in as a user who has no team (fx is in myTeam.jsx)
     console.log(userTeam)
-
-    // connect to myTeams component which has get fx for getting teams by id
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -48,21 +41,17 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
                 },
                 body: JSON.stringify(formData),
             });
+
             if (!response.ok) {
                 throw new Error('Team creation failed');
             }
+
             const data = await response.json();
-            setTeamCreated(data);
+            console.log('Team created:', data);
         } catch (error) {
-            console.log('Error fetching team:', error);
+            console.error('Error creating team:', error);
         }
     };
-
-    useEffect(() => {
-        if (teamCreated) {
-            console.log('Team created:', teamCreated);
-        }
-    }, [teamCreated]);
 
     const {
         team_name,
@@ -99,7 +88,7 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
                 <label htmlFor='team-logo' className='team-form-label'>
                     Logo URL:
                     <input 
-                        id='team-log'
+                        id='team-logo'
                         type="text"
                         name="logo"
                         value={logo}
@@ -107,10 +96,11 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                <button className='team-form-btn'>Submit</button>
+                <button className='team-form-btn'>Create Team</button>
             </form>
         </div>
     );
 };
 
 export default MyTeamForm;
+
