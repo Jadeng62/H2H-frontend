@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formattedDate, formattedTime } from "../helpers/helper";
 
 const UpcomingGames = ({ userDetails }) => {
   const [upcomingGames, setUpcomingGames] = useState([]);
@@ -10,55 +11,25 @@ const UpcomingGames = ({ userDetails }) => {
     if (userDetails && userDetails.id) {
       fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
         .then((res) => res.json())
-        .then((data) => setUpcomingGames(data));
+        .then(async (data) => {
+          const gamesWithTeamNames = await Promise.all(
+            data.map(async (game) => {
+              const opponentId =
+                userDetails.user_team_id === game.team1_id
+                  ? game.team2_id
+                  : game.team1_id;
+              const res = await fetch(`${URL}/api/teams/${opponentId}`);
+              const team = await res.json();
+              return {
+                ...game,
+                opponentTeamName: team.team_name,
+              };
+            })
+          );
+          setUpcomingGames(gamesWithTeamNames);
+        });
     }
-  }, [userDetails]); // Only run when userDetails changes
-
-  function formattedDate(iso) {
-    const date = new Date(iso);
-    const year = date.getUTCFullYear();
-    const month = date.getUTCMonth();
-    const day = date.getUTCDate();
-
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    return `${monthNames[month]} ${day}, ${year}`;
-  }
-
-  function formattedTime(iso) {
-    const date = new Date(iso);
-    const hour = date.getUTCHours();
-    const minute = date.getUTCMinutes();
-    let period = "AM";
-
-    // Convert hours to 12-hour format and determine AM/PM
-    let formattedHour = hour;
-    if (hour >= 12) {
-      formattedHour = hour === 12 ? 12 : hour - 12;
-      period = "PM";
-    }
-    if (formattedHour === 0) {
-      formattedHour = 12; // 0 should be displayed as 12 AM
-    }
-
-    // Ensure minutes are formatted properly (e.g., "05" instead of "5")
-    const formattedMinute = minute < 10 ? `0${minute}` : minute;
-
-    return `${formattedHour}:${formattedMinute} ${period}`;
-  }
+  }, [userDetails]);
 
   return (
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
@@ -107,7 +78,7 @@ const UpcomingGames = ({ userDetails }) => {
                   <td className="px-6 py-5">
                     {formattedTime(game.start_datetime)}
                   </td>
-                  <td className="px-6 py-5">{game.team2_id}</td>
+                  <td className="px-6 py-5">{game.opponentTeamName}</td>
                 </tr>
               ))}
             </tbody>

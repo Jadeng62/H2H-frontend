@@ -5,8 +5,8 @@ import { ShieldHalf } from "lucide-react";
 import profileBg from "../assets/profile-bg.jpeg";
 
 const PlayerCard = ({ userDetails, userTeam }) => {
-  console.log("User Info: ", userDetails);
-  console.log("User Team: ", userTeam);
+  // console.log("User Info: ", userDetails);
+  // console.log("User Team: ", userTeam);
 
   return (
     <div
