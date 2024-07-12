@@ -81,7 +81,7 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route
             path="/createTeam"
-            element={<MyTeamForm userDetails={userDetails} userTeam={userTeam} />}
+            element={userDetails && <MyTeamForm userDetails={userDetails} userTeam={userTeam} />}
           />
           <Route
             path="/editTeam"
