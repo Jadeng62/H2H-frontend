@@ -66,9 +66,13 @@ const UpcomingGames = ({ userDetails }) => {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="">
               {upcomingGames.map((game) => (
-                <tr className="bg-white border-b" key={game.id}>
+                <tr
+                  className="bg-white border-b hover:bg-primary/90"
+                  onClick={() => navigate(`/matches/${game.id}`)}
+                  key={game.id}
+                >
                   <th
                     scope="row"
                     className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"

@@ -18,6 +18,7 @@ import { getUserData } from "./helpers/getUserData";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
+import MatchDetails from "./Components/MatchDetails";
 
 function App() {
   const [user, setUser] = useState();
@@ -76,6 +77,7 @@ function App() {
             }
           />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={<MyTeamForm />} />

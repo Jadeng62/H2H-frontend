@@ -21,7 +21,7 @@ const PlayerCard = ({ userDetails, userTeam }) => {
           <h1 className="text-2xl">{userTeam && userTeam.team_name}</h1>
           {/* <ShieldHalf className="mb-1 mx-1" size={26} /> */}
         </div>
-        <div className="">
+        <div>
           {userDetails && (
             <h1 className="text-5xl font-bold text-black ">{`${userDetails.first_name} ${userDetails.last_name}`}</h1>
           )}
