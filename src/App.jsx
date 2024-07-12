@@ -21,7 +21,6 @@ import MyTeamForm from "./Components/MyTeamForm";
 
 function App() {
   const [user, setUser] = useState();
-
   const [userDetails, setUserDetails] = useState(null);
   const [userTeam, setUserTeam] = useState("");
 
@@ -76,7 +75,10 @@ function App() {
             }
           />
           <Route path="/matches" element={<Matches />} />
-          <Route path="/myTeam" element={<MyTeam />} />
+          <Route
+            path="/myTeam"
+            element={<MyTeam userDetails={userDetails} user={user} />}
+          />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={<MyTeamForm />} />
         </Routes>

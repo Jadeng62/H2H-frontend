@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X, Accessibility, Award } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
-const MyTeam = () => {
-  //   console.log(playersData.players);
-
+const MyTeam = ({ user, userDetails }) => {
+  const URL = import.meta.env.VITE_BASE_URL;
+  const myUser = { ...user };
+  const myUserDetails = { ...userDetails };
+  // const [teamPlayersIDs, setTeamPlayersIDs] = useState([]);
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
@@ -16,12 +18,19 @@ const MyTeam = () => {
   };
 
   useEffect(() => {
+    if (myUserDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => setTeamData(data))
+        .catch((error) => console.error("Error fetching team data:", error));
+    }
+  }, [myUserDetails.user_team_id]);
+
+  useEffect(() => {
     setPlayersInTeam(playersData.players);
   }, []);
 
-  useEffect(() => {
-    setTeamData(playersData.teams[0]);
-  }, []);
+  console.log("PLayer's in team:", playersInTeam);
 
   const handleWL = (w, l) => {
     const wLRatio = w / l;
@@ -43,23 +52,32 @@ const MyTeam = () => {
     return new Date(dateString).toLocaleDateString("en-US", options);
   }
 
-  console.log("playersInTeam-->", playersInTeam);
+  // console.log("playersInTeam-->", playersInTeam);
+
+  // console.log("This is the data from myUser:", myUser);
+  console.log("This is the data from myUserDetails:", myUserDetails);
+  console.log("This is teamData:", teamData);
   return (
     <div className="min-h-screen">
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
 
-      {isUserTeamCaptain ? (
+      {myUserDetails && myUserDetails.user_team_id ? (
         <>
           {teamData && (
             <div className="mx-10 mb-5 mt-10">
               <div className="flex flex-row w-full md:w-1/2 bg-background rounded-lg">
                 <div className=" rounded-l-xl">
                   {/* this is where we'd put the dynamic team icon */}
-                  <Accessibility
+                  {/* <Accessibility
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
+                  /> */}
+                  <img
+                    src={teamData.team_pic}
+                    alt="team_pic"
+                    className="w-48 border-secondary border-4 m-2"
                   />
                 </div>
                 <div className="flex flex-col p-1">
