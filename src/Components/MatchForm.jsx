@@ -1,41 +1,104 @@
 import { useState } from "react";
 
+import "../Styles/matchForm.css"
 
 
-const MatchForm = () => {
+
+const MatchForm = ({toggle, setToggle, setMatchData, userDetails, userTeam}) => {
     const [formData, setFormData] = useState({
-        team: "",
-        match_type: "",
-        date: ""
+      address: "",
+      state: "",
+      city: "",
+      zip: "",
+      date: ""
     });
 
+    const URL = import.meta.env.VITE_BASE_URL;
 
 
-    const handleSubmit = () => {
-
+    const handleChange = (e) => {
+      setFormData({...formData, [e.target.id] : [e.target.value]})
     }
+
+
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+
+      const options = {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {"Content-Type": "application/json"}
+      }
+      fetch(`${URL}/api/matches`, options)
+       .then((res) => res.json())
+       .then((data) => {
+        if (data) {
+          setMatchData(data)
+          setToggle(!toggle)
+        } else {
+          throw new Error("Problwm with post")
+        }
+       })
+    }
+
+    const handleCancel = (e) => {
+      setFormData({
+        address: "",
+        state: "",
+        city: "",
+        zip: "",
+        date: ""
+      })
+      setToggle(!toggle)
+    }
+
 
 
     return (
         <div className="match-form-container">
-        <label htmlFor="team"/>
+        <form className="match-form">
+          <h1 className="match-form-h1">Enter Match Details</h1>
+        <label htmlFor="address"/>
           <input
-            id="team"
-            value={formData.team}
+            id="address"
+            value={formData.address}
             type="text"
             required
-            placeholder="Enter Team Name ..."
+            placeholder="Enter Street Address ..."
             onChange={handleChange}
             className="match-form-input"
           />
 
-        <label htmlFor="type" />
+        <label htmlFor="state" />
           <input
-            id="type"
-            value={formData.type}
+            id="state"
+            value={formData.state}
             type="text"
             required
-            placeholder="Enter Match Type ..."
+            placeholder="Enter State"
+            onChange={handleChange}
+            className="match-form-input"
+          />
+
+        <label htmlFor="city" />
+          <input
+            id="city"
+            value={formData.city}
+            type="text"
+            required
+            placeholder="Enter City"
+            onChange={handleChange}
+            className="match-form-input"
+          />
+
+        <label htmlFor="zip" />
+          <input
+            id="zip"
+            value={formData.zip}
+            type="text"
+            required
+            placeholder="Enter Zip"
             onChange={handleChange}
             className="match-form-input"
           />
@@ -49,7 +112,12 @@ const MatchForm = () => {
             onChange={handleChange}
             className="match-form-input"
           />
-        </div>
+       </form>
+       <div className="match-form-btn-container">
+        <button onClick={handleSubmit} className="match-form-btn">Submit</button>
+        <button onClick={handleCancel}  className="match-form-btn danger">Cancel</button>
+       </div>
+      </div>
     )
 }
 

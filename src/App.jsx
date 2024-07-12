@@ -105,6 +105,7 @@ function App() {
               )
             }
           />
+          <Route path="/matches" element={<Matches userDetails={userDetails} userTeam={userTeam}/>} />
           <Route path="/matches" element={<Matches />} />
           <Route
             path="/matches/:id"

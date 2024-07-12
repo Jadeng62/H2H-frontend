@@ -39,12 +39,12 @@
 .matches-games-container {
     display: grid;
     text-align: center;
-    width: 120px;
+    /* width: 120px;
     height: 180px;
     padding: 20px;
     border-radius: 8px;
     margin: 12px;
-    background-color: #C7CCCF;
+    background-color: #C7CCCF; */
 }
 
 
