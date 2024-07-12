@@ -21,21 +21,23 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
     };
 
     // pass on prop to get teams specific to the user
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userData = await getUserData();
-                console.log('User data:', userData);
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const userData = await getUserData();
+    //             console.log('User data:', userData);
+    //         } catch (error) {
+    //             console.error('Error fetching user data:', error);
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
     console.log(userDetails)
     console.log(userDetails.user_team_id)
     console.log(userTeam)
+
+    // connect to myTeams component which has get fx for getting teams by id
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
