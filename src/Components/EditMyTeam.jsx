@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { getUserData } from '../helpers/getUserData';
 import '../Styles/teamForm.css';
 
-const EditMyTeam = ({ userDetails }) => {
-    const { id } = useParams();
+const EditMyTeam = ({ userDetails, userTeam }) => {
+    // const { id } = useParams();
     const [formData, setFormData] = useState({
         team_name: '',
         team_pic: '',
@@ -13,24 +13,27 @@ const EditMyTeam = ({ userDetails }) => {
     const [team, setTeam] = useState(null);
 
     // pass on prop instead
+    console.log(userDetails)
+    // console.log(userDetails.user_team_id)
+    // console.log(userTeam)
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const userData = await getUserData();
-    //             console.log('User data:', userData);
-    //         } catch (error) {
-    //             console.error('Error fetching user data:', error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userData = await getUserData();
+                console.log('User data:', userData);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
-    //     fetchData();
-    // }, []);
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const fetchTeam = async () => {
             try {
-                const response = await fetch(`http://localhost:3003/api/teams/${id}`);
+                const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`);
                 if (!response.ok) {
                     throw new Error('Team not found');
                 }
@@ -42,12 +45,12 @@ const EditMyTeam = ({ userDetails }) => {
                     logo: data.logo
                 });
             } catch (error) {
-                console.error('Error fetching team:', error);
+                console.log('Error fetching team:', error);
             }
         };
 
         fetchTeam();
-    }, [id]);
+    }, [userDetails.user_team_id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,7 +63,7 @@ const EditMyTeam = ({ userDetails }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3003/api/teams/${id}`, {
+            const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

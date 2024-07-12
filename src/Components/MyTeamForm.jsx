@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
+// import { useParams } from 'react-router-dom';
+import { getUserData } from '../helpers/getUserData';
 import "../Styles/teamForm.css"
 
 const MyTeamForm = ({ userDetails, userTeam }) => {
-    const { id } = useParams();
+    // const { id } = useParams();
     const [formData, setFormData] = useState({
         team_name: '',
         team_pic: '',
@@ -21,10 +21,25 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
     };
 
     // pass on prop to get teams specific to the user
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userData = await getUserData();
+                console.log('User data:', userData);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    console.log(userDetails)
+    console.log(userDetails.user_team_id)
+    console.log(userTeam)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3003/api/teams/${id}`, {
+            const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +52,7 @@ const MyTeamForm = ({ userDetails, userTeam }) => {
             const data = await response.json();
             setTeamCreated(data);
         } catch (error) {
-            setError(error.message);
+            console.log('Error fetching team:', error);
         }
     };
 
