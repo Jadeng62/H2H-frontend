@@ -2,67 +2,17 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X, Accessibility, Award } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
-const MyTeam = ({ user, userDetails }) => {
+
+const MyTeam = ({ userDetails }) => {
   const URL = import.meta.env.VITE_BASE_URL;
-  const myUser = { ...user };
+  // user obj w/ user data
   const myUserDetails = { ...userDetails };
-  const [teamPlayersIDs, setTeamPlayersIDs] = useState([]);
+  // team obj w/ playerids, matches, captain id, etc
+  const [teamData, setTeamData] = useState(null);
+  // an array of team member user objs
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
-
-  const [teamData, setTeamData] = useState(null);
-
-  const handleDelete = (playerID) => {
-    console.log("Clicked delete for playerID:", playerID);
-  };
-
-  useEffect(() => {
-    if (myUserDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          // Extract player IDs from the fetched team data
-          const {
-            point_guard_id,
-            shooting_guard_id,
-            small_forward_id,
-            power_forward_id,
-            center_id,
-            captain_id,
-          } = data;
-
-          // Update teamPlayersIDs state with the extracted IDs
-          setTeamPlayersIDs([
-            point_guard_id,
-            shooting_guard_id,
-            small_forward_id,
-            power_forward_id,
-            center_id,
-            captain_id,
-          ]);
-
-          // Update teamData state with the entire team data
-          setTeamData(data);
-        })
-        .catch((error) =>
-          console.error("Error fetching team data and players:", error)
-        );
-    }
-  }, [myUserDetails.user_team_id]);
-
-  useEffect(() => {
-    setPlayersInTeam(playersData.players);
-  }, []);
-
-  console.log("PLayer's in team:", playersInTeam);
-  console.log("teamIDs-->", teamPlayersIDs);
-
-  const handleWL = (w, l) => {
-    const wLRatio = w / l;
-    const flooredRatio = Math.floor(wLRatio * 10) / 10;
-    return flooredRatio;
-  };
 
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
@@ -78,11 +28,51 @@ const MyTeam = ({ user, userDetails }) => {
     return new Date(dateString).toLocaleDateString("en-US", options);
   }
 
-  // console.log("playersInTeam-->", playersInTeam);
+  const handleWL = (w, l) => {
+    const wLRatio = w / l;
+    const flooredRatio = Math.floor(wLRatio * 10) / 10;
+    return flooredRatio;
+  };
 
-  // console.log("This is the data from myUser:", myUser);
-  console.log("This is the data from myUserDetails:", myUserDetails);
-  console.log("This is teamData:", teamData);
+  const handleDelete = (playerID) => {
+    console.log("Clicked delete for playerID:", playerID);
+  };
+
+  // sets captainstate for user, and teamdata needed for this view
+  useEffect(() => {
+    if (myUserDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // Update teamData state with the entire team data
+          setTeamData(data);
+          // Check if current user is team captain
+          if (captain_id === myUserDetails.id) {
+            setIsUserTeamCaptain(true);
+          } else {
+            setIsUserTeamCaptain(false);
+          }
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [myUserDetails.user_team_id]);
+
+  // sets state with all players on the user's team
+  useEffect(() => {
+    if (myUserDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}/users`)
+        .then((res) => res.json())
+        .then((data) => {
+          setPlayersInTeam(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [myUserDetails.user_team_id]);
+
   return (
     <div className="min-h-screen">
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
@@ -181,7 +171,7 @@ const MyTeam = ({ user, userDetails }) => {
                             className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                           >
                             <td className="px-6 py-5 text-black/80">
-                              {player.firstName} {player.lastName}
+                              {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
                             <td className="px-6 py-5">
