@@ -2,34 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formattedDate, formattedTime } from "../helpers/helper";
 
-const UpcomingGames = ({ userDetails }) => {
-  const [upcomingGames, setUpcomingGames] = useState([]);
+const UpcomingGames = ({ userDetails, upcomingGames }) => {
   const navigate = useNavigate();
-  const URL = import.meta.env.VITE_BASE_URL;
-
-  useEffect(() => {
-    if (userDetails && userDetails.id) {
-      fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
-        .then((res) => res.json())
-        .then(async (data) => {
-          const gamesWithTeamNames = await Promise.all(
-            data.map(async (game) => {
-              const opponentId =
-                userDetails.user_team_id === game.team1_id
-                  ? game.team2_id
-                  : game.team1_id;
-              const res = await fetch(`${URL}/api/teams/${opponentId}`);
-              const team = await res.json();
-              return {
-                ...game,
-                opponentTeamName: team.team_name,
-              };
-            })
-          );
-          setUpcomingGames(gamesWithTeamNames);
-        });
-    }
-  }, [userDetails]);
 
   return (
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
