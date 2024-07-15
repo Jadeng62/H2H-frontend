@@ -243,7 +243,7 @@ const MyTeam = ({ userDetails }) => {
                     </span>
                   )}
                 </div>
-                <table className="table-auto bg-background rounded-lg mb-10 mt-5 w-full">
+                <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full">
                   <thead className="text-left uppercase text-text">
                     <tr>
                       <th className="pl-7 py-4">Player</th>
@@ -301,8 +301,8 @@ const MyTeam = ({ userDetails }) => {
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                 {playersInTeam && playersInTeam.length > 4 && (
-                  <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md hover:bg-accent mr-10">
-                    {currentSaying}
+                  <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
+                    ***{currentSaying}***
                   </div>
                 )}
               </div>
