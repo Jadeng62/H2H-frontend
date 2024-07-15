@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { formattedDate, formattedTime } from "../helpers/helper";
+import {
+  formatPositionSpelling,
+  formattedDate,
+  formattedTime,
+} from "../helpers/helper";
+import captainPic from "../assets/captain.webp";
 
 const MatchDetails = ({ upcomingGames, userTeam }) => {
   const [match, setMatch] = useState({});
@@ -74,7 +79,7 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
           </h1>
           <div className="flex justify-center">
             <table
-              className="table-auto bg-background rounded-lg mx-10 w-full"
+              className="table-auto bg-background rounded-lg mx-10 w-fit"
               style={{ marginTop: "15%", marginBottom: "15%" }}
             >
               <thead className="text-left uppercase">
@@ -89,17 +94,24 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                   firstTeamRoster.map((player) => (
                     <tr
                       key={player.id}
-                      className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
+                      className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
                     >
                       <td className="px-6 py-5 text-black/80">
-                        <div className="flex m-auto">
-                          <img src={player.photo} className="w-16" />
-                          <h1 className="my-auto">
-                            {player.first_name} {player.last_name}
-                          </h1>
+                        <div className="flex flex-wrap items-center m-auto">
+                          <img src={player.photo} className="w-16 mr-7" />
+                          <div>
+                            <h1 className="mr-7">
+                              {player.first_name} {player.last_name}
+                            </h1>
+                            {player.id === firstTeamDetails.captain_id && (
+                              <img src={captainPic} alt="" className="w-8" />
+                            )}
+                          </div>
                         </div>
                       </td>
-                      <td className="px-6 py-5">{player.position}</td>
+                      <td className="px-6 py-5">
+                        {formatPositionSpelling(player.position)}
+                      </td>
                       {/* <td className="px-6 py-5">{player.username}</td> */}
                     </tr>
                   ))}
@@ -163,7 +175,7 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
           </h1>
           <div className="flex justify-center">
             <table
-              className="table-auto bg-background rounded-lg mx-10 w-full"
+              className="table-auto bg-background rounded-lg mx-10 w-fit"
               style={{ marginTop: "15%", marginBottom: "15%" }}
             >
               <thead className="text-left uppercase">
@@ -181,14 +193,21 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                       className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                     >
                       <td className="px-6 py-5 text-black/80">
-                        <div className="flex m-auto">
-                          <img src={player.photo} className="w-16" />
-                          <h1 className="my-auto">
-                            {player.first_name} {player.last_name}
-                          </h1>
-                        </div>{" "}
+                        <div className="flex flex-wrap items-center m-auto">
+                          <img src={player.photo} className="w-16 mr-7" />
+                          <div>
+                            <h1 className="mr-7">
+                              {player.first_name} {player.last_name}
+                            </h1>
+                            {player.id === secondTeamDetails.captain_id && (
+                              <img src={captainPic} alt="" className="w-8" />
+                            )}
+                          </div>
+                        </div>
                       </td>
-                      <td className="px-6 py-5">{player.position}</td>
+                      <td className="px-6 py-5">
+                        {formatPositionSpelling(player.position)}
+                      </td>
                       {/* <td className="px-6 py-5">{player.username}</td> */}
                     </tr>
                   ))}
