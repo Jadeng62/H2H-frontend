@@ -14,6 +14,13 @@ const MyTeam = ({ userDetails }) => {
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
 
+  // const total = wins + losses;
+  // {teamData.matches_played;}
+  // const winPercentage = (wins / total) * 100;
+  // ({teamData.team_wins}/{teamData.matches_played}) * 100
+  // const lossPercentage = (losses / total) * 100;
+  //// ({teamData.team_loss}/{teamData.matches_played}) * 100
+
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
     const options = {
@@ -81,29 +88,32 @@ const MyTeam = ({ userDetails }) => {
 
       {myUserDetails && myUserDetails.user_team_id ? (
         <>
-          {teamData && (
-            <div className="mx-10 mb-5 mt-10">
-              <div className="flex flex-row w-full md:w-1/2 bg-background rounded-lg">
-                <div className=" rounded-l-xl">
-                  {/* this is where we'd put the dynamic team icon */}
-                  {/* <Accessibility
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              {/* className=" flex justify-center" */}
+              {teamData && (
+                <div className="mx-10 mb-5 mt-10 ">
+                  <div className="flex flex-row w-full bg-background border-4 border-white/10 rounded-lg p-3">
+                    <div className=" rounded-l-xl">
+                      {/* this is where we'd put the dynamic team icon */}
+                      {/* <Accessibility
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                  <img
-                    src={teamData.team_pic}
-                    alt="team_pic"
-                    className="w-48 border-secondary border-4 m-2"
-                  />
-                </div>
-                <div className="flex flex-col p-1">
-                  <div className="text-white text-3xl">
-                    {teamData.team_name}
-                  </div>
-                  <div className="text-white text-2xl">
-                    Total Matches: {teamData.matches_played}
-                  </div>
-                  <div className="flex flex-row">
+                      <img
+                        src={teamData.team_pic}
+                        alt="team_pic"
+                        className="w-48 border-secondary border-4 m-2"
+                      />
+                    </div>
+                    <div className="flex flex-col p-1">
+                      <div className="text-white text-3xl">
+                        {teamData.team_name}
+                      </div>
+                      <div className="text-white text-2xl">
+                        Total Matches: {teamData.matches_played}
+                      </div>
+                      {/* <div className="flex flex-row">
                     <div className="text-white text-2xl">
                       Won:{" "}
                       <span className="text-primary">{teamData.team_wins}</span>
@@ -112,46 +122,101 @@ const MyTeam = ({ userDetails }) => {
                       Lost:{" "}
                       <span className="text-accent">{teamData.team_loss}</span>
                     </div>
+                  </div> */}
+                    </div>
+                  </div>
+                  <div className="bg-background p-2 text-text inline-block rounded-lg mt-10">
+                    {" "}
+                    <div className="flex flex-row items-center">
+                      <Award size={30} className="text-amber-400" />
+                      <span className="text-xl">
+                        Balling since {dateToString(teamData.created_at)}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-background py-2 px-2 text-text inline-block rounded-lg mt-10">
-                {" "}
-                <div className="flex flex-row items-center">
-                  <Award size={30} />
-                  <span className="text-xl">
-                    Balling since {dateToString(teamData.created_at)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div>
-              {/* className=" flex justify-center" */}
+              )}
               <div>
-                <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-5 ">
+                <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
                   Stats
                 </h2>
-                <div className="bg-red-400 p-16 flex mx-10 mb-10 mt-5">
-                  <div className=" bg-green-300 p-2">Charts + metrics</div>
+                <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                  <h3 className="flex justify-center">
+                    <span className="  p-2 rounded-lg">Games Won</span>
+                  </h3>
+                  <h3 className="flex justify-center">
+                    <span className="  p-2 rounded-lg">Games Lost</span>
+                  </h3>
+                </div>
+                <div className="bg-background rounded-lg p-3 flex mx-10">
+                  {teamData && teamData.matches_played > 0 ? (
+                    <>
+                      <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
+                        <div className="relative h-6 flex items-center ">
+                          {/* Win bar */}
+                          <div
+                            className="relative top-0 bottom-0 left-0  bg-primary py-1"
+                            style={{
+                              width: `${
+                                (teamData.team_wins / teamData.matches_played) *
+                                100
+                              }%`,
+                            }}
+                          >
+                            <div className="relative flex justify-center text-green-900 font-medium text-sm">
+                              {Math.round(
+                                (teamData.team_wins / teamData.matches_played) *
+                                  100
+                              )}
+                              %
+                            </div>
+                          </div>
+
+                          {/* Loss bar */}
+                          <div
+                            className="relative top-0 bottom-0 left-0 bg-accent py-1"
+                            style={{
+                              width: `${
+                                (teamData.team_loss / teamData.matches_played) *
+                                100
+                              }%`,
+                            }}
+                          >
+                            <div className="relative flex justify-center text-red-900 font-medium text-sm">
+                              {Math.round(
+                                (teamData.team_loss / teamData.matches_played) *
+                                  100
+                              )}
+                              %
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="bg-secondary p-2 rounded-lg">
+                        Not enough data for metrics
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <div className=" flex justify-center">
-              <div>
+            <div className=" grid grid-col-1 mx-10">
+              <div className="">
                 <div className="flex flex-row items-center">
-                  <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-5 mr-auto">
+                  <h2 className="text-white text-4xl bebas-neue-regular mt-10">
                     Roster
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                   {playersInTeam && playersInTeam.length > 4 && (
-                    <div className="text-white p-2 mt-4 bg-secondary rounded-lg hover:bg-accent mr-10">
+                    <span className="text-white p-2 mt-10 bg-secondary rounded-lg hover:bg-accent ml-auto">
                       Add Player
-                    </div>
+                    </span>
                   )}
                 </div>
-                <table className="table-auto bg-background rounded-lg mx-10 mb-10 mt-5">
+                <table className="table-auto bg-background rounded-lg mb-10 mt-5 w-full">
                   <thead className="text-left uppercase text-text">
                     <tr>
                       <th className="pl-7 py-4">Player</th>
@@ -170,6 +235,13 @@ const MyTeam = ({ userDetails }) => {
                             key={player.id}
                             className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                           >
+                            {/* <td>
+                              <img
+                                src={player.photo}
+                                alt="player_photo's"
+                                className="w-12 h-12 rounded-lg"
+                              />
+                            </td> */}
                             <td className="px-6 py-5 text-black/80">
                               {player.first_name} {player.last_name}
                             </td>
