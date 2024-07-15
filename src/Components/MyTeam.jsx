@@ -13,6 +13,22 @@ const MyTeam = ({ userDetails }) => {
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
+  // state for current saying
+  const [currentSaying, setCurrentSaying] = useState("");
+
+  // array of sayings for when a user still needs a full team to play
+  const sayings = [
+    "The game requires a full team lineup; assemble your squad!",
+    "Complete your team roster before stepping onto the field of play.",
+    "Remember, a complete team is essential for game participation.",
+    "No substitutions for a full team; gather your players!",
+    "Team up! You need a full squad to hit the field.",
+    "Game on! Ensure your team is complete for match day.",
+    "Can't play solo; recruit your team for match participation.",
+    "Don't leave gaps on the roster; a full team is required.",
+    "Check your lineup; a complete team is necessary for gameplay.",
+    "There's no I and team. You need a full team to play in matches.",
+  ];
 
   // const total = wins + losses;
   // {teamData.matches_played;}
@@ -20,6 +36,12 @@ const MyTeam = ({ userDetails }) => {
   // ({teamData.team_wins}/{teamData.matches_played}) * 100
   // const lossPercentage = (losses / total) * 100;
   //// ({teamData.team_loss}/{teamData.matches_played}) * 100
+
+  // function to cycle through sayings to encourage user to get a full team in order to play matches
+  const selectRandomSaying = () => {
+    const randomIndex = Math.floor(Math.random() * sayings.length);
+    setCurrentSaying(sayings[randomIndex]);
+  };
 
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
@@ -44,6 +66,11 @@ const MyTeam = ({ userDetails }) => {
   const handleDelete = (playerID) => {
     console.log("Clicked delete for playerID:", playerID);
   };
+
+  // useEffect for saying selector/generator
+  useEffect(() => {
+    selectRandomSaying();
+  }, []);
 
   // sets captainstate for user, and teamdata needed for this view
   useEffect(() => {
@@ -275,8 +302,7 @@ const MyTeam = ({ userDetails }) => {
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                 {playersInTeam && playersInTeam.length > 4 && (
                   <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md hover:bg-accent mr-10">
-                    There's no I and team. You need a full team to play in
-                    matches.
+                    {currentSaying}
                   </div>
                 )}
               </div>
