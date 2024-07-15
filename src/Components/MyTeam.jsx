@@ -93,7 +93,7 @@ const MyTeam = ({ userDetails }) => {
               {/* className=" flex justify-center" */}
               {teamData && (
                 <div className="mx-10 mb-5 mt-10 ">
-                  <div className="flex flex-row w-full bg-background border-4 border-white/10 rounded-lg p-3">
+                  <div className="flex flex-row w-full bg-background shadow-2xl border-4 border-white/10 rounded-lg p-3">
                     <div className=" rounded-l-xl">
                       {/* this is where we'd put the dynamic team icon */}
                       {/* <Accessibility
@@ -103,10 +103,10 @@ const MyTeam = ({ userDetails }) => {
                       <img
                         src={teamData.team_pic}
                         alt="team_pic"
-                        className="w-48 border-secondary border-4 m-2"
+                        className="w-36 border-secondary border-4 m-2"
                       />
                     </div>
-                    <div className="flex flex-col p-1">
+                    <div className="flex flex-col p-1 ml-2">
                       <div className="text-white text-3xl">
                         {teamData.team_name}
                       </div>
@@ -125,7 +125,7 @@ const MyTeam = ({ userDetails }) => {
                   </div> */}
                     </div>
                   </div>
-                  <div className="bg-background p-2 text-text inline-block rounded-lg mt-10">
+                  <div className="bg-background p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
                     <div className="flex flex-row items-center">
                       <Award size={30} className="text-amber-400" />
@@ -148,7 +148,7 @@ const MyTeam = ({ userDetails }) => {
                     <span className="  p-2 rounded-lg">Games Lost</span>
                   </h3>
                 </div>
-                <div className="bg-background rounded-lg p-3 flex mx-10">
+                <div className="bg-background shadow-2xl rounded-lg p-3 flex mx-10">
                   {teamData && teamData.matches_played > 0 ? (
                     <>
                       <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
@@ -211,7 +211,7 @@ const MyTeam = ({ userDetails }) => {
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                   {playersInTeam && playersInTeam.length > 4 && (
-                    <span className="text-white p-2 mt-10 bg-secondary rounded-lg hover:bg-accent ml-auto">
+                    <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl">
                       Add Player
                     </span>
                   )}
@@ -249,11 +249,11 @@ const MyTeam = ({ userDetails }) => {
                             <td className="px-6 py-5">
                               <div className="bg-background px-2 rounded inline-block">
                                 <span className="text-primary font-bold">
-                                  {player.userWins}
+                                  {player.user_wins}
                                 </span>{" "}
                                 <span className="font-bold text-text">/</span>{" "}
                                 <span className="text-accent font-bold">
-                                  {player.userLosses}
+                                  {player.user_losses}
                                 </span>
                               </div>
                             </td>
