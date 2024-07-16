@@ -174,6 +174,7 @@ function Register() {
             />
           </label>
          <div className="register-radio">
+         <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">
             Point Guard{" "}
             <input
