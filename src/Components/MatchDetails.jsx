@@ -75,7 +75,7 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
       <div className="grid grid-cols-3 max-sm:grid-cols-1">
         <div>
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
-            Team A
+            {firstTeamDetails && firstTeamDetails.team_name}
           </h1>
           <div className="flex justify-center">
             <table
@@ -86,7 +86,6 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                 <tr>
                   <th className="pl-7 py-4">Player</th>
                   <th className="pl-7 py-4"> Position</th>
-                  {/* <th className="px-6 py-4">Wins/Losses</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -97,14 +96,16 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                       className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
                     >
                       <td className="px-6 py-5 text-black/80">
-                        <div className="flex flex-wrap items-center m-auto">
+                        <div className="flex items-center m-auto">
                           <img src={player.photo} className="w-16 mr-7" />
-                          <div>
-                            <h1 className="mr-7">
-                              {player.first_name} {player.last_name}
-                            </h1>
+                          <div className="mr-7">
+                            {player.first_name} {player.last_name}{" "}
                             {player.id === firstTeamDetails.captain_id && (
-                              <img src={captainPic} alt="" className="w-8" />
+                              <img
+                                src={captainPic}
+                                alt=""
+                                className="w-8" // Added ml-3 and md:ml-5 for additional margin
+                              />
                             )}
                           </div>
                         </div>
@@ -112,7 +113,6 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                       <td className="px-6 py-5">
                         {formatPositionSpelling(player.position)}
                       </td>
-                      {/* <td className="px-6 py-5">{player.username}</td> */}
                     </tr>
                   ))}
               </tbody>
@@ -171,7 +171,7 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
         </div>
         <div className="">
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
-            Team B
+            {secondTeamDetails && secondTeamDetails.team_name}
           </h1>
           <div className="flex justify-center">
             <table
@@ -182,7 +182,6 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                 <tr>
                   <th className="pl-7 py-4">Player</th>
                   <th className="pl-7 py-4"> Position</th>
-                  {/* <th className="px-6 py-4">Wins/Losses</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -190,25 +189,26 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                   secondTeamRoster.map((player) => (
                     <tr
                       key={player.id}
-                      className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
+                      className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
                     >
                       <td className="px-6 py-5 text-black/80">
-                        <div className="flex flex-wrap items-center m-auto">
+                        <div className="flex items-center m-auto">
                           <img src={player.photo} className="w-16 mr-7" />
-                          <div>
-                            <h1 className="mr-7">
-                              {player.first_name} {player.last_name}
-                            </h1>
+                          <div className="mr-7">
+                            {player.first_name} {player.last_name}{" "}
                             {player.id === secondTeamDetails.captain_id && (
-                              <img src={captainPic} alt="" className="w-8" />
+                              <img
+                                src={captainPic}
+                                alt=""
+                                className="w-8" // Added ml-3 and md:ml-5 for additional margin
+                              />
                             )}
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-5">
+                      <td className="px-6 py-5 ml-7">
                         {formatPositionSpelling(player.position)}
                       </td>
-                      {/* <td className="px-6 py-5">{player.username}</td> */}
                     </tr>
                   ))}
               </tbody>
