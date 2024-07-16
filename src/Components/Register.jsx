@@ -13,10 +13,13 @@ import "../Styles/register.css"
 
 function Register() {
   const [newUser, setNewUser] = useState({
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
+      email: "",
+      first_name: "",
+      last_name: "",
+      photo: "",
+      username:"",
+      dob:"",
+      position:""
   });
 
   const navigate = useNavigate();
@@ -25,12 +28,22 @@ function Register() {
     setNewUser({ ...newUser, [e.target.id]: e.target.value });
   };
 
+  const handleRadioChange = (e) =>{
+    setNewUser({
+      ...newUser,
+      position: e.target.value
+    })
+  }
+
   const handleClearState = () => {
     setNewUser({
       email: "",
       first_name: "",
       last_name: "",
       photo: "",
+      username:"",
+      dob:"",
+      position:""
     });
   };
 
@@ -108,7 +121,31 @@ function Register() {
               className="register-input"
             />
           </label>
-
+          <label htmlFor="username" className="register-label">
+            Username{" "}
+            <input
+              type="username"
+              placeholder="Enter username"
+              id="username"
+              name="username"
+              value={newUser.username}
+              onChange={handleChange}
+              required
+              className="register-input"
+            />
+          </label>
+          <label htmlFor="dob" className="register-label">
+          Date of Birth{" "}
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            value={newUser.dob}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
           <label htmlFor="email" className="register-label">
             Email Address{" "}
             <input
@@ -136,6 +173,77 @@ function Register() {
               className="register-input"
             />
           </label>
+         <div className="register-radio">
+          <label htmlFor="position1" className="register-label">
+            Point Guard{" "}
+            <input
+              type="radio"
+              id="position1"
+              name="position"
+              value="point guard"
+              checked={newUser.position === "Point Guard"}
+              onChange={handleRadioChange}
+              required
+              className="register-radio-input"
+            />
+          </label>
+
+          <label htmlFor="position2" className="register-label">
+            Shooting Guard{" "}
+            <input
+              type="radio"
+              id="position2"
+              name="position"
+              value="shooting guard"
+              checked={newUser.position === "Shooting Guard"}
+              onChange={handleRadioChange}
+              required
+              className="register-radio-input"
+            />
+          </label>
+
+          <label htmlFor="position3" className="register-label">
+            Small Forward{" "}
+            <input
+              type="radio"
+              id="position3"
+              name="position"
+              value="small forward"
+              checked={newUser.position === "Small Forward"}
+              onChange={handleRadioChange}
+              required
+              className="register-radio-input"
+            />
+          </label>
+
+          <label htmlFor="position4" className="register-label">
+            Power Forward{" "}
+            <input
+              type="radio"
+              id="position4"
+              name="position"
+              value="power forward"
+              checked={newUser.position === "Power Forward"}
+              onChange={handleRadioChange}
+              required
+              className="register-radio-input"
+            />
+          </label>
+
+          <label htmlFor="position5" className="register-label">
+            Center{" "}
+            <input
+              type="radio"
+              id="position5"
+              name="position"
+              value="center"
+              checked={newUser.position === "Center"}
+              onChange={handleRadioChange}
+              required
+              className="register-radio-input"
+            />
+          </label>
+        </div>
           <button type="submit" className="register-btn">
             Sign Up
           </button>
@@ -143,6 +251,7 @@ function Register() {
           Already registered <Link to="/login"><span className="register-span">Login</span></Link>
         </p>
       </form>
+      {console.log(newUser)}
     </div>
     
   );
