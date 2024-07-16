@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getUserData } from '../helpers/getUserData';
 import "../Styles/teamForm.css";
 
@@ -8,7 +8,7 @@ const MyTeamForm = () => {
         team_name: '',
         team_pic: '',
         logo: '',
-        captain_id: userDetails.id,
+        captain_id: null, // maybe keep like this
         point_guard_id: null,
         shooting_guard_id: null,
         small_forward_id: null,
@@ -16,30 +16,28 @@ const MyTeamForm = () => {
         center_id: null
     });
 
-    // import helper function instead of using prop for userDetails
-    // one more state for user position with user team id from users table
-    // at first it'll be null but useState would update with userDetails.id
     useEffect(() => {
         async function getUser() {
-          const user = await getUserData();
-          if (user) {
-            setUserDetails(user);
-          }
+            try {
+                const user = await getUserData();
+                setUserDetails(user); // This updates userDetails when data is fetched
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
         }
-    
+
         getUser();
-      }, []);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "player") { // for tracking select drop down menu values
+        if (name === "player") {
             setFormData({
                 ...formData,
-                point_guard_id: value,
-                shooting_guard_id: value,
-                small_forward_id: value,
-                power_forward_id: value,
-                center_id: value
+                [value]: value
+            });
+            setUserDetails({
+                [userDetails.position]: "user input" // using as placeholder which is a number - text user selects from dropdown goes here actaully
             });
         } else {
             setFormData({
@@ -48,7 +46,6 @@ const MyTeamForm = () => {
             });
         }
     };
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,18 +58,17 @@ const MyTeamForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // put use state to update the ids of the positions
                 body: JSON.stringify({
-                    // add uid from user table  
                     team_name: formData.team_name,
                     team_pic: formData.team_pic,
                     logo: formData.logo,
-                    captain_id: userDetails.id,
-                    point_guard_id: null,
-                    shooting_guard_id: null,
-                    small_forward_id: null,
-                    power_forward_id: null,
-                    center_id: null,
+                    captain_id: userDetails.id, // Use userDetails.id when available
+                    point_guard_id: formData.point_guard_id
+                    ,
+                    shooting_guard_id: formData.power_forward_id,
+                    small_forward_id: formData.shooting_guard_id,
+                    power_forward_id: formData.small_forward_id,
+                    center_id: formData.center_id,
                     team_wins: null,
                     team_loss: null,
                     matches_played: null
@@ -91,6 +87,9 @@ const MyTeamForm = () => {
         }
     };
 
+    if (!userDetails) {
+        return <div>Loading...</div>; // in case we don't have user details populate
+    }
     const { 
         team_name, 
         team_pic, 
@@ -103,7 +102,7 @@ const MyTeamForm = () => {
         center_id
     } = formData;
 
-    return (
+     return (
         <div className='team-form-container'>
             <form onSubmit={handleSubmit} className='team-form bg-white'>
                 <h2 className='team-form-h2'>Create Team</h2>
@@ -140,22 +139,22 @@ const MyTeamForm = () => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                <select name="player" id="player" className="team-form-select">
-                    <option>-- Player Position --</option>
+                <select name="player" id="player" className="team-form-select" onChange={handleChange}>
+                    <option value="">-- Player Position --</option>
                     <option value={point_guard_id} className="team-form-option">
-                            Point Guard
+                        Point Guard
                     </option>
                     <option value={shooting_guard_id} className="team-form-option">
-                            Shooting Guard
+                        Shooting Guard
                     </option>
                     <option value={small_forward_id} className="team-form-option">
-                            Small Forward
+                        Small Forward
                     </option>
                     <option value={power_forward_id} className="team-form-option">
-                            Power Forward
+                        Power Forward
                     </option>
                     <option value={center_id} className="team-form-option">
-                            Center
+                        Center
                     </option>
                 </select>
                 <button type="submit" className='team-form-btn'>Create Team</button>
