@@ -220,11 +220,11 @@ const MyTeam = ({ userDetails }) => {
                 <div className="bg-background shadow-2xl rounded-lg p-3 flex mx-10">
                   {teamData && teamData.matches_played > 0 ? (
                     <>
-                      <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
+                      <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
                         <div className="relative h-6 flex items-center ">
                           {/* Win bar */}
                           <div
-                            className="relative top-0 bottom-0 left-0  bg-primary py-1"
+                            className="relative top-0 bottom-0 right-1  bg-primary py-1"
                             style={{
                               width: `${
                                 (teamData.team_wins / teamData.matches_played) *
@@ -233,17 +233,13 @@ const MyTeam = ({ userDetails }) => {
                             }}
                           >
                             <div className="relative flex justify-center text-green-900 font-medium text-sm">
-                              {Math.round(
-                                (teamData.team_wins / teamData.matches_played) *
-                                  100
-                              )}
-                              %
+                              {teamData.team_wins}
                             </div>
                           </div>
 
                           {/* Loss bar */}
                           <div
-                            className="relative top-0 bottom-0 left-0 bg-accent py-1"
+                            className="relative top-0 bottom-0 left-1 bg-accent py-1"
                             style={{
                               width: `${
                                 (teamData.team_loss / teamData.matches_played) *
@@ -252,11 +248,7 @@ const MyTeam = ({ userDetails }) => {
                             }}
                           >
                             <div className="relative flex justify-center text-red-900 font-medium text-sm">
-                              {Math.round(
-                                (teamData.team_loss / teamData.matches_played) *
-                                  100
-                              )}
-                              %
+                              {teamData.team_loss}
                             </div>
                           </div>
                         </div>
