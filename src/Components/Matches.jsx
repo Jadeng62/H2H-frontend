@@ -40,7 +40,6 @@ const Matches = ({userDetails, userTeam}) => {
           <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">All Matches</h1>
         <div className="matches-container h-screen">
             <div className="matches-utility-container">
-             <section className="mathes-utility-section">
                 <button className="matches-btn text-white" onClick={handleCreate}>Create Match</button>
                   <select name="borough" id="borough" className="matches-select">
                     <option>-- Match Type --</option>
@@ -49,7 +48,6 @@ const Matches = ({userDetails, userTeam}) => {
                     <option value="locked" className="matches-option">Locked</option>
                     <option value="today" className="matches-option">Today</option>
                   </select>
-             </section>
           </div>
            <div className="matches-games-container text-yellow-50 grid gap-8 p-8">
              {matchData.length > 0 && matchData.map((match, index) => (

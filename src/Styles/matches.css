@@ -2,22 +2,14 @@
     display: flex;
     flex-direction: column;
     margin: 40px;
-    border: 2px solid whitesmoke;
     border-radius: 6px;
 }
 
-/* .matches-h1 {
-    padding: 50px;
-    text-align: center;
-    font-size: xx-large;
-    font-weight: bolder;
-} */
-
 .matches-utility-container{
+    padding-bottom: 12px;
     display: flex;
-    justify-content: flex-end;
-    align-content: space-between;
-    margin-top: 16px;
+    align-content: center;
+    justify-content: space-around;
 }
 
 .matches-btn {
@@ -38,18 +30,51 @@
 
 .matches-games-container {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 8px;
     text-align: center;
-    /* width: 120px;
-    height: 180px;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 12px;
-    background-color: #C7CCCF; */
 }
 
 
+.match-display-container {
+    height: 300px;
+    width: 250px;
+    background-color: #c7cccf;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* border: 2px solid red; */
+}
+
+.match-container {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.match-display-container:hover {
+    cursor: pointer;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgb(253, 252, 252);
+  }
+
+  .match-info {
+    color: #1f1e1e;
+    margin-top: 80px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    text-decoration: underline;
+    position: static;
+  }
 
 
+
+/* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); */
 
 
 @media (max-width:390) {
