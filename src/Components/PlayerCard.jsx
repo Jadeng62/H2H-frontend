@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { fakeUser } from "../helpers/fakeInfo";
+import { getUserData } from "../helpers/getUserData";
 import placeholderImage from "../assets/placeholder.png";
 import { ShieldHalf } from "lucide-react";
 import profileBg from "../assets/profile-bg.jpeg";
 
-const PlayerCard = ({ userDetails, userTeam }) => {
-  // console.log("User Info: ", userDetails);
-  // console.log("User Team: ", userTeam);
+const PlayerCard = () => {
+  const [userDetails, setUserDetails] = useState({})
+  const [userTeam, setUserTeam] = useState({})
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await getUserData();
+      if (user) {
+        setUserDetails(user);
+      }
+    }
+
+    getUser();
+  }, []);
+
+  if(!userDetails) return null
 
   return (
     <div
