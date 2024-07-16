@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { formattedDate, formattedTime } from "../helpers/helper";
+
+import "../Styles/matches.css"
 
 const Match = ({match}) => {
  const [team1, setTeam1] = useState({})
@@ -23,12 +26,21 @@ const Match = ({match}) => {
  }, [match])
 
 
+
     return (
-       <div className="match-display-container grid gap-4">
-         <div>
-           <div className="bg-lime-500 p-3 ">{team1.team_name}</div>
-            <h2 className="bg-neutral-200 mx-3">VS</h2>
-           <div className="bg-yellow-500 p-3">{team2.team_name}</div>
+       <div className="match-display-container ">
+           <div className="match-team-1">
+             <h1>{team1.team_name}</h1>
+           </div>
+            <h2 className="match-vs">VS</h2>
+           <div className="match-team-2">
+             <h1>{team2.team_name}</h1>
+           </div>
+           <div className="match-info">
+               <h3>{match.address}</h3>
+               <h3>{match.city}</h3>
+               <h3>{match.state}</h3>
+               <h3>{formattedDate(match.start_datetime)} <span className="match-span">{formattedTime(match.start_datetime)}</span></h3>
            </div>
        </div>
     )
