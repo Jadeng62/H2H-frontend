@@ -19,7 +19,8 @@ function Register() {
       photo: "",
       username:"",
       dob:"",
-      position:""
+      position:"",
+      password:""
   });
 
   const navigate = useNavigate();
@@ -43,7 +44,8 @@ function Register() {
       photo: "",
       username:"",
       dob:"",
-      position:""
+      position:"",
+      password:""
     });
   };
 
@@ -182,9 +184,8 @@ function Register() {
               id="position1"
               name="position"
               value="point guard"
-              checked={newUser.position === "Point Guard"}
+              // checked={newUser.position === "Point Guard"}
               onChange={handleRadioChange}
-              required
               className="register-radio-input"
             />
           </label>
@@ -196,9 +197,8 @@ function Register() {
               id="position2"
               name="position"
               value="shooting guard"
-              checked={newUser.position === "Shooting Guard"}
+              // checked={newUser.position === "Shooting Guard"}
               onChange={handleRadioChange}
-              required
               className="register-radio-input"
             />
           </label>
@@ -210,9 +210,9 @@ function Register() {
               id="position3"
               name="position"
               value="small forward"
-              checked={newUser.position === "Small Forward"}
+              // checked={newUser.position === "Small Forward"}
               onChange={handleRadioChange}
-              required
+
               className="register-radio-input"
             />
           </label>
@@ -224,9 +224,9 @@ function Register() {
               id="position4"
               name="position"
               value="power forward"
-              checked={newUser.position === "Power Forward"}
+              // checked={newUser.position === "Power Forward"}
               onChange={handleRadioChange}
-              required
+
               className="register-radio-input"
             />
           </label>
@@ -238,9 +238,7 @@ function Register() {
               id="position5"
               name="position"
               value="center"
-              checked={newUser.position === "Center"}
               onChange={handleRadioChange}
-              required
               className="register-radio-input"
             />
           </label>
