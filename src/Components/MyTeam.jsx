@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
-import { X, Accessibility, Award } from "lucide-react";
+import { X, Accessibility, Award, Pencil } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 
 const MyTeam = ({ userDetails }) => {
@@ -49,10 +49,10 @@ const MyTeam = ({ userDetails }) => {
       year: "numeric",
       month: "short",
       day: "numeric",
-      //   hour: "numeric",
-      //   minute: "numeric",
-      //   second: "numeric",
-      //   timeZoneName: "short",
+      // hour: "numeric",
+      // minute: "numeric",
+      // second: "numeric",
+      // timeZoneName: "short",
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
   }
@@ -134,8 +134,11 @@ const MyTeam = ({ userDetails }) => {
                       />
                     </div>
                     <div className="flex flex-col p-1 ml-2">
-                      <div className="text-white text-3xl">
-                        {teamData.team_name}
+                      <div className="text-white text-3xl flex">
+                        {teamData.team_name}{" "}
+                        <span className="ml-auto">
+                          <Pencil size={28} />
+                        </span>
                       </div>
                       <div className="text-white text-2xl">
                         Total Matches: {teamData.matches_played}
@@ -152,7 +155,7 @@ const MyTeam = ({ userDetails }) => {
                   </div> */}
                     </div>
                   </div>
-                  <div className="bg-background p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
+                  <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
                     <div className="flex flex-row items-center">
                       <Award size={30} className="text-amber-400" />
@@ -238,7 +241,7 @@ const MyTeam = ({ userDetails }) => {
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                   {playersInTeam && playersInTeam.length > 4 && (
-                    <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl">
+                    <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
                   )}
@@ -248,9 +251,6 @@ const MyTeam = ({ userDetails }) => {
                     <tr>
                       <th className="pl-7 py-4">Player</th>
                       <th className="pl-7 py-4">Position</th>
-                      <th className="px-6 py-4">
-                        Wins <span>/</span> <span>Losses</span>
-                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -269,21 +269,17 @@ const MyTeam = ({ userDetails }) => {
                                 className="w-12 h-12 rounded-lg"
                               />
                             </td> */}
-                            <td className="px-6 py-5 text-black/80">
+                            <td className="px-6 py-5 text-black/80 flex items-center">
+                              <span>
+                                <img
+                                  src={player.photo}
+                                  alt="player_profile_pic"
+                                  className="w-8 mr-4"
+                                />
+                              </span>{" "}
                               {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
-                            <td className="px-6 py-5">
-                              <div className="bg-background px-2 rounded inline-block">
-                                <span className="text-primary font-bold">
-                                  {player.user_wins}
-                                </span>{" "}
-                                <span className="font-bold text-text">/</span>{" "}
-                                <span className="text-accent font-bold">
-                                  {player.user_losses}
-                                </span>
-                              </div>
-                            </td>
                             {teamData && (
                               <td>
                                 <button
