@@ -65,6 +65,43 @@ const MyTeam = ({ userDetails }) => {
 
   const handleDelete = (playerID) => {
     console.log("Clicked delete for playerID:", playerID);
+    const updatedTeamData = {
+      ...teamData,
+      // Update the specific position field to null based on playerID
+      point_guard_id:
+        playerID === teamData.point_guard_id ? null : teamData.point_guard_id,
+      shooting_guard_id:
+        playerID === teamData.shooting_guard_id
+          ? null
+          : teamData.shooting_guard_id,
+      small_forward_id:
+        playerID === teamData.small_forward_id
+          ? null
+          : teamData.small_forward_id,
+      power_forward_id:
+        playerID === teamData.power_forward_id
+          ? null
+          : teamData.power_forward_id,
+      center_id: playerID === teamData.center_id ? null : teamData.center_id,
+    };
+    fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTeamData),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update team.");
+        }
+        setTeamData(updatedTeamData);
+        console.log("Team updated successfully.");
+        console.log(teamData);
+      })
+      .catch((error) => {
+        console.error("Error updating team:", error);
+      });
   };
 
   // useEffect for saying selector/generator
@@ -105,7 +142,9 @@ const MyTeam = ({ userDetails }) => {
           console.error("Error fetching team data and players:", error)
         );
     }
-  }, [myUserDetails.user_team_id]);
+  }, [myUserDetails.user_team_id, teamData]);
+
+  console.log("This is the teamData:", teamData);
 
   return (
     <div className="min-h-screen">
@@ -280,7 +319,7 @@ const MyTeam = ({ userDetails }) => {
                               {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
-                            {teamData && (
+                            {teamData && player.id !== teamData.captain_id ? (
                               <td>
                                 <button
                                   className="py-5 pr-3 hover:text-red-500"
@@ -289,6 +328,11 @@ const MyTeam = ({ userDetails }) => {
                                   <X size={28} />
                                 </button>
                               </td>
+                            ) : (
+                              <>
+                                {/* this div is to fill the white space an x creates in form for captain's */}
+                                <div></div>
+                              </>
                             )}
                           </tr>
                         );
@@ -306,7 +350,10 @@ const MyTeam = ({ userDetails }) => {
           </div>
         </>
       ) : (
-        <MyTeamForm />
+        <>
+          <div>test</div>
+        </>
+        // <MyTeamForm />
       )}
     </div>
   );
