@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { getUserData } from '../helpers/getUserData';
 import "../Styles/teamForm.css";
 
-const MyTeamForm = ({ userDetails, userTeam }) => {
+const MyTeamForm = () => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
         team_name: '',
