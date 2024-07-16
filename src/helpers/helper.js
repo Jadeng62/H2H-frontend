@@ -40,3 +40,22 @@ export function formattedTime(iso) {
 
   return `${formattedHour}:${formattedMinute} ${period}`;
 }
+
+export function formatPositionSpelling(position) {
+  if (position.includes(" ")) {
+    const [firstWord, secondWord] = position.split(" ");
+
+    const firstChar = firstWord[0].toUpperCase();
+    const formattedFirstWord = `${firstChar}${firstWord.slice(1)}`;
+
+    const secondChar = secondWord[0].toUpperCase();
+    const formattedSecondWord = `${secondChar}${secondWord.slice(1)}`;
+
+    return `${formattedFirstWord} ${formattedSecondWord}`;
+  } else {
+    const firstChar = position[0].toUpperCase();
+    return `${firstChar}${position.slice(1)}`;
+  }
+}
+
+// console.log(formatPositionSpelling("forward"));
