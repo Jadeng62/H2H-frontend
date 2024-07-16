@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      margin: {
+        "50vw": "50vw",
+        "15vw": "15vw",
+      },
       width: {
         100: "25rem",
         104: "26rem",
