@@ -1,33 +1,57 @@
 import { useState } from 'react';
+import { getUserData } from '../helpers/getUserData';
 import "../Styles/teamForm.css";
 
-const MyTeamForm = ({ userDetails }) => {
+const MyTeamForm = ({ userDetails, userTeam }) => {
+    const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
         team_name: '',
         team_pic: '',
         logo: '',
         captain_id: userDetails.id,
-        point_guard_id: 0,
-        shooting_guard_id: 0,
-        small_forward_id: 0,
-        power_forward_id: 0,
-        center_id: 0
+        point_guard_id: null,
+        shooting_guard_id: null,
+        small_forward_id: null,
+        power_forward_id: null,
+        center_id: null
     });
+
+    // import helper function instead of using prop for userDetails
+    // one more state for user position with user team id from users table
+    // at first it'll be null but useState would update with userDetails.id
+    useEffect(() => {
+        async function getUser() {
+          const user = await getUserData();
+          if (user) {
+            setUserDetails(user);
+          }
+        }
+    
+        getUser();
+      }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        if (name === "player") { // for tracking select drop down menu values
+            setFormData({
+                ...formData,
+                point_guard_id: value,
+                shooting_guard_id: value,
+                small_forward_id: value,
+                power_forward_id: value,
+                center_id: value
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if (!userDetails || !userDetails.user_team_id) {
-        //     console.error('User details or user team ID missing.');
-        //     return;
-        // }
 
         try {
             console.log('Creating team with form data:', formData);
@@ -37,6 +61,7 @@ const MyTeamForm = ({ userDetails }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                // put use state to update the ids of the positions
                 body: JSON.stringify({
                     // add uid from user table  
                     team_name: formData.team_name,
