@@ -37,6 +37,14 @@
     border-radius: 8px;
 }
 
+.team-form-select {
+    border-radius: 20px;
+    background-color: #1f1e1e;
+    color: #f4f3fc;
+    padding: 6px;
+    margin-bottom: 6px;
+}
+
 .team-form-btn {
     width: 40%;
     margin-left: 70px;
