@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X, Accessibility, Award, Pencil } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
+import { getUserData } from "../helpers/getUserData.js";
 
-const MyTeam = ({ userDetails }) => {
+const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   // user obj w/ user data
+  const [userDetails, setUserDetails] = useState(null);
   const myUserDetails = { ...userDetails };
   // team obj w/ playerids, matches, captain id, etc
   const [teamData, setTeamData] = useState(null);
@@ -103,6 +105,17 @@ const MyTeam = ({ userDetails }) => {
         console.error("Error updating team:", error);
       });
   };
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await getUserData();
+      if (user) {
+        setUserDetails(user);
+      }
+    }
+
+    getUser();
+  }, []);
 
   // useEffect for saying selector/generator
   useEffect(() => {
@@ -217,14 +230,14 @@ const MyTeam = ({ userDetails }) => {
                     <span className="  p-2 rounded-lg">Games Lost</span>
                   </h3>
                 </div>
-                <div className="bg-background shadow-2xl rounded-lg p-3 flex mx-10">
+                <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
                   {teamData && teamData.matches_played > 0 ? (
                     <>
                       <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
                         <div className="relative h-6 flex items-center ">
                           {/* Win bar */}
                           <div
-                            className="relative top-0 bottom-0 right-1  bg-primary py-1"
+                            className="relative top-0 bottom-0 right-1  bg-primary py-1 shadow-xl"
                             style={{
                               width: `${
                                 (teamData.team_wins / teamData.matches_played) *
@@ -239,7 +252,7 @@ const MyTeam = ({ userDetails }) => {
 
                           {/* Loss bar */}
                           <div
-                            className="relative top-0 bottom-0 left-1 bg-accent py-1"
+                            className="relative top-0 bottom-0 left-1 bg-accent py-1 shadow-xl"
                             style={{
                               width: `${
                                 (teamData.team_loss / teamData.matches_played) *
