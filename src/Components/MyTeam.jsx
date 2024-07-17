@@ -284,7 +284,7 @@ const MyTeam = () => {
                     Roster
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                  {playersInTeam && playersInTeam.length > 4 && (
+                  {playersInTeam && playersInTeam.length < 5 && (
                     <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
@@ -345,7 +345,7 @@ const MyTeam = () => {
                   </tbody>
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                {playersInTeam && playersInTeam.length > 4 && (
+                {playersInTeam && playersInTeam.length < 5 && (
                   <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
                     ***{currentSaying}***
                   </div>
