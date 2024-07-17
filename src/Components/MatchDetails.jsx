@@ -17,13 +17,6 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
 
   const URL = import.meta.env.VITE_BASE_URL;
 
-  // useEffect(() => {
-  //   const foundMatch = upcomingGames.find((game) => game.id === +id);
-  //   if (foundMatch) {
-  //     setMatch(foundMatch);
-  //   }
-  // }, [upcomingGames, id]);
-
   useEffect(() => {
     fetch(`${URL}/api/matches/${id}`)
       .then((res) => res.json())

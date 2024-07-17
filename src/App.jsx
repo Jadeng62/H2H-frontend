@@ -39,38 +39,14 @@ function App() {
     getUser();
   }, []);
 
-  // useEffect(() => {
-  //   if (userDetails) {
-  //     fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-  //       .then((res) => res.json())
-  //       .then((data) => setUserTeam(data))
-  //       .catch((error) => console.error("Error fetching team data:", error));
-  //   }
-  // }, [userDetails]);
-
-  // useEffect(() => {
-  //   if (userDetails && userDetails.id) {
-  //     fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
-  //       .then((res) => res.json())
-  //       .then(async (data) => {
-  //         const gamesWithTeamNames = await Promise.all(
-  //           data.map(async (game) => {
-  //             const opponentId =
-  //               userDetails.user_team_id === game.team1_id
-  //                 ? game.team2_id
-  //                 : game.team1_id;
-  //             const res = await fetch(`${URL}/api/teams/${opponentId}`);
-  //             const team = await res.json();
-  //             return {
-  //               ...game,
-  //               opponentTeamName: team.team_name,
-  //             };
-  //           })
-  //         );
-  //         setUpcomingGames(gamesWithTeamNames);
-  //       });
-  //   }
-  // }, [userDetails]);
+  useEffect(() => {
+    if (userDetails) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => setUserTeam(data))
+        .catch((error) => console.error("Error fetching team data:", error));
+    }
+  }, [userDetails]);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {

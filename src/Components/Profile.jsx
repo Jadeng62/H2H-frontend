@@ -7,6 +7,8 @@ import PlayerCard from "./PlayerCard";
 
 function Profile() {
   const [userDetails, setUserDetails] = useState(null);
+  const [userTeam, setUserTeam] = useState({});
+
   const [upcomingGames, setUpcomingGames] = useState([]);
 
   const URL = import.meta.env.VITE_BASE_URL;
@@ -25,6 +27,14 @@ function Profile() {
 
     getUser();
   }, []);
+
+  useEffect(() => {
+    if (userDetails && userDetails.user_team_id !== null) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => setUserTeam(data));
+    }
+  }, [userDetails]);
 
   useEffect(() => {
     if (userDetails && userDetails.id) {
@@ -57,7 +67,7 @@ function Profile() {
       </div>
       <div className="flex flex-col p-8 sm:flex-row flex-grow gap-7">
         <div className="flex justify-center w-full sm:w-1/3 sm:mb-0">
-          <PlayerCard userDetails={userDetails} />
+          <PlayerCard userDetails={userDetails} userTeam={userTeam} />
         </div>
         <div className="flex justify-center sm:w-2/3 flex-grow">
           <UpcomingGames
