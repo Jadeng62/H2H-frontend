@@ -50,8 +50,6 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,27 +81,6 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                 }),
             });
 
-      const response = await fetch(`http://localhost:3003/api/teams`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // add uid from user table
-          team_name: formData.team_name,
-          team_pic: formData.team_pic,
-          logo: formData.logo,
-          captain_id: userDetails.id,
-          point_guard_id: null,
-          shooting_guard_id: null,
-          small_forward_id: null,
-          power_forward_id: null,
-          center_id: null,
-          team_wins: null,
-          team_loss: null,
-          matches_played: null,
-        }),
-      });
 
       if (!response.ok) {
         throw new Error("Team creation failed");
