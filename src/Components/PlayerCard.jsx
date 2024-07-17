@@ -6,8 +6,8 @@ import { ShieldHalf } from "lucide-react";
 import profileBg from "../assets/profile-bg.jpeg";
 
 const PlayerCard = () => {
-  const [userDetails, setUserDetails] = useState({})
-  const [userTeam, setUserTeam] = useState({})
+  const [userDetails, setUserDetails] = useState({});
+  const [userTeam, setUserTeam] = useState({});
 
   useEffect(() => {
     async function getUser() {
@@ -20,7 +20,7 @@ const PlayerCard = () => {
     getUser();
   }, []);
 
-  if(!userDetails) return null
+  if (!userDetails) return null;
 
   return (
     <div
@@ -47,7 +47,7 @@ const PlayerCard = () => {
         </div>
       </div>
       <div className="flex justify-center row-span-2">
-        <img src={placeholderImage} alt="" className="w-36 h-36 rounded-xl" />
+        <img src={userDetails.photo} alt="" className="w-36 h-36 rounded-xl" />
       </div>
       <div className="flex flex-col row-span-2 text-2xl justify-center text-center text-white">
         {userDetails && (

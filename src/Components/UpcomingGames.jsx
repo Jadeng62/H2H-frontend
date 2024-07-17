@@ -3,51 +3,51 @@ import { useNavigate } from "react-router-dom";
 import { formattedDate, formattedTime } from "../helpers/helper";
 import { getUserData } from "../helpers/getUserData";
 
-const UpcomingGames = () => {
+const UpcomingGames = ({ userDetails, upcomingGames }) => {
   const navigate = useNavigate();
-  const [userDetails, setUserDetails] = useState(null);
-  const [upcomingGames, setUpcomingGames] = useState([]);
+  // const [userDetails, setUserDetails] = useState(null);
+  // const [upcomingGames, setUpcomingGames] = useState([]);
 
-  const URL = import.meta.env.VITE_BASE_URL;
+  // const URL = import.meta.env.VITE_BASE_URL;
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const user = await getUserData();
-        if (user) {
-          setUserDetails(user);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function getUser() {
+  //     try {
+  //       const user = await getUserData();
+  //       if (user) {
+  //         setUserDetails(user);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   }
 
-    getUser();
-  }, []);
+  //   getUser();
+  // }, []);
 
-  useEffect(() => {
-    if (userDetails && userDetails.id) {
-      fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
-        .then((res) => res.json())
-        .then(async (data) => {
-          const gamesWithTeamNames = await Promise.all(
-            data.map(async (game) => {
-              const opponentId =
-                userDetails.user_team_id === game.team1_id
-                  ? game.team2_id
-                  : game.team1_id;
-              const res = await fetch(`${URL}/api/teams/${opponentId}`);
-              const team = await res.json();
-              return {
-                ...game,
-                opponentTeamName: team.team_name,
-              };
-            })
-          );
-          setUpcomingGames(gamesWithTeamNames);
-        });
-    }
-  }, [userDetails]);
+  // useEffect(() => {
+  //   if (userDetails && userDetails.id) {
+  //     fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
+  //       .then((res) => res.json())
+  //       .then(async (data) => {
+  //         const gamesWithTeamNames = await Promise.all(
+  //           data.map(async (game) => {
+  //             const opponentId =
+  //               userDetails.user_team_id === game.team1_id
+  //                 ? game.team2_id
+  //                 : game.team1_id;
+  //             const res = await fetch(`${URL}/api/teams/${opponentId}`);
+  //             const team = await res.json();
+  //             return {
+  //               ...game,
+  //               opponentTeamName: team.team_name,
+  //             };
+  //           })
+  //         );
+  //         setUpcomingGames(gamesWithTeamNames);
+  //       });
+  //   }
+  // }, [userDetails]);
 
   return (
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">

@@ -6,22 +6,49 @@ import UpcomingGames from "./UpcomingGames";
 import PlayerCard from "./PlayerCard";
 
 function Profile() {
-  // const [userDetails, setUserDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+  const [upcomingGames, setUpcomingGames] = useState([]);
 
-  // useEffect(() => {
-  //   async function getUser() {
-  //     try {
-  //       const user = await getUserData();
-  //       if (user) {
-  //         setUserDetails(user);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   }
+  const URL = import.meta.env.VITE_BASE_URL;
 
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const user = await getUserData();
+        if (user) {
+          setUserDetails(user);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (userDetails && userDetails.id) {
+      fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
+        .then((res) => res.json())
+        .then(async (data) => {
+          const gamesWithTeamNames = await Promise.all(
+            data.map(async (game) => {
+              const opponentId =
+                userDetails.user_team_id === game.team1_id
+                  ? game.team2_id
+                  : game.team1_id;
+              const res = await fetch(`${URL}/api/teams/${opponentId}`);
+              const team = await res.json();
+              return {
+                ...game,
+                opponentTeamName: team.team_name,
+              };
+            })
+          );
+          setUpcomingGames(gamesWithTeamNames);
+        });
+    }
+  }, [userDetails]);
 
   return (
     <div className="text-text flex flex-col">
@@ -30,10 +57,13 @@ function Profile() {
       </div>
       <div className="flex flex-col p-8 sm:flex-row flex-grow gap-7">
         <div className="flex justify-center w-full sm:w-1/3 sm:mb-0">
-          <PlayerCard />
+          <PlayerCard userDetails={userDetails} />
         </div>
         <div className="flex justify-center sm:w-2/3 flex-grow">
-          <UpcomingGames />
+          <UpcomingGames
+            upcomingGames={upcomingGames}
+            userDetails={userDetails}
+          />
         </div>
       </div>
     </div>
