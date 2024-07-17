@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import playersData from "../DummyData/myTeam.json";
 import { X, Accessibility, Award, Pencil } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
+import { getUserData } from "../helpers/getUserData.js";
 
-const MyTeam = ({ userDetails }) => {
+const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   // user obj w/ user data
+  const [userDetails, setUserDetails] = useState(null);
   const myUserDetails = { ...userDetails };
   // team obj w/ playerids, matches, captain id, etc
   const [teamData, setTeamData] = useState(null);
@@ -65,7 +67,55 @@ const MyTeam = ({ userDetails }) => {
 
   const handleDelete = (playerID) => {
     console.log("Clicked delete for playerID:", playerID);
+    const updatedTeamData = {
+      ...teamData,
+      // Update the specific position field to null based on playerID
+      point_guard_id:
+        playerID === teamData.point_guard_id ? null : teamData.point_guard_id,
+      shooting_guard_id:
+        playerID === teamData.shooting_guard_id
+          ? null
+          : teamData.shooting_guard_id,
+      small_forward_id:
+        playerID === teamData.small_forward_id
+          ? null
+          : teamData.small_forward_id,
+      power_forward_id:
+        playerID === teamData.power_forward_id
+          ? null
+          : teamData.power_forward_id,
+      center_id: playerID === teamData.center_id ? null : teamData.center_id,
+    };
+    fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTeamData),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update team.");
+        }
+        setTeamData(updatedTeamData);
+        console.log("Team updated successfully.");
+        console.log(teamData);
+      })
+      .catch((error) => {
+        console.error("Error updating team:", error);
+      });
   };
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await getUserData();
+      if (user) {
+        setUserDetails(user);
+      }
+    }
+
+    getUser();
+  }, []);
 
   // useEffect for saying selector/generator
   useEffect(() => {
@@ -105,7 +155,9 @@ const MyTeam = ({ userDetails }) => {
           console.error("Error fetching team data and players:", error)
         );
     }
-  }, [myUserDetails.user_team_id]);
+  }, [myUserDetails.user_team_id, teamData]);
+
+  console.log("This is the teamData:", teamData);
 
   return (
     <div className="min-h-screen">
@@ -178,14 +230,14 @@ const MyTeam = ({ userDetails }) => {
                     <span className="  p-2 rounded-lg">Games Lost</span>
                   </h3>
                 </div>
-                <div className="bg-background shadow-2xl rounded-lg p-3 flex mx-10">
+                <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
                   {teamData && teamData.matches_played > 0 ? (
                     <>
-                      <div className="bg-white rounded-xl shadow-sm overflow-hidden w-full">
+                      <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
                         <div className="relative h-6 flex items-center ">
                           {/* Win bar */}
                           <div
-                            className="relative top-0 bottom-0 left-0  bg-primary py-1"
+                            className="relative top-0 bottom-0 right-1  bg-primary py-1 shadow-xl"
                             style={{
                               width: `${
                                 (teamData.team_wins / teamData.matches_played) *
@@ -194,17 +246,13 @@ const MyTeam = ({ userDetails }) => {
                             }}
                           >
                             <div className="relative flex justify-center text-green-900 font-medium text-sm">
-                              {Math.round(
-                                (teamData.team_wins / teamData.matches_played) *
-                                  100
-                              )}
-                              %
+                              {teamData.team_wins}
                             </div>
                           </div>
 
                           {/* Loss bar */}
                           <div
-                            className="relative top-0 bottom-0 left-0 bg-accent py-1"
+                            className="relative top-0 bottom-0 left-1 bg-accent py-1 shadow-xl"
                             style={{
                               width: `${
                                 (teamData.team_loss / teamData.matches_played) *
@@ -213,11 +261,7 @@ const MyTeam = ({ userDetails }) => {
                             }}
                           >
                             <div className="relative flex justify-center text-red-900 font-medium text-sm">
-                              {Math.round(
-                                (teamData.team_loss / teamData.matches_played) *
-                                  100
-                              )}
-                              %
+                              {teamData.team_loss}
                             </div>
                           </div>
                         </div>
@@ -240,7 +284,7 @@ const MyTeam = ({ userDetails }) => {
                     Roster
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                  {playersInTeam && playersInTeam.length > 4 && (
+                  {playersInTeam && playersInTeam.length < 5 && (
                     <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
@@ -280,7 +324,7 @@ const MyTeam = ({ userDetails }) => {
                               {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
-                            {teamData && (
+                            {teamData && player.id !== teamData.captain_id ? (
                               <td>
                                 <button
                                   className="py-5 pr-3 hover:text-red-500"
@@ -289,6 +333,11 @@ const MyTeam = ({ userDetails }) => {
                                   <X size={28} />
                                 </button>
                               </td>
+                            ) : (
+                              <>
+                                {/* this div is to fill the white space an x creates in form for captain's */}
+                                <div></div>
+                              </>
                             )}
                           </tr>
                         );
@@ -296,7 +345,7 @@ const MyTeam = ({ userDetails }) => {
                   </tbody>
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                {playersInTeam && playersInTeam.length > 4 && (
+                {playersInTeam && playersInTeam.length < 5 && (
                   <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
                     ***{currentSaying}***
                   </div>

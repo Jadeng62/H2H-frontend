@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getUserData } from '../helpers/getUserData';
-
 import { useNavigate } from 'react-router-dom';
-
 import "../Styles/teamForm.css";
 
 const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
@@ -55,9 +53,15 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            console.log('Creating team with form data:', formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // if (!userDetails || !userDetails.user_team_id) {
+    //     console.error('User details or user team ID missing.');
+    //     return;
+    // }
 
+    try {
+      console.log("Creating team with form data:", formData);
             const response = await fetch(`http://localhost:3003/api/teams`, {
                 method: 'POST',
                 headers: {
@@ -79,21 +83,43 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error('Team creation failed');
-            }
+      const response = await fetch(`http://localhost:3003/api/teams`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // add uid from user table
+          team_name: formData.team_name,
+          team_pic: formData.team_pic,
+          logo: formData.logo,
+          captain_id: userDetails.id,
+          point_guard_id: null,
+          shooting_guard_id: null,
+          small_forward_id: null,
+          power_forward_id: null,
+          center_id: null,
+          team_wins: null,
+          team_loss: null,
+          matches_played: null,
+        }),
+      });
 
-            const data = await response.json();
-            console.log('Team created:', data);
+      if (!response.ok) {
+        throw new Error("Team creation failed");
+      }
 
-        } catch (error) {
-            console.error('Error creating team:', error);
-        }
-    };
+      const data = await response.json();
+      console.log("Team created:", data);
+    } catch (error) {
+      console.error("Error creating team:", error);
+    }
+  };
 
     if (!userDetails) {
-        return <div>Loading...</div>; // in case we don't have user details populate
+        return <div>Loading...</div>
     }
+      
     const { 
         team_name, 
         team_pic, 
@@ -147,6 +173,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
             </form>
         </div>
     );
+
 };
 
 export default MyTeamForm;

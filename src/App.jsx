@@ -115,10 +115,7 @@ function App() {
               <MatchDetails upcomingGames={upcomingGames} userTeam={userTeam} />
             }
           />
-          <Route
-            path="/myTeam"
-            element={<MyTeam userDetails={userDetails} />}
-          />
+          <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route
             path="/createTeam"
