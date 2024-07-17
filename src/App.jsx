@@ -121,7 +121,7 @@ function App() {
             path="/createTeam"
             element={
               userDetails && (
-                <MyTeamForm userDetails={userDetails} userTeam={userTeam} />
+                <MyTeamForm />
               )
             }
           />

@@ -355,10 +355,10 @@ const MyTeam = () => {
           </div>
         </>
       ) : (
-        <>
-          <div>test</div>
-        </>
-        // <MyTeamForm />
+        <MyTeamForm 
+        isUserTeamCaptain={isUserTeamCaptain}
+        setIsUserTeamCaptain={setIsUserTeamCaptain}
+        />
       )}
     </div>
   );

@@ -66,3 +66,24 @@ body {
   font-weight: bold;
   color: #f4f3fc;
 }
+
+.register-radio {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  /* justify-content: space-evenly; */
+  align-items: center;
+  background-color: #a7b7c1;
+  border-radius: 12px;
+  margin: 8px;
+  padding: 24px;
+  font-family: monospace;
+}
+
+.register-h4 {
+  font-size: 14px;
+  padding-right: 18px;
+  padding-bottom: 12px;
+  font-weight: bold;
+}
