@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { fakeUser } from "../helpers/fakeInfo";
-import { getUserData } from "../helpers/getUserData";
 import placeholderImage from "../assets/placeholder.png";
 import { ShieldHalf } from "lucide-react";
 import profileBg from "../assets/profile-bg.jpeg";
 
-const PlayerCard = () => {
-  const [userDetails, setUserDetails] = useState({})
-  const [userTeam, setUserTeam] = useState({})
-
-  useEffect(() => {
-    async function getUser() {
-      const user = await getUserData();
-      if (user) {
-        setUserDetails(user);
-      }
-    }
-
-    getUser();
-  }, []);
-
-  if(!userDetails) return null
-
+const PlayerCard = ({ userDetails, userTeam }) => {
   return (
     <div
       className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl text-black"
@@ -32,7 +13,11 @@ const PlayerCard = () => {
     >
       <div className="flex flex-col justify-center row-span-2 p-4 text-center">
         <div className="flex justify-center items-center">
-          <h1 className="text-2xl">{userTeam && userTeam.team_name}</h1>
+          <h1 className="text-2xl">
+            {userDetails && userDetails.user_team_id
+              ? userTeam.team_name
+              : "Free Agent"}
+          </h1>
           {/* <ShieldHalf className="mb-1 mx-1" size={26} /> */}
         </div>
         <div>
@@ -47,7 +32,11 @@ const PlayerCard = () => {
         </div>
       </div>
       <div className="flex justify-center row-span-2">
-        <img src={placeholderImage} alt="" className="w-36 h-36 rounded-xl" />
+        <img
+          src={userDetails && userDetails.photo}
+          alt="photo-of-player"
+          className="w-36 h-36 rounded-xl"
+        />
       </div>
       <div className="flex flex-col row-span-2 text-2xl justify-center text-center text-white">
         {userDetails && (

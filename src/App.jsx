@@ -25,7 +25,6 @@ function App() {
   const [user, setUser] = useState();
   const [userDetails, setUserDetails] = useState(null);
   const [userTeam, setUserTeam] = useState("");
-  const [upcomingGames, setUpcomingGames] = useState([]);
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -50,30 +49,6 @@ function App() {
   }, [userDetails]);
 
   useEffect(() => {
-    if (userDetails && userDetails.id) {
-      fetch(`${URL}/api/matches?player_id=${userDetails.id}`)
-        .then((res) => res.json())
-        .then(async (data) => {
-          const gamesWithTeamNames = await Promise.all(
-            data.map(async (game) => {
-              const opponentId =
-                userDetails.user_team_id === game.team1_id
-                  ? game.team2_id
-                  : game.team1_id;
-              const res = await fetch(`${URL}/api/teams/${opponentId}`);
-              const team = await res.json();
-              return {
-                ...game,
-                opponentTeamName: team.team_name,
-              };
-            })
-          );
-          setUpcomingGames(gamesWithTeamNames);
-        });
-    }
-  }, [userDetails]);
-
-  useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUser(user);
     });
@@ -91,40 +66,15 @@ function App() {
           <Route path="/test" element={user ? <Test /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
-          <Route
-            path="/profile"
-            element={
-              user ? (
-                <Profile
-                  userDetails={userDetails}
-                  userTeam={userTeam}
-                  upcomingGames={upcomingGames}
-                />
-              ) : (
-                <Login />
-              )
-            }
-          />
+          <Route path="/profile" element={user ? <Profile /> : <Login />} />
           <Route
             path="/matches"
             element={<Matches userDetails={userDetails} userTeam={userTeam} />}
           />
-          <Route
-            path="/matches/:id"
-            element={
-              <MatchDetails upcomingGames={upcomingGames} userTeam={userTeam} />
-            }
-          />
+          <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route
-            path="/createTeam"
-            element={
-              userDetails && (
-                <MyTeamForm />
-              )
-            }
-          />
+          <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
           <Route
             path="/editTeam"
             element={

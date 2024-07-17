@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formattedDate, formattedTime } from "../helpers/helper";
 
@@ -18,7 +17,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
             Join or Create a Team Now!
           </h1>
           <button
-            className="mt-4 bg-primary hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+            className="mt-4 bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded"
             onClick={() => navigate("/myTeam")}
           >
             +
@@ -43,7 +42,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
             <tbody className="">
               {upcomingGames.map((game) => (
                 <tr
-                  className="bg-white border-b hover:bg-primary/90"
+                  className="bg-white border-b hover:bg-gray-100"
                   onClick={() => navigate(`/matches/${game.id}`)}
                   key={game.id}
                 >
@@ -71,7 +70,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
             Click Here to View Matches
           </h1>
           <button
-            className=" bg-primary hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+            className=" bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded"
             onClick={() => navigate("/myTeam")}
           >
             +
