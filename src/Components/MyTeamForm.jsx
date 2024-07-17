@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getUserData } from '../helpers/getUserData';
+
+import { useNavigate } from 'react-router-dom';
+
 import "../Styles/teamForm.css";
 
-const MyTeamForm = () => {
+const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
         team_name: '',
@@ -15,6 +18,8 @@ const MyTeamForm = () => {
         power_forward_id: null,
         center_id: null
     });
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function getUser() {
@@ -63,12 +68,11 @@ const MyTeamForm = () => {
                     team_pic: formData.team_pic,
                     logo: formData.logo,
                     captain_id: userDetails.id, // Use userDetails.id when available
-                    point_guard_id: formData.point_guard_id
-                    ,
-                    shooting_guard_id: formData.power_forward_id,
-                    small_forward_id: formData.shooting_guard_id,
-                    power_forward_id: formData.small_forward_id,
-                    center_id: formData.center_id,
+                    point_guard_id: formData.point_guard_id || userDetails.id,
+                    shooting_guard_id: formData.power_forward_id || userDetails.id,
+                    small_forward_id: formData.shooting_guard_id || userDetails.id,
+                    power_forward_id: formData.small_forward_id || userDetails.id,
+                    center_id: formData.center_id || userDetails.id,
                     team_wins: null,
                     team_loss: null,
                     matches_played: null
@@ -104,7 +108,7 @@ const MyTeamForm = () => {
 
      return (
         <div className='team-form-container'>
-            <form onSubmit={handleSubmit} className='team-form bg-white'>
+            <form className='team-form bg-white'>
                 <h2 className='team-form-h2'>Create Team</h2>
                 <label htmlFor='team-name' className='team-form-label'>
                     Team Name:
@@ -139,25 +143,7 @@ const MyTeamForm = () => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                <select name="player" id="player" className="team-form-select" onChange={handleChange}>
-                    <option value="">-- Player Position --</option>
-                    <option value={point_guard_id} className="team-form-option">
-                        Point Guard
-                    </option>
-                    <option value={shooting_guard_id} className="team-form-option">
-                        Shooting Guard
-                    </option>
-                    <option value={small_forward_id} className="team-form-option">
-                        Small Forward
-                    </option>
-                    <option value={power_forward_id} className="team-form-option">
-                        Power Forward
-                    </option>
-                    <option value={center_id} className="team-form-option">
-                        Center
-                    </option>
-                </select>
-                <button type="submit" className='team-form-btn'>Create Team</button>
+                <button onClick={handleSubmit} className='team-form-btn'>Create Team</button>
             </form>
         </div>
     );

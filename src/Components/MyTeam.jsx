@@ -306,7 +306,10 @@ const MyTeam = ({ userDetails }) => {
           </div>
         </>
       ) : (
-        <MyTeamForm />
+        <MyTeamForm 
+        isUserTeamCaptain={isUserTeamCaptain}
+        setIsUserTeamCaptain={setIsUserTeamCaptain}
+        />
       )}
     </div>
   );
