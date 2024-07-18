@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserData } from '../helpers/getUserData';
+import { getUserData} from '../helpers/getUserData';
 import { useNavigate } from 'react-router-dom';
 import "../Styles/teamForm.css";
 
@@ -17,13 +17,20 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
         center_id: null
     });
 
+
+
     const navigate = useNavigate()
+     
 
     useEffect(() => {
         async function getUser() {
             try {
                 const user = await getUserData();
+                const position = await user.position.replace(" ", "_").toLowerCase() + "_id"
+                 console.log(position)
                 setUserDetails(user); // This updates userDetails when data is fetched
+                //  setFormData({...formData, captain_id : user.id})
+                 setFormData({...formData, captain_id : user.id,[position] : user.id})
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -69,12 +76,12 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                     team_name: formData.team_name,
                     team_pic: formData.team_pic,
                     logo: formData.logo,
-                    captain_id: userDetails.id, // Use userDetails.id when available
-                    point_guard_id: formData.point_guard_id || userDetails.id,
-                    shooting_guard_id: formData.power_forward_id || userDetails.id,
-                    small_forward_id: formData.shooting_guard_id || userDetails.id,
-                    power_forward_id: formData.small_forward_id || userDetails.id,
-                    center_id: formData.center_id || userDetails.id,
+                    captain_id, //  when available
+                    point_guard_id: formData.point_guard_id,
+                    shooting_guard_id: formData.power_forward_id,
+                    small_forward_id: formData.shooting_guard_id,
+                    power_forward_id: formData.small_forward_id,
+                    center_id: formData.center_id,
                     team_wins: null,
                     team_loss: null,
                     matches_played: null
@@ -111,6 +118,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
 
      return (
         <div className='team-form-container'>
+            { console.log("form", formData)}
             <form className='team-form bg-white'>
                 <h2 className='team-form-h2'>Create Team</h2>
                 <label htmlFor='team-name' className='team-form-label'>
