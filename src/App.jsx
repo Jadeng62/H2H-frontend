@@ -74,6 +74,7 @@ function App() {
           />
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/myTeam" element={<MyTeam />} />
+          <Route path="/myTeam/:id" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           {/* Following Routes for development only: */}
           <Route path="/bballCourts" element={<BBallCourt/>}/>

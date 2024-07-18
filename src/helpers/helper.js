@@ -58,4 +58,5 @@ export function formatPositionSpelling(position) {
   }
 }
 
+
 // console.log(formatPositionSpelling("forward"));
