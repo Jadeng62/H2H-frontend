@@ -79,7 +79,7 @@ function App() {
             path="/editTeam"
             element={
               userDetails && (
-                <EditMyTeam userDetails={userDetails} userTeam={userTeam} />
+                <EditMyTeam />
               )
             }
           />
