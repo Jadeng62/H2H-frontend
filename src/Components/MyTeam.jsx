@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import playersData from "../DummyData/myTeam.json";
-import { X, Accessibility, Award, Pencil } from "lucide-react";
+import { X, Accessibility, Award, Pencil, Info } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
 
 const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
+
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
   const myUserDetails = { ...userDetails };
@@ -158,6 +161,7 @@ const MyTeam = () => {
   }, [myUserDetails.user_team_id, teamData]);
 
   console.log("This is the teamData:", teamData);
+  console.log("This is the myUserDetails:", myUserDetails);
 
   return (
     <div className="min-h-screen">
@@ -172,7 +176,7 @@ const MyTeam = () => {
               {/* className=" flex justify-center" */}
               {teamData && (
                 <div className="mx-10 mb-5 mt-10 ">
-                  <div className="flex flex-row w-full bg-background shadow-2xl border-4 border-white/10 rounded-lg p-3">
+                  <div className="flex flex-row w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
                     <div className=" rounded-l-xl">
                       {/* this is where we'd put the dynamic team icon */}
                       {/* <Accessibility
@@ -222,17 +226,17 @@ const MyTeam = () => {
                 <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
                   Stats
                 </h2>
-                <div className="grid grid-cols-2 text-text text-2xl mx-10">
-                  <h3 className="flex justify-center">
-                    <span className="  p-2 rounded-lg">Games Won</span>
-                  </h3>
-                  <h3 className="flex justify-center">
-                    <span className="  p-2 rounded-lg">Games Lost</span>
-                  </h3>
-                </div>
-                <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
-                  {teamData && teamData.matches_played > 0 ? (
-                    <>
+                {teamData && teamData.matches_played > 0 ? (
+                  <>
+                    <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                      <h3 className="flex justify-center">
+                        <span className="  p-2 rounded-lg">Games Won</span>
+                      </h3>
+                      <h3 className="flex justify-center">
+                        <span className="  p-2 rounded-lg">Games Lost</span>
+                      </h3>
+                    </div>
+                    <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
                       <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
                         <div className="relative h-6 flex items-center ">
                           {/* Win bar */}
@@ -266,15 +270,30 @@ const MyTeam = () => {
                           </div>
                         </div>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="bg-secondary p-2 rounded-lg">
-                        Not enough data for metrics
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-secondary/10 p-5 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
+                      <div className="flex flex-row items-center mb-2">
+                        <span className="mr-5">
+                          <Info size={28} className="text-primary/50" />
+                        </span>
+                        <span className="font-semibold">Not Enough Data</span>
                       </div>
-                    </>
-                  )}
-                </div>
+                      <span className="ml-12">
+                        To see your team stats, you have to play in more
+                        matches!
+                      </span>
+                      <span
+                        onClick={() => navigate(`/matches`)}
+                        className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+                      >
+                        Play a Match
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className=" grid grid-col-1 mx-10">
