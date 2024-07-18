@@ -20,6 +20,7 @@ import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
 import EditMyTeam from "./Components/EditMyTeam";
 import MatchDetails from "./Components/MatchDetails";
+import BBallCourt from "./Components/BBallCourt";
 
 function App() {
   const [user, setUser] = useState();
@@ -74,6 +75,8 @@ function App() {
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          {/* Following Routes for development only: */}
+          <Route path="/bballCourts" element={<BBallCourt/>}/>
           <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
           <Route
             path="/editTeam"

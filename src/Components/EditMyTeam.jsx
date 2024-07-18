@@ -20,6 +20,13 @@ const EditMyTeam = () => {
     });
     const [team, setTeam] = useState(null);
 
+    // everything except the ids are able to update for now
+    // ids related to position key in users table
+    // need another useState to update player positions in user table and updated those keys with corresponding ids
+    // make query in backend to get endpoint with this data from both tables
+    // make fetch call to that new endpoint
+    // make select dropdown so user can edit these keys on submit
+
     // to get user team id
     useEffect(() => {
         async function fetchUser() {
@@ -64,15 +71,6 @@ const EditMyTeam = () => {
         fetchTeam();
     }, [userDetails]);
 
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     if (['team_name', 'team_pic', 'logo'].includes(name)) {
-    //         setFormData({
-    //             ...formData,
-    //             [name]: value
-    //         });
-    //     }
-    // };
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
