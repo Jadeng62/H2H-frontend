@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { getUserData } from '../helpers/getUserData';
 import '../Styles/teamForm.css';
 
+const URL = import.meta.env.VITE_BASE_URL;
+
 const EditMyTeam = () => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
@@ -44,7 +46,7 @@ const EditMyTeam = () => {
         async function fetchTeam() {
             if (!userDetails || !userDetails.user_team_id) return;
             try {
-                const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`);
+                const response = await fetch(`${URL}/api/teams/${userDetails.user_team_id}`);
                 if (!response.ok) throw new Error('Team not found');
                 const data = await response.json();
                 console.log(data)
@@ -83,7 +85,7 @@ const EditMyTeam = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3003/api/teams/${userDetails.user_team_id}`, {
+            const response = await fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
