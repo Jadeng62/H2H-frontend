@@ -324,13 +324,15 @@ const MyTeam = () => {
                               {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
-                            {teamData && player.id !== teamData.captain_id ? (
+                            {teamData &&
+                            player.id !== teamData.captain_id &&
+                            myUserDetails.id !== teamData.captain_id ? (
                               <td>
                                 <button
-                                  className="py-5 pr-3 hover:text-red-500"
+                                  className="py-5 hover:text-red-400"
                                   onClick={() => handleDelete(player.id)}
                                 >
-                                  <X size={28} />
+                                  <X size={30} />
                                 </button>
                               </td>
                             ) : (
@@ -345,19 +347,23 @@ const MyTeam = () => {
                   </tbody>
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                {playersInTeam && playersInTeam.length < 5 && (
+                {playersInTeam && playersInTeam.length < 5 ? (
                   <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
                     ***{currentSaying}***
                   </div>
+                ) : (
+                  <>
+                    <div className="mb-28"></div>
+                  </>
                 )}
               </div>
             </div>
           </div>
         </>
       ) : (
-        <MyTeamForm 
-        isUserTeamCaptain={isUserTeamCaptain}
-        setIsUserTeamCaptain={setIsUserTeamCaptain}
+        <MyTeamForm
+          isUserTeamCaptain={isUserTeamCaptain}
+          setIsUserTeamCaptain={setIsUserTeamCaptain}
         />
       )}
     </div>
