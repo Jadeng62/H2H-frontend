@@ -42,28 +42,32 @@ const TeamSearch = () => {
   }, []);
 
   return (
-    <div className="text-text">
-      <h1 className="">Team Search</h1>
-      <div className="flex">
-        <div>
+    <div className="text-text bg-secondary/30 max-w-fit p-4">
+      <h1 className="text-3xl pb-4">Team Search</h1>
+      <div className="flex items-center border-4 border-black rounded-lg bg-accent">
+        <div className="flex-grow">
           <input
             type="text"
-            className="text-black p-1"
+            className="text-black  p-2 rounded-l-md w-full h-12 focus:outline-none"
             onChange={handleChange}
             value={searchInput}
           />
         </div>
-        <div className="bg-accent">
-          <Search size={26} className="" />
+        <div className="bg-accent p-2 rounded-r-md h-12 w-12 flex items-center justify-center">
+          <Search size={25} />
         </div>
       </div>
 
-      <div>
-        {filteredTeams.length > 0
-          ? filteredTeams.map((team) => (
-              <div key={team.id}>{team.team_name}</div>
-            ))
-          : "No Teams Found"}
+      <div className="">
+        {filteredTeams.length > 0 ? (
+          filteredTeams.map((team) => (
+            <div className="py-4 border-b-2" key={team.id}>
+              {team.team_name}
+            </div>
+          ))
+        ) : (
+          <div className="py-4 border-b-2">No Teams Found</div>
+        )}
       </div>
     </div>
   );
