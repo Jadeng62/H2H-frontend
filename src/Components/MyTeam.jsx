@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import playersData from "../DummyData/myTeam.json";
-import { X, Accessibility, Award, Pencil, Info, Users } from "lucide-react";
+import {
+  X,
+  Accessibility,
+  Award,
+  Pencil,
+  Info,
+  Users,
+  User,
+  Shield,
+} from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
 
@@ -183,12 +192,25 @@ const MyTeam = () => {
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                      <img
+                      {teamData.team_pic !== null ? (
+                        <img
+                          src={teamData.team_pic}
+                          alt="team_pic"
+                          className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
+                        />
+                      ) : (
+                        <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                          <hr className="border-2 border-primary/60 w-1/4" />
+                          <Shield size={72} className="text-text/60" />
+                          <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                        </div>
+                      )}
+                      {/* <img
                         src={teamData.team_pic}
                         alt="team_pic"
                         className="w-24 md:w-36 border-secondary border-4 m-2"
-                      />
-                      <div className="p-1 ml-2">
+                      /> */}
+                      <div className="pl-1 ml-2">
                         <div className="text-white text-3xl flex">
                           {teamData.team_name}{" "}
                         </div>
