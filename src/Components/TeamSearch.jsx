@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { getUserData } from "../helpers/getUserData";
 import { Search } from "lucide-react";
+import placeHolder from "../assets/placeholder.png";
+import { useNavigate } from "react-router-dom";
 
 const TeamSearch = () => {
   const [allTeams, setAllTeams] = useState([]);
-  const [userDetails, setUserDetails] = useState();
+  const [userDetails, setUserDetails] = useState(null);
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -16,13 +19,28 @@ const TeamSearch = () => {
   };
 
   useEffect(() => {
-    fetch(`${URL}/api/teams`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAllTeams(data);
-        setFilteredTeams(data);
-      });
-  }, []);
+    const fetchTeams = async () => {
+      try {
+        const response = await fetch(`${URL}/api/teams`);
+        const data = await response.json();
+
+        if (userDetails && userDetails.user_team_id === null) {
+          setAllTeams(data);
+          setFilteredTeams(data);
+        } else if (userDetails && userDetails.user_team_id !== null) {
+          const teamsExcludingUsersTeam = data.filter(
+            (team) => team.id !== userDetails.user_team_id
+          );
+          setAllTeams(teamsExcludingUsersTeam);
+          setFilteredTeams(teamsExcludingUsersTeam);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams();
+  }, [userDetails]);
 
   useEffect(() => {
     const filtered = allTeams.filter((team) =>
@@ -48,7 +66,7 @@ const TeamSearch = () => {
         <div className="flex-grow">
           <input
             type="text"
-            className="text-black  p-2 rounded-l-md w-full h-12 focus:outline-none"
+            className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none"
             onChange={handleChange}
             value={searchInput}
           />
@@ -58,11 +76,16 @@ const TeamSearch = () => {
         </div>
       </div>
 
-      <div className="">
+      <div>
         {filteredTeams.length > 0 ? (
           filteredTeams.map((team) => (
-            <div className="py-4 border-b-2" key={team.id}>
-              {team.team_name}
+            <div
+              className="py-4 border-b-2 flex justify-evenly items-center cursor-pointer"
+              key={team.id}
+              onClick={() => navigate(`/team/${team.id}`)}
+            >
+              <p>{team.team_name}</p>
+              <img src={placeHolder} className="h-12" alt="team" />
             </div>
           ))
         ) : (

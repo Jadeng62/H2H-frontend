@@ -21,6 +21,7 @@ import MyTeamForm from "./Components/MyTeamForm";
 import EditMyTeam from "./Components/EditMyTeam";
 import MatchDetails from "./Components/MatchDetails";
 import TeamSearch from "./Components/TeamSearch";
+import TeamByID from "./Components/TeamByID";
 
 function App() {
   const [user, setUser] = useState();
@@ -73,6 +74,7 @@ function App() {
             element={<Matches userDetails={userDetails} userTeam={userTeam} />}
           />
           <Route path="/matches/:id" element={<MatchDetails />} />
+          <Route path="/team/:id" element={<TeamByID />} />
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
