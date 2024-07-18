@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import playersData from "../DummyData/myTeam.json";
-import { X, Accessibility, Award, Pencil, Info } from "lucide-react";
+import { X, Accessibility, Award, Pencil, Info, Users } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
 
@@ -296,7 +296,7 @@ const MyTeam = () => {
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                   {playersInTeam && playersInTeam.length < 5 && (
-                    <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl cursor-pointer">
+                    <span className="text-white p-2 mt-10 bg-accent/80 rounded-lg hover:bg-secondary/30 ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
                   )}
@@ -359,10 +359,19 @@ const MyTeam = () => {
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                 {playersInTeam && playersInTeam.length < 5 ? (
-                  <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
-                    ***{currentSaying}***
+                  <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/30">
+                    <div className="flex flex-row items-center">
+                      <span className="mr-5">
+                        <Users size={28} className="text-primary/50" />
+                      </span>
+                      <span className="font-semibold">Not Enough Players</span>
+                    </div>
+                    {/* <span className="ml-12">{currentSaying}</span> */}
                   </div>
                 ) : (
+                  // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
+                  //   ***{currentSaying}***
+                  // </div>
                   <>
                     <div className="mb-28"></div>
                   </>
