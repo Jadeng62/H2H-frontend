@@ -176,8 +176,8 @@ const MyTeam = () => {
               {/* className=" flex justify-center" */}
               {teamData && (
                 <div className="mx-10 mb-5 mt-10 ">
-                  <div className="flex flex-row w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
-                    <div className=" rounded-l-xl">
+                  <div className="flex justify-between w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
+                    <div className="flex flex-row">
                       {/* this is where we'd put the dynamic team icon */}
                       {/* <Accessibility
                     size={96}
@@ -186,36 +186,28 @@ const MyTeam = () => {
                       <img
                         src={teamData.team_pic}
                         alt="team_pic"
-                        className="w-36 border-secondary border-4 m-2"
+                        className="w-24 md:w-36 border-secondary border-4 m-2"
                       />
-                    </div>
-                    <div className="flex flex-col p-1 ml-2">
-                      <div className="text-white text-3xl flex">
-                        {teamData.team_name}{" "}
-                        <span className="ml-auto">
-                          <Pencil size={28} />
-                        </span>
+                      <div className="p-1 ml-2">
+                        <div className="text-white text-3xl flex">
+                          {teamData.team_name}{" "}
+                        </div>
+                        <div className="text-white text-2xl">
+                          Total Matches: {teamData.matches_played}
+                        </div>
                       </div>
-                      <div className="text-white text-2xl">
-                        Total Matches: {teamData.matches_played}
-                      </div>
-                      {/* <div className="flex flex-row">
-                    <div className="text-white text-2xl">
-                      Won:{" "}
-                      <span className="text-primary">{teamData.team_wins}</span>
                     </div>
-                    <div className="text-white text-2xl ml-4">
-                      Lost:{" "}
-                      <span className="text-accent">{teamData.team_loss}</span>
-                    </div>
-                  </div> */}
+                    <div className="mt-1 mr-1">
+                      <span className=" text-accent/90 hover:text-secondary cursor-pointer">
+                        <Pencil size={28} />
+                      </span>
                     </div>
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
                     <div className="flex flex-row items-center">
                       <Award size={30} className="text-amber-400" />
-                      <span className="text-xl">
+                      <span className="text-xl pr-1">
                         Balling since {dateToString(teamData.created_at)}
                       </span>
                     </div>
