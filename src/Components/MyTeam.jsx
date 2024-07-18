@@ -326,7 +326,7 @@ const MyTeam = () => {
                             <td className="px-6 py-5">{player.position}</td>
                             {teamData &&
                             player.id !== teamData.captain_id &&
-                            myUserDetails.id !== teamData.captain_id ? (
+                            myUserDetails.id === teamData.captain_id ? (
                               <td>
                                 <button
                                   className="py-5 hover:text-red-400"
