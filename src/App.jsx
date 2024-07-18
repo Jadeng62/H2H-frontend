@@ -20,6 +20,7 @@ import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
 import EditMyTeam from "./Components/EditMyTeam";
 import MatchDetails from "./Components/MatchDetails";
+import TeamSearch from "./Components/TeamSearch";
 
 function App() {
   const [user, setUser] = useState();
@@ -75,6 +76,7 @@ function App() {
           <Route path="/myTeam" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
+          <Route path="/teamSearch" element={userDetails && <TeamSearch />} />
           <Route
             path="/editTeam"
             element={
