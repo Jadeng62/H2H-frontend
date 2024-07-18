@@ -22,6 +22,7 @@ import EditMyTeam from "./Components/EditMyTeam";
 import MatchDetails from "./Components/MatchDetails";
 import TeamSearch from "./Components/TeamSearch";
 import TeamByID from "./Components/TeamByID";
+import BBallCourt from "./Components/BBallCourt";
 
 function App() {
   const [user, setUser] = useState();
@@ -76,14 +77,17 @@ function App() {
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
           <Route path="/myTeam" element={<MyTeam />} />
+          <Route path="/myTeam/:id" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          {/* Following Routes for development only: */}
+          <Route path="/bballCourts" element={<BBallCourt/>}/>
           <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch />} />
           <Route
             path="/editTeam"
             element={
               userDetails && (
-                <EditMyTeam userDetails={userDetails} userTeam={userTeam} />
+                <EditMyTeam />
               )
             }
           />

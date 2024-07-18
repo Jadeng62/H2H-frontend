@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import playersData from "../DummyData/myTeam.json";
-import { X, Accessibility, Award, Pencil } from "lucide-react";
+import {
+  X,
+  Accessibility,
+  Award,
+  Pencil,
+  Info,
+  Users,
+  User,
+  Shield,
+} from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
 
 const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
+
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
   const myUserDetails = { ...userDetails };
@@ -158,6 +170,7 @@ const MyTeam = () => {
   }, [myUserDetails.user_team_id, teamData]);
 
   console.log("This is the teamData:", teamData);
+  console.log("This is the myUserDetails:", myUserDetails);
 
   return (
     <div className="min-h-screen">
@@ -172,46 +185,51 @@ const MyTeam = () => {
               {/* className=" flex justify-center" */}
               {teamData && (
                 <div className="mx-10 mb-5 mt-10 ">
-                  <div className="flex flex-row w-full bg-background shadow-2xl border-4 border-white/10 rounded-lg p-3">
-                    <div className=" rounded-l-xl">
+                  <div className="flex justify-between w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
+                    <div className="flex flex-row">
                       {/* this is where we'd put the dynamic team icon */}
                       {/* <Accessibility
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                      <img
+                      {teamData.team_pic !== null ? (
+                        <img
+                          src={teamData.team_pic}
+                          alt="team_pic"
+                          className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
+                        />
+                      ) : (
+                        <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                          <hr className="border-2 border-primary/60 w-1/4" />
+                          <Shield size={72} className="text-text/60" />
+                          <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                        </div>
+                      )}
+                      {/* <img
                         src={teamData.team_pic}
                         alt="team_pic"
-                        className="w-36 border-secondary border-4 m-2"
-                      />
-                    </div>
-                    <div className="flex flex-col p-1 ml-2">
-                      <div className="text-white text-3xl flex">
-                        {teamData.team_name}{" "}
-                        <span className="ml-auto">
-                          <Pencil size={28} />
-                        </span>
+                        className="w-24 md:w-36 border-secondary border-4 m-2"
+                      /> */}
+                      <div className="pl-1 ml-2">
+                        <div className="text-white text-3xl flex">
+                          {teamData.team_name}{" "}
+                        </div>
+                        <div className="text-white text-2xl">
+                          Total Matches: {teamData.matches_played}
+                        </div>
                       </div>
-                      <div className="text-white text-2xl">
-                        Total Matches: {teamData.matches_played}
-                      </div>
-                      {/* <div className="flex flex-row">
-                    <div className="text-white text-2xl">
-                      Won:{" "}
-                      <span className="text-primary">{teamData.team_wins}</span>
                     </div>
-                    <div className="text-white text-2xl ml-4">
-                      Lost:{" "}
-                      <span className="text-accent">{teamData.team_loss}</span>
-                    </div>
-                  </div> */}
+                    <div className="mt-1 mr-1">
+                      <span className=" text-accent/90 hover:text-secondary cursor-pointer">
+                        <Pencil size={28} />
+                      </span>
                     </div>
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
                     <div className="flex flex-row items-center">
                       <Award size={30} className="text-amber-400" />
-                      <span className="text-xl">
+                      <span className="text-xl pr-1">
                         Balling since {dateToString(teamData.created_at)}
                       </span>
                     </div>
@@ -222,17 +240,17 @@ const MyTeam = () => {
                 <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
                   Stats
                 </h2>
-                <div className="grid grid-cols-2 text-text text-2xl mx-10">
-                  <h3 className="flex justify-center">
-                    <span className="  p-2 rounded-lg">Games Won</span>
-                  </h3>
-                  <h3 className="flex justify-center">
-                    <span className="  p-2 rounded-lg">Games Lost</span>
-                  </h3>
-                </div>
-                <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
-                  {teamData && teamData.matches_played > 0 ? (
-                    <>
+                {teamData && teamData.matches_played > 0 ? (
+                  <>
+                    <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                      <h3 className="flex justify-center">
+                        <span className="  p-2 rounded-lg">Games Won</span>
+                      </h3>
+                      <h3 className="flex justify-center">
+                        <span className="  p-2 rounded-lg">Games Lost</span>
+                      </h3>
+                    </div>
+                    <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
                       <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
                         <div className="relative h-6 flex items-center ">
                           {/* Win bar */}
@@ -266,15 +284,30 @@ const MyTeam = () => {
                           </div>
                         </div>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="bg-secondary p-2 rounded-lg">
-                        Not enough data for metrics
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-secondary/10 p-5 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
+                      <div className="flex flex-row items-center mb-2">
+                        <span className="mr-5">
+                          <Info size={28} className="text-primary/50" />
+                        </span>
+                        <span className="font-semibold">Not Enough Data</span>
                       </div>
-                    </>
-                  )}
-                </div>
+                      <span className="ml-12">
+                        To see your team stats, you have to play in more
+                        matches!
+                      </span>
+                      <span
+                        onClick={() => navigate(`/matches`)}
+                        className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+                      >
+                        Play a Match
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className=" grid grid-col-1 mx-10">
@@ -285,7 +318,7 @@ const MyTeam = () => {
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                   {playersInTeam && playersInTeam.length < 5 && (
-                    <span className="text-white p-2 mt-10 bg-secondary/30 rounded-lg hover:bg-accent ml-auto shadow-2xl cursor-pointer">
+                    <span className="text-white p-2 mt-10 bg-accent/80 rounded-lg hover:bg-secondary/30 ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
                   )}
@@ -324,13 +357,15 @@ const MyTeam = () => {
                               {player.first_name} {player.last_name}
                             </td>
                             <td className="px-6 py-5">{player.position}</td>
-                            {teamData && player.id !== teamData.captain_id ? (
+                            {teamData &&
+                            player.id !== teamData.captain_id &&
+                            myUserDetails.id === teamData.captain_id ? (
                               <td>
                                 <button
-                                  className="py-5 pr-3 hover:text-red-500"
+                                  className="py-5 hover:text-red-400"
                                   onClick={() => handleDelete(player.id)}
                                 >
-                                  <X size={28} />
+                                  <X size={30} />
                                 </button>
                               </td>
                             ) : (
@@ -345,19 +380,32 @@ const MyTeam = () => {
                   </tbody>
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                {playersInTeam && playersInTeam.length < 5 && (
-                  <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
-                    ***{currentSaying}***
+                {playersInTeam && playersInTeam.length < 5 ? (
+                  <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/30">
+                    <div className="flex flex-row items-center">
+                      <span className="mr-5">
+                        <Users size={28} className="text-primary/50" />
+                      </span>
+                      <span className="font-semibold">Not Enough Players</span>
+                    </div>
+                    {/* <span className="ml-12">{currentSaying}</span> */}
                   </div>
+                ) : (
+                  // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
+                  //   ***{currentSaying}***
+                  // </div>
+                  <>
+                    <div className="mb-28"></div>
+                  </>
                 )}
               </div>
             </div>
           </div>
         </>
       ) : (
-        <MyTeamForm 
-        isUserTeamCaptain={isUserTeamCaptain}
-        setIsUserTeamCaptain={setIsUserTeamCaptain}
+        <MyTeamForm
+          isUserTeamCaptain={isUserTeamCaptain}
+          setIsUserTeamCaptain={setIsUserTeamCaptain}
         />
       )}
     </div>
