@@ -34,8 +34,8 @@ const BBallCourt = () => {
       <div>
         <select onChange={handleCourtChange}>
           <option value="">Select a basketball court</option>
-          {data && data.map((court) => (
-            <option key={court.Prop_ID} value={court.Prop_ID}>
+          {data && data.map((court, index) => (
+            <option key={index} value={court.Prop_ID}>
               {court.Name}
             </option>
           ))}
@@ -43,9 +43,9 @@ const BBallCourt = () => {
       </div>
       {selectedCourt && (
         <div>
-          <h2>{selectedCourt.Name}</h2>
+          {/* <h2>{selectedCourt.Name}</h2> */}
           <p><strong>Location:</strong> {selectedCourt.Location}</p>
-          {/* maybe add map since api also gives logitude and latitude values */}
+          {/* maybe add google map since api also gives logitude and latitude values */}
         </div>
       )}
     </div>
