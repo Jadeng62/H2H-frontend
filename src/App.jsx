@@ -40,7 +40,7 @@ function App() {
     }
 
     getUser();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (userDetails) {
@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <NavBar />
+      <NavBar userDetails={userDetails} setUserDetails={setUserDetails}/>
       <div className="flex-grow">
         <Routes>
           <Route
