@@ -7,25 +7,9 @@ import { getUserData } from "../helpers/getUserData";
 import { Zap } from "lucide-react";
 import "../Styles/nav.css";
 
-const NavBar = () => {
-  const [userDetails, setUserDetails] = useState(null);
+const NavBar = ({userDetails, setUserDetails}) => {
 
-  const URL = import.meta.env.VITE_BASE_URL;
-
-  useEffect(() => {
-    async function getUser() {
-      const user = await getUserData();
-      if (user) {
-        setUserDetails(user);
-      }
-    }
-
-    getUser();
-  }, []);
-
-
-
-  console.log(userDetails)
+  console.log('Navbar User Details: ', userDetails)
   async function handleLogout() {
     try {
       //call function to log out of firebase, no need to call backend
@@ -35,7 +19,7 @@ const NavBar = () => {
       });
       navigate("/");
       console.log("User logged out successfully!");
-       setUserDetails(null)
+      setUserDetails(null)
     } catch (error) {
       toast.error(error.message, {
         position: "bottom-center",
@@ -50,7 +34,6 @@ const NavBar = () => {
 
   const navigate = useNavigate();
 
-  if (!userDetails) return alert(`No data Available`)
 
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">

@@ -18,9 +18,10 @@ const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
 
+
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
-  const myUserDetails = { ...userDetails };
+
   // team obj w/ playerids, matches, captain id, etc
   const [teamData, setTeamData] = useState(null);
   // an array of team member user objs
@@ -98,7 +99,7 @@ const MyTeam = () => {
           : teamData.power_forward_id,
       center_id: playerID === teamData.center_id ? null : teamData.center_id,
     };
-    fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`, {
+    fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -110,8 +111,8 @@ const MyTeam = () => {
           throw new Error("Failed to update team.");
         }
         setTeamData(updatedTeamData);
-        console.log("Team updated successfully.");
-        console.log(teamData);
+        // console.log("Team updated successfully.");
+        // console.log(teamData);
       })
       .catch((error) => {
         console.error("Error updating team:", error);
@@ -136,14 +137,14 @@ const MyTeam = () => {
 
   // sets captainstate for user, and teamdata needed for this view
   useEffect(() => {
-    if (myUserDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}`)
+    if (userDetails) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
         .then((res) => res.json())
         .then((data) => {
           // Update teamData state with the entire team data
           setTeamData(data);
           // Check if current user is team captain
-          if (captain_id === myUserDetails.id) {
+          if (teamData.captain_id === userDetails.id) {
             setIsUserTeamCaptain(true);
           } else {
             setIsUserTeamCaptain(false);
@@ -153,12 +154,12 @@ const MyTeam = () => {
           console.error("Error fetching team data and players:", error)
         );
     }
-  }, [myUserDetails.user_team_id]);
+  }, [userDetails]);
 
   // sets state with all players on the user's team
   useEffect(() => {
-    if (myUserDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${myUserDetails.user_team_id}/users`)
+    if (userDetails) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}/users`)
         .then((res) => res.json())
         .then((data) => {
           setPlayersInTeam(data);
@@ -167,20 +168,21 @@ const MyTeam = () => {
           console.error("Error fetching team data and players:", error)
         );
     }
-  }, [myUserDetails.user_team_id, teamData]);
+  }, [userDetails, teamData]);
 
-  console.log("This is the teamData:", teamData);
-  console.log("This is the myUserDetails:", myUserDetails);
+  // console.log("This is the teamData:", teamData);
+  // console.log("This is the userDetails:", userDetails);
 
-  if (!myUserDetails.user_team_id) return null;
+  if (!userDetails) return null;
 
   return (
     <div className="min-h-screen">
+      {/* {console.log(isUserTeamCaptain)} */}
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
 
-      {myUserDetails && myUserDetails.user_team_id || myUserDetails.captain_id ? (
+      {userDetails && userDetails.user_team_id || userDetails.captain_id ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
@@ -361,7 +363,7 @@ const MyTeam = () => {
                             <td className="px-6 py-5">{player.position}</td>
                             {teamData &&
                             player.id !== teamData.captain_id &&
-                            myUserDetails.id === teamData.captain_id ? (
+                            userDetails.id === teamData.captain_id ? (
                               <td>
                                 <button
                                   className="py-5 hover:text-red-400"
