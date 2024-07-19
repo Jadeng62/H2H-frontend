@@ -20,9 +20,6 @@ const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
   console.log("team Roster", teamRoster);
   console.log("current team", selectedTeam);
 
-  // I need to do team UPDATE for the "position_id" of the users position
-  // I need to do user UPDATE for the user_team_id.
-
   function renderJoinButton() {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
 
@@ -32,12 +29,22 @@ const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
       : false;
   }
 
+  function handleJoinTeam() {
+    // Here goes the two PUT request Logic
+    // I need to do team UPDATE for the "position_id" of the users position
+    // I need to do user UPDATE for the user_team_id.
+
+    // Need this for dotting in
+    const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+    console.log(positionKeyWord);
+  }
+
   return (
     <div className="bg-secondary/30">
       <div className="grid grid-cols-2 max-md:grid-cols-1">
         <div className="p-8">
           {selectedTeam && (
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-12">
               <div className="flex justify-center">
                 <h1 className="text-4xl">{selectedTeam.team_name}</h1>
               </div>
@@ -45,8 +52,15 @@ const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
                 {/* Replace this with team logo or pic */}
                 <img src={placeHolder} alt="" className="w-52" />
               </div>
-              <div>
-                {renderJoinButton() === true ? <button>Join</button> : null}
+              <div className="flex justify-center">
+                {renderJoinButton() === true ? (
+                  <button
+                    onClick={handleJoinTeam}
+                    className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                  >
+                    Join Team
+                  </button>
+                ) : null}
               </div>
             </div>
           )}
@@ -85,6 +99,7 @@ const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
                     </td>
                   </tr>
                 ))}
+              {}
             </tbody>
           </table>
         </div>

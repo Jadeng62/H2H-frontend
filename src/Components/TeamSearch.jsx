@@ -70,13 +70,14 @@ const TeamSearch = () => {
 
       <div className="grid grid-cols-2 max-sm:grid-cols-1">
         <div className="p-8">
-          <div className="flex items-center border-4 border-black rounded-lg bg-accent">
+          <div className="flex items-center border-4 mb-6 border-black rounded-lg bg-accent">
             <div className="flex-grow">
               <input
                 type="text"
                 className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none"
                 onChange={handleChange}
                 value={searchInput}
+                placeholder="Enter Team Name..."
               />
             </div>
             <div className="bg-accent border-l-4 border-black p-2 rounded-r-md h-12 w-12 flex items-center justify-center">
