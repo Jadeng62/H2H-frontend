@@ -58,5 +58,40 @@ export function formatPositionSpelling(position) {
   }
 }
 
+// function renderJoinButton(userDetails, selectedTeam) {
+//   const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+
+//   if (
+//     selectedTeam[positionKeyWord] === null &&
+//     userDetails.user_team_id === null
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+// console.log(
+//   joinTeamIfEligibe(
+//     { position: "shooting guard" },
+//     {
+//       captain_id: 17,
+//       center_id: null,
+//       created_at: "2024-07-19T16:05:43.464Z",
+//       id: 5,
+//       logo: "team_e_logo.jpg",
+//       matches_played: 0,
+//       point_guard_id: 17,
+//       power_forward_id: null,
+//       shooting_guard_id: null,
+//       small_forward_id: null,
+//       team_loss: 0,
+//       team_name: "Team E",
+//       team_pic: "team_e_pic.jpg",
+//       team_wins: 0,
+//       updated_at: "2024-07-19T16:05:43.464Z",
+//     }
+//   )
+// );
 
 // console.log(formatPositionSpelling("forward"));

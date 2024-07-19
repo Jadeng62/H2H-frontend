@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
+import FilteringTeams from "./FilteringTeams";
 
 const TeamSearch = () => {
   const [allTeams, setAllTeams] = useState([]);
@@ -77,11 +78,19 @@ const TeamSearch = () => {
                 className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none"
                 onChange={handleChange}
                 value={searchInput}
+                placeholder="Enter Team Name..."
               />
             </div>
             <div className="bg-accent border-l-4 border-black p-2 rounded-r-md h-12 w-12 flex items-center justify-center">
               <Search size={30} />
             </div>
+          </div>
+          <div className="my-6">
+            <FilteringTeams
+              setFilteredTeams={setFilteredTeams}
+              userDetails={userDetails}
+              allTeams={allTeams}
+            />
           </div>
           <div className="overflow-y-scroll">
             {filteredTeams.length > 0 ? (
@@ -101,7 +110,12 @@ const TeamSearch = () => {
           </div>
         </div>
         <div className="p-8">
-          <TeamSearchDetails selectedTeam={selectedTeam} />
+          <TeamSearchDetails
+            selectedTeam={selectedTeam}
+            userDetails={userDetails}
+            setUserDetails={setUserDetails}
+            allTeams={allTeams}
+          />
         </div>
       </div>
     </div>

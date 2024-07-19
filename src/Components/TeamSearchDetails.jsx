@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { formatPositionSpelling } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
+import { getUserData } from "../helpers/getUserData";
 
-const TeamSearchDetails = ({ selectedTeam }) => {
+const TeamSearchDetails = ({
+  selectedTeam,
+  userDetails,
+  setUserDetails,
+  allTeams,
+}) => {
   const [teamRoster, setTeamRoster] = useState([]);
+  const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -16,12 +23,32 @@ const TeamSearchDetails = ({ selectedTeam }) => {
     }
   }, [selectedTeam]);
 
+  function renderJoinButton() {
+    const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+    // console.log("current team", selectedTeam);
+    // console.log("user details", userDetails);
+    return selectedTeam[positionKeyWord] === null &&
+      userDetails.user_team_id === null
+      ? true
+      : false;
+  }
+
+  function handleJoinTeam() {
+    // Here goes the two PUT request Logic
+    // I need to do team UPDATE for the "position_id" of the users position
+    // I need to do user UPDATE for the user_team_id.
+
+    // Need this for dotting in
+    const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+    console.log(positionKeyWord);
+  }
+
   return (
     <div className="bg-secondary/30">
       <div className="grid grid-cols-2 max-md:grid-cols-1">
         <div className="p-8">
           {selectedTeam && (
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-12">
               <div className="flex justify-center">
                 <h1 className="text-4xl">{selectedTeam.team_name}</h1>
               </div>
@@ -30,19 +57,29 @@ const TeamSearchDetails = ({ selectedTeam }) => {
                 <img src={placeHolder} alt="" className="w-52" />
               </div>
               <div className="flex justify-center">
-                <h1>Captain: </h1>
+                {renderJoinButton() === true ? (
+                  <button
+                    onClick={handleJoinTeam}
+                    className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                  >
+                    Join Team
+                  </button>
+                ) : null}
               </div>
             </div>
           )}
         </div>
+        {/* This is the Team Roster */}
         <div className="py-8">
           <table className="table-auto bg-background rounded-lg w-fit">
-            <thead className="text-left uppercase">
-              <tr>
-                <th className="pl-7 py-4">Player</th>
-                <th className="pl-7 py-4"> Position</th>
-              </tr>
-            </thead>
+            {teamRoster.length > 0 && (
+              <thead className="text-left uppercase">
+                <tr>
+                  <th className="pl-7 py-4">Player</th>
+                  <th className="pl-7 py-4"> Position</th>
+                </tr>
+              </thead>
+            )}
             <tbody>
               {teamRoster &&
                 teamRoster.map((player) => (
@@ -56,11 +93,7 @@ const TeamSearchDetails = ({ selectedTeam }) => {
                         <div className="mr-7">
                           {player.first_name} {player.last_name}{" "}
                           {player.id === selectedTeam.captain_id && (
-                            <img
-                              src={captainPic}
-                              alt=""
-                              className="w-8" // Added ml-3 and md:ml-5 for additional margin
-                            />
+                            <img src={captainPic} alt="" className="w-8" />
                           )}
                         </div>
                       </div>
@@ -70,6 +103,7 @@ const TeamSearchDetails = ({ selectedTeam }) => {
                     </td>
                   </tr>
                 ))}
+              {}
             </tbody>
           </table>
         </div>
