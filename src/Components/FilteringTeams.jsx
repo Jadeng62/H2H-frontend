@@ -10,6 +10,8 @@ const FilteringTeams = ({ setFilteredTeams, userDetails, allTeams }) => {
     const joinableTeams = allTeams.filter(
       (team) => team[positionKeyWord] === null
     );
+
+    console.log(joinableTeams);
     setFilteredTeams(joinableTeams);
     setJoinableTeamsActive(true);
     setAllTeamsActive(false);
@@ -31,14 +33,16 @@ const FilteringTeams = ({ setFilteredTeams, userDetails, allTeams }) => {
         >
           All Teams
         </button>
-        <button
-          className={`text-white text-xl py-3 px-2 ${
-            joinableTeamsActive ? "bg-accent" : "bg-secondary/30"
-          } rounded-lg cursor-pointer`}
-          onClick={viewJoinableTeams}
-        >
-          Joinable Teams
-        </button>
+        {userDetails && userDetails.user_team_id === null && (
+          <button
+            className={`text-white text-xl py-3 px-2 ${
+              joinableTeamsActive ? "bg-accent" : "bg-secondary/30"
+            } rounded-lg cursor-pointer`}
+            onClick={viewJoinableTeams}
+          >
+            Joinable Teams
+          </button>
+        )}
       </div>
     </div>
   );

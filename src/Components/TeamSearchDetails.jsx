@@ -4,8 +4,14 @@ import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
 
-const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
+const TeamSearchDetails = ({
+  selectedTeam,
+  userDetails,
+  setUserDetails,
+  allTeams,
+}) => {
   const [teamRoster, setTeamRoster] = useState([]);
+  const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,12 +23,10 @@ const TeamSearchDetails = ({ selectedTeam, userDetails, setUserDetails }) => {
     }
   }, [selectedTeam]);
 
-  console.log("team Roster", teamRoster);
-  console.log("current team", selectedTeam);
-
   function renderJoinButton() {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-
+    // console.log("current team", selectedTeam);
+    // console.log("user details", userDetails);
     return selectedTeam[positionKeyWord] === null &&
       userDetails.user_team_id === null
       ? true
