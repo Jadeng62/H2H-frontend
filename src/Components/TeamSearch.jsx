@@ -12,6 +12,9 @@ const TeamSearch = () => {
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTeam, setSelectedTeam] = useState();
+  //
+  const [allTeamsActive, setAllTeamsActive] = useState(false);
+  const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -50,6 +53,8 @@ const TeamSearch = () => {
       team.team_name.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredTeams(filtered);
+    setAllTeamsActive(false);
+    setJoinableTeamsActive(false);
   }, [searchInput, allTeams]);
 
   useEffect(() => {
@@ -90,6 +95,10 @@ const TeamSearch = () => {
               setFilteredTeams={setFilteredTeams}
               userDetails={userDetails}
               allTeams={allTeams}
+              allTeamsActive={allTeamsActive}
+              setAllTeamsActive={setAllTeamsActive}
+              joinableTeamsActive={joinableTeamsActive}
+              setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
           <div className="overflow-y-scroll">

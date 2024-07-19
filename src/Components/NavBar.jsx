@@ -7,9 +7,8 @@ import { getUserData } from "../helpers/getUserData";
 import { Zap } from "lucide-react";
 import "../Styles/nav.css";
 
-const NavBar = ({userDetails, setUserDetails}) => {
-
-  console.log('Navbar User Details: ', userDetails)
+const NavBar = ({ userDetails, setUserDetails }) => {
+  // console.log('Navbar User Details: ', userDetails)
   async function handleLogout() {
     try {
       //call function to log out of firebase, no need to call backend
@@ -19,7 +18,7 @@ const NavBar = ({userDetails, setUserDetails}) => {
       });
       navigate("/");
       console.log("User logged out successfully!");
-      setUserDetails(null)
+      setUserDetails(null);
     } catch (error) {
       toast.error(error.message, {
         position: "bottom-center",
@@ -33,7 +32,6 @@ const NavBar = ({userDetails, setUserDetails}) => {
   const { width } = useWindowSize();
 
   const navigate = useNavigate();
-
 
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
@@ -53,7 +51,13 @@ const NavBar = ({userDetails, setUserDetails}) => {
               Matches
             </li>
           </Link>
-          <Link to={userDetails.user_team_id ? `/myTeam/${userDetails.user_team_id}` : "/createTeam"}>
+          <Link
+            to={
+              userDetails.user_team_id
+                ? `/myTeam/${userDetails.user_team_id}`
+                : "/createTeam"
+            }
+          >
             <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               My Team
             </li>
@@ -148,7 +152,11 @@ const NavBar = ({userDetails, setUserDetails}) => {
                   Matches
                 </Link>
                 <Link
-                  to={userDetails.user_team_id ? `/myTeam/${userDetails.user_team_id}` : "/createTeam"}
+                  to={
+                    userDetails.user_team_id
+                      ? `/myTeam/${userDetails.user_team_id}`
+                      : "/createTeam"
+                  }
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabIndex="-1"
