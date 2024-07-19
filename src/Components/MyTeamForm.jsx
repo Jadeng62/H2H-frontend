@@ -18,8 +18,9 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
     });
 
 
-
+    
     const navigate = useNavigate()
+     const URL = import.meta.env.VITE_BASE_URL;
      
 
     useEffect(() => {
@@ -53,7 +54,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
 
     try {
       console.log("Creating team with form data:", formData);
-            const response = await fetch(`http://localhost:3003/api/teams`, {
+            const response = await fetch(`${URL}/api/teams`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,19 +73,38 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                     team_loss: null,
                     matches_played: null
                 }),
-            });
+                
+            }
+        ) .then((res) => res.json())
+         .then((data) => {
+            const newTeamID = data.id;
+             fetch(`${URL}/api/auth/user/${userDetails.id}`,{
+             method: 'PUT',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(
+                {
+                    "team_id" : newTeamID
+                }
+             )
+             });
+             navigate(`/myTeam/${newTeamID}`)
+            })
+            
+    //   if (!response.ok) {
+    //     throw new Error("Team creation failed");
+    //   }
 
 
-      if (!response.ok) {
-        throw new Error("Team creation failed");
-      }
-      const createdTeam = await response.json();
-      console.log("Team created:", createdTeam);
-        navigate(`myTeam/${createdTeam.id}`)
+    //   const createdTeam = await response.json();
+    //   console.log("Team created:", createdTeam);
     } catch (error) {
       console.error("Error creating team:", error);
     }
   };
+
+
 
     if (!userDetails) {
         return <div>Loading...</div>
@@ -113,6 +133,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                         id='team_name'
                         type="text"
                         name="team_name"
+                        required
                         value={team_name}
                         placeholder='Enter Team Name ...'
                         className='team-form-input'
@@ -124,6 +145,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                         id='team_pic'
                         type="text"
                         name="team_pic"
+                        required
                         value={team_pic}
                         placeholder='Enter Photo (optional)'
                         className='team-form-input'
@@ -135,6 +157,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                         id='logo'
                         type="text"
                         name="logo"
+                        required
                         value={logo}
                         placeholder='Enter Team Logo ...'
                         className='team-form-input'

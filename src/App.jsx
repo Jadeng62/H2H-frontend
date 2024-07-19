@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <NavBar user={user} />
+      <NavBar />
       <div className="flex-grow">
         <Routes>
           <Route
@@ -76,8 +76,8 @@ function App() {
           />
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
-          <Route path="/myTeam" element={<MyTeam />} />
-          <Route path="/myTeam/:id" element={<MyTeam />} />
+          {/* <Route path="/myTeam" element={<MyTeam />} /> */}
+          <Route path="/myTeam/:id" element={ <MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           {/* Following Routes for development only: */}
           <Route path="/bballCourts" element={<BBallCourt/>}/>
