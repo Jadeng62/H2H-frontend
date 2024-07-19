@@ -101,7 +101,11 @@ const TeamSearch = () => {
           </div>
         </div>
         <div className="p-8">
-          <TeamSearchDetails selectedTeam={selectedTeam} />
+          <TeamSearchDetails
+            selectedTeam={selectedTeam}
+            userDetails={userDetails}
+            setUserDetails={setUserDetails}
+          />
         </div>
       </div>
     </div>
