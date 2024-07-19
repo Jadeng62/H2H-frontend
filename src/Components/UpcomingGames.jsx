@@ -71,7 +71,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           </h1>
           <button
             className=" bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded"
-            onClick={() => navigate("/myTeam")}
+            onClick={() => navigate("/myTeam/:id")}
           >
             +
           </button>

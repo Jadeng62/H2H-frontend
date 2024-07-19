@@ -172,13 +172,15 @@ const MyTeam = () => {
   console.log("This is the teamData:", teamData);
   console.log("This is the myUserDetails:", myUserDetails);
 
+  if (!myUserDetails.user_team_id) return null;
+
   return (
     <div className="min-h-screen">
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
 
-      {myUserDetails && myUserDetails.user_team_id ? (
+      {myUserDetails && myUserDetails.user_team_id || myUserDetails.captain_id ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>

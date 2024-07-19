@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useWindowSize from "./useWindowSize";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "../helpers/logout";
+import { getUserData } from "../helpers/getUserData";
 import { Zap } from "lucide-react";
 import "../Styles/nav.css";
 
-const NavBar = ({ user }) => {
+const NavBar = () => {
+  const [userDetails, setUserDetails] = useState(null);
+
+  const URL = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await getUserData();
+      if (user) {
+        setUserDetails(user);
+      }
+    }
+
+    getUser();
+  }, []);
+
+
+
+  console.log(userDetails)
   async function handleLogout() {
     try {
       //call function to log out of firebase, no need to call backend
@@ -16,6 +35,7 @@ const NavBar = ({ user }) => {
       });
       navigate("/");
       console.log("User logged out successfully!");
+       setUserDetails(null)
     } catch (error) {
       toast.error(error.message, {
         position: "bottom-center",
@@ -30,7 +50,9 @@ const NavBar = ({ user }) => {
 
   const navigate = useNavigate();
 
-  const LargeNavBar = ({ user }) => (
+  if (!userDetails) return alert(`No data Available`)
+
+  const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       <h1
         className="nav-h1 font-extrabold text-4xl hover: cursor-pointer"
@@ -41,14 +63,14 @@ const NavBar = ({ user }) => {
           H <Zap className="mt-1" /> H
         </span> */}
       </h1>
-      {user && (
+      {userDetails && (
         <ul className="flex space-x-6 font-bold text-3xl justify-center items-center">
           <Link to="/matches">
             <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               Matches
             </li>
           </Link>
-          <Link to="/myTeam">
+          <Link to={userDetails.user_team_id ? `/myTeam/${userDetails.user_team_id}` : "/createTeam"}>
             <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
               My Team
             </li>
@@ -89,12 +111,12 @@ const NavBar = ({ user }) => {
     </div>
   );
 
-  const SmallNavBar = ({ user }) => (
+  const SmallNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-8 bg-accent text-text">
       <h1 className="font-bold text-3xl" onClick={() => navigate("/")}>
         H2H
       </h1>
-      {user && (
+      {userDetails && (
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +165,7 @@ const NavBar = ({ user }) => {
                   Matches
                 </Link>
                 <Link
-                  to="/myTeam"
+                  to={userDetails.user_team_id ? `/myTeam/${userDetails.user_team_id}` : "/createTeam"}
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabIndex="-1"
@@ -201,9 +223,9 @@ const NavBar = ({ user }) => {
   );
 
   return width >= 535 ? (
-    <LargeNavBar user={user} />
+    <LargeNavBar userDetails={userDetails} />
   ) : (
-    <SmallNavBar user={user} />
+    <SmallNavBar userDetails={userDetails} />
   );
 };
 
