@@ -3,6 +3,7 @@ import { formatPositionSpelling } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
+import { Info } from "lucide-react";
 
 const TeamSearchDetails = ({
   selectedTeam,
@@ -44,70 +45,86 @@ const TeamSearchDetails = ({
   }
 
   return (
-    <div className="bg-secondary/30">
-      <div className="grid grid-cols-2 max-md:grid-cols-1">
-        <div className="p-8">
-          {selectedTeam && (
-            <div className="flex flex-col gap-12">
-              <div className="flex justify-center">
-                <h1 className="text-4xl">{selectedTeam.team_name}</h1>
+    <div className="">
+      {selectedTeam ? (
+        <div className="grid grid-cols-2 bg-secondary/30 max-md:grid-cols-1">
+          <div className="p-8">
+            {selectedTeam && (
+              <div className="flex flex-col gap-12">
+                <div className="flex justify-center">
+                  <h1 className="text-4xl">{selectedTeam.team_name}</h1>
+                </div>
+                <div className="flex justify-center">
+                  {/* Replace this with team logo or pic */}
+                  <img src={placeHolder} alt="" className="w-52" />
+                </div>
+                <div className="flex justify-center">
+                  {renderJoinButton() === true ? (
+                    <button
+                      onClick={handleJoinTeam}
+                      className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                    >
+                      Join Team
+                    </button>
+                  ) : null}
+                </div>
               </div>
-              <div className="flex justify-center">
-                {/* Replace this with team logo or pic */}
-                <img src={placeHolder} alt="" className="w-52" />
-              </div>
-              <div className="flex justify-center">
-                {renderJoinButton() === true ? (
-                  <button
-                    onClick={handleJoinTeam}
-                    className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
-                  >
-                    Join Team
-                  </button>
-                ) : null}
-              </div>
-            </div>
-          )}
-        </div>
-        {/* This is the Team Roster */}
-        <div className="py-8">
-          <table className="table-auto bg-background rounded-lg w-fit">
-            {teamRoster.length > 0 && (
-              <thead className="text-left uppercase">
-                <tr>
-                  <th className="pl-7 py-4">Player</th>
-                  <th className="pl-7 py-4"> Position</th>
-                </tr>
-              </thead>
             )}
-            <tbody>
-              {teamRoster &&
-                teamRoster.map((player) => (
-                  <tr
-                    key={player.id}
-                    className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
-                  >
-                    <td className="px-6 py-5 text-black/80">
-                      <div className="flex items-center m-auto">
-                        <img src={player.photo} className="w-16 mr-7" />
-                        <div className="mr-7">
-                          {player.first_name} {player.last_name}{" "}
-                          {player.id === selectedTeam.captain_id && (
-                            <img src={captainPic} alt="" className="w-8" />
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-5">
-                      {formatPositionSpelling(player.position)}
-                    </td>
+          </div>
+          {/* This is the Team Roster */}
+          <div className="py-8">
+            <table className="table-auto bg-background rounded-lg w-fit">
+              {teamRoster.length > 0 && (
+                <thead className="text-left uppercase">
+                  <tr>
+                    <th className="pl-7 py-4">Player</th>
+                    <th className="pl-7 py-4"> Position</th>
                   </tr>
-                ))}
-              {}
-            </tbody>
-          </table>
+                </thead>
+              )}
+              <tbody>
+                {teamRoster &&
+                  teamRoster.map((player) => (
+                    <tr
+                      key={player.id}
+                      className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
+                    >
+                      <td className="px-6 py-5 text-black/80">
+                        <div className="flex items-center m-auto">
+                          <img src={player.photo} className="w-16 mr-7" />
+                          <div className="mr-7">
+                            {player.first_name} {player.last_name}{" "}
+                            {player.id === selectedTeam.captain_id && (
+                              <img src={captainPic} alt="" className="w-8" />
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-5">
+                        {formatPositionSpelling(player.position)}
+                      </td>
+                    </tr>
+                  ))}
+                {}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+          <div className="flex">
+            <span className="mr-5">
+              <Info size={28} className="text-primary/50" />
+            </span>
+            <div className="flex flex-col">
+              <span className="font-semibold">Select a Team</span>
+              <span>
+                To view their details and get all the insights you need!
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
