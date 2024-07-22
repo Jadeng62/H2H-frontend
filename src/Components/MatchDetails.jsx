@@ -137,7 +137,7 @@ const MatchDetails = ({ upcomingGames, userTeam }) => {
                 <tbody>
                   <tr className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100">
                     <td className="px-6 py-5 text-black">Location:</td>
-                    <td className="px-6 py-5">{`${match.address} ${match.city}, ${match.state} ${match.zip}`}</td>
+                    <td className="px-6 py-5">{`${match.address}`}</td>
                   </tr>
                   <tr className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100">
                     <td className="px-6 py-5 text-black">Date:</td>
