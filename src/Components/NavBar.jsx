@@ -62,6 +62,11 @@ const NavBar = ({ userDetails, setUserDetails }) => {
               My Team
             </li>
           </Link>
+          <Link to="/teamSearch">
+            <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
+              Team Search
+            </li>
+          </Link>
           {/* <Link to="/leaderboard"><li className="nav-li border-b-2 border-transparent hover:border-white duration-500">
             Leaderboard
           </li></Link> */}
@@ -164,6 +169,16 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                   onClick={() => setToggleHamburger(false)}
                 >
                   My Team
+                </Link>
+                <Link
+                  to="/teamSearch"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="menu-item-2"
+                  onClick={() => setToggleHamburger(false)}
+                >
+                  Team Search
                 </Link>
                 <Link
                   to="/profile"

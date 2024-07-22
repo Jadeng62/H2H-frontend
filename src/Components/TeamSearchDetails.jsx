@@ -11,6 +11,7 @@ const TeamSearchDetails = ({
   setUserDetails,
   allTeams,
   setSelectedTeam,
+  setSuccessMessage,
 }) => {
   const [teamRoster, setTeamRoster] = useState([]);
   const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
@@ -38,19 +39,16 @@ const TeamSearchDetails = ({
   function handleJoinTeam() {
     // Assuming userDetails and selectedTeam are available in the scope
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-
     // Updating Team Key Route
     const updatedTeamInfo = {
       ...selectedTeam,
       [positionKeyWord]: userDetails.id,
     };
-
     const teamOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedTeamInfo),
     };
-
     fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
       .then((res) => res.json())
       .then((data) => {
@@ -58,16 +56,13 @@ const TeamSearchDetails = ({
         console.log("Successfully Updated Team!!!", data);
       })
       .catch((error) => console.error("Team Didn't Update", error));
-
     // Updating User Route
     const updatedUserInfo = { ...userDetails, user_team_id: selectedTeam.id };
-
     const userOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUserInfo),
     };
-
     fetch(`${URL}/api/auth/user/${userDetails.id}`, userOptions)
       .then((res) => res.json())
       .then((data) => {
@@ -75,6 +70,11 @@ const TeamSearchDetails = ({
         console.log("User Details Updated Successfully", data); // Logging the response data
       })
       .catch((error) => console.error("Updated User Details Failed", error));
+
+    setSuccessMessage(true);
+    setTimeout(() => {
+      setSuccessMessage(false);
+    }, "3000");
   }
 
   return (
