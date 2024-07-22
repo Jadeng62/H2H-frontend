@@ -20,13 +20,17 @@ const MyTeam = () => {
 
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
-
-  // team obj w/ playerids, matches, captain id, etc
+  // team obj w/ playerIDs, matches, captain id, etc
   const [teamData, setTeamData] = useState(null);
   // an array of team member user objs
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
+  // state for targeting which player is selected
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  // state for updating players' team id
+  const [playerData, setPlayerData] = useState(null);
+
   // state for current saying
   const [currentSaying, setCurrentSaying] = useState("");
 
@@ -43,13 +47,6 @@ const MyTeam = () => {
     "Check your lineup; a complete team is necessary for gameplay.",
     "There's no I and team. You need a full team to play in matches.",
   ];
-
-  // const total = wins + losses;
-  // {teamData.matches_played;}
-  // const winPercentage = (wins / total) * 100;
-  // ({teamData.team_wins}/{teamData.matches_played}) * 100
-  // const lossPercentage = (losses / total) * 100;
-  //// ({teamData.team_loss}/{teamData.matches_played}) * 100
 
   // function to cycle through sayings to encourage user to get a full team in order to play matches
   const selectRandomSaying = () => {
@@ -116,6 +113,10 @@ const MyTeam = () => {
           : teamData.power_forward_id,
       center_id: playerID === teamData.center_id ? null : teamData.center_id,
     };
+
+    const updatedPlayer = { user_team_id: null }; // update that player's teamID at that playerID to null
+
+    //put request to update team object
     fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
       method: "PUT",
       headers: {
@@ -127,15 +128,32 @@ const MyTeam = () => {
         if (!res.ok) {
           throw new Error("Failed to update team.");
         }
-        setTeamData(updatedTeamData);
-        // console.log("Team updated successfully.");
-        // console.log(teamData);
+        setTeamData(updatedTeamData); // setting updated team data
+
+        //after team is updated now update that specific player obj
+        return fetch(`${URL}/api/auth/user/${playerID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedPlayer),
+        });
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update player.");
+        }
+        console.log("Player updated successfully");
+        setPlayerData(updatedPlayer);
+        setSelectedPlayer(playerID);
+        // Optionally update UI or perform further actions
       })
       .catch((error) => {
         console.error("Error updating team:", error);
       });
   };
 
+  // get logged in user
   useEffect(() => {
     async function getUser() {
       const user = await getUserData();
@@ -148,9 +166,9 @@ const MyTeam = () => {
   }, []);
 
   // useEffect for saying selector/generator
-  useEffect(() => {
-    selectRandomSaying();
-  }, []);
+  // useEffect(() => {
+  //   selectRandomSaying();
+  // }, []);
 
   // sets captainstate for user, and teamdata needed for this view
   useEffect(() => {
@@ -187,8 +205,19 @@ const MyTeam = () => {
     }
   }, [userDetails, teamData]);
 
-  // console.log("This is the teamData:", teamData);
-  // console.log("This is the userDetails:", userDetails);
+  // uncomment to check if a player's team id is changed to null once a captain them from a team
+  useEffect(() => {
+    if (selectedPlayer) {
+      fetch(`${URL}/api/auth/user/single/${selectedPlayer}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Selected Player:", data);
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [selectedPlayer]);
 
   if (!userDetails) return null;
 
@@ -309,7 +338,7 @@ const MyTeam = () => {
                   </>
                 ) : (
                   <>
-                    <div className="bg-secondary/10 p-5 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
+                    <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
                       <div className="flex flex-row items-center mb-2">
                         <span className="mr-5">
                           <Info size={28} className="text-primary/50" />
