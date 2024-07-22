@@ -5,13 +5,16 @@ import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
-
+import { CircleX } from "lucide-react";
 const TeamSearch = () => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTeam, setSelectedTeam] = useState();
+  //
+  const [allTeamsActive, setAllTeamsActive] = useState(false);
+  const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -50,6 +53,8 @@ const TeamSearch = () => {
       team.team_name.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredTeams(filtered);
+    setAllTeamsActive(false);
+    setJoinableTeamsActive(false);
   }, [searchInput, allTeams]);
 
   useEffect(() => {
@@ -90,13 +95,17 @@ const TeamSearch = () => {
               setFilteredTeams={setFilteredTeams}
               userDetails={userDetails}
               allTeams={allTeams}
+              allTeamsActive={allTeamsActive}
+              setAllTeamsActive={setAllTeamsActive}
+              joinableTeamsActive={joinableTeamsActive}
+              setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
-          <div className="overflow-y-scroll">
+          <div className="">
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
-                  className="py-4 border-b-2 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50"
+                  className="py-4 border-b-2 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 overflow-y-scroll"
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
@@ -105,7 +114,20 @@ const TeamSearch = () => {
                 </div>
               ))
             ) : (
-              <div className="py-4 border-b-2">No Teams Found</div>
+              <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+                <div className="flex">
+                  <span className="mr-5">
+                    <CircleX size={28} className="text-red-500" />
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-semibold">No Teams Found</span>
+                    <span>
+                      Don't worry! Try adjusting your search criteria to find
+                      the teams you're looking for.
+                    </span>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
