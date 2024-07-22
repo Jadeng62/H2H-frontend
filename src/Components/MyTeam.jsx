@@ -153,15 +153,6 @@ const MyTeam = () => {
       });
   };
 
-  // useEffect(() => {
-  //   fetch(`${URL}/api/auth/user/single/${PlayerID}`)
-  //     .then((res) => res.json())
-  //     .then((data) => console.log("This is the player that was updated", data))
-  //     .catch((error) =>
-  //       console.error("Error fetching team data and players:", error)
-  //     );
-  // });
-
   // get logged in user
   useEffect(() => {
     async function getUser() {
@@ -214,6 +205,7 @@ const MyTeam = () => {
     }
   }, [userDetails, teamData]);
 
+  // uncomment to check if a player's team id is changed to null once a captain them from a team
   useEffect(() => {
     if (selectedPlayer) {
       fetch(`${URL}/api/auth/user/single/${selectedPlayer}`)
