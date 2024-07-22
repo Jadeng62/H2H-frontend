@@ -18,7 +18,6 @@ const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
 
-
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
 
@@ -70,6 +69,24 @@ const MyTeam = () => {
       // timeZoneName: "short",
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
+  }
+
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function capitalizeFirstLetter(string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    let capitalizedString = words.join(" ");
+    return capitalizedString;
   }
 
   const handleWL = (w, l) => {
@@ -182,7 +199,7 @@ const MyTeam = () => {
         My Team
       </h1>
 
-      {userDetails && userDetails.user_team_id || userDetails.captain_id ? (
+      {(userDetails && userDetails.user_team_id) || userDetails.captain_id ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
@@ -196,7 +213,7 @@ const MyTeam = () => {
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                      {teamData.team_pic !== null ? (
+                      {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
                         <img
                           src={teamData.team_pic}
                           alt="team_pic"
@@ -321,11 +338,11 @@ const MyTeam = () => {
                     Roster
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                  {playersInTeam && playersInTeam.length < 5 && (
+                  {/* {playersInTeam && playersInTeam.length < 5 && (
                     <span className="text-white p-2 mt-10 bg-accent/80 rounded-lg hover:bg-secondary/30 ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
-                  )}
+                  )} */}
                 </div>
                 <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full">
                   <thead className="text-left uppercase text-text">
@@ -360,7 +377,9 @@ const MyTeam = () => {
                               </span>{" "}
                               {player.first_name} {player.last_name}
                             </td>
-                            <td className="px-6 py-5">{player.position}</td>
+                            <td className="px-6 py-5">
+                              {capitalizeFirstLetter(player.position)}
+                            </td>
                             {teamData &&
                             player.id !== teamData.captain_id &&
                             userDetails.id === teamData.captain_id ? (
