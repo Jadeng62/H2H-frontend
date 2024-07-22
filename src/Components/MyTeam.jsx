@@ -80,6 +80,15 @@ const MyTeam = () => {
     }
   }
 
+  function capitalizeFirstLetter(string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    let capitalizedString = words.join(" ");
+    return capitalizedString;
+  }
+
   const handleWL = (w, l) => {
     const wLRatio = w / l;
     const flooredRatio = Math.floor(wLRatio * 10) / 10;
@@ -368,7 +377,9 @@ const MyTeam = () => {
                               </span>{" "}
                               {player.first_name} {player.last_name}
                             </td>
-                            <td className="px-6 py-5">{player.position}</td>
+                            <td className="px-6 py-5">
+                              {capitalizeFirstLetter(player.position)}
+                            </td>
                             {teamData &&
                             player.id !== teamData.captain_id &&
                             userDetails.id === teamData.captain_id ? (
