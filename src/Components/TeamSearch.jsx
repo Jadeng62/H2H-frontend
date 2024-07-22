@@ -137,6 +137,7 @@ const TeamSearch = () => {
             userDetails={userDetails}
             setUserDetails={setUserDetails}
             allTeams={allTeams}
+            setSelectedTeam={setSelectedTeam}
           />
         </div>
       </div>
