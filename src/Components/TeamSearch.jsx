@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUserData } from "../helpers/getUserData";
-import { Search } from "lucide-react";
+import { Check, Search } from "lucide-react";
 import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
@@ -15,6 +15,7 @@ const TeamSearch = () => {
   //
   const [allTeamsActive, setAllTeamsActive] = useState(false);
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -72,6 +73,22 @@ const TeamSearch = () => {
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
         <h2>Team Search</h2>
       </div>
+      {successMessage && (
+        <div className="bg-secondary/30 p-5 mx-8 mt-8 rounded-lg text-white text-lg border-4 border-primary max-sm:mb-1">
+          <div className="flex">
+            <span className="mr-5">
+              <Check size={28} className="text-primary" />
+            </span>
+            <div className="flex flex-col">
+              <span className="font-semibold">Congratulations!</span>
+              <span>
+                You have successfully joined the team:
+                <strong>{` ${selectedTeam.team_name}`}</strong>.
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       {/* <h1 className="text-3xl mb-4">Team Search</h1> */}
 
       <div className="grid grid-cols-2 max-sm:grid-cols-1">
@@ -137,6 +154,8 @@ const TeamSearch = () => {
             userDetails={userDetails}
             setUserDetails={setUserDetails}
             allTeams={allTeams}
+            setSelectedTeam={setSelectedTeam}
+            setSuccessMessage={setSuccessMessage}
           />
         </div>
       </div>
