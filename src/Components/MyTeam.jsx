@@ -349,12 +349,16 @@ const MyTeam = () => {
                         To see your team stats, you have to play in more
                         matches!
                       </span>
-                      <span
-                        onClick={() => navigate(`/matches`)}
-                        className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
-                      >
-                        Play a Match
-                      </span>
+                      {playersInTeam && playersInTeam.length === 5 ? (
+                        <span
+                          onClick={() => navigate(`/matches`)}
+                          className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+                        >
+                          Play a Match
+                        </span>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </>
                 )}
