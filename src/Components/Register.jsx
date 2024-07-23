@@ -13,15 +13,14 @@ import "../Styles/register.css";
 
 function Register() {
   const [newUser, setNewUser] = useState({
-      email: "",
-      first_name: "",
-      last_name: "",
-      photo: "",
-      username:"",
-      dob:"",
-      position:"",
-      password:"",
-      photo: ""
+    email: "",
+    first_name: "",
+    last_name: "",
+    username: "",
+    dob: "",
+    position: "",
+    password: "",
+    photo: "",
   });
 
   const navigate = useNavigate();
@@ -177,21 +176,21 @@ function Register() {
           />
         </label>
 
-          <label htmlFor="photo" className="register-label">
-            Photo Url{" "}
-            <input
-              type="text"
-              id="photo"
-              name="photo"
-              placeholder="Enter img URL"
-              value={newUser.photo}
-              onChange={handleChange}
-              className="register-input"
-            />
-          </label>
+        <label htmlFor="photo" className="register-label">
+          Photo Url{" "}
+          <input
+            type="text"
+            id="photo"
+            name="photo"
+            placeholder="Enter img URL"
+            value={newUser.photo}
+            onChange={handleChange}
+            className="register-input"
+          />
+        </label>
 
-         <div className="register-radio">
-         <h4 className="register-h4">Select Your Team Position</h4>
+        <div className="register-radio">
+          <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">
             Point Guard{" "}
             <input
