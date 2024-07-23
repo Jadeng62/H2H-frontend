@@ -271,6 +271,7 @@ const MyTeam = () => {
                     </div>
                     <div className="mt-1 mr-1">
                       <span className=" text-accent/90 hover:text-secondary cursor-pointer">
+                      {/* add modal for toggling editteam.jsx when Pencil is clicked */}
                         <Pencil size={28} />
                       </span>
                     </div>

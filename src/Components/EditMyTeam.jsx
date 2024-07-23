@@ -3,7 +3,7 @@ import { getUserData } from '../helpers/getUserData';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/teamForm.css';
 
-const EditMyTeam = () => {
+const EditMyTeam = ({ closeModal }) => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
         team_name: '',
@@ -149,7 +149,18 @@ const EditMyTeam = () => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                <button className='team-form-btn'>Submit</button>
+                {/* <button className='team-form-btn' type="submit">Submit</button> */}
+                <div className='flex flex-wrap justify-center gap-2'>
+                {/* <button className='bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background' type="submit">Submit</button> */}
+                <button className='team-form-btn' type="submit">Submit</button>
+                {/* close modal*/}
+                <button
+                onClick={closeModal}
+                className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+                >
+                    Cancel
+                </button>
+                </div>
             </form>
         </div>
     );
