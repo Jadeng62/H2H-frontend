@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EditMyTeam from "./EditMyTeam.jsx";
 import playersData from "../DummyData/myTeam.json";
 import {
   X,
@@ -33,6 +34,8 @@ const MyTeam = () => {
 
   // state for current saying
   const [currentSaying, setCurrentSaying] = useState("");
+  // modal usestates
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // array of sayings for when a user still needs a full team to play
   const sayings = [
@@ -220,6 +223,15 @@ const MyTeam = () => {
   }, [selectedPlayer]);
 
   if (!userDetails) return null;
+
+  // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen">

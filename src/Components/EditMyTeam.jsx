@@ -149,17 +149,15 @@ const EditMyTeam = ({ closeModal }) => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                {/* <button className='team-form-btn' type="submit">Submit</button> */}
                 <div className='flex flex-wrap justify-center gap-2'>
-                {/* <button className='bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background' type="submit">Submit</button> */}
-                <button className='team-form-btn' type="submit">Submit</button>
-                {/* close modal*/}
-                <button
-                onClick={closeModal}
-                className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
-                >
-                    Cancel
-                </button>
+                    <button className='team-form-btn' type="submit">Edit Team</button>
+                    {/* close modal*/}
+                    <button
+                    onClick={closeModal}
+                    className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+                    >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>
