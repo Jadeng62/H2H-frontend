@@ -1,13 +1,20 @@
 import React from "react";
 import "../Styles/Footer.css";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-background/30 mt-16">
       <hr className="border-white" />
 
       <div className=" border-white border-r border-l border-b">
-        <h3 className="text-white pt-5 text-3xl mx-10">H2H</h3>
+        <h3
+          onClick={() => navigate("/")}
+          className="text-white pt-5 text-3xl mx-10 cursor-pointer"
+        >
+          H2H
+        </h3>
         <hr className="border-white mt-5 mx-10" />
         <div className="mx-10">
           <div className="grid grid-cols-3 py-6 text-white text-lg footer-position footer-height sticky ">
