@@ -241,12 +241,12 @@ function Register() {
             />
           </label>
         </div>
-        <label htmlFor="last_name" className="register-label">
+        <label htmlFor="photo" className="register-label">
           <div className="mb-1">Profile Image </div>
           <input
             type="text"
-            id="last_name"
-            name="last_name"
+            id="photo"
+            name="photo"
             placeholder="Enter a valid url --> https://"
             value={newUser.photo}
             onChange={handleChange}
