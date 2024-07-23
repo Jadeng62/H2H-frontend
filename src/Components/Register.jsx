@@ -163,6 +163,20 @@ function Register() {
           />
         </label>
 
+        <label htmlFor="password" className="register-label">
+          <div className="mb-1">Password </div>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter Password"
+            value={newUser.password}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
+
           <label htmlFor="photo" className="register-label">
             Photo Url{" "}
             <input
@@ -178,21 +192,6 @@ function Register() {
 
          <div className="register-radio">
          <h4 className="register-h4">Select Your Team Position</h4>
-        <label htmlFor="password" className="register-label">
-          <div className="mb-1">Password </div>
-          <input
-            type="password"
-            placeholder="Enter password"
-            id="password"
-            name="password"
-            value={newUser.password}
-            onChange={handleChange}
-            required
-            className="register-input"
-          />
-        </label>
-        <div className="register-radio">
-          <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">
             Point Guard{" "}
             <input
@@ -200,7 +199,6 @@ function Register() {
               id="position1"
               name="position"
               value="point guard"
-              // checked={newUser.position === "Point Guard"}
               onChange={handleRadioChange}
               className="register-radio-input"
             />
@@ -257,18 +255,6 @@ function Register() {
             />
           </label>
         </div>
-        <label htmlFor="photo" className="register-label">
-          <div className="mb-1">Profile Image </div>
-          <input
-            type="text"
-            id="photo"
-            name="photo"
-            placeholder="Enter a valid url --> https://"
-            value={newUser.photo}
-            onChange={handleChange}
-            className="register-input"
-          />
-        </label>
         <button type="submit" className="register-btn">
           Sign Up
         </button>
