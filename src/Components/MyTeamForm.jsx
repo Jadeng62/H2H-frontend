@@ -109,7 +109,22 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
     if (!userDetails) {
         return <div>Loading...</div>
     }
-      
+    
+    const handleCancel = () => {
+        setFormData({
+            team_name: '',
+            team_pic: '',
+            logo: '',
+            captain_id: null,
+            point_guard_id: null,
+            shooting_guard_id: null,
+            small_forward_id: null,
+            power_forward_id: null,
+            center_id: null
+        
+        });
+    }
+    
     const { 
         team_name, 
         team_pic, 
@@ -163,7 +178,16 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label>
-                <button onClick={handleSubmit} className='team-form-btn'>Create Team</button>
+                {/* <button onClick={handleSubmit} className='team-form-btn'>Create Team</button> */}
+                <div className='flex flex-wrap justify-center gap-2'>
+                    <button className='team-form-btn' type="submit" onClick={handleSubmit}>Create Team</button>
+                    <button
+                    onClick={handleCancel}
+                    className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+                    >
+                        Cancel
+                    </button>
+                </div>
             </form>
         </div>
     );

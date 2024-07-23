@@ -9,7 +9,7 @@ import {
 import { auth } from "../helpers/firebase";
 import { register } from "../helpers/register";
 
-import "../Styles/register.css"
+import "../Styles/register.css";
 
 function Register() {
   const [newUser, setNewUser] = useState({
@@ -30,12 +30,12 @@ function Register() {
     setNewUser({ ...newUser, [e.target.id]: e.target.value });
   };
 
-  const handleRadioChange = (e) =>{
+  const handleRadioChange = (e) => {
     setNewUser({
       ...newUser,
-      position: e.target.value
-    })
-  }
+      position: e.target.value,
+    });
+  };
 
   const handleClearState = () => {
     setNewUser({
@@ -43,10 +43,10 @@ function Register() {
       first_name: "",
       last_name: "",
       photo: "",
-      username:"",
-      dob:"",
-      position:"",
-      password:""
+      username: "",
+      dob: "",
+      position: "",
+      password: "",
     });
   };
 
@@ -98,47 +98,47 @@ function Register() {
     <div className="register-container">
       <form onSubmit={handleRegister}>
         <h3 className="register-h3">Sign Up</h3>
-          <label htmlFor="first_name" className="register-label">
-            First Name{" "}
-            <input
-              type="text"
-              id="first_name"
-              name="first_name"
-              placeholder="First name"
-              value={newUser.first_name}
-              onChange={handleChange}
-              required
-              className="register-input"
-            />
-          </label>
+        <label htmlFor="first_name" className="register-label">
+          <div className="mb-1">First Name </div>
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            placeholder="First name"
+            value={newUser.first_name}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
 
-          <label htmlFor="last_name" className="register-label">
-            Last Name{" "}
-            <input
-              type="text"
-              id="last_name"
-              name="last_name"
-              placeholder="Last name"
-              value={newUser.last_name}
-              onChange={handleChange}
-              className="register-input"
-            />
-          </label>
-          <label htmlFor="username" className="register-label">
-            Username{" "}
-            <input
-              type="username"
-              placeholder="Enter username"
-              id="username"
-              name="username"
-              value={newUser.username}
-              onChange={handleChange}
-              required
-              className="register-input"
-            />
-          </label>
-          <label htmlFor="dob" className="register-label">
-          Date of Birth{" "}
+        <label htmlFor="last_name" className="register-label">
+          <div className="mb-1">Last Name </div>{" "}
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            placeholder="Last name"
+            value={newUser.last_name}
+            onChange={handleChange}
+            className="register-input"
+          />
+        </label>
+        <label htmlFor="username" className="register-label">
+          <div className="mb-1">Username </div>
+          <input
+            type="username"
+            placeholder="Enter username"
+            id="username"
+            name="username"
+            value={newUser.username}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
+        <label htmlFor="dob" className="register-label">
+          <div className="mb-1">Date of Birth </div>
           <input
             type="date"
             id="dob"
@@ -149,33 +149,19 @@ function Register() {
             className="register-input"
           />
         </label>
-          <label htmlFor="email" className="register-label">
-            Email Address{" "}
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter email"
-              value={newUser.email}
-              onChange={handleChange}
-              required
-              className="register-input"
-            />
-          </label>
-
-          <label htmlFor="password" className="register-label">
-            Password{" "}
-            <input
-              type="password"
-              placeholder="Enter password"
-              id="password"
-              name="password"
-              value={newUser.password}
-              onChange={handleChange}
-              required
-              className="register-input"
-            />
-          </label>
+        <label htmlFor="email" className="register-label">
+          <div className="mb-1">Email Address </div>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter email"
+            value={newUser.email}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
 
           <label htmlFor="photo" className="register-label">
             Photo Url{" "}
@@ -192,6 +178,21 @@ function Register() {
 
          <div className="register-radio">
          <h4 className="register-h4">Select Your Team Position</h4>
+        <label htmlFor="password" className="register-label">
+          <div className="mb-1">Password </div>
+          <input
+            type="password"
+            placeholder="Enter password"
+            id="password"
+            name="password"
+            value={newUser.password}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
+        <div className="register-radio">
+          <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">
             Point Guard{" "}
             <input
@@ -227,7 +228,6 @@ function Register() {
               value="small forward"
               // checked={newUser.position === "Small Forward"}
               onChange={handleRadioChange}
-
               className="register-radio-input"
             />
           </label>
@@ -241,7 +241,6 @@ function Register() {
               value="power forward"
               // checked={newUser.position === "Power Forward"}
               onChange={handleRadioChange}
-
               className="register-radio-input"
             />
           </label>
@@ -258,16 +257,30 @@ function Register() {
             />
           </label>
         </div>
-          <button type="submit" className="register-btn">
-            Sign Up
-          </button>
+        <label htmlFor="photo" className="register-label">
+          <div className="mb-1">Profile Image </div>
+          <input
+            type="text"
+            id="photo"
+            name="photo"
+            placeholder="Enter a valid url --> https://"
+            value={newUser.photo}
+            onChange={handleChange}
+            className="register-input"
+          />
+        </label>
+        <button type="submit" className="register-btn">
+          Sign Up
+        </button>
         <p className="register-p">
-          Already registered <Link to="/login"><span className="register-span">Login</span></Link>
+          Already registered{" "}
+          <Link to="/login">
+            <span className="register-span">Login</span>
+          </Link>
         </p>
       </form>
       {console.log(newUser)}
     </div>
-    
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUserData } from "../helpers/getUserData";
-import { Search } from "lucide-react";
+import { Check, Search } from "lucide-react";
 import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
@@ -15,6 +15,7 @@ const TeamSearch = () => {
   //
   const [allTeamsActive, setAllTeamsActive] = useState(false);
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -72,15 +73,31 @@ const TeamSearch = () => {
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
         <h2>Team Search</h2>
       </div>
+      {successMessage && (
+        <div className="bg-secondary/30 p-5 mx-8 mt-8 rounded-lg text-white text-lg border-4 border-primary max-sm:mb-1">
+          <div className="flex">
+            <span className="mr-5">
+              <Check size={28} className="text-primary" />
+            </span>
+            <div className="flex flex-col">
+              <span className="font-semibold">Congratulations!</span>
+              <span>
+                You have successfully joined the team:
+                <strong>{` ${selectedTeam.team_name}`}</strong>.
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       {/* <h1 className="text-3xl mb-4">Team Search</h1> */}
 
-      <div className="grid grid-cols-2 max-sm:grid-cols-1">
-        <div className="p-8">
-          <div className="flex items-center border-4 border-black rounded-lg bg-accent">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="p-8 ">
+          <div className="flex items-center border-4 border-black rounded-lg">
             <div className="flex-grow">
               <input
                 type="text"
-                className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none"
+                className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none hover:bg-text"
                 onChange={handleChange}
                 value={searchInput}
                 placeholder="Enter Team Name..."
@@ -90,7 +107,7 @@ const TeamSearch = () => {
               <Search size={30} />
             </div>
           </div>
-          <div className="my-6">
+          <div className="my-7">
             <FilteringTeams
               setFilteredTeams={setFilteredTeams}
               userDetails={userDetails}
@@ -101,16 +118,16 @@ const TeamSearch = () => {
               setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
-          <div className="">
+          <div className=" overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
-                  className="py-4 border-b-2 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 overflow-y-scroll"
+                  className="py-4 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 rounded"
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
                   <p>{team.team_name}</p>
-                  <img src={placeHolder} className="h-12" alt="team" />
+                  <img src={placeHolder} className="h-12 rounded" alt="team" />
                 </div>
               ))
             ) : (
@@ -137,6 +154,8 @@ const TeamSearch = () => {
             userDetails={userDetails}
             setUserDetails={setUserDetails}
             allTeams={allTeams}
+            setSelectedTeam={setSelectedTeam}
+            setSuccessMessage={setSuccessMessage}
           />
         </div>
       </div>

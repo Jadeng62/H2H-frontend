@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EditMyTeam from "./EditMyTeam.jsx";
+import Modal from 'react-modal';
 import playersData from "../DummyData/myTeam.json";
 import {
   X,
@@ -18,18 +20,23 @@ const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
 
-
   // user obj w/ user data
   const [userDetails, setUserDetails] = useState(null);
-
-  // team obj w/ playerids, matches, captain id, etc
+  // team obj w/ playerIDs, matches, captain id, etc
   const [teamData, setTeamData] = useState(null);
   // an array of team member user objs
   const [playersInTeam, setPlayersInTeam] = useState(null);
   //might need useState for captain so that we can compare captain ID with the current user/ team player
   const [isUserTeamCaptain, setIsUserTeamCaptain] = useState(false);
+  // state for targeting which player is selected
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  // state for updating players' team id
+  const [playerData, setPlayerData] = useState(null);
+
   // state for current saying
   const [currentSaying, setCurrentSaying] = useState("");
+  // modal usestates
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // array of sayings for when a user still needs a full team to play
   const sayings = [
@@ -44,13 +51,6 @@ const MyTeam = () => {
     "Check your lineup; a complete team is necessary for gameplay.",
     "There's no I and team. You need a full team to play in matches.",
   ];
-
-  // const total = wins + losses;
-  // {teamData.matches_played;}
-  // const winPercentage = (wins / total) * 100;
-  // ({teamData.team_wins}/{teamData.matches_played}) * 100
-  // const lossPercentage = (losses / total) * 100;
-  //// ({teamData.team_loss}/{teamData.matches_played}) * 100
 
   // function to cycle through sayings to encourage user to get a full team in order to play matches
   const selectRandomSaying = () => {
@@ -70,6 +70,24 @@ const MyTeam = () => {
       // timeZoneName: "short",
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
+  }
+
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function capitalizeFirstLetter(string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    let capitalizedString = words.join(" ");
+    return capitalizedString;
   }
 
   const handleWL = (w, l) => {
@@ -99,6 +117,10 @@ const MyTeam = () => {
           : teamData.power_forward_id,
       center_id: playerID === teamData.center_id ? null : teamData.center_id,
     };
+
+    const updatedPlayer = { user_team_id: null }; // update that player's teamID at that playerID to null
+
+    //put request to update team object
     fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
       method: "PUT",
       headers: {
@@ -110,15 +132,32 @@ const MyTeam = () => {
         if (!res.ok) {
           throw new Error("Failed to update team.");
         }
-        setTeamData(updatedTeamData);
-        // console.log("Team updated successfully.");
-        // console.log(teamData);
+        setTeamData(updatedTeamData); // setting updated team data
+
+        //after team is updated now update that specific player obj
+        return fetch(`${URL}/api/auth/user/${playerID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedPlayer),
+        });
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update player.");
+        }
+        console.log("Player updated successfully");
+        setPlayerData(updatedPlayer);
+        setSelectedPlayer(playerID);
+        // Optionally update UI or perform further actions
       })
       .catch((error) => {
         console.error("Error updating team:", error);
       });
   };
 
+  // get logged in user
   useEffect(() => {
     async function getUser() {
       const user = await getUserData();
@@ -131,9 +170,9 @@ const MyTeam = () => {
   }, []);
 
   // useEffect for saying selector/generator
-  useEffect(() => {
-    selectRandomSaying();
-  }, []);
+  // useEffect(() => {
+  //   selectRandomSaying();
+  // }, []);
 
   // sets captainstate for user, and teamdata needed for this view
   useEffect(() => {
@@ -170,10 +209,44 @@ const MyTeam = () => {
     }
   }, [userDetails, teamData]);
 
-  // console.log("This is the teamData:", teamData);
-  // console.log("This is the userDetails:", userDetails);
+  // uncomment to check if a player's team id is changed to null once a captain them from a team
+  useEffect(() => {
+    if (selectedPlayer) {
+      fetch(`${URL}/api/auth/user/single/${selectedPlayer}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Selected Player:", data);
+        })
+        .catch((error) =>
+          console.error("Error fetching team data and players:", error)
+        );
+    }
+  }, [selectedPlayer]);
 
   if (!userDetails) return null;
+
+  // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    //refetch team data after modal closes
+    if (userDetails && userDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTeamData(data);
+        })
+          .catch((error) =>
+            console.error("Error fetching team data:", error)
+          );
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -182,7 +255,7 @@ const MyTeam = () => {
         My Team
       </h1>
 
-      {userDetails && userDetails.user_team_id || userDetails.captain_id ? (
+      {(userDetails && userDetails.user_team_id) || userDetails.captain_id ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
@@ -196,7 +269,7 @@ const MyTeam = () => {
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                      {teamData.team_pic !== null ? (
+                      {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
                         <img
                           src={teamData.team_pic}
                           alt="team_pic"
@@ -223,11 +296,23 @@ const MyTeam = () => {
                         </div>
                       </div>
                     </div>
+                    {/* need to add functionality that only allows captains to edit */}
+                    {/* added modal for toggling editteam.jsx when Pencil is clicked */}
+                    {teamData.captain_id === userDetails.id &&
                     <div className="mt-1 mr-1">
-                      <span className=" text-accent/90 hover:text-secondary cursor-pointer">
+                      <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
                         <Pencil size={28} />
                       </span>
-                    </div>
+                      <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        className="modal-content rounded-lg shadow-lg relative top-1/5"
+                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                        appElement={document.getElementById('root')}
+                      >
+                        <EditMyTeam closeModal={closeModal} />
+                      </Modal>
+                    </div>}
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
@@ -292,7 +377,7 @@ const MyTeam = () => {
                   </>
                 ) : (
                   <>
-                    <div className="bg-secondary/10 p-5 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
+                    <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
                       <div className="flex flex-row items-center mb-2">
                         <span className="mr-5">
                           <Info size={28} className="text-primary/50" />
@@ -303,12 +388,16 @@ const MyTeam = () => {
                         To see your team stats, you have to play in more
                         matches!
                       </span>
-                      <span
-                        onClick={() => navigate(`/matches`)}
-                        className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
-                      >
-                        Play a Match
-                      </span>
+                      {playersInTeam && playersInTeam.length === 5 ? (
+                        <span
+                          onClick={() => navigate(`/matches`)}
+                          className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+                        >
+                          Play a Match
+                        </span>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </>
                 )}
@@ -321,11 +410,11 @@ const MyTeam = () => {
                     Roster
                   </h2>{" "}
                   {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                  {playersInTeam && playersInTeam.length < 5 && (
+                  {/* {playersInTeam && playersInTeam.length < 5 && (
                     <span className="text-white p-2 mt-10 bg-accent/80 rounded-lg hover:bg-secondary/30 ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
-                  )}
+                  )} */}
                 </div>
                 <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full">
                   <thead className="text-left uppercase text-text">
@@ -355,12 +444,14 @@ const MyTeam = () => {
                                 <img
                                   src={player.photo}
                                   alt="player_profile_pic"
-                                  className="w-8 mr-4"
+                                  className="w-14 mr-4 rounded"
                                 />
                               </span>{" "}
                               {player.first_name} {player.last_name}
                             </td>
-                            <td className="px-6 py-5">{player.position}</td>
+                            <td className="px-6 py-5">
+                              {capitalizeFirstLetter(player.position)}
+                            </td>
                             {teamData &&
                             player.id !== teamData.captain_id &&
                             userDetails.id === teamData.captain_id ? (

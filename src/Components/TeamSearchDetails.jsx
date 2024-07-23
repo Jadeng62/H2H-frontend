@@ -10,6 +10,8 @@ const TeamSearchDetails = ({
   userDetails,
   setUserDetails,
   allTeams,
+  setSelectedTeam,
+  setSuccessMessage,
 }) => {
   const [teamRoster, setTeamRoster] = useState([]);
   const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
@@ -35,20 +37,51 @@ const TeamSearchDetails = ({
   }
 
   function handleJoinTeam() {
-    // Here goes the two PUT request Logic
-    // I need to do team UPDATE for the "position_id" of the users position
-    // I need to do user UPDATE for the user_team_id.
-
-    // Need this for dotting in
+    // Assuming userDetails and selectedTeam are available in the scope
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-    console.log(positionKeyWord);
+    // Updating Team Key Route
+    const updatedTeamInfo = {
+      ...selectedTeam,
+      [positionKeyWord]: userDetails.id,
+    };
+    const teamOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTeamInfo),
+    };
+    fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
+      .then((res) => res.json())
+      .then((data) => {
+        setSelectedTeam(data);
+        console.log("Successfully Updated Team!!!", data);
+      })
+      .catch((error) => console.error("Team Didn't Update", error));
+    // Updating User Route
+    const updatedUserInfo = { ...userDetails, user_team_id: selectedTeam.id };
+    const userOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedUserInfo),
+    };
+    fetch(`${URL}/api/auth/user/${userDetails.id}`, userOptions)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserDetails(data);
+        console.log("User Details Updated Successfully", data); // Logging the response data
+      })
+      .catch((error) => console.error("Updated User Details Failed", error));
+
+    setSuccessMessage(true);
+    setTimeout(() => {
+      setSuccessMessage(false);
+    }, "3000");
   }
 
   return (
     <div className="">
       {selectedTeam ? (
-        <div className="grid grid-cols-2 bg-secondary/30 max-md:grid-cols-1">
-          <div className="p-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2">
+          <div className="py-8 bg-secondary/10 rounded-l-lg md:x-10 ">
             {selectedTeam && (
               <div className="flex flex-col gap-12">
                 <div className="flex justify-center">
@@ -56,7 +89,11 @@ const TeamSearchDetails = ({
                 </div>
                 <div className="flex justify-center">
                   {/* Replace this with team logo or pic */}
-                  <img src={placeHolder} alt="" className="w-52" />
+                  <img
+                    src={placeHolder}
+                    alt=""
+                    className="w-44 md:w-52 rounded-lg"
+                  />
                 </div>
                 <div className="flex justify-center">
                   {renderJoinButton() === true ? (
@@ -72,8 +109,8 @@ const TeamSearchDetails = ({
             )}
           </div>
           {/* This is the Team Roster */}
-          <div className="py-8">
-            <table className="table-auto bg-background rounded-lg w-fit">
+          <div className="py-8 bg-secondary/10 rounded-r-lg flex justify-center">
+            <table className="table-auto bg-background rounded-lg xl:mr-16">
               {teamRoster.length > 0 && (
                 <thead className="text-left uppercase">
                   <tr>
@@ -91,7 +128,10 @@ const TeamSearchDetails = ({
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img
+                            src={player.photo}
+                            className="w-16 mr-7 rounded"
+                          />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === selectedTeam.captain_id && (
