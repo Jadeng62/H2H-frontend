@@ -296,21 +296,21 @@ const MyTeam = () => {
                         </div>
                       </div>
                     </div>
-                    {/* need to add functionality that only allows captains to edit */}
+                    {/* functionality that only allows captains to edit */}
                     {/* added modal for toggling editteam.jsx when Pencil is clicked */}
                     {teamData.captain_id === userDetails.id &&
                     <div className="mt-1 mr-1">
-                      <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
+                      <span className=" text-accent/90 hover:text-primary cursor-pointer" onClick={openModal}>
                         <Pencil size={28} />
                       </span>
                       <Modal
                         isOpen={isModalOpen}
                         onRequestClose={closeModal}
-                        className="modal-content rounded-lg shadow-lg relative top-1/5"
+                        className="modal-content h-screen shadow-lg relative"
                         overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
                         appElement={document.getElementById('root')}
                       >
-                        <EditMyTeam closeModal={closeModal} />
+                        <EditMyTeam closeModal={closeModal}/>
                       </Modal>
                     </div>}
                   </div>
