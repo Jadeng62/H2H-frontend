@@ -16,7 +16,6 @@ function Register() {
       email: "",
       first_name: "",
       last_name: "",
-      photo: "",
       username:"",
       dob:"",
       position:"",
