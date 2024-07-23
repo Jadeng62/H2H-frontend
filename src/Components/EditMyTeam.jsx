@@ -150,7 +150,7 @@ const EditMyTeam = ({ closeModal }) => {
                         onChange={handleChange} />
                 </label>
                 <div className='flex flex-wrap justify-center gap-2'>
-                    <button className='team-form-btn' type="submit">Edit Team</button>
+                    <button className='team-form-btn' type="submit" onClick={handleSubmit}>Edit Team</button>
                     {/* close modal*/}
                     <button
                     onClick={closeModal}
