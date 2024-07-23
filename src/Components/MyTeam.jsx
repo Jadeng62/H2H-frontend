@@ -296,7 +296,9 @@ const MyTeam = () => {
                         </div>
                       </div>
                     </div>
+                    {/* need to add functionality that only allows captains to edit */}
                     {/* added modal for toggling editteam.jsx when Pencil is clicked */}
+                    {teamData.captain_id === userDetails.id &&
                     <div className="mt-1 mr-1">
                       <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
                         <Pencil size={28} />
@@ -310,7 +312,7 @@ const MyTeam = () => {
                       >
                         <EditMyTeam closeModal={closeModal} />
                       </Modal>
-                    </div>
+                    </div>}
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
