@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="mx-10">
           <div className="grid grid-cols-3 py-6 text-white text-lg footer-position footer-height sticky ">
             <div className="">
-              <p className="hover:underline">About</p>
+              <p className="hover:underline cursor-pointer">About</p>
             </div>
             <div className="">
               <a href="https://github.com/Jadeng62/H2H-frontend" target="blank">
