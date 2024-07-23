@@ -80,21 +80,23 @@ const EditMyTeam = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
+            // Update team data
             const response = await fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData)
             });
-
+    
             if (!response.ok) {
                 throw new Error('Team update failed');
             }
-
+    
             console.log('Team updated successfully');
+            navigate(`/myTeam/${userDetails.user_team_id}`);
         } catch (error) {
             console.error('Error updating team:', error);
         }
