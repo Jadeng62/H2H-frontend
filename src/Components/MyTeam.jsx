@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EditMyTeam from "./EditMyTeam.jsx";
+import Modal from 'react-modal';
 import playersData from "../DummyData/myTeam.json";
 import {
   X,
@@ -33,6 +35,8 @@ const MyTeam = () => {
 
   // state for current saying
   const [currentSaying, setCurrentSaying] = useState("");
+  // modal usestates
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // array of sayings for when a user still needs a full team to play
   const sayings = [
@@ -221,6 +225,29 @@ const MyTeam = () => {
 
   if (!userDetails) return null;
 
+  // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    //refetch team data after modal closes
+    if (userDetails && userDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTeamData(data);
+        })
+          .catch((error) =>
+            console.error("Error fetching team data:", error)
+          );
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* {console.log(isUserTeamCaptain)} */}
@@ -269,11 +296,23 @@ const MyTeam = () => {
                         </div>
                       </div>
                     </div>
+                    {/* need to add functionality that only allows captains to edit */}
+                    {/* added modal for toggling editteam.jsx when Pencil is clicked */}
+                    {teamData.captain_id === userDetails.id &&
                     <div className="mt-1 mr-1">
-                      <span className=" text-accent/90 hover:text-secondary cursor-pointer">
+                      <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
                         <Pencil size={28} />
                       </span>
-                    </div>
+                      <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        className="modal-content rounded-lg shadow-lg relative top-1/5"
+                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                        appElement={document.getElementById('root')}
+                      >
+                        <EditMyTeam closeModal={closeModal} />
+                      </Modal>
+                    </div>}
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
