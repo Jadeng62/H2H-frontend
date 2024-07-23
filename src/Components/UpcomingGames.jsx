@@ -8,7 +8,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
     <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
       <div className="align-middle flex">
         <h1 className="text-4xl font-extrabold bebas-neue-regular p-4">
-          Upcoming Games
+          Upcoming Matches
         </h1>
       </div>
       {userDetails && userDetails.user_team_id === null ? (
@@ -24,7 +24,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           </button>
         </div>
       ) : userDetails && upcomingGames.length > 0 ? (
-        <div className="px-4 pb-4 flex relative overflow-x-auto overflow-y-auto">
+        <div className="px-4 pb-4 flex overflow-x-auto">
           <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-text uppercase bg-accent">
               <tr>

@@ -36,7 +36,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       <h1
-        className="nav-h1 font-extrabold text-4xl hover: cursor-pointer"
+        className=" font-extrabold text-4xl hover:cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
@@ -105,7 +105,10 @@ const NavBar = ({ userDetails, setUserDetails }) => {
 
   const SmallNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-8 bg-accent text-text">
-      <h1 className="font-bold text-3xl" onClick={() => navigate("/")}>
+      <h1
+        className="font-extrabold text-4xl bebas-neue-regular cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         H2H
       </h1>
       {userDetails && (
@@ -148,7 +151,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                 </a> */}
                 <Link
                   to="/matches"
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-secondary/50"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-0"
@@ -162,7 +165,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                       ? `/myTeam/${userDetails.user_team_id}`
                       : "/createTeam"
                   }
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-secondary/50"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-1"
@@ -172,7 +175,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                 </Link>
                 <Link
                   to="/teamSearch"
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-secondary/50"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-2"
@@ -182,7 +185,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                 </Link>
                 <Link
                   to="/profile"
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-secondary/50"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-2"
@@ -190,8 +193,8 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                 >
                   My Player
                 </Link>
-                <button
-                  className="block px-4 py-2 text-sm text-gray-700"
+                <span
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-secondary/50"
                   role="menuitem"
                   tabIndex="-1"
                   id="menu-item-2"
@@ -200,7 +203,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                     setToggleHamburger(false);
                   }}
                 >
-                  <div className="flex space-x-1 justify-center items-center">
+                  <div className="flex space-x-1 justify-start items-center cursor-pointer">
                     <p>Sign Out</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -219,7 +222,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
                       <line x1="21" x2="9" y1="12" y2="12" />
                     </svg>
                   </div>
-                </button>
+                </span>
               </div>
             </div>
           )}
@@ -228,7 +231,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
     </div>
   );
 
-  return width >= 535 ? (
+  return width >= 630 ? (
     <LargeNavBar userDetails={userDetails} />
   ) : (
     <SmallNavBar userDetails={userDetails} />

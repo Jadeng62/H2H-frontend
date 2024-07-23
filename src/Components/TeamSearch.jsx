@@ -91,13 +91,13 @@ const TeamSearch = () => {
       )}
       {/* <h1 className="text-3xl mb-4">Team Search</h1> */}
 
-      <div className="grid grid-cols-2 max-sm:grid-cols-1">
-        <div className="p-8">
-          <div className="flex items-center border-4 border-black rounded-lg bg-accent">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="p-8 ">
+          <div className="flex items-center border-4 border-black rounded-lg">
             <div className="flex-grow">
               <input
                 type="text"
-                className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none"
+                className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none hover:bg-text"
                 onChange={handleChange}
                 value={searchInput}
                 placeholder="Enter Team Name..."
@@ -107,7 +107,7 @@ const TeamSearch = () => {
               <Search size={30} />
             </div>
           </div>
-          <div className="my-6">
+          <div className="my-7">
             <FilteringTeams
               setFilteredTeams={setFilteredTeams}
               userDetails={userDetails}
@@ -118,16 +118,16 @@ const TeamSearch = () => {
               setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
-          <div className="">
+          <div className=" overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
-                  className="py-4 border-b-2 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 overflow-y-scroll"
+                  className="py-4 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 rounded"
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
                   <p>{team.team_name}</p>
-                  <img src={placeHolder} className="h-12" alt="team" />
+                  <img src={placeHolder} className="h-12 rounded" alt="team" />
                 </div>
               ))
             ) : (

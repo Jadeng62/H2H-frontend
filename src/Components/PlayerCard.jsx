@@ -32,11 +32,21 @@ const PlayerCard = ({ userDetails, userTeam }) => {
         </div>
       </div>
       <div className="flex justify-center row-span-2">
-        <img
-          src={userDetails && userDetails.photo}
-          alt="photo-of-player"
-          className="w-36 h-36 rounded-xl"
-        />
+        {userDetails && userDetails.photo ? (
+          <img
+            src={userDetails && userDetails.photo}
+            alt="photo-of-player"
+            className="w-36 h-36 rounded-xl"
+          />
+        ) : (
+          <>
+            <img
+              src={placeholderImage}
+              className="w-36 h-36 rounded"
+              alt="team"
+            />
+          </>
+        )}
       </div>
       <div className="flex flex-col row-span-2 text-2xl justify-center text-center text-white">
         {userDetails && (

@@ -80,8 +80,8 @@ const TeamSearchDetails = ({
   return (
     <div className="">
       {selectedTeam ? (
-        <div className="grid grid-cols-2 bg-secondary/30 max-md:grid-cols-1">
-          <div className="p-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2">
+          <div className="py-8 bg-secondary/10 rounded-l-lg md:x-10 ">
             {selectedTeam && (
               <div className="flex flex-col gap-12">
                 <div className="flex justify-center">
@@ -89,7 +89,11 @@ const TeamSearchDetails = ({
                 </div>
                 <div className="flex justify-center">
                   {/* Replace this with team logo or pic */}
-                  <img src={placeHolder} alt="" className="w-52" />
+                  <img
+                    src={placeHolder}
+                    alt=""
+                    className="w-44 md:w-52 rounded-lg"
+                  />
                 </div>
                 <div className="flex justify-center">
                   {renderJoinButton() === true ? (
@@ -105,8 +109,8 @@ const TeamSearchDetails = ({
             )}
           </div>
           {/* This is the Team Roster */}
-          <div className="py-8">
-            <table className="table-auto bg-background rounded-lg w-fit">
+          <div className="py-8 bg-secondary/10 rounded-r-lg flex justify-center">
+            <table className="table-auto bg-background rounded-lg xl:mr-16">
               {teamRoster.length > 0 && (
                 <thead className="text-left uppercase">
                   <tr>
@@ -124,7 +128,10 @@ const TeamSearchDetails = ({
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img
+                            src={player.photo}
+                            className="w-16 mr-7 rounded"
+                          />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === selectedTeam.captain_id && (
