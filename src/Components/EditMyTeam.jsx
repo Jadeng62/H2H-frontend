@@ -97,6 +97,7 @@ const EditMyTeam = ({ closeModal }) => {
     
             console.log('Team updated successfully');
             navigate(`/myTeam/${userDetails.user_team_id}`);
+            closeModal(); // to close modal after submitting
         } catch (error) {
             console.error('Error updating team:', error);
         }

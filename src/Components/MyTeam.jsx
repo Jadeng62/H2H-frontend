@@ -230,8 +230,22 @@ const MyTeam = () => {
     setIsModalOpen(true);
   };
 
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
   const closeModal = () => {
     setIsModalOpen(false);
+    //refetch team data after modal closes
+    if (userDetails && userDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTeamData(data);
+        })
+          .catch((error) =>
+            console.error("Error fetching team data:", error)
+          );
+    }
   };
 
   return (
@@ -283,6 +297,7 @@ const MyTeam = () => {
                       </div>
                     </div>
                     <div className="mt-1 mr-1">
+
                       <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
                       {/* add modal for toggling editteam.jsx when Pencil is clicked */}
                         <Pencil size={28} />
@@ -295,6 +310,7 @@ const MyTeam = () => {
                       >
                         <EditMyTeam closeModal={closeModal} />
                       </Modal>
+
                     </div>
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
