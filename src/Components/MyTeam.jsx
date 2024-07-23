@@ -304,7 +304,7 @@ const MyTeam = () => {
                       <Modal
                         isOpen={isModalOpen}
                         onRequestClose={closeModal}
-                        className="modal-content rounded-lg shadow-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                        className="modal-content rounded-lg shadow-lg relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         overlayClassName="modal-overlay fixed inset-0 bg-black/50 z-1"
                         appElement={document.getElementById('root')}
                       >
