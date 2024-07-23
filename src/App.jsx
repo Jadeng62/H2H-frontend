@@ -23,6 +23,7 @@ import MatchDetails from "./Components/MatchDetails";
 import TeamSearch from "./Components/TeamSearch";
 import TeamByID from "./Components/TeamByID";
 import BBallCourt from "./Components/BBallCourt";
+import MatchForm from "./Components/MatchForm";
 
 function App() {
   const [user, setUser] = useState();
@@ -74,6 +75,7 @@ function App() {
             path="/matches"
             element={<Matches userDetails={userDetails} userTeam={userTeam} />}
           />
+          <Route path="/createMatch" element={<MatchForm />}/>
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
           {/* <Route path="/myTeam" element={<MyTeam />} /> */}

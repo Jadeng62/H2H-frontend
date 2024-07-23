@@ -20,7 +20,8 @@ function Register() {
       username:"",
       dob:"",
       position:"",
-      password:""
+      password:"",
+      photo: ""
   });
 
   const navigate = useNavigate();
@@ -175,6 +176,20 @@ function Register() {
               className="register-input"
             />
           </label>
+
+          <label htmlFor="photo" className="register-label">
+            Photo Url{" "}
+            <input
+              type="text"
+              id="photo"
+              name="photo"
+              placeholder="Enter img URL"
+              value={newUser.photo}
+              onChange={handleChange}
+              className="register-input"
+            />
+          </label>
+
          <div className="register-radio">
          <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">

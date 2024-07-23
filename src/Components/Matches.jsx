@@ -21,8 +21,8 @@ const Matches = ({ userDetails, userTeam }) => {
   }, []);
 
   const handleCreate = (e) => {
-    setToggle(!toggle);
-    console.log(toggle);
+    // setToggle(!toggle);
+   navigate("/createMatch")
   };
 
   return (
@@ -32,8 +32,6 @@ const Matches = ({ userDetails, userTeam }) => {
           toggle={toggle}
           setToggle={setToggle}
           setMatchData={setMatchData}
-          userDetails={userDetails}
-          userTeam={userTeam}
         />
       )}
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
