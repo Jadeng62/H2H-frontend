@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserData } from '../helpers/getUserData';
+import { useNavigate } from 'react-router-dom';
 import '../Styles/teamForm.css';
-
-const URL = import.meta.env.VITE_BASE_URL;
 
 const EditMyTeam = () => {
     const [userDetails, setUserDetails] = useState(null);
@@ -22,14 +21,9 @@ const EditMyTeam = () => {
     });
     const [team, setTeam] = useState(null);
 
-    // everything except the ids are able to update for now
-    // ids related to position key in users table
-    // need another useState to update player positions in user table and updated those keys with corresponding ids
-    // make query in backend to get endpoint with this data from both tables
-    // make fetch call to that new endpoint
-    // make select dropdown so user can edit these keys on submit
+    const navigate = useNavigate();
+    const URL = import.meta.env.VITE_BASE_URL;
 
-    // to get user team id
     useEffect(() => {
         async function fetchUser() {
             try {
@@ -45,13 +39,16 @@ const EditMyTeam = () => {
     useEffect(() => {
         async function fetchTeam() {
             if (!userDetails || !userDetails.user_team_id) return;
+
             try {
                 const response = await fetch(`${URL}/api/teams/${userDetails.user_team_id}`);
-                if (!response.ok) throw new Error('Team not found');
+
+                if (!response.ok) {
+                    throw new Error('Team not found');
+                }
+
                 const data = await response.json();
-                console.log(data)
                 setTeam(data);
-                // Populate formData with team data
                 setFormData({
                     team_name: data.team_name,
                     team_pic: data.team_pic,
@@ -80,10 +77,10 @@ const EditMyTeam = () => {
             [name]: value
         });
     };
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await fetch(`${URL}/api/teams/${userDetails.user_team_id}`, {
                 method: 'PUT',
@@ -92,14 +89,22 @@ const EditMyTeam = () => {
                 },
                 body: JSON.stringify(formData),
             });
-            if (!response.ok) throw new Error('Team update failed');
+
+            if (!response.ok) {
+                throw new Error('Team update failed');
+            }
+
             console.log('Team updated successfully');
         } catch (error) {
             console.error('Error updating team:', error);
         }
     };
 
-    const { team_name, team_pic, logo } = formData;
+    const { 
+        team_name, 
+        team_pic, 
+        logo 
+    } = formData;
 
     if (!team) {
         return <p className='bg-white'>Loading...</p>;
