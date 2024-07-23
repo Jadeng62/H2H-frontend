@@ -36,7 +36,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       <h1
-        className="nav-h1 font-extrabold text-4xl hover: cursor-pointer"
+        className=" font-extrabold text-4xl hover:cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
@@ -106,7 +106,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
   const SmallNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-8 bg-accent text-text">
       <h1
-        className="font-extrabold text-4xl bebas-neue-regular"
+        className="font-extrabold text-4xl bebas-neue-regular cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
