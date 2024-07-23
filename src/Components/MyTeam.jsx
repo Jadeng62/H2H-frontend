@@ -296,10 +296,9 @@ const MyTeam = () => {
                         </div>
                       </div>
                     </div>
+                    {/* added modal for toggling editteam.jsx when Pencil is clicked */}
                     <div className="mt-1 mr-1">
-
                       <span className=" text-accent/90 hover:text-secondary cursor-pointer" onClick={openModal}>
-                      {/* add modal for toggling editteam.jsx when Pencil is clicked */}
                         <Pencil size={28} />
                       </span>
                       <Modal
@@ -307,10 +306,10 @@ const MyTeam = () => {
                         onRequestClose={closeModal}
                         className="modal-content rounded-lg shadow-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         overlayClassName="modal-overlay fixed inset-0 bg-black/50 z-1"
+                        appElement={document.getElementById('root')}
                       >
                         <EditMyTeam closeModal={closeModal} />
                       </Modal>
-
                     </div>
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
