@@ -114,7 +114,7 @@ const EditMyTeam = ({ closeModal }) => {
     }
 
     return (
-        <div className='team-form-container'>
+        <div className='team-form-container m-auto'>
             <form onSubmit={handleSubmit} className='team-form bg-white'>
                 <h2 className='team-form-h2'>Edit My Team</h2>
                 <label htmlFor='team-name' className='team-form-label'>
