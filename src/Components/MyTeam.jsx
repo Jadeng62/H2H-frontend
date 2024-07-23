@@ -405,7 +405,7 @@ const MyTeam = () => {
                                 <img
                                   src={player.photo}
                                   alt="player_profile_pic"
-                                  className="w-8 mr-4"
+                                  className="w-14 mr-4 rounded"
                                 />
                               </span>{" "}
                               {player.first_name} {player.last_name}
