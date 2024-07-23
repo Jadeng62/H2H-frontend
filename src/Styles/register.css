@@ -34,7 +34,7 @@ body {
 }
 
 .register-input {
-  width: 90%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -42,10 +42,10 @@ body {
 }
 
 .register-btn {
-  width: 40%;
+  width: 100%;
   padding: 10px;
   background-color: #fd6326;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   color: #f4f3fc;
   border: none;
   border-radius: 4px;
@@ -76,7 +76,8 @@ body {
   align-items: center;
   background-color: #a7b7c1;
   border-radius: 12px;
-  margin: 8px;
+  /* margin: 8px; */
+  margin-bottom: 24px;
   padding: 24px;
   font-family: monospace;
 }
