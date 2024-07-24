@@ -12,26 +12,32 @@ const Match = ({ match }) => {
 
   useEffect(() => {
     const { team1_id } = match;
-    fetch(`${URL}/api/teams/${team1_id}`)
-      .then((res) => res.json())
-      .then((data) => setTeam1(data));
+
+    if (team1_id) {
+      fetch(`${URL}/api/teams/${team1_id}`)
+        .then((res) => res.json())
+        .then((data) => setTeam1(data));
+    }
   }, []);
 
   useEffect(() => {
-    // if (match) {
     const { team2_id } = match;
-    fetch(`${URL}/api/teams/${team2_id}`)
-      .then((res) => res.json())
-      .then((data) => setTeam2(data));
-    // }
+    if (team2_id) {
+      fetch(`${URL}/api/teams/${team2_id}`)
+        .then((res) => res.json())
+        .then((data) => setTeam2(data));
+    }
   }, []);
 
   return (
     <div className="match-display-container bg-secondary/30 text-text bebas-neue-regular">
       <div className="flex justify-center text-xl">
-        <h1 className="text-3xl">{`${team1.team_name} V.S. ${
+        {/* <h1 className="text-3xl">{`${team1.team_name} V.S. ${
           Object.hasOwn(team2, "error") ? "TBD" : team2.team_name
-        }`}</h1>
+        }`}</h1> */}
+        <h1 className="text-3xl">{`${
+          team1.team_name ? team1.team_name : "TBD"
+        } V.S.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
       </div>
       <div className="flex justify-between">
         <div className="mr-6">
