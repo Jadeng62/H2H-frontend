@@ -250,9 +250,18 @@ const MyTeam = () => {
   return (
     <div className="min-h-screen">
       {/* {console.log(isUserTeamCaptain)} */}
-      <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
-        My Team
-      </h1>
+      <div
+        style={{
+          backgroundImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/t_crop/v1721837757/Head%202%20Head/basketball_courts_ezeu10.jpg')`,
+          // backgrounImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/v1721839263/Head%202%20Head/Screenshot_2024-07-24_at_12.40.56_PM_tzqtdj.png')`,
+          backgroundSize: "auto", // Adjust the image size as needed
+          backgroundPosition: "center", // Center the image
+        }}
+      >
+        <h1 className="bg-background/70  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
+          My Team
+        </h1>
+      </div>
       {/* <div className="bg-secondary/30 py-5"></div> */}
 
       {(userDetails && userDetails.user_team_id) || userDetails.captain_id ? (
