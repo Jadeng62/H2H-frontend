@@ -64,7 +64,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
         </div>
       ) : (
         <>
-          <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto w-full">
+          <div className="inline-flex justify-center items-center bg-secondary/30 py-5 mx-auto w-full">
             <h1 className="text-center text-xl font-bold">
               Your Team Has No Upcoming Matches
             </h1>
@@ -78,7 +78,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               +
             </button> */}
           </div>
-          <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+          <div className="bg-secondary/10 p-5 mt-10 mb-10 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
             <div className="flex flex-row items-center mb-2">
               <span className="mr-5">
                 <Info size={28} className="text-primary/50" />
@@ -89,16 +89,13 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               A team must first sign up to or create a match to see any upcoming
               games.
             </span>
-            {userDetails && upcomingGames.length === 0 ? (
-              <span
-                onClick={() => navigate(`/matches`)}
-                className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
-              >
-                Go to Matches
-              </span>
-            ) : (
-              <></>
-            )}
+
+            <span
+              onClick={() => navigate(`/matches`)}
+              className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+            >
+              Go to Matches
+            </span>
           </div>
         </>
       )}
