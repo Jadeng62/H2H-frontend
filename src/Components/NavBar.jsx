@@ -8,7 +8,7 @@ import { Zap } from "lucide-react";
 import "../Styles/nav.css";
 
 const NavBar = ({ userDetails, setUserDetails }) => {
-  // console.log('Navbar User Details: ', userDetails)
+  console.log('Navbar User Details: ', userDetails)
   async function handleLogout() {
     try {
       //call function to log out of firebase, no need to call backend

@@ -12,6 +12,7 @@ const TeamSearchDetails = ({
   allTeams,
   setSelectedTeam,
   setSuccessMessage,
+  setNavDetails
 }) => {
   const [teamRoster, setTeamRoster] = useState([]);
   const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
@@ -67,6 +68,7 @@ const TeamSearchDetails = ({
       .then((res) => res.json())
       .then((data) => {
         setUserDetails(data);
+        setNavDetails(data);
         console.log("User Details Updated Successfully", data); // Logging the response data
       })
       .catch((error) => console.error("Updated User Details Failed", error));

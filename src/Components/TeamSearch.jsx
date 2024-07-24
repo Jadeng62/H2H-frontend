@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
 import { CircleX } from "lucide-react";
-const TeamSearch = () => {
+const TeamSearch = ({setNavDetails}) => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
   const [filteredTeams, setFilteredTeams] = useState([]);
@@ -156,6 +156,7 @@ const TeamSearch = () => {
             allTeams={allTeams}
             setSelectedTeam={setSelectedTeam}
             setSuccessMessage={setSuccessMessage}
+            setNavDetails={setNavDetails}
           />
         </div>
       </div>

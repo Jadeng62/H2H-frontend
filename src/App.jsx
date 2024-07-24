@@ -44,7 +44,7 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    if (userDetails) {
+    if (userDetails && userDetails.user_team_id) {
       fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
         .then((res) => res.json())
         .then((data) => setUserTeam(data))
@@ -86,8 +86,8 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           {/* Following Routes for development only: */}
           <Route path="/bballCourts" element={<BBallCourt />} />
-          <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
-          <Route path="/teamSearch" element={userDetails && <TeamSearch />} />
+          <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
+          <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
           <Route path="/editTeam" element={userDetails && <EditMyTeam />} />
         </Routes>
       </div>
