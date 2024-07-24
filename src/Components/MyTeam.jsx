@@ -224,7 +224,10 @@ const MyTeam = () => {
     }
   }, [selectedPlayer]);
 
-  if (!userDetails) return null;
+  if (!userDetails || !teamData){
+    return null
+  } 
+    
 
   // modal fx
   const openModal = () => {
@@ -263,9 +266,6 @@ const MyTeam = () => {
         </h1>
       </div>
       {/* <div className="bg-secondary/30 py-5"></div> */}
-
-      {(userDetails && userDetails.user_team_id) || userDetails.captain_id ? (
-        <>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
               {/* className=" flex justify-center" */}
@@ -517,13 +517,6 @@ const MyTeam = () => {
               </div>
             </div>
           </div>
-        </>
-      ) : (
-        <MyTeamForm
-          isUserTeamCaptain={isUserTeamCaptain}
-          setIsUserTeamCaptain={setIsUserTeamCaptain}
-        />
-      )}
     </div>
   );
 };
