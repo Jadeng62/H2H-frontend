@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditMyTeam from "./EditMyTeam.jsx";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import playersData from "../DummyData/myTeam.json";
 import {
   X,
@@ -242,9 +242,7 @@ const MyTeam = () => {
         .then((data) => {
           setTeamData(data);
         })
-          .catch((error) =>
-            console.error("Error fetching team data:", error)
-          );
+        .catch((error) => console.error("Error fetching team data:", error));
     }
   };
 
@@ -254,6 +252,7 @@ const MyTeam = () => {
       <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         My Team
       </h1>
+      {/* <div className="bg-secondary/30 py-5"></div> */}
 
       {(userDetails && userDetails.user_team_id) || userDetails.captain_id ? (
         <>
@@ -298,21 +297,25 @@ const MyTeam = () => {
                     </div>
                     {/* functionality that only allows captains to edit */}
                     {/* added modal for toggling editteam.jsx when Pencil is clicked */}
-                    {teamData.captain_id === userDetails.id &&
-                    <div className="mt-1 mr-1">
-                      <span className=" text-accent/90 hover:text-primary cursor-pointer" onClick={openModal}>
-                        <Pencil size={28} />
-                      </span>
-                      <Modal
-                        isOpen={isModalOpen}
-                        onRequestClose={closeModal}
-                        className="modal-content h-screen shadow-lg relative"
-                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
-                        appElement={document.getElementById('root')}
-                      >
-                        <EditMyTeam closeModal={closeModal}/>
-                      </Modal>
-                    </div>}
+                    {teamData.captain_id === userDetails.id && (
+                      <div className="mt-1 mr-1">
+                        <span
+                          className=" text-accent/90 hover:text-primary cursor-pointer"
+                          onClick={openModal}
+                        >
+                          <Pencil size={28} />
+                        </span>
+                        <Modal
+                          isOpen={isModalOpen}
+                          onRequestClose={closeModal}
+                          className="modal-content h-screen shadow-lg relative"
+                          overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                          appElement={document.getElementById("root")}
+                        >
+                          <EditMyTeam closeModal={closeModal} />
+                        </Modal>
+                      </div>
+                    )}
                   </div>
                   <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
                     {" "}
@@ -377,7 +380,7 @@ const MyTeam = () => {
                   </>
                 ) : (
                   <>
-                    <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col">
+                    <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
                       <div className="flex flex-row items-center mb-2">
                         <span className="mr-5">
                           <Info size={28} className="text-primary/50" />
@@ -416,7 +419,7 @@ const MyTeam = () => {
                     </span>
                   )} */}
                 </div>
-                <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full">
+                <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full shadow-2xl">
                   <thead className="text-left uppercase text-text">
                     <tr>
                       <th className="pl-7 py-4">Player</th>
@@ -476,7 +479,7 @@ const MyTeam = () => {
                 </table>
                 {/* conditional render that should show add players to team button when length of team is less than 5 players */}
                 {playersInTeam && playersInTeam.length < 5 ? (
-                  <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/30">
+                  <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/3 shadow-2xl">
                     <div className="flex flex-row items-center">
                       <span className="mr-5">
                         <Users size={28} className="text-primary/50" />
