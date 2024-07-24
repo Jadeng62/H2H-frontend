@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import EditMyTeam from "./EditMyTeam.jsx";
 import Modal from "react-modal";
 import playersData from "../DummyData/myTeam.json";
+import placeHolder from "../assets/placeholder.png";
 import {
   X,
   Accessibility,
@@ -444,11 +445,19 @@ const MyTeam = () => {
                             </td> */}
                             <td className="px-6 py-5 text-black/80 flex items-center">
                               <span>
-                                <img
-                                  src={player.photo}
-                                  alt="player_profile_pic"
-                                  className="w-14 mr-4 rounded"
-                                />
+                                {player.photo || isValidUrl(player.photo) ? (
+                                  <img
+                                    src={player.photo}
+                                    alt="player_profile_pic"
+                                    className="w-14 mr-4 rounded"
+                                  />
+                                ) : (
+                                  <img
+                                    src={placeHolder}
+                                    alt="player_profile_pic"
+                                    className="w-14 mr-4 rounded"
+                                  />
+                                )}
                               </span>{" "}
                               {player.first_name} {player.last_name}
                             </td>
