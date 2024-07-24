@@ -7,20 +7,20 @@ const Footer = () => {
   return (
     <footer className="bg-background/30 mt-16">
       <hr className="border-white" />
-
-      <div className=" border-white border-r border-l border-b">
-        <h3
-          onClick={() => navigate("/")}
-          className="text-white pt-5 text-3xl mx-10 cursor-pointer"
-        >
-          H2H
-        </h3>
-        <hr className="border-white mt-5 mx-10" />
-        <div className="mx-10">
-          <div className="grid grid-cols-3 py-6 text-white text-lg footer-position footer-height sticky ">
-            <div className="">
-              <p className="hover:underline cursor-pointer">About</p>
-            </div>
+      <div className="flex flex-row my-10 items-center">
+        <div className="text-white text-3xl ">
+          <span className="flex flex-row justify-start">
+            <h3
+              onClick={() => navigate("/")}
+              className=" cursor-pointer text-white mx-10 md:mr-24"
+            >
+              H2H
+            </h3>
+          </span>
+        </div>
+        <div className="flex flex-grow text-white items-center">
+          <div className="flex flex-grow justify-between items-center">
+            <p className="hover:underline cursor-pointer">About</p>
             <div className="">
               <a href="https://github.com/Jadeng62/H2H-frontend" target="blank">
                 <svg
@@ -40,9 +40,9 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-            <div className="flex justify-end text-center">
-              <p>© 2024 Head2Head, Inc.</p>
-            </div>
+          </div>
+          <div className="flex flex-grow justify-end items-center mx-10">
+            <p>© 2024 Head2Head, Inc.</p>
           </div>
         </div>
       </div>
