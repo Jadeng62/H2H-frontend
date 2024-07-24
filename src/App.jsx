@@ -60,7 +60,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <NavBar userDetails={userDetails} setUserDetails={setUserDetails}/>
+      <NavBar userDetails={userDetails} setUserDetails={setUserDetails} />
       <div className="flex-grow">
         <Routes>
           <Route
@@ -75,24 +75,20 @@ function App() {
             path="/matches"
             element={<Matches userDetails={userDetails} userTeam={userTeam} />}
           />
-          <Route path="/createMatch" element={<MatchForm />}/>
-          <Route path="/matches/:id" element={<MatchDetails />} />
+          <Route path="/createMatch" element={<MatchForm />} />
+          <Route
+            path="/matches/:id"
+            element={<MatchDetails userDetails={userDetails} />}
+          />
           <Route path="/team/:id" element={<TeamByID />} />
           {/* <Route path="/myTeam" element={<MyTeam />} /> */}
-          <Route path="/myTeam/:id" element={ <MyTeam />} />
+          <Route path="/myTeam/:id" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           {/* Following Routes for development only: */}
-          <Route path="/bballCourts" element={<BBallCourt/>}/>
+          <Route path="/bballCourts" element={<BBallCourt />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch />} />
-          <Route
-            path="/editTeam"
-            element={
-              userDetails && (
-                <EditMyTeam />
-              )
-            }
-          />
+          <Route path="/editTeam" element={userDetails && <EditMyTeam />} />
         </Routes>
       </div>
       <ToastContainer />
