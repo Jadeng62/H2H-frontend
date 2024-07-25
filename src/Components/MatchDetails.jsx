@@ -233,12 +233,19 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             Vs
           </h1>
           <div className="flex justify-center">
+            
             <div className="" style={{ marginTop: "50%" }}>
+              
               <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
+              
                 <thead className="text-left uppercase">
+                
                   <tr>
+                  
                     <th className="pl-7 py-4">Match Details</th>
-                    {/* <th className="pl-7 py-4">Input</th> */}
+                    <br/>
+                    <button>Edit Form Button placement holder</button>
+                  {/* add edit form modal button around here */}
                   </tr>
                 </thead>
                 <tbody>
