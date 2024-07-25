@@ -24,7 +24,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     fetch(`${URL}/api/matches/${id}`)
       .then((res) => res.json())
       .then((data) => setMatch(data));
-  }, [match]);
+  }, [id]);
 
   useEffect(() => {
     if (userDetails) {
@@ -58,7 +58,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchTeams();
-  }, [match.team1_id, match.team2_id]);
+  }, [match]);
 
   useEffect(() => {
     const fetchRosters = async () => {
@@ -86,7 +86,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchRosters();
-  }, [firstTeamDetails, secondTeamDetails]);
+  }, [firstTeamDetails, secondTeamDetails, match]);
 
   const handleJoinMatch = (teamString) => {
     const newlyJoinedTeam = {
@@ -102,6 +102,29 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     fetch(`${URL}/api/matches/${id}`, options)
       .then((res) => res.json())
       .then((data) => setMatch(data));
+    console.log("Joined Match");
+  };
+
+  const handleLeaveMatch = () => {
+    let teamKeyWord = "";
+    if (userDetails.user_team_id === firstTeamDetails.id) {
+      teamKeyWord = "team1_id";
+    } else if (userDetails.user_team_id === secondTeamDetails.id) {
+      teamKeyWord = "team2_id";
+    }
+
+    const updatedMatchInfo = { ...match, [teamKeyWord]: null };
+
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedMatchInfo),
+    };
+
+    fetch(`${URL}/api/matches/${id}`, options)
+      .then((res) => res.json())
+      .then((data) => setMatch(data));
+    console.log("You LEft the match");
   };
 
   return (
@@ -111,6 +134,21 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
+          <div className="m-4">
+            {userDetails &&
+              firstTeamDetails &&
+              secondTeamDetails &&
+              (userDetails.id === firstTeamDetails.captain_id ||
+                userDetails.id === secondTeamDetails.captain_id) && (
+                <button
+                  className="bg-accent py-3 px-2 rounded-lg"
+                  onClick={handleLeaveMatch}
+                >
+                  Leave Match
+                </button>
+              )}
+          </div>
+
           <div className="flex justify-center">
             {firstTeamRoster.length > 0 ? (
               <table
