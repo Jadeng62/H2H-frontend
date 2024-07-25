@@ -44,6 +44,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             );
             const firstTeamData = await firstTeamRes.json();
             setFirstTeamDetails(firstTeamData);
+          } else if (match.team1_id === null) {
+            setFirstTeamDetails(null);
           }
           if (match.team2_id) {
             const secondTeamRes = await fetch(
@@ -51,6 +53,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             );
             const secondTeamData = await secondTeamRes.json();
             setSecondTeamDetails(secondTeamData);
+          } else if (match.team1_id === null) {
+            setFirstTeamDetails(null);
           }
         } catch (error) {
           console.error("Error fetching team details:", error);
@@ -58,7 +62,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchTeams();
-  }, [match]);
+  }, [match.team1_id, match.team2_id]);
 
   useEffect(() => {
     const fetchRosters = async () => {
@@ -123,7 +127,16 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
 
     fetch(`${URL}/api/matches/${id}`, options)
       .then((res) => res.json())
-      .then((data) => setMatch(data));
+      .then((data) => {
+        setMatch(data);
+        if (teamKeyWord === "team1_id") {
+          setFirstTeamRoster([]);
+          setFirstTeamDetails(null);
+        } else if (teamKeyWord === "team2_id") {
+          setSecondTeamRoster([]);
+          setSecondTeamDetails(null);
+        }
+      });
     console.log("You LEft the match");
   };
 
