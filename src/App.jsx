@@ -28,6 +28,7 @@ import MatchForm from "./Components/MatchForm";
 function App() {
   const [user, setUser] = useState();
   const [userDetails, setUserDetails] = useState(null);
+  const [matchData, setMatchData] = useState([]);
   const [userTeam, setUserTeam] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
@@ -58,6 +59,13 @@ function App() {
     });
   }, []);
 
+
+  useEffect(() => {
+    fetch(`${URL}/api/matches`)
+      .then((res) => res.json())
+      .then((data) => setMatchData(data));
+  }, [matchData]);
+
   return (
     <div className="flex flex-col min-h-screen bg-black">
       <NavBar userDetails={userDetails} setUserDetails={setUserDetails} />
@@ -73,13 +81,14 @@ function App() {
           <Route path="/profile" element={user ? <Profile /> : <Login />} />
           <Route
             path="/matches"
-            element={<Matches userDetails={userDetails} userTeam={userTeam} />}
+            element={<Matches
+               matchData={matchData}
+               setMatchData={setMatchData}
+               userDetails={userDetails}
+               userTeam={userTeam} />}
           />
-          <Route path="/createMatch" element={<MatchForm />} />
-          <Route
-            path="/matches/:id"
-            element={<MatchDetails userDetails={userDetails} />}
-          />
+          <Route path="/createMatch" element={<MatchForm setMatchData={setMatchData}/>}/>
+          <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
           {/* <Route path="/myTeam" element={<MyTeam />} /> */}
           <Route path="/myTeam/:id" element={<MyTeam />} />

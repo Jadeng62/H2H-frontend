@@ -1,32 +1,75 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { getUserData } from "../helpers/getUserData";
 
 import "../Styles/matchForm.css"
 
 
 
 const MatchForm = ({ setMatchData}) => {
+    const [user, setUser] = useState(null);
     const [parkSearch, setParkSearch] = useState("")
-    const [parkLocation, setParkLocation] = useState("")
-    const [locationResults, setLocationResults] = useState()
-    const [parkResults, setParkResults] = useState()
-    const [selectedPark, setSelectedPark] = useState(null)
+    const [parkResults, setParkResults] = useState([])
     const [parkData, setParkData] = useState([])
     const [formData, setFormData] = useState({
+      creator_id: "",
+      team1_id: "",
+      team2_id: "",
       park_name: "",
       address: "",
+      borough: "",
       date: "",
+      time: "",
       start_datetime: ""
     });
 
     const URL = import.meta.env.VITE_BASE_URL;
+    const navigate = useNavigate()
 
+    useEffect(() => {
+      async function getUser() {
+        const user = await getUserData();
+        if (user) {
+          setUser(user);
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            creator_id: user.id,
+            team1_id: user.user_team_id
+          }))
+        }
+      }
+  
+      getUser();
+    }, []);
+  
 
     useEffect(() => {
       fetch(`${URL}/api/bball`)
       .then((res) => res.json())
       .then((data) => setParkData(data))
-    }, []);
-  
+      .catch((err) => console.error("Error with fetch:", err))
+    }, [URL]);
+
+
+    const boroughIdentifier = {
+      B : "Brooklyn",
+      M : "Manhattan",
+      Q : "Queens",
+      X : "Bronx",
+      R : "Staten Island"
+    }
+
+    const handlePropID = (Prop_ID) => {
+      const firstLetter = Prop_ID[0];
+
+       if (boroughIdentifier[firstLetter]) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          borough: boroughIdentifier[firstLetter]
+        }))
+       }
+    }
 
 
     const handleChange = (e) => {
@@ -38,73 +81,82 @@ const MatchForm = ({ setMatchData}) => {
        const value = e.target.value
         setParkSearch(value)
      
-        const filteredParks = parkData.filter((park) =>
+        const filteredParks = parkData.filter((park) => park.Name && 
           park.Name.toLowerCase().startsWith(value.toLowerCase())
         )
-        console.log(filteredParks)
          setParkResults(filteredParks)
     }
 
 
-    const handleParkSelect = (parkName, parkLocation) => {
-      setParkSearch(parkName)
-      setParkLocation(parkLocation)
-      setFormData({ ...formData, park_name: parkName, address: parkLocation });
+    const handleParkSelect = (park) => {
+      setParkSearch(park.Name)
+      setFormData({...formData,
+        park_name : park.Name,
+        address : park.Location,
+      })
        setParkResults([])
-       console.log("This is the park", parkName)
+       handlePropID(park.Prop_ID)
+       console.log("This is the park", park)
     }
-
-
-    const handleLocation = (e, parkLocation) => {
-      const value = e.target.value
-      const selected = parkData.find((court) => court.Prop_ID === value);
-       setSelectedPark(selected)
-        setParkLocation(value)
-     
-        const filteredAddress = parkData.filter(
-          (park) => park.Location && park.Location.toLowerCase().startsWith(value)
-        )
-          setLocationResults(filteredAddress)
-
-    }
-
-
-    const handleLocationSelect = (parkLocation) => {
-      setParkLocation(parkLocation)
-      setFormData({...formData, address : parkLocation})
-       setLocationResults([])
-       console.log("This is the park", parkLocation)
-    }
-
 
 
     const handleSubmit = (e) => {
       e.preventDefault()
 
+      if (!user) {
+        console.error("No USER DATA")
+        return;
+      }
+
+      if (!formData.date || !formData.time) {
+        console.error("No time provided")
+         return;
+      }
+
+
+     const dateTimeStr = `${formData.date}T${formData.time}:00Z`;
+     const dateTime = new Date(dateTimeStr)
+
+      const formattedData = {
+        creator_id: user.id,
+        team1_id: user.user_team_id,
+        team2_id: null,
+        park_name: formData.park_name,
+        address: formData.address,
+        borough: formData.borough,
+        start_datetime : dateTime.toISOString(),
+        match_completed: false, 
+        match_winner: null,
+        match_loser: null
+      }
+
       const options = {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formattedData),
         headers: {"Content-Type": "application/json"}
       }
+
       fetch(`${URL}/api/matches`, options)
        .then((res) => res.json())
        .then((data) => {
-         console.log(data)
-        if (data) {
-          setMatchData(data)
-        } else {
-          throw new Error("Problwm with post")
-        }
+        setMatchData(data)
+         navigate("/matches")
+          alert("Match Created Succesfully")
        })
+       .catch((err) => console.error("Error with submit", err))
     }
 
     const handleCancel = (e) => {
       setFormData({
+        creator_id: user ? user.id : "",
+        team1_id: user ? user.user_team_id : "",
         park_name: "",
         address: "",
+        borough: "",
         date: "",
         start_datetime: ""
-      })
+      });
+      navigate("/matches")
     }
 
 
@@ -122,60 +174,61 @@ const MatchForm = ({ setMatchData}) => {
               Search for a Park {" "}
                <input 
                id="park_name"
-               value={parkSearch}
+               value={parkSearch || ""}
                onChange={handleParkSearch}
                className="match-form-input"
                />
 
                 <div className="match-form-parks">
-                  {parkSearch && parkResults.map((query, index) => (
+                  {parkSearch && parkResults.length > 0 && (
+                     parkResults.map((park, index) => (
                     <li
                      key={index}
-                     onClick={() => handleParkSelect(query.Name)}
+                     onClick={() => handleParkSelect(park)}
                      className="match-form-park-result"
-                     >{query.Name}</li>
-                  ))}
+                     >{park.Name}</li>
+                  )))}
                   </div>
             </div>
     
-          <div>
-              <label htmlFor="address"/>
+            <label htmlFor="address"/>
               Park Location {" "}
                <input 
                id="address"
-               value={parkLocation}
+               value={formData.address || ""}
                readOnly
-               onChange={handleLocation}
+               placeholder="This Field will be filled in for you"
+               onChange={handleChange}
                className="match-form-input"
                />
-             
-              <ul>
-                {parkLocation && locationResults.map((park) => (
-                  <li
-                  key={park.Prop_ID}
-                  onClick={() => handleLocationSelect(park.Location)}
-                  >{park.Location}</li>
-                ))}
-              </ul>
-            
-          </div>  
 
-        <label htmlFor="date" />
-        Enter Match Date{" "}
-          <input
-            id="date"
-            value={formData.date} 
-            type="date"
-            required
-            onChange={handleChange}
-            className="match-form-input"
+           <label htmlFor="borough"/>
+               Borough {" "}
+               <input 
+               id="address"
+               value={formData.borough || ""}
+               readOnly
+               placeholder="This Field will be filled in for you"
+               onChange={handleChange}
+               className="match-form-input"
+               />
+
+          <label htmlFor="date" />
+            Enter Match Date{" "}
+            <input
+             id="date"
+             value={formData.date} 
+             type="date"
+             required
+             onChange={handleChange}
+             className="match-form-input"
           />
            
-            <label htmlFor="start_datetime"/>
+            <label htmlFor="time"/>
              Enter Time of Match{" "}
               <input 
-              id="start_datetime"
-              value={formData.start_datetime}
+              id="time"
+              value={formData.time}
               type="time"
               onChange={handleChange}
               className="match-form-input"
