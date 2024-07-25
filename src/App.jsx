@@ -64,7 +64,7 @@ function App() {
     fetch(`${URL}/api/matches`)
       .then((res) => res.json())
       .then((data) => setMatchData(data));
-  }, [matchData]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
@@ -97,7 +97,7 @@ function App() {
           <Route path="/bballCourts" element={<BBallCourt />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
-          <Route path="/editMatch" element={<EditMatch />} />
+          <Route path="/editMatch/:id" element={<EditMatch />} />
           {/* <Route path="/editTeam" element={userDetails && <EditMyTeam />} /> */}
         </Routes>
       </div>
