@@ -79,7 +79,7 @@ const EditMatch = ({ setMatchData }) => {
         match_winner: matchData.match_winner || "",
         match_loser: matchData.match_loser || ""
       });
-      setParkSearch(matchData.park_name); // Auto-populate park search input
+      setParkSearch(matchData.park_name);
     } catch (error) {
       console.error("Error fetching match data:", error);
     }
@@ -109,7 +109,7 @@ const EditMatch = ({ setMatchData }) => {
     setFormData({
       ...formData,
       park_name: park.Name,
-      address: park.Location, // Ensure this matches the actual property from your API
+      address: park.Location,
       borough: borough
     });
     setParkSearch(""); // Clear park search input
@@ -131,7 +131,7 @@ const EditMatch = ({ setMatchData }) => {
       }
 
       const updatedMatch = await response.json();
-      setMatchData(updatedMatch); // Update parent component state if necessary
+      setMatchData(updatedMatch);
       navigate('/'); // Navigate after successful submit
     } catch (error) {
       console.error("Error updating match:", error);
