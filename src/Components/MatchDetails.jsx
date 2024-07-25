@@ -4,6 +4,7 @@ import {
   formatPositionSpelling,
   formattedDate,
   formattedTime,
+  isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import { Info } from "lucide-react";
@@ -23,7 +24,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     fetch(`${URL}/api/matches/${id}`)
       .then((res) => res.json())
       .then((data) => setMatch(data));
-  }, [id]);
+  }, [match]);
 
   useEffect(() => {
     if (userDetails) {
@@ -57,7 +58,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchTeams();
-  }, [match.id]);
+  }, [match.team1_id, match.team2_id]);
 
   useEffect(() => {
     const fetchRosters = async () => {
@@ -86,6 +87,22 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     };
     fetchRosters();
   }, [firstTeamDetails, secondTeamDetails]);
+
+  const handleJoinMatch = (teamString) => {
+    const newlyJoinedTeam = {
+      ...match,
+      [teamString]: userDetails.user_team_id,
+    };
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newlyJoinedTeam),
+    };
+
+    fetch(`${URL}/api/matches/${id}`, options)
+      .then((res) => res.json())
+      .then((data) => setMatch(data));
+  };
 
   return (
     <div className="text-text">
@@ -131,7 +148,37 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginTop: "15%", marginBottom: "15%" }}>Hello</div>
+              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
+                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+                  <div className="flex">
+                    <span className="mr-5">
+                      <Info size={28} className="text-green-500" />
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="font-semibold">Slot Available</span>
+                      <span>
+                        This slot is currently available for a team to join and
+                        play a match. Sign up now to participate!
+                      </span>
+                      {userDetails &&
+                        userTeam &&
+                        userDetails.id === userTeam.captain_id &&
+                        match.team1_id !== userDetails.user_team_id &&
+                        match.team2_id !== userDetails.user_team_id &&
+                        isTeamFull(userTeam) && (
+                          <div className="mt-3">
+                            <button
+                              className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
+                              onClick={() => handleJoinMatch("team1_id")}
+                            >
+                              Join Match!
+                            </button>
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -243,14 +290,12 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                         userDetails.id === userTeam.captain_id &&
                         match.team1_id !== userDetails.user_team_id &&
                         match.team2_id !== userDetails.user_team_id &&
-                        userTeam.point_guard_id !== null &&
-                        userTeam.shooting_guard_id !== null &&
-                        userTeam.small_forward_id !== null &&
-                        userTeam.power_forward_id !== null &&
-                        userTeam.center_id !== null && (
+                        isTeamFull(userTeam) && (
                           <div className="mt-3">
-                            <h1>Click Here</h1>
-                            <button className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30">
+                            <button
+                              className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
+                              onClick={() => handleJoinMatch("team2_id")}
+                            >
                               Join Match!
                             </button>
                           </div>
