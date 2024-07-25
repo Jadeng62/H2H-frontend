@@ -7,7 +7,7 @@ import "../Styles/matches.css";
 import { useNavigate } from "react-router-dom";
 import { isTeamFull } from "../helpers/helper";
 
-const Matches = ({ matchData, setMatchData}) => {
+const Matches = ({ matchData, setMatchData, userDetails, userTeam}) => {
   const [toggle, setToggle] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
