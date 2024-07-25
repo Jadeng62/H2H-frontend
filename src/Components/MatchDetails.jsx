@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   formatPositionSpelling,
   formattedDate,
@@ -19,6 +19,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [secondTeamRoster, setSecondTeamRoster] = useState([]);
 
   const URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${URL}/api/matches/${id}`)
@@ -140,6 +141,15 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     console.log("You LEft the match");
   };
 
+  const handleDeleteMatch = () => {
+    // Only the creator can see delete button
+    const options = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`${URL}/api/matches/${id}`, options).then(() => navigate("/matches"));
+  };
+
   return (
     <div className="text-text">
       <div className="grid grid-cols-3 max-sm:grid-cols-1">
@@ -147,19 +157,31 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
-          <div className="m-4">
-            {userDetails &&
-              firstTeamDetails &&
-              secondTeamDetails &&
-              (userDetails.id === firstTeamDetails.captain_id ||
-                userDetails.id === secondTeamDetails.captain_id) && (
+          <div className="flex">
+            <div className="m-4">
+              {userDetails &&
+                firstTeamDetails &&
+                secondTeamDetails &&
+                (userDetails.id === firstTeamDetails.captain_id ||
+                  userDetails.id === secondTeamDetails.captain_id) && (
+                  <button
+                    className="bg-accent py-3 px-2 rounded-lg"
+                    onClick={handleLeaveMatch}
+                  >
+                    Leave Match
+                  </button>
+                )}
+            </div>
+            <div className="m-4">
+              {match && match.creator_id === userDetails.id && (
                 <button
                   className="bg-accent py-3 px-2 rounded-lg"
-                  onClick={handleLeaveMatch}
+                  onClick={handleDeleteMatch}
                 >
-                  Leave Match
+                  Delete Match
                 </button>
               )}
+            </div>
           </div>
 
           <div className="flex justify-center">
