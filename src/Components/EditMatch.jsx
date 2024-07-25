@@ -112,7 +112,7 @@ const EditMatch = ({ setMatchData }) => {
       address: park.Location,
       borough: borough
     });
-    setParkSearch(""); // Clear park search input
+    setParkSearch(park.Name); // used to clear it but should persist now after being selected
     setParkResults([]); // Clear park search results
   };
 
