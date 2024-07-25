@@ -3,6 +3,8 @@ import { getUserData } from '../helpers/getUserData';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/teamForm.css';
 
+const URL = import.meta.env.VITE_BASE_URL;
+
 const EditMyTeam = ({ closeModal }) => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
@@ -22,7 +24,7 @@ const EditMyTeam = ({ closeModal }) => {
     const [team, setTeam] = useState(null);
 
     const navigate = useNavigate();
-    const URL = import.meta.env.VITE_BASE_URL;
+    
 
     useEffect(() => {
         async function fetchUser() {

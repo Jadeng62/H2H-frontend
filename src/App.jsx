@@ -18,12 +18,12 @@ import { getUserData } from "./helpers/getUserData";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MyTeamForm from "./Components/MyTeamForm";
-import EditMyTeam from "./Components/EditMyTeam";
 import MatchDetails from "./Components/MatchDetails";
 import TeamSearch from "./Components/TeamSearch";
 import TeamByID from "./Components/TeamByID";
 import BBallCourt from "./Components/BBallCourt";
 import MatchForm from "./Components/MatchForm";
+import EditMatch from "./Components/EditMatch";
 
 function App() {
   const [user, setUser] = useState();
@@ -97,7 +97,8 @@ function App() {
           <Route path="/bballCourts" element={<BBallCourt />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
-          <Route path="/editTeam" element={userDetails && <EditMyTeam />} />
+          <Route path="/editMatch" element={<EditMatch />} />
+          {/* <Route path="/editTeam" element={userDetails && <EditMyTeam />} /> */}
         </Routes>
       </div>
       <ToastContainer />
