@@ -3,7 +3,7 @@ import { getUserData} from '../helpers/getUserData';
 import { useNavigate } from 'react-router-dom';
 import "../Styles/teamForm.css";
 
-const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
+const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin, setNavDetails}) => {
     const [userDetails, setUserDetails] = useState(null);
     const [formData, setFormData] = useState({
         team_name: '',
@@ -85,10 +85,11 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin}) => {
              },
              body: JSON.stringify(
                 {
-                    "team_id" : newTeamID
+                    "user_team_id" : newTeamID
                 }
              )
              });
+             setNavDetails({...userDetails, user_team_id: newTeamID})
              navigate(`/myTeam/${newTeamID}`)
             })
             
