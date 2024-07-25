@@ -157,33 +157,6 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
-          <div className="flex">
-            <div className="m-4">
-              {userDetails &&
-                firstTeamDetails &&
-                secondTeamDetails &&
-                (userDetails.id === firstTeamDetails.captain_id ||
-                  userDetails.id === secondTeamDetails.captain_id) && (
-                  <button
-                    className="bg-accent py-3 px-2 rounded-lg"
-                    onClick={handleLeaveMatch}
-                  >
-                    Leave Match
-                  </button>
-                )}
-            </div>
-            <div className="m-4">
-              {match && match.creator_id === userDetails.id && (
-                <button
-                  className="bg-accent py-3 px-2 rounded-lg"
-                  onClick={handleDeleteMatch}
-                >
-                  Delete Match
-                </button>
-              )}
-            </div>
-          </div>
-
           <div className="flex justify-center">
             {firstTeamRoster.length > 0 ? (
               <table
@@ -260,11 +233,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             Vs
           </h1>
           <div className="flex justify-center">
-            <div className="">
-              <table
-                className="table-auto bg-accent rounded-lg mx-10"
-                style={{ marginTop: "50%", marginBottom: "50%" }}
-              >
+            <div className="" style={{ marginTop: "50%" }}>
+              <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
                 <thead className="text-left uppercase">
                   <tr>
                     <th className="pl-7 py-4">Match Details</th>
@@ -302,6 +272,32 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                   </tr>
                 </tbody>
               </table>
+              <div className="flex justify-center">
+                <div className="m-4">
+                  {userDetails &&
+                    secondTeamDetails &&
+                    userDetails.id === secondTeamDetails.captain_id && (
+                      <button
+                        className="bg-accent py-3 px-2 rounded-lg"
+                        onClick={handleLeaveMatch}
+                      >
+                        Leave Match
+                      </button>
+                    )}
+                </div>
+                <div className="" style={{ marginBottom: "50%" }}>
+                  {match &&
+                    userDetails &&
+                    match.creator_id === userDetails.id && (
+                      <button
+                        className="bg-accent py-3 px-2 rounded-lg"
+                        onClick={handleDeleteMatch}
+                      >
+                        Delete Match
+                      </button>
+                    )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
