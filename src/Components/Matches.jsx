@@ -6,22 +6,14 @@ import Match from "../Components/Match";
 import "../Styles/matches.css";
 import { useNavigate } from "react-router-dom";
 
-const Matches = ({ userDetails, userTeam }) => {
-  const [matchData, setMatchData] = useState([]);
+const Matches = ({ matchData, setMatchData}) => {
   const [toggle, setToggle] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`${URL}/api/matches`)
-      .then((res) => res.json())
-      .then((data) => setMatchData(data));
-  }, []);
-
   const handleCreate = (e) => {
-    // setToggle(!toggle);
    navigate("/createMatch")
   };
 
@@ -31,7 +23,6 @@ const Matches = ({ userDetails, userTeam }) => {
         <MatchForm
           toggle={toggle}
           setToggle={setToggle}
-          setMatchData={setMatchData}
         />
       )}
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
