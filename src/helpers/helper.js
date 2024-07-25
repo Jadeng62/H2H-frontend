@@ -58,6 +58,18 @@ export function formatPositionSpelling(position) {
   }
 }
 
+export function isTeamFull(team) {
+  if (
+    team.point_guard_id !== null &&
+    team.shooting_guard_id !== null &&
+    team.small_forward_id !== null &&
+    team.power_forward_id !== null &&
+    team.center_id !== null
+  ) {
+    return true;
+  } else return false;
+}
+
 // function renderJoinButton(userDetails, selectedTeam) {
 //   const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
 

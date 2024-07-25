@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   formatPositionSpelling,
   formattedDate,
   formattedTime,
+  isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import { Info } from "lucide-react";
@@ -18,6 +19,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [secondTeamRoster, setSecondTeamRoster] = useState([]);
 
   const URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${URL}/api/matches/${id}`)
@@ -43,6 +45,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             );
             const firstTeamData = await firstTeamRes.json();
             setFirstTeamDetails(firstTeamData);
+          } else if (match.team1_id === null) {
+            setFirstTeamDetails(null);
           }
           if (match.team2_id) {
             const secondTeamRes = await fetch(
@@ -50,6 +54,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             );
             const secondTeamData = await secondTeamRes.json();
             setSecondTeamDetails(secondTeamData);
+          } else if (match.team1_id === null) {
+            setFirstTeamDetails(null);
           }
         } catch (error) {
           console.error("Error fetching team details:", error);
@@ -57,7 +63,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchTeams();
-  }, [match.id]);
+  }, [match.team1_id, match.team2_id]);
 
   useEffect(() => {
     const fetchRosters = async () => {
@@ -85,7 +91,64 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
       }
     };
     fetchRosters();
-  }, [firstTeamDetails, secondTeamDetails]);
+  }, [firstTeamDetails, secondTeamDetails, match]);
+
+  const handleJoinMatch = (teamString) => {
+    const newlyJoinedTeam = {
+      ...match,
+      [teamString]: userDetails.user_team_id,
+    };
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newlyJoinedTeam),
+    };
+
+    fetch(`${URL}/api/matches/${id}`, options)
+      .then((res) => res.json())
+      .then((data) => setMatch(data));
+    console.log("Joined Match");
+  };
+
+  const handleLeaveMatch = () => {
+    let teamKeyWord = "";
+    if (userDetails.user_team_id === firstTeamDetails.id) {
+      teamKeyWord = "team1_id";
+    } else if (userDetails.user_team_id === secondTeamDetails.id) {
+      teamKeyWord = "team2_id";
+    }
+
+    const updatedMatchInfo = { ...match, [teamKeyWord]: null };
+
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedMatchInfo),
+    };
+
+    fetch(`${URL}/api/matches/${id}`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setMatch(data);
+        if (teamKeyWord === "team1_id") {
+          setFirstTeamRoster([]);
+          setFirstTeamDetails(null);
+        } else if (teamKeyWord === "team2_id") {
+          setSecondTeamRoster([]);
+          setSecondTeamDetails(null);
+        }
+      });
+    console.log("You LEft the match");
+  };
+
+  const handleDeleteMatch = () => {
+    // Only the creator can see delete button
+    const options = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`${URL}/api/matches/${id}`, options).then(() => navigate("/matches"));
+  };
 
   return (
     <div className="text-text">
@@ -131,7 +194,37 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginTop: "15%", marginBottom: "15%" }}>Hello</div>
+              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
+                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+                  <div className="flex">
+                    <span className="mr-5">
+                      <Info size={28} className="text-green-500" />
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="font-semibold">Slot Available</span>
+                      <span>
+                        This slot is currently available for a team to join and
+                        play a match. Sign up now to participate!
+                      </span>
+                      {userDetails &&
+                        userTeam &&
+                        userDetails.id === userTeam.captain_id &&
+                        match.team1_id !== userDetails.user_team_id &&
+                        match.team2_id !== userDetails.user_team_id &&
+                        isTeamFull(userTeam) && (
+                          <div className="mt-3">
+                            <button
+                              className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
+                              onClick={() => handleJoinMatch("team1_id")}
+                            >
+                              Join Match!
+                            </button>
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -140,11 +233,8 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             Vs
           </h1>
           <div className="flex justify-center">
-            <div className="">
-              <table
-                className="table-auto bg-accent rounded-lg mx-10"
-                style={{ marginTop: "50%", marginBottom: "50%" }}
-              >
+            <div className="" style={{ marginTop: "50%" }}>
+              <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
                 <thead className="text-left uppercase">
                   <tr>
                     <th className="pl-7 py-4">Match Details</th>
@@ -182,6 +272,32 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                   </tr>
                 </tbody>
               </table>
+              <div className="flex justify-center">
+                <div className="m-4">
+                  {userDetails &&
+                    secondTeamDetails &&
+                    userDetails.id === secondTeamDetails.captain_id && (
+                      <button
+                        className="bg-accent py-3 px-2 rounded-lg"
+                        onClick={handleLeaveMatch}
+                      >
+                        Leave Match
+                      </button>
+                    )}
+                </div>
+                <div className="" style={{ marginBottom: "50%" }}>
+                  {match &&
+                    userDetails &&
+                    match.creator_id === userDetails.id && (
+                      <button
+                        className="bg-accent py-3 px-2 rounded-lg"
+                        onClick={handleDeleteMatch}
+                      >
+                        Delete Match
+                      </button>
+                    )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -243,14 +359,12 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                         userDetails.id === userTeam.captain_id &&
                         match.team1_id !== userDetails.user_team_id &&
                         match.team2_id !== userDetails.user_team_id &&
-                        userTeam.point_guard_id !== null &&
-                        userTeam.shooting_guard_id !== null &&
-                        userTeam.small_forward_id !== null &&
-                        userTeam.power_forward_id !== null &&
-                        userTeam.center_id !== null && (
+                        isTeamFull(userTeam) && (
                           <div className="mt-3">
-                            <h1>Click Here</h1>
-                            <button className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30">
+                            <button
+                              className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
+                              onClick={() => handleJoinMatch("team2_id")}
+                            >
                               Join Match!
                             </button>
                           </div>

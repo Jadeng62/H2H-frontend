@@ -5,6 +5,7 @@ import Match from "../Components/Match";
 
 import "../Styles/matches.css";
 import { useNavigate } from "react-router-dom";
+import { isTeamFull } from "../helpers/helper";
 
 const Matches = ({ matchData, setMatchData}) => {
   const [toggle, setToggle] = useState(false);
@@ -35,12 +36,18 @@ const Matches = ({ matchData, setMatchData}) => {
               <h1 className="text-xl font-bold">Match Options: </h1>
             </div>
             <div>
-              <button
-                className="matches-btn p-2 text-white"
-                onClick={handleCreate}
-              >
-                Create Match
-              </button>{" "}
+              {userDetails &&
+                userTeam &&
+                userDetails.id === userTeam.captain_id &&
+                userDetails.user_team_id !== null &&
+                isTeamFull(userTeam) && (
+                  <button
+                    className="matches-btn p-2 text-white"
+                    onClick={handleCreate}
+                  >
+                    Create Match
+                  </button>
+                )}
             </div>
             <div className="">
               <select
