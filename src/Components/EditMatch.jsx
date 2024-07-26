@@ -57,40 +57,64 @@ const EditMatch = ({ setMatchData }) => {
     return boroughIdentifier[firstLetter] || "";
   };
 
-  // Function to fetch existing match data
   const fetchMatchData = async (matchId) => {
+    if (!user) {
+        console.error("No USER DATA");
+        return;
+    }
+  
     try {
-      const response = await fetch(`${URL}/api/matches/${matchId}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch match data");
-      }
-      const matchData = await response.json();
-      setFormData({
+        const response = await fetch(`${URL}/api/matches/${matchId}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch match data");
+    }
+    const matchData = await response.json();
+    console.log(matchData);
+  
+    // Parse date and time from start_datetime
+    const startDate = new Date(matchData.start_datetime);
+    const dateStr = startDate.toISOString().split('T')[0]; // Get YYYY-MM-DD
+    const timeStr = startDate.toISOString().split('T')[1].substring(0, 5); // Get HH:MM
+  
+    setFormData({
         creator_id: matchData.creator_id,
         team1_id: matchData.team1_id,
         team2_id: matchData.team2_id,
         park_name: matchData.park_name,
         address: matchData.address,
         borough: matchData.borough,
-        date: matchData.date,
-        time: matchData.time,
+        date: dateStr,
+        time: timeStr,
         start_datetime: matchData.start_datetime,
         match_completed: matchData.match_completed || false,
         match_winner: matchData.match_winner || "",
         match_loser: matchData.match_loser || ""
-      });
-      setParkSearch(matchData.park_name);
+    });
+    setParkSearch(matchData.park_name);
     } catch (error) {
-      console.error("Error fetching match data:", error);
+        console.error("Error fetching match data:", error);
     }
   };
-
+  
+// directly references the formData state variable - can lead to problems if multiple handleChange calls are made quickly, as it might not reflect the most recent state
+/*
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({
       ...formData,
       [id]: value
     });
+  };
+*/
+/*
+using the functional form of setFormData (prevState) ensures always working with the latest version of the state, avoiding issues where formData might be outdated if state updates are batched
+*/
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+        ...prevState,
+        [id]: value
+    }));
   };
 
   const handleParkSearch = (e) => {
