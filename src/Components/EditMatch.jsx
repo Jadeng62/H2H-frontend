@@ -90,26 +90,13 @@ const EditMatch = ({ setMatchData }) => {
         console.error("Error fetching match data:", error);
     }
   };
-  
-// directly references the formData state variable - can lead to problems if multiple handleChange calls are made quickly, as it might not reflect the most recent state
-/*
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({
       ...formData,
       [id]: value
     });
-  };
-*/
-/*
-using the functional form of setFormData (prevState) ensures always working with the latest version of the state, avoiding issues where formData might be outdated if state updates are batched
-*/
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prevState => ({
-        ...prevState,
-        [id]: value
-    }));
   };
 
   const handleParkSearch = (e) => {
