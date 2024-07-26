@@ -78,20 +78,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/profile" element={user ? <Profile /> : <Login />} />
-          {/* <Route
-            path="/matches"
-            element={<Matches
-               matchData={matchData}
-               setMatchData={setMatchData}
-               userDetails={userDetails}
-               userTeam={userTeam} />}
-          /> */}
           <Route
             path="/matches"
             element={<Matches
-               matchData={matchData}
-               setMatchData={setMatchData}
-               userTeam={userTeam} />}
+            matchData={matchData}
+            setMatchData={setMatchData}
+            userTeam={userTeam} />}
           />
           <Route path="/createMatch" element={<MatchForm setMatchData={setMatchData}/>}/>
           <Route path="/matches/:id" element={<MatchDetails />} />
