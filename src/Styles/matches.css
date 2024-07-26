@@ -60,7 +60,7 @@
 .match-display-container:hover {
   cursor: pointer;
   transform: translateY(-10px);
-  box-shadow: 0 10px 10px 15px rgb(253, 252, 252);
+  box-shadow: 0 5px 5px 5px rgb(253, 252, 252);
 }
 
 .match-info {

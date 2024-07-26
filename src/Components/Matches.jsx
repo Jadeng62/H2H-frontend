@@ -84,7 +84,7 @@ const Matches = ({ matchData, setMatchData, userTeam }) => {
             </div>
           </div>
         </div>
-        <div className="flex gap-12 flex-wrap max-md:justify-center">
+        <div className="grid gap-9 grid-cols-1 lg:grid-cols-3">
           {matchData.length > 0 &&
             matchData.map((match) => (
               <div
