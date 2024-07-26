@@ -23,7 +23,6 @@ import TeamSearch from "./Components/TeamSearch";
 import TeamByID from "./Components/TeamByID";
 import BBallCourt from "./Components/BBallCourt";
 import MatchForm from "./Components/MatchForm";
-import EditMatch from "./Components/EditMatch";
 
 function App() {
   const [user, setUser] = useState();
@@ -82,10 +81,9 @@ function App() {
           <Route
             path="/matches"
             element={<Matches
-               matchData={matchData}
-               setMatchData={setMatchData}
-               userDetails={userDetails}
-               userTeam={userTeam} />}
+            matchData={matchData}
+            setMatchData={setMatchData}
+            userTeam={userTeam} />}
           />
           <Route path="/createMatch" element={<MatchForm setMatchData={setMatchData}/>}/>
           <Route path="/matches/:id" element={<MatchDetails />} />
@@ -97,7 +95,6 @@ function App() {
           <Route path="/bballCourts" element={<BBallCourt />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
-          <Route path="/EditMatch/:id" element={<EditMatch setMatchData={setMatchData}/>} />
         </Routes>
       </div>
       <ToastContainer />

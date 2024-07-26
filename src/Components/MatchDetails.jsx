@@ -8,9 +8,11 @@ import {
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import { Pencil, Info } from "lucide-react";
+import Modal from "react-modal";
 import EditMatch from "./EditMatch";
+import { getUserData } from "../helpers/getUserData";
 
-const MatchDetails = ({ upcomingGames, userDetails }) => {
+const MatchDetails = ({ upcomingGames }) => {
   const [match, setMatch] = useState({});
   const { id } = useParams();
   const [userTeam, setUserTeam] = useState({});
@@ -18,9 +20,23 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [firstTeamRoster, setFirstTeamRoster] = useState([]);
   const [secondTeamDetails, setSecondTeamDetails] = useState(null);
   const [secondTeamRoster, setSecondTeamRoster] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUser() {
+        try {
+            const user = await getUserData();
+            setUserDetails(user);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     fetch(`${URL}/api/matches/${id}`)
@@ -151,6 +167,15 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     fetch(`${URL}/api/matches/${id}`, options).then(() => navigate("/matches"));
   };
 
+    // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="text-text">
       <div className="grid grid-cols-3 max-sm:grid-cols-1">
@@ -244,10 +269,24 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                   <tr>
                     <th className="pl-7 py-4">Match Details</th>
                     <br/>
-                    {/* add onClick={openModal} to span for editmatch when component is connected */}
-                    <span className=" hover:text-primary/90 text-text cursor-pointer flex justify-center">
-                          <Pencil size={28} />
-                    </span>
+                    {/* creator of match is the only one who can view pencil to edit */}
+                    {match && userDetails && match.creator_id === userDetails.id && (
+                      <span 
+                        className="hover:text-primary/90 text-text cursor-pointer flex justify-center"
+                        onClick={openModal}
+                      >
+                        <Pencil size={28} />
+                      </span>
+                     )}
+                    <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        className="modal-content h-screen shadow-lg relative"
+                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                        appElement={document.getElementById("root")}
+                        >
+                      <EditMatch closeModal={closeModal} setMatch={setMatch}/>
+                    </Modal>
                   </tr>
                 </thead>
                 <tbody>

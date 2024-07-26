@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUserData } from "../helpers/getUserData";
 import "../Styles/matchForm.css";
 
 const URL = import.meta.env.VITE_BASE_URL;
-const EditMatch = ({ setMatchData }) => {
+const EditMatch = ({ setMatch, closeModal }) => {
   const { id } = useParams(); // Fetching the match ID from the URL
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -24,7 +24,6 @@ const EditMatch = ({ setMatchData }) => {
   const [parkSearch, setParkSearch] = useState("");
   const [parkResults, setParkResults] = useState([]);
   const [parkData, setParkData] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -160,15 +159,11 @@ const EditMatch = ({ setMatchData }) => {
       }
 
       const updatedMatch = await response.json();
-      setMatchData(updatedMatch);
-      navigate('/'); // Navigate after successful submit
+      setMatch(updatedMatch);
+      closeModal()
     } catch (error) {
       console.error("Error updating match:", error);
     }
-  };
-
-  const handleCancel = () => {
-    navigate('/'); // Navigate back to the previous page
   };
 
   return (
@@ -241,7 +236,7 @@ const EditMatch = ({ setMatchData }) => {
         </form>
         <div className="match-form-btn-container">
           <button onClick={handleSubmit} className="match-form-btn">Submit</button>
-          <button onClick={handleCancel} className="match-form-btn danger">Cancel</button>
+          <button onClick={closeModal} className="match-form-btn danger">Cancel</button>
         </div>
       </div>
     </>
