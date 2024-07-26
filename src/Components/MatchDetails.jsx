@@ -7,7 +7,8 @@ import {
   isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
-import { Info } from "lucide-react";
+import { Pencil, Info } from "lucide-react";
+import EditMatch from "./EditMatch";
 
 const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [match, setMatch] = useState({});
@@ -233,18 +234,26 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
             Vs
           </h1>
           <div className="flex justify-center">
+            
             <div className="" style={{ marginTop: "50%" }}>
+              
               <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
+              
                 <thead className="text-left uppercase">
+                
                   <tr>
                     <th className="pl-7 py-4">Match Details</th>
-                    {/* <th className="pl-7 py-4">Input</th> */}
+                    <br/>
+                    {/* add onClick={openModal} to span for editmatch when component is connected */}
+                    <span className=" hover:text-primary/90 text-text cursor-pointer flex justify-center">
+                          <Pencil size={28} />
+                    </span>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100">
                     <td className="px-6 py-5 text-black">Location:</td>
-                    <td className="px-6 py-5">{`${match.address}`}</td>
+                    <td className="px-6 py-5">{`${match.park_name}\n${match.address}`}</td>
                   </tr>
                   <tr className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100">
                     <td className="px-6 py-5 text-black">Date:</td>
