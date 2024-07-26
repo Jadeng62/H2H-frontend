@@ -14,7 +14,7 @@ const EditMatch = ({ setMatchData }) => {
     park_name: "",
     address: "",
     borough: "",
-    date: "",
+    date:"",
     time: "",
     start_datetime: "",
     match_completed: false,
@@ -117,13 +117,37 @@ const EditMatch = ({ setMatchData }) => {
   };
 
   const handleSubmit = async () => {
+    if (!user) {
+        console.error("No USER DATA")
+        return;
+      }
+
+      if (!formData.date || !formData.time) {
+        console.error("No time provided")
+         return;
+      }
+
+
+     const dateTimeStr = `${formData.date}T${formData.time}:00Z`;
+     const dateTime = new Date(dateTimeStr)
+
+      const formattedData = {
+        creator_id: user.id,
+        team1_id: user.user_team_id,
+        team2_id: null,
+        park_name: formData.park_name,
+        address: formData.address,
+        borough: formData.borough,
+        start_datetime : dateTime.toISOString(),
+        match_completed: false, 
+        match_winner: null,
+        match_loser: null
+      }
     try {
       const response = await fetch(`${URL}/api/matches/${id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formattedData),
+        headers: {"Content-Type": "application/json"}
       });
 
       if (!response.ok) {

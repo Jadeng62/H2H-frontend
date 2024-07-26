@@ -97,7 +97,7 @@ function App() {
           <Route path="/bballCourts" element={<BBallCourt />} />
           <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
           <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
-          <Route path="/EditMatch/:id" element={<EditMatch/>} />
+          <Route path="/EditMatch/:id" element={<EditMatch setMatchData={setMatchData}/>} />
         </Routes>
       </div>
       <ToastContainer />
