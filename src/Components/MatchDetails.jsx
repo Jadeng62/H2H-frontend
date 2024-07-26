@@ -259,7 +259,7 @@ const MatchDetails = ({ upcomingGames }) => {
             Vs
           </h1>
           <div className="flex justify-center">
-            <div className="" style={{ marginTop: "50%" }}>
+            <div className="" style={{ marginTop: "15%" }}>
               <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
                 <thead className="text-left uppercase">
                   <tr>
@@ -339,6 +339,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     userDetails &&
                     match.creator_id === userDetails.id && (
                       <button
+                        style={{ marginBottom: "15%" }}
                         className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
                         onClick={handleDeleteMatch}
                       >

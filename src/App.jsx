@@ -58,7 +58,6 @@ function App() {
     });
   }, []);
 
-
   useEffect(() => {
     fetch(`${URL}/api/matches`)
       .then((res) => res.json())
@@ -80,12 +79,18 @@ function App() {
           <Route path="/profile" element={user ? <Profile /> : <Login />} />
           <Route
             path="/matches"
-            element={<Matches
-            matchData={matchData}
-            setMatchData={setMatchData}
-            userTeam={userTeam} />}
+            element={
+              <Matches
+                matchData={matchData}
+                setMatchData={setMatchData}
+                userTeam={userTeam}
+              />
+            }
           />
-          <Route path="/createMatch" element={<MatchForm setMatchData={setMatchData}/>}/>
+          <Route
+            path="/createMatch"
+            element={<MatchForm setMatchData={setMatchData} />}
+          />
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
           {/* <Route path="/myTeam" element={<MyTeam />} /> */}
@@ -93,8 +98,18 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           {/* Following Routes for development only: */}
           <Route path="/bballCourts" element={<BBallCourt />} />
-          <Route path="/createTeam" element={userDetails && <MyTeamForm setNavDetails={setUserDetails} />} />
-          <Route path="/teamSearch" element={userDetails && <TeamSearch setNavDetails={setUserDetails} />} />
+          <Route
+            path="/createTeam"
+            element={
+              userDetails && <MyTeamForm setNavDetails={setUserDetails} />
+            }
+          />
+          <Route
+            path="/teamSearch"
+            element={
+              userDetails && <TeamSearch setNavDetails={setUserDetails} />
+            }
+          />
         </Routes>
       </div>
       <ToastContainer />
