@@ -28,12 +28,12 @@ const MatchDetails = ({ upcomingGames }) => {
 
   useEffect(() => {
     async function fetchUser() {
-        try {
-            const user = await getUserData();
-            setUserDetails(user);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
+      try {
+        const user = await getUserData();
+        setUserDetails(user);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     }
     fetchUser();
   }, []);
@@ -167,7 +167,7 @@ const MatchDetails = ({ upcomingGames }) => {
     fetch(`${URL}/api/matches/${id}`, options).then(() => navigate("/matches"));
   };
 
-    // modal fx
+  // modal fx
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -259,33 +259,34 @@ const MatchDetails = ({ upcomingGames }) => {
             Vs
           </h1>
           <div className="flex justify-center">
-            
             <div className="" style={{ marginTop: "50%" }}>
-              
               <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
-              
                 <thead className="text-left uppercase">
-                
                   <tr>
                     <th className="pl-7 py-4">Match Details</th>
-                    <br/>
+                    <br />
                     {/* creator of match is the only one who can view pencil to edit */}
-                    {match && userDetails && match.creator_id === userDetails.id && (
-                      <span 
-                        className="hover:text-primary/90 text-text cursor-pointer flex justify-center"
-                        onClick={openModal}
-                      >
-                        <Pencil size={28} />
-                      </span>
-                     )}
-                    <Modal
-                        isOpen={isModalOpen}
-                        onRequestClose={closeModal}
-                        className="modal-content h-screen shadow-lg relative"
-                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
-                        appElement={document.getElementById("root")}
+                    {match &&
+                      userDetails &&
+                      match.creator_id === userDetails.id && (
+                        <span
+                          className=" flex justify-end pr-7"
+                          onClick={openModal}
                         >
-                      <EditMatch closeModal={closeModal} setMatch={setMatch}/>
+                          <Pencil
+                            size={32}
+                            className="hover:text-black text-text cursor-pointer"
+                          />
+                        </span>
+                      )}
+                    <Modal
+                      isOpen={isModalOpen}
+                      onRequestClose={closeModal}
+                      className="modal-content h-screen shadow-lg relative"
+                      overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                      appElement={document.getElementById("root")}
+                    >
+                      <EditMatch closeModal={closeModal} setMatch={setMatch} />
                     </Modal>
                   </tr>
                 </thead>
@@ -321,7 +322,7 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
               <div className="flex justify-center">
-                <div className="m-4">
+                <div className="">
                   {userDetails &&
                     secondTeamDetails &&
                     userDetails.id === secondTeamDetails.captain_id && (
@@ -333,12 +334,12 @@ const MatchDetails = ({ upcomingGames }) => {
                       </button>
                     )}
                 </div>
-                <div className="" style={{ marginBottom: "50%" }}>
+                <div className="">
                   {match &&
                     userDetails &&
                     match.creator_id === userDetails.id && (
                       <button
-                        className="bg-accent py-3 px-2 rounded-lg"
+                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
                         onClick={handleDeleteMatch}
                       >
                         Delete Match
