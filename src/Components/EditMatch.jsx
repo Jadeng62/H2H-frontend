@@ -161,14 +161,14 @@ const EditMatch = ({ setMatchData }) => {
 
       const updatedMatch = await response.json();
       setMatchData(updatedMatch);
-      navigate('/'); // Navigate after successful submit
+      navigate(`/matches/${id}`); // Navigate back to matches - should have updates
     } catch (error) {
       console.error("Error updating match:", error);
     }
   };
 
   const handleCancel = () => {
-    navigate('/'); // Navigate back to the previous page
+    navigate(`/matches/${id}`); // Navigate back to matches - no updates
   };
 
   return (
