@@ -4,7 +4,7 @@ import { getUserData } from "../helpers/getUserData";
 import "../Styles/matchForm.css";
 
 const URL = import.meta.env.VITE_BASE_URL;
-const EditMatch = ({ setMatch }) => {
+const EditMatch = ({ setMatch, closeModal }) => {
   const { id } = useParams(); // Fetching the match ID from the URL
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -161,15 +161,16 @@ const EditMatch = ({ setMatch }) => {
 
       const updatedMatch = await response.json();
       setMatch(updatedMatch);
-      navigate(`/matches/${id}`); // Navigate back to matches - should have updates
+      // navigate(`/matches/${id}`); // Navigate back to matches - should have updates
+      closeModal()
     } catch (error) {
       console.error("Error updating match:", error);
     }
   };
 
-  const handleCancel = () => {
-    navigate(`/matches/${id}`); // Navigate back to matches - no updates
-  };
+  // const handleCancel = () => {
+  //   navigate(`/matches/${id}`); // Navigate back to matches - no updates
+  // };
 
   return (
     <>
@@ -241,7 +242,7 @@ const EditMatch = ({ setMatch }) => {
         </form>
         <div className="match-form-btn-container">
           <button onClick={handleSubmit} className="match-form-btn">Submit</button>
-          <button onClick={handleCancel} className="match-form-btn danger">Cancel</button>
+          <button onClick={closeModal} className="match-form-btn danger">Cancel</button>
         </div>
       </div>
     </>
