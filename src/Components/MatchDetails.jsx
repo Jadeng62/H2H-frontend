@@ -7,7 +7,7 @@ import {
   isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
-import { Info } from "lucide-react";
+import { Pencil, Info } from "lucide-react";
 
 const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [match, setMatch] = useState({});
@@ -241,11 +241,12 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                 <thead className="text-left uppercase">
                 
                   <tr>
-                  
                     <th className="pl-7 py-4">Match Details</th>
                     <br/>
-                    <button>Edit Form Button placement holder</button>
-                  {/* add edit form modal button around here */}
+                    {/* add onClick={openModal} to span for editmatch when component is connected */}
+                    <span className=" hover:text-primary/90 text-text cursor-pointer flex justify-center">
+                          <Pencil size={28} />
+                    </span>
                   </tr>
                 </thead>
                 <tbody>
