@@ -8,6 +8,7 @@ import {
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import { Pencil, Info } from "lucide-react";
+import Modal from "react-modal";
 import EditMatch from "./EditMatch";
 
 const MatchDetails = ({ upcomingGames, userDetails }) => {
@@ -18,6 +19,7 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [firstTeamRoster, setFirstTeamRoster] = useState([]);
   const [secondTeamDetails, setSecondTeamDetails] = useState(null);
   const [secondTeamRoster, setSecondTeamRoster] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -151,6 +153,30 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
     fetch(`${URL}/api/matches/${id}`, options).then(() => navigate("/matches"));
   };
 
+    // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  //   fetch(`${URL}/api/matches/${id}`)
+  //   .then((res) => res.json())
+  //   .then((data) => setMatch(data));
+  //   //refetch team data after modal closes
+  //   if (userDetails && userDetails.user_team_id) {
+  //     fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setTeamData(data);
+  //       })
+  //       .catch((error) => console.error("Error fetching team data:", error));
+  //   }
+  // };
+
   return (
     <div className="text-text">
       <div className="grid grid-cols-3 max-sm:grid-cols-1">
@@ -245,9 +271,22 @@ const MatchDetails = ({ upcomingGames, userDetails }) => {
                     <th className="pl-7 py-4">Match Details</th>
                     <br/>
                     {/* add onClick={openModal} to span for editmatch when component is connected */}
-                    <span className=" hover:text-primary/90 text-text cursor-pointer flex justify-center">
+                    {/* add conditional so creator of match is the only one who can view pencil to edit */}
+                    <span 
+                      className=" hover:text-primary/90 text-text cursor-pointer flex justify-center"
+                      onClick={openModal}
+                      >
                           <Pencil size={28} />
                     </span>
+                    <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        className="modal-content h-screen shadow-lg relative"
+                        overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                        appElement={document.getElementById("root")}
+                        >
+                      <EditMatch closeModal={closeModal} setMatch={setMatch}/>
+                    </Modal>
                   </tr>
                 </thead>
                 <tbody>

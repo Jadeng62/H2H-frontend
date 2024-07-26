@@ -4,7 +4,7 @@ import { getUserData } from "../helpers/getUserData";
 import "../Styles/matchForm.css";
 
 const URL = import.meta.env.VITE_BASE_URL;
-const EditMatch = ({ setMatchData }) => {
+const EditMatch = ({ setMatch }) => {
   const { id } = useParams(); // Fetching the match ID from the URL
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -160,7 +160,7 @@ const EditMatch = ({ setMatchData }) => {
       }
 
       const updatedMatch = await response.json();
-      setMatchData(updatedMatch);
+      setMatch(updatedMatch);
       navigate(`/matches/${id}`); // Navigate back to matches - should have updates
     } catch (error) {
       console.error("Error updating match:", error);
