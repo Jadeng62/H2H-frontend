@@ -41,7 +41,7 @@ const Matches = ({ matchData, setMatchData, userTeam }) => {
         className=" my-10 mx-10"
       >
         <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 mb-10">
-          <div className="flex sm:gap-1 md:gap-4 items-center md:flex-row text-nowrap">
+          <div className="flex gap-1 sm:gap-4 items-center md:flex-row text-nowrap">
             <div>
               <h1 className="text-xl font-bold hidden sm:block">
                 Match Options:{" "}

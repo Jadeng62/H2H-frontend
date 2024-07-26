@@ -167,18 +167,27 @@ const MatchForm = ({ setMatchData }) => {
               onChange={handleParkSearch}
               className="match-form-input"
             />
-            <div className="match-form-parks">
-              {parkSearch &&
-                parkResults.length > 0 &&
-                parkResults.map((park, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleParkSelect(park)}
-                    className="match-form-park-result"
-                  >
-                    {park.Name}
-                  </li>
-                ))}
+            <div className="match-form-parks overflow-y-auto h-72 bg-background/10 rounded-lg mb-5">
+              {parkSearch && parkResults.length > 0 ? (
+                <>
+                  {parkResults.map((park, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleParkSelect(park)}
+                      className="match-form-park-result hover:bg-white/30 p-2 rounded-lg"
+                    >
+                      {park.Name}
+                    </li>
+                  ))}{" "}
+                </>
+              ) : (
+                <div className="text-wrap">
+                  <h3 className="text-center mt-32">
+                    {" "}
+                    Park Results Will Show Here
+                  </h3>
+                </div>
+              )}
             </div>
           </div>
           <label htmlFor="address" />
