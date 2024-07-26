@@ -33,17 +33,19 @@ const Matches = ({ matchData, setMatchData, userTeam }) => {
   return (
     <>
       {toggle && <MatchForm toggle={toggle} setToggle={setToggle} />}
-      <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
+      <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
         All Matches
       </h1>
       <div
         // className="matches-container "
         className=" my-10 mx-10"
       >
-        <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col md:flex-row md:items-center mb-12">
-          <div className="flex flex-row gap-4 items-center justify-center ">
+        <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 mb-10">
+          <div className="flex sm:gap-1 md:gap-4 items-center md:flex-row text-nowrap">
             <div>
-              <h1 className="text-xl font-bold">Match Options: </h1>
+              <h1 className="text-xl font-bold hidden sm:block">
+                Match Options:{" "}
+              </h1>
             </div>
             <div>
               {userDetails &&
@@ -65,7 +67,7 @@ const Matches = ({ matchData, setMatchData, userTeam }) => {
                 name="borough"
                 id="borough"
                 // className="matches-select p-2"
-                className="p-3  rounded-lg bg-secondary/50 text-white hover:bg-secondary/70"
+                className="p-3 rounded-lg bg-secondary/50 text-white hover:bg-secondary/70"
               >
                 <option>Match Type</option>
                 <option value="all-games" className="matches-option">
@@ -84,7 +86,7 @@ const Matches = ({ matchData, setMatchData, userTeam }) => {
             </div>
           </div>
         </div>
-        <div className="grid gap-9 grid-cols-1 lg:grid-cols-3">
+        <div className="grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {matchData.length > 0 &&
             matchData.map((match) => (
               <div
