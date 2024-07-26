@@ -155,88 +155,103 @@ const MatchForm = ({ setMatchData }) => {
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         Create a Match
       </h1>
-      <div className="match-form-container">
-        <form>
-          <h1 className="match-form-h1">Enter match information below</h1>
-          <div className="match-form-park-container">
-            <label htmlFor="park" />
-            Search for a Park{" "}
+      <div className="flex justify-center">
+        <div
+          className="bg-secondary m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
+          // className="match-form-container"
+        >
+          <form>
+            <h1 className="match-form-h1 text-2xl md:text-3xl text-black">
+              Enter match information below
+            </h1>
+            <div className="match-form-park-container">
+              <label htmlFor="park" />
+              Search for a Park{" "}
+              <input
+                id="park_name"
+                value={parkSearch || ""}
+                onChange={handleParkSearch}
+                className="match-form-input"
+              />
+              <div className="match-form-parks overflow-y-auto h-72 bg-background/10 rounded-lg mb-5">
+                {parkSearch && parkResults.length > 0 ? (
+                  <>
+                    {parkResults.map((park, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleParkSelect(park)}
+                        className="match-form-park-result hover:bg-white/30 p-2 rounded-lg m-2"
+                      >
+                        {park.Name}
+                      </li>
+                    ))}{" "}
+                  </>
+                ) : (
+                  <div className="text-wrap">
+                    <h3 className="text-center mt-32">
+                      {" "}
+                      Park Results Will Show Here
+                    </h3>
+                  </div>
+                )}
+              </div>
+            </div>
+            <label htmlFor="address" />
+            Park Location{" "}
             <input
-              id="park_name"
-              value={parkSearch || ""}
-              onChange={handleParkSearch}
+              id="address"
+              value={formData.address || ""}
+              readOnly
+              placeholder="This Field will be filled in for you"
+              onChange={handleChange}
               className="match-form-input"
             />
-            <div className="match-form-parks overflow-y-auto h-72 bg-background/10 rounded-lg mb-5">
-              {parkSearch && parkResults.length > 0 ? (
-                <>
-                  {parkResults.map((park, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleParkSelect(park)}
-                      className="match-form-park-result hover:bg-white/30 p-2 rounded-lg"
-                    >
-                      {park.Name}
-                    </li>
-                  ))}{" "}
-                </>
-              ) : (
-                <div className="text-wrap">
-                  <h3 className="text-center mt-32">
-                    {" "}
-                    Park Results Will Show Here
-                  </h3>
-                </div>
-              )}
-            </div>
+            <label htmlFor="borough" />
+            Borough{" "}
+            <input
+              id="address"
+              value={formData.borough || ""}
+              readOnly
+              placeholder="This Field will be filled in for you"
+              onChange={handleChange}
+              className="match-form-input"
+            />
+            <label htmlFor="date" />
+            Enter Match Date{" "}
+            <input
+              id="date"
+              value={formData.date}
+              type="date"
+              required
+              onChange={handleChange}
+              className="match-form-input"
+            />
+            <label htmlFor="time" />
+            Enter Time of Match{" "}
+            <input
+              id="time"
+              value={formData.time}
+              type="time"
+              onChange={handleChange}
+              className="match-form-input mb-5"
+            />
+          </form>
+          <div className="match-form-btn-container">
+            <button
+              onClick={handleSubmit}
+              // className="match-form-btn"
+              className=" px-10 py-3 w-1/2 bg-accent rounded-lg mr-4 hover:bg-background/10 text-white"
+            >
+              Submit
+            </button>
+            <button
+              onClick={handleCancel}
+              // className="match-form-btn danger"
+              className=" px-10 py-3 w-1/2 bg-background/50 rounded-lg hover:bg-background/10 text-white"
+            >
+              Cancel
+            </button>
           </div>
-          <label htmlFor="address" />
-          Park Location{" "}
-          <input
-            id="address"
-            value={formData.address || ""}
-            readOnly
-            placeholder="This Field will be filled in for you"
-            onChange={handleChange}
-            className="match-form-input"
-          />
-          <label htmlFor="borough" />
-          Borough{" "}
-          <input
-            id="address"
-            value={formData.borough || ""}
-            readOnly
-            placeholder="This Field will be filled in for you"
-            onChange={handleChange}
-            className="match-form-input"
-          />
-          <label htmlFor="date" />
-          Enter Match Date{" "}
-          <input
-            id="date"
-            value={formData.date}
-            type="date"
-            required
-            onChange={handleChange}
-            className="match-form-input"
-          />
-          <label htmlFor="time" />
-          Enter Time of Match{" "}
-          <input
-            id="time"
-            value={formData.time}
-            type="time"
-            onChange={handleChange}
-            className="match-form-input"
-          />
-        </form>
-        <div className="match-form-btn-container">
-          <button onClick={handleSubmit} className="match-form-btn">
-            Submit
-          </button>
-          <button onClick={handleCancel} className="match-form-btn danger">
-            Cancel
-          </button>
         </div>
       </div>
     </>
