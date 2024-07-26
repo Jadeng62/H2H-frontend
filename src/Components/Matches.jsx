@@ -23,6 +23,7 @@ const Matches = ({ matchData, setMatchData}) => {
         <MatchForm
           toggle={toggle}
           setToggle={setToggle}
+          />
       )}
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         All Matches
