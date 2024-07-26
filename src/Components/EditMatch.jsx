@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUserData } from "../helpers/getUserData";
 import "../Styles/matchForm.css";
 
@@ -24,7 +24,6 @@ const EditMatch = ({ setMatch, closeModal }) => {
   const [parkSearch, setParkSearch] = useState("");
   const [parkResults, setParkResults] = useState([]);
   const [parkData, setParkData] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -161,16 +160,11 @@ const EditMatch = ({ setMatch, closeModal }) => {
 
       const updatedMatch = await response.json();
       setMatch(updatedMatch);
-      // navigate(`/matches/${id}`); // Navigate back to matches - should have updates
       closeModal()
     } catch (error) {
       console.error("Error updating match:", error);
     }
   };
-
-  // const handleCancel = () => {
-  //   navigate(`/matches/${id}`); // Navigate back to matches - no updates
-  // };
 
   return (
     <>
