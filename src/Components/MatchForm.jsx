@@ -141,7 +141,9 @@ const MatchForm = ({ setMatchData}) => {
        .then((data) => {
         setMatchData(data)
          navigate("/matches")
-          alert("Match Created Succesfully")
+         toast.success("Created Match successfully!", {
+          position: "top-center",
+        });
        })
        .catch((err) => console.error("Error with submit", err))
     }
