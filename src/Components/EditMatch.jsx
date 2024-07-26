@@ -58,11 +58,6 @@ const EditMatch = ({ setMatchData }) => {
   };
 
   const fetchMatchData = async (matchId) => {
-    if (!user) {
-        console.error("No USER DATA");
-        return;
-    }
-  
     try {
         const response = await fetch(`${URL}/api/matches/${matchId}`);
         if (!response.ok) {
