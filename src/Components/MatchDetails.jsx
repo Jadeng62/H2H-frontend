@@ -8,6 +8,7 @@ import {
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import { Pencil, Info } from "lucide-react";
+import EditMatch from "./EditMatch";
 
 const MatchDetails = ({ upcomingGames, userDetails }) => {
   const [match, setMatch] = useState({});
