@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
-
+import { getUserData } from "../helpers/getUserData";
 import MatchForm from "../Components/MatchForm";
 import Match from "../Components/Match";
-
 import "../Styles/matches.css";
 import { useNavigate } from "react-router-dom";
 import { isTeamFull } from "../helpers/helper";
 
-const Matches = ({ matchData, setMatchData, userDetails, userTeam}) => {
+const Matches = ({ matchData, setMatchData, userTeam}) => {
   const [toggle, setToggle] = useState(false);
-
+  const [userDetails, setUserDetails] = useState(null);
   const URL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUser() {
+        try {
+            const user = await getUserData();
+            setUserDetails(user);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+    fetchUser();
+  }, []);
 
   const handleCreate = (e) => {
    navigate("/createMatch")
