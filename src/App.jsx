@@ -27,8 +27,7 @@ import MatchForm from "./Components/MatchForm";
 function App() {
   const [user, setUser] = useState();
   const [userDetails, setUserDetails] = useState(null);
-  const [matchData, setMatchData] = useState([]);
-  const [userTeam, setUserTeam] = useState("");
+  // const [userTeam, setUserTeam] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -43,25 +42,19 @@ function App() {
     getUser();
   }, [user]);
 
-  useEffect(() => {
-    if (userDetails && userDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-        .then((res) => res.json())
-        .then((data) => setUserTeam(data))
-        .catch((error) => console.error("Error fetching team data:", error));
-    }
-  }, [userDetails]);
+  // useEffect(() => {
+  //   if (userDetails && userDetails.user_team_id) {
+  //     fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+  //       .then((res) => res.json())
+  //       .then((data) => setUserTeam(data))
+  //       .catch((error) => console.error("Error fetching team data:", error));
+  //   }
+  // }, []);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-  }, []);
-
-  useEffect(() => {
-    fetch(`${URL}/api/matches`)
-      .then((res) => res.json())
-      .then((data) => setMatchData(data));
   }, []);
 
   return (
@@ -77,20 +70,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/profile" element={user ? <Profile /> : <Login />} />
-          <Route
-            path="/matches"
-            element={
-              <Matches
-                matchData={matchData}
-                setMatchData={setMatchData}
-                userTeam={userTeam}
-              />
-            }
-          />
-          <Route
-            path="/createMatch"
-            element={<MatchForm setMatchData={setMatchData} />}
-          />
+          <Route path="/matches" element={<Matches />} />
+          <Route path="/createMatch" element={<MatchForm />} />
           <Route path="/matches/:id" element={<MatchDetails />} />
           <Route path="/team/:id" element={<TeamByID />} />
           {/* <Route path="/myTeam" element={<MyTeam />} /> */}
