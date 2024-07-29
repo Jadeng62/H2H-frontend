@@ -54,8 +54,9 @@ function Login() {
 
 
   return (
-    <div className="login-container my-16 md:my-24 ">
-      <div className="flex justify-center">
+    <div className="register-container">
+    {/* <div className="login-container my-16 md:my-24 "> */}
+      {/* <div className="flex justify-center"> */}
         <form onSubmit={handleSubmit}>
           <h3 className="login-h3 ">Login</h3>
           <label htmlFor="email" className="login-label">
@@ -71,7 +72,6 @@ function Login() {
               required
             />
           </label>
-
           <label htmlFor="password" className="login-label">
             Password{" "}
             <input
@@ -85,21 +85,27 @@ function Login() {
               required
             />
           </label>
-
-          <button type="submit" className="login-btn">
-            Submit
+          {/* <button type="submit" className="login-btn"> */}
+          <button type="submit" className="bg-accent  text-white px-10 py-4 rounded hover:bg-white hover:text-black form-button">
+            Login
           </button>
         </form>
+      {/* </div> */}
+
+      <div className="flex w-full px-20 py-4">
+        {/* <button > */}
+        <button type="submit" className="bg-background  text-white px-8 py-4 rounded hover:bg-white hover:text-background form-button w-full">
+          <Link to="/register">Register</Link>
+        </button>
       </div>
-      <div className="login-switch">
-        New user <Link to="/register">Register Here</Link>
-      </div>
+      
       <div className="flex flex-col justify-center ">
-        <p className="login-p">--Or continue with--</p>
+        {/* <p className="login-p">--Or continue with--</p> */}
         <div className="pl-28 pb-10">
           <SignInWithGoogle />
         </div>
       </div>
+
     </div>
   );
 }
