@@ -58,7 +58,7 @@ function Login() {
     {/* <div className="login-container my-16 md:my-24 "> */}
       {/* <div className="flex justify-center"> */}
         <form onSubmit={handleSubmit}>
-          <h3 className="login-h3 ">Login</h3>
+          <h3 className="login-h3 text-background ">Login</h3>
           <label htmlFor="email" className="login-label">
             Email Address{" "}
             <input
@@ -86,25 +86,24 @@ function Login() {
             />
           </label>
           {/* <button type="submit" className="login-btn"> */}
-          <button type="submit" className="bg-accent  text-white px-10 py-4 rounded hover:bg-white hover:text-black form-button">
+          <button type="submit" className="bg-accent  text-white px-10 py-4 rounded hover:bg-orange-600 hover:text-white form-button">
             Login
           </button>
         </form>
       {/* </div> */}
 
       <div className="flex w-full px-20 py-4">
-        {/* <button > */}
-        <button type="submit" className="bg-background  text-white px-8 py-4 rounded hover:bg-white hover:text-background form-button w-full">
+        {/* mb-8 is temporary - remove after commenting sign in with google button */}
+        <button type="submit" className="bg-background  text-white px-8 py-4 rounded hover:bg-background/50 hover:text-white form-button w-full mb-8">
           <Link to="/register">Register</Link>
         </button>
       </div>
       
-      <div className="flex flex-col justify-center ">
-        {/* <p className="login-p">--Or continue with--</p> */}
+      {/* <div className="flex flex-col justify-center ">
         <div className="pl-28 pb-10">
           <SignInWithGoogle />
         </div>
-      </div>
+      </div> */}
 
     </div>
   );
