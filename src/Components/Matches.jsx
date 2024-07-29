@@ -12,6 +12,7 @@ const Matches = () => {
   const [toggle, setToggle] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [matchData, setMatchData] = useState([]);
+  const [filteredMatchData, setFiltereMatchData] = useState([]);
   const [userTeam, setUserTeam] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
@@ -33,7 +34,10 @@ const Matches = () => {
   useEffect(() => {
     fetch(`${URL}/api/matches`)
       .then((res) => res.json())
-      .then((data) => setMatchData(data));
+      .then((data) => {
+        setMatchData(data);
+        setFiltereMatchData(data);
+      });
   }, [matchData]);
 
   const handleCreate = (e) => {
@@ -117,7 +121,7 @@ const Matches = () => {
         <div className="flex gap-1 sm:gap-4 items-center md:flex-row text-nowrap">
           <div>
             <h1 className="text-xl font-bold hidden sm:block">
-              Match Options:{" "}
+              Match Options:
             </h1>
           </div>
           <div>
