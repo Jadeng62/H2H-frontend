@@ -327,7 +327,8 @@ const MatchDetails = ({ upcomingGames }) => {
                     secondTeamDetails &&
                     userDetails.id === secondTeamDetails.captain_id && (
                       <button
-                        className="bg-accent py-3 px-2 rounded-lg"
+                        style={{ marginBottom: "15%" }}
+                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
                         onClick={handleLeaveMatch}
                       >
                         Leave Match

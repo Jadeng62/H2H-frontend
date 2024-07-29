@@ -168,12 +168,12 @@ const EditMatch = ({ setMatch, closeModal }) => {
 
   return (
     <>
-      <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
+      <h1 className="matches-h1 bg-white/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         Edit Match
       </h1>
       <div className="flex justify-center">
         <div
-          className="bg-secondary m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
+          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
         >        
         <form>
           <div className="match-form-park-container ">
@@ -183,6 +183,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
             <input 
               id="park_name"
               value={parkSearch}
+              placeholder="Enter Park Name"
               onChange={handleParkSearch}
               className="match-form-input"
             />
@@ -202,7 +203,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
                 ) : (
                   <div className="h-auto text-wrap">
                     <h3 className="text-center overflow-y-auto">
-                      {" "}
+                      {/* {" "} */}
                     </h3>
                   </div>
                 )}
@@ -213,7 +214,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
             id="address"
             value={formData.address}
             readOnly
-            placeholder="This Field will be filled in for you"
+            placeholder="Enter Park Name to View Location"
             className="match-form-input"
           />
 
@@ -222,7 +223,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
             id="borough"
             value={formData.borough}
             readOnly
-            placeholder="This Field will be filled in for you"
+            placeholder="Enter Park Name to View Borough"
             className="match-form-input"
           />
 
@@ -245,15 +246,15 @@ const EditMatch = ({ setMatch, closeModal }) => {
             className="match-form-input mb-5"
           />
         </form>
-        <div className="match-form-btn-container">
+        <div className="flex flex-wrap justify-center gap-2">
           <button
               onClick={handleSubmit}
-              className="px-10 py-3 w-1/2 bg-accent rounded-lg mr-4 hover:bg-background/10 text-white"
+              className="bg-accent  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
           >
-            Submit
+            Edit Match
           </button>
           <button onClick={closeModal}
-            className=" px-10 py-3 w-1/2 bg-background/50 rounded-lg hover:bg-background/10 text-white"
+            className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"      
           >
             Cancel
           </button>

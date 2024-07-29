@@ -142,7 +142,7 @@ const MyTeamForm = ({isUserTeamCaptin, setIsUserCaptin, setNavDetails}) => {
         <div className='team-form-container'>
             { console.log("form", formData)}
             <form className='team-form bg-white'>
-                <h2 className='team-form-h2'>Create Team</h2>
+                <h2 className='team-form-h2'>Create Your Team</h2>
                 <label htmlFor='team_name' className='team-form-label'>
                     Team Name:
                     <input
