@@ -31,7 +31,7 @@ const Match = ({ match }) => {
 
   return (
     <div className="match-display-container bg-secondary/30 text-text bebas-neue-regular">
-      <div className="flex justify-center text-xl">
+      <div className="flex justify-center mb-4 text-xl">
         {/* <h1 className="text-3xl">{`${team1.team_name} V.S. ${
           Object.hasOwn(team2, "error") ? "TBD" : team2.team_name
         }`}</h1> */}
@@ -47,14 +47,14 @@ const Match = ({ match }) => {
           <img src={placeHolder} alt="" />
         </div>
       </div>
-      <div className="flex flex-col justify-center">
-        <div className="text-center text-2xl">
+      <div className="flex flex-col justify-center my-auto">
+        <div className="text-center text-2xl bg-secondary/30 rounded-lg py-2 my-4">
           <h3>{match.park_name}</h3>
         </div>
         <div className="flex justify-center text-center text-2xl">
-          <h3>{match.address}</h3>
+          {/* <h3>{match.address}</h3> */}
         </div>
-        <div className="flex justify-center text-2xl">
+        <div className="flex justify-center text-2xl bg-accent rounded-lg py-2">
           <h3>
             {formattedDate(match.start_datetime)}{" "}
             <span className="match-span">

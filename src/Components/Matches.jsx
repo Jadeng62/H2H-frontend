@@ -172,21 +172,20 @@ const Matches = () => {
             <select
               name="match-options"
               id="match-options"
-              // className="matches-select p-2"
-              className="p-3 rounded-lg bg-secondary/50 text-white hover:bg-secondary/70"
+              className="py-3 rounded-lg bg-secondary/50 text-center text-white hover:bg-secondary/70"
               onChange={handleSelectChange}
             >
               <option>Match Type</option>
-              <option value="all-matches" className="matches-option">
+              <option value="all-matches" className="bg-black">
                 All Matches
               </option>
-              <option value="open" className="matches-option">
-                Open
+              <option value="open" className="">
+                Open Matches
               </option>
-              <option value="full-matches" className="matches-option">
+              <option value="full-matches" className="">
                 Full Matches
               </option>
-              <option value="today" className="matches-option">
+              <option value="today" className="">
                 Today's Matches
               </option>
             </select>

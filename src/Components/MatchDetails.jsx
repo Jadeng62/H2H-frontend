@@ -230,7 +230,7 @@ const MatchDetails = ({ upcomingGames }) => {
                       <span className="font-semibold">Slot Available</span>
                       <span>
                         This slot is currently available for a team to join and
-                        play a match. Sign up now to participate!
+                        play a match.
                       </span>
                       {userDetails &&
                         userTeam &&
@@ -402,7 +402,7 @@ const MatchDetails = ({ upcomingGames }) => {
                       <span className="font-semibold">Slot Available</span>
                       <span>
                         This slot is currently available for a team to join and
-                        play a match. Sign up now to participate!
+                        play a match.
                       </span>
                       {userDetails &&
                         userTeam &&
