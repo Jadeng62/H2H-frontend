@@ -157,7 +157,7 @@ const MatchForm = ({ setMatchData }) => {
       </h1>
       <div className="flex justify-center">
         <div
-          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
+          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2 match-form"
           // className="match-form-container"
         >
           <form>

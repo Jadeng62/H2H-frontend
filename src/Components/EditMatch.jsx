@@ -173,7 +173,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
       </h1>
       <div className="flex justify-center">
         <div
-          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
+          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2 match-form"
         >        
         <form>
           <div className="match-form-park-container ">
