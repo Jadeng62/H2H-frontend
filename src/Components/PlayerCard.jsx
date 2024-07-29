@@ -36,13 +36,13 @@ const PlayerCard = ({ userDetails, userTeam }) => {
           <img
             src={userDetails && userDetails.photo}
             alt="photo-of-player"
-            className="w-36 h-36 rounded-xl"
+            className="h-48 rounded-xl border-4 border-white shadow-xl"
           />
         ) : (
           <>
             <img
               src={placeholderImage}
-              className="w-36 h-36 rounded"
+              className="h-48 rounded-xl border-4 border-white shadow-xl"
               alt="team"
             />
           </>

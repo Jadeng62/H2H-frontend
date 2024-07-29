@@ -168,35 +168,46 @@ const EditMatch = ({ setMatch, closeModal }) => {
 
   return (
     <>
-      <h1 className="matches-h1 bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
+      <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
         Edit Match
       </h1>
-      <div className="match-form-container">
+      <div className="flex justify-center">
+        <div
+          className="bg-secondary m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2"
+        >        
         <form>
-          <h1 className="match-form-h1">Enter match information below</h1>
-          <div className="match-form-park-container">
-            <label htmlFor="park_name">Search for a Park</label>
+          <div className="match-form-park-container ">
+            <label htmlFor="park_name">
+              Search for a Park
+            </label>
             <input 
               id="park_name"
               value={parkSearch}
               onChange={handleParkSearch}
               className="match-form-input"
             />
-            <div className="match-form-parks">
-              {parkSearch && parkResults.length > 0 && (
-                parkResults.map((park, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleParkSelect(park)}
-                    className="match-form-park-result"
-                  >
-                    {park.Name}
-                  </li>
-                ))
-              )}
-            </div>
+            <div className="match-form-parks bg-background/10 rounded-lg mb-5 h-auto max-h-36 overflow-y-auto">
+                {parkSearch && parkResults.length > 0 ? (
+                  <>
+                    {parkResults.map((park, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleParkSelect(park)}
+                        className="match-form-park-result hover:bg-white/30 p-2 rounded-lg m-2 list-none"
+                      >
+                        {park.Name}
+                      </li>
+                    ))}{" "}
+                  </>
+                ) : (
+                  <div className="h-auto text-wrap">
+                    <h3 className="text-center overflow-y-auto">
+                      {" "}
+                    </h3>
+                  </div>
+                )}
+              </div>
           </div>
-
           <label htmlFor="address">Park Location</label>
           <input 
             id="address"
@@ -231,12 +242,22 @@ const EditMatch = ({ setMatch, closeModal }) => {
             value={formData.time}
             type="time"
             onChange={handleChange}
-            className="match-form-input"
+            className="match-form-input mb-5"
           />
         </form>
         <div className="match-form-btn-container">
-          <button onClick={handleSubmit} className="match-form-btn">Submit</button>
-          <button onClick={closeModal} className="match-form-btn danger">Cancel</button>
+          <button
+              onClick={handleSubmit}
+              className="px-10 py-3 w-1/2 bg-accent rounded-lg mr-4 hover:bg-background/10 text-white"
+          >
+            Submit
+          </button>
+          <button onClick={closeModal}
+            className=" px-10 py-3 w-1/2 bg-background/50 rounded-lg hover:bg-background/10 text-white"
+          >
+            Cancel
+          </button>
+          </div>
         </div>
       </div>
     </>

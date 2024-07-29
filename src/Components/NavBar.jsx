@@ -72,7 +72,7 @@ const NavBar = ({ userDetails, setUserDetails }) => {
           </li></Link> */}
           <Link to="/profile">
             <li className="nav-li border-b-2 border-transparent hover:text-black hover:border-white duration-500">
-              My Player
+              My Profile
             </li>
           </Link>
           <Link to="/">
