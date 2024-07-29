@@ -257,10 +257,10 @@ function Register() {
         <button type="submit" className="register-btn">
           Sign Up
         </button>
-        <p className="register-p">
-          Already registered{" "}
+        <p className="register-p text-center pl-10 hover:text-blue-800">
+          Already registered? {" "}
           <Link to="/login">
-            <span className="register-span">Login</span>
+            <span className="register-span hover:text-black">Login</span>
           </Link>
         </p>
       </form>

@@ -63,7 +63,7 @@ function Profile() {
   return (
     <div className="text-text flex flex-col">
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
-        <h2>My Player</h2>
+        <h2>My Profile</h2>
       </div>
       <div className="flex flex-col mt-10 mb-20 mx-10 sm:flex-row flex-grow gap-7">
         <div className="flex justify-center w-full sm:w-1/3 sm:mb-0">
