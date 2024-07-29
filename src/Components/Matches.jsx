@@ -5,19 +5,24 @@ import Match from "../Components/Match";
 import "../Styles/matches.css";
 import "../Styles/teamForm.css";
 import { useNavigate } from "react-router-dom";
-import { isTeamFull } from "../helpers/helper";
+import { formattedDate, isTeamFull } from "../helpers/helper";
 import { CircleX, CircleAlert } from "lucide-react";
 
 const Matches = () => {
   const [toggle, setToggle] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [matchData, setMatchData] = useState([]);
-  const [filteredMatchData, setFiltereMatchData] = useState([]);
+  const [filteredMatchData, setFilteredMatchData] = useState([]);
   const [userTeam, setUserTeam] = useState("");
+  const [filterValue, setFilterValue] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
+
+  const handleSelectChange = (e) => {
+    setFilterValue(e.target.value);
+  };
 
   useEffect(() => {
     async function fetchUser() {
@@ -36,9 +41,9 @@ const Matches = () => {
       .then((res) => res.json())
       .then((data) => {
         setMatchData(data);
-        setFiltereMatchData(data);
+        setFilteredMatchData(data);
       });
-  }, [matchData]);
+  }, []);
 
   const handleCreate = (e) => {
     navigate("/createMatch");
@@ -52,6 +57,30 @@ const Matches = () => {
         .catch((error) => console.error("Error fetching team data:", error));
     }
   }, [userDetails]);
+
+  useEffect(() => {
+    if (filterValue && filterValue === "open") {
+      const openGames = matchData.filter(
+        (match) => match.team1_id === null || match.team2_id === null
+      );
+      setFilteredMatchData(openGames);
+    } else if (filterValue && filterValue === "full-matches") {
+      const fullMatches = matchData.filter(
+        (match) => match.team1_id !== null && match.team2_id !== null
+      );
+      setFilteredMatchData(fullMatches);
+    } else if (filterValue && filterValue === "today") {
+      const date = new Date();
+      const todaysDate = formattedDate(date);
+
+      const todaysMatches = matchData.filter(
+        (match) => formattedDate(match.start_datetime) === todaysDate
+      );
+      setFilteredMatchData(todaysMatches);
+    } else if (filterValue === "all-matches") {
+      setFilteredMatchData(matchData);
+    }
+  }, [filterValue, matchData]);
 
   return (
     <>
@@ -141,31 +170,32 @@ const Matches = () => {
           </div>
           <div className="">
             <select
-              name="borough"
-              id="borough"
+              name="match-options"
+              id="match-options"
               // className="matches-select p-2"
               className="p-3 rounded-lg bg-secondary/50 text-white hover:bg-secondary/70"
+              onChange={handleSelectChange}
             >
               <option>Match Type</option>
-              <option value="all-games" className="matches-option">
-                All Games
+              <option value="all-matches" className="matches-option">
+                All Matches
               </option>
               <option value="open" className="matches-option">
                 Open
               </option>
-              <option value="locked" className="matches-option">
-                Locked
+              <option value="full-matches" className="matches-option">
+                Full Matches
               </option>
               <option value="today" className="matches-option">
-                Today
+                Today's Matches
               </option>
             </select>
           </div>
         </div>
       </div>
       <div className="grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {matchData.length > 0 &&
-          matchData.map((match) => (
+        {filteredMatchData.length > 0 &&
+          filteredMatchData.map((match) => (
             <div
               key={match.id}
               onClick={() => navigate(`/matches/${match.id}`)}
