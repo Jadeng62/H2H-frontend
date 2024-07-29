@@ -51,7 +51,7 @@ const Match = ({ match }) => {
         <div className="text-center text-2xl">
           <h3>{match.park_name}</h3>
         </div>
-        <div className="flex justify-center text-2xl">
+        <div className="flex justify-center text-center text-2xl">
           <h3>{match.address}</h3>
         </div>
         <div className="flex justify-center text-2xl">

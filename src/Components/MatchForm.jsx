@@ -5,7 +5,7 @@ import { getUserData } from "../helpers/getUserData";
 
 import "../Styles/matchForm.css";
 
-const MatchForm = ({ setMatchData }) => {
+const MatchForm = () => {
   const [user, setUser] = useState(null);
   const [parkSearch, setParkSearch] = useState("");
   const [parkResults, setParkResults] = useState([]);
@@ -128,7 +128,7 @@ const MatchForm = ({ setMatchData }) => {
     fetch(`${URL}/api/matches`, options)
       .then((res) => res.json())
       .then((data) => {
-        setMatchData(data);
+        // setMatchData(data);
         navigate("/matches");
         toast.success("Created Match successfully!", {
           position: "top-center",
