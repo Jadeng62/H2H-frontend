@@ -275,7 +275,7 @@ const MatchDetails = ({ upcomingGames }) => {
                         >
                           <Pencil
                             size={32}
-                            className="hover:text-black text-text cursor-pointer"
+                            className="hover:text-black text-text cursor-pointer pb-4"
                           />
                         </span>
                       )}

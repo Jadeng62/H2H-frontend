@@ -246,15 +246,15 @@ const EditMatch = ({ setMatch, closeModal }) => {
             className="match-form-input mb-5"
           />
         </form>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-row justify-center gap-2">
           <button
               onClick={handleSubmit}
-              className="bg-accent  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+              className="bg-accent  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background md:w-1/2"
           >
             Edit Match
           </button>
           <button onClick={closeModal}
-            className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"      
+            className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background md:w-1/2"      
           >
             Cancel
           </button>
