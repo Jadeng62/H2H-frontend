@@ -34,31 +34,10 @@ const MyTeam = () => {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   // state for updating players' team id
   const [playerData, setPlayerData] = useState(null);
-
-  // state for current saying
-  const [currentSaying, setCurrentSaying] = useState("");
   // modal usestates
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // array of sayings for when a user still needs a full team to play
-  const sayings = [
-    "The game requires a full team lineup; assemble your squad!",
-    "Complete your team roster before stepping onto the field of play.",
-    "Remember, a complete team is essential for game participation.",
-    "No substitutions for a full team; gather your players!",
-    "Team up! You need a full squad to hit the field.",
-    "Game on! Ensure your team is complete for match day.",
-    "Can't play solo; recruit your team for match participation.",
-    "Don't leave gaps on the roster; a full team is required.",
-    "Check your lineup; a complete team is necessary for gameplay.",
-    "There's no I and team. You need a full team to play in matches.",
-  ];
-
-  // function to cycle through sayings to encourage user to get a full team in order to play matches
-  const selectRandomSaying = () => {
-    const randomIndex = Math.floor(Math.random() * sayings.length);
-    setCurrentSaying(sayings[randomIndex]);
-  };
+  // state for array of all badges a team has
+  const [teamBadges, setTeamBadges] = useState([]);
 
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
