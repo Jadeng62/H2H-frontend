@@ -1,0 +1,28 @@
+/* Define a hexagon shape */
+.hexagon {
+  position: relative;
+  width: 6rem; /* Adjust size as needed */
+  height: 3.464rem; /* Height is width * sqrt(3)/2 */
+  background-color: #7efe22; /* Tailwind color or your choice */
+  margin: 1rem 0; /* Margin for positioning */
+  display: inline-block;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  /* border-radius: 25%; */
+}
+
+/* Define the inner content of the hexagon */
+.hexagon-inner {
+  position: absolute;
+  width: 5.2rem; /* Adjust size as needed */
+  height: 3rem; /* Adjust size as needed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #0f0e0e; /* Inner color */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem; /* Adjust text size as needed */
+  color: #f4f3fc; /* Text color */
+}
