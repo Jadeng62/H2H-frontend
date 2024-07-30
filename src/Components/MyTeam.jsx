@@ -224,10 +224,9 @@ const MyTeam = () => {
     }
   }, [selectedPlayer]);
 
-  if (!userDetails || !teamData){
-    return null
-  } 
-    
+  if (!userDetails || !teamData) {
+    return null;
+  }
 
   // modal fx
   const openModal = () => {
@@ -266,257 +265,256 @@ const MyTeam = () => {
         </h1>
       </div>
       {/* <div className="bg-secondary/30 py-5"></div> */}
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div>
-              {/* className=" flex justify-center" */}
-              {teamData && (
-                <div className="mx-10 mb-5 mt-10 ">
-                  <div className="flex justify-between w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
-                    <div className="flex flex-row">
-                      {/* this is where we'd put the dynamic team icon */}
-                      {/* <Accessibility
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div>
+          {/* className=" flex justify-center" */}
+          {teamData && (
+            <div className="mx-10 mb-5 mt-10 ">
+              <div className="flex justify-between w-full bg-background shadow-2xl border-4 border-secondary/10 rounded-lg p-3">
+                <div className="flex flex-row">
+                  {/* this is where we'd put the dynamic team icon */}
+                  {/* <Accessibility
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                      {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
-                        <img
-                          src={teamData.team_pic}
-                          alt="team_pic"
-                          className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
-                        />
-                      ) : (
-                        <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
-                          <hr className="border-2 border-primary/60 w-1/4" />
-                          <Shield size={72} className="text-text/60" />
-                          <hr className="border-2 border-accent/60 w-1/4" />{" "}
-                        </div>
-                      )}
-                      {/* <img
+                  {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
+-Carlitos changed this since we can upload team photos now */}
+                  {teamData.team_pic ? (
+                    <img
+                      src={teamData.team_pic}
+                      alt="team_pic"
+                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
+                    />
+                  ) : (
+                    <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={72} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                    </div>
+                  )}
+                  {/* <img
                         src={teamData.team_pic}
                         alt="team_pic"
                         className="w-24 md:w-36 border-secondary border-4 m-2"
                       /> */}
-                      <div className="pl-1 ml-2">
-                        <div className="text-white text-3xl flex">
-                          {teamData.team_name}{" "}
-                        </div>
-                        <div className="text-white text-2xl">
-                          Total Matches: {teamData.matches_played}
-                        </div>
-                      </div>
+                  <div className="pl-1 ml-2">
+                    <div className="text-white text-3xl flex">
+                      {teamData.team_name}{" "}
                     </div>
-                    {/* functionality that only allows captains to edit */}
-                    {/* added modal for toggling editteam.jsx when Pencil is clicked */}
-                    {teamData.captain_id === userDetails.id && (
-                      <div className="mt-1 mr-1">
-                        <span
-                          className=" text-accent/90 hover:text-primary cursor-pointer"
-                          onClick={openModal}
-                        >
-                          <Pencil size={28} />
-                        </span>
-                        <Modal
-                          isOpen={isModalOpen}
-                          onRequestClose={closeModal}
-                          className="modal-content h-screen shadow-lg relative"
-                          overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
-                          appElement={document.getElementById("root")}
-                        >
-                          <EditMyTeam closeModal={closeModal} />
-                        </Modal>
-                      </div>
-                    )}
-                  </div>
-                  <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
-                    {" "}
-                    <div className="flex flex-row items-center">
-                      <Award size={30} className="text-amber-400" />
-                      <span className="text-xl pr-1">
-                        Balling since {dateToString(teamData.created_at)}
-                      </span>
+                    <div className="text-white text-2xl">
+                      Total Matches: {teamData.matches_played}
                     </div>
                   </div>
                 </div>
-              )}
-              <div>
-                <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
-                  Stats
-                </h2>
-                {teamData && teamData.matches_played > 0 ? (
-                  <>
-                    <div className="grid grid-cols-2 text-text text-2xl mx-10">
-                      <h3 className="flex justify-center">
-                        <span className="  p-2 rounded-lg">Games Won</span>
-                      </h3>
-                      <h3 className="flex justify-center">
-                        <span className="  p-2 rounded-lg">Games Lost</span>
-                      </h3>
-                    </div>
-                    <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
-                      <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
-                        <div className="relative h-6 flex items-center ">
-                          {/* Win bar */}
-                          <div
-                            className="relative top-0 bottom-0 right-1  bg-primary py-1 shadow-xl"
-                            style={{
-                              width: `${
-                                (teamData.team_wins / teamData.matches_played) *
-                                100
-                              }%`,
-                            }}
-                          >
-                            <div className="relative flex justify-center text-green-900 font-medium text-sm">
-                              {teamData.team_wins}
-                            </div>
-                          </div>
+                {/* functionality that only allows captains to edit */}
+                {/* added modal for toggling editteam.jsx when Pencil is clicked */}
+                {teamData.captain_id === userDetails.id && (
+                  <div className="mt-1 mr-1">
+                    <span
+                      className=" text-accent/90 hover:text-primary cursor-pointer"
+                      onClick={openModal}
+                    >
+                      <Pencil size={28} />
+                    </span>
+                    <Modal
+                      isOpen={isModalOpen}
+                      onRequestClose={closeModal}
+                      className="modal-content h-screen shadow-lg relative"
+                      overlayClassName="modal-overlay fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm z-1"
+                      appElement={document.getElementById("root")}
+                    >
+                      <EditMyTeam closeModal={closeModal} />
+                    </Modal>
+                  </div>
+                )}
+              </div>
+              <div className="bg-secondary/10 p-2 text-text inline-block rounded-lg mt-10 shadow-2xl">
+                {" "}
+                <div className="flex flex-row items-center">
+                  <Award size={30} className="text-amber-400" />
+                  <span className="text-xl pr-1">
+                    Balling since {dateToString(teamData.created_at)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div>
+            <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
+              Stats
+            </h2>
+            {teamData && teamData.matches_played > 0 ? (
+              <>
+                <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                  <h3 className="flex justify-center">
+                    <span className="  p-2 rounded-lg">Games Won</span>
+                  </h3>
+                  <h3 className="flex justify-center">
+                    <span className="  p-2 rounded-lg">Games Lost</span>
+                  </h3>
+                </div>
+                <div className="bg-background shadow-2xl rounded-lg p-2 flex mx-10">
+                  <div className="bg-transparent rounded-full shadow-sm overflow-hidden w-full">
+                    <div className="relative h-6 flex items-center ">
+                      {/* Win bar */}
+                      <div
+                        className="relative top-0 bottom-0 right-1  bg-primary py-1 shadow-xl"
+                        style={{
+                          width: `${
+                            (teamData.team_wins / teamData.matches_played) * 100
+                          }%`,
+                        }}
+                      >
+                        <div className="relative flex justify-center text-green-900 font-medium text-sm">
+                          {teamData.team_wins}
+                        </div>
+                      </div>
 
-                          {/* Loss bar */}
-                          <div
-                            className="relative top-0 bottom-0 left-1 bg-accent py-1 shadow-xl"
-                            style={{
-                              width: `${
-                                (teamData.team_loss / teamData.matches_played) *
-                                100
-                              }%`,
-                            }}
-                          >
-                            <div className="relative flex justify-center text-red-900 font-medium text-sm">
-                              {teamData.team_loss}
-                            </div>
-                          </div>
+                      {/* Loss bar */}
+                      <div
+                        className="relative top-0 bottom-0 left-1 bg-accent py-1 shadow-xl"
+                        style={{
+                          width: `${
+                            (teamData.team_loss / teamData.matches_played) * 100
+                          }%`,
+                        }}
+                      >
+                        <div className="relative flex justify-center text-red-900 font-medium text-sm">
+                          {teamData.team_loss}
                         </div>
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
-                      <div className="flex flex-row items-center mb-2">
-                        <span className="mr-5">
-                          <Info size={28} className="text-primary/50" />
-                        </span>
-                        <span className="font-semibold">Not Enough Data</span>
-                      </div>
-                      <span className="ml-12">
-                        To see your team stats, you have to play in more
-                        matches!
-                      </span>
-                      {playersInTeam && playersInTeam.length === 5 ? (
-                        <span
-                          onClick={() => navigate(`/matches`)}
-                          className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
-                        >
-                          Play a Match
-                        </span>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className=" grid grid-col-1 mx-10">
-              <div className="">
-                <div className="flex flex-row items-center">
-                  <h2 className="text-white text-4xl bebas-neue-regular mt-10">
-                    Roster
-                  </h2>{" "}
-                  {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                  {/* {playersInTeam && playersInTeam.length < 5 && (
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+                  <div className="flex flex-row items-center mb-2">
+                    <span className="mr-5">
+                      <Info size={28} className="text-primary/50" />
+                    </span>
+                    <span className="font-semibold">Not Enough Data</span>
+                  </div>
+                  <span className="ml-12">
+                    To see your team stats, you have to play in more matches!
+                  </span>
+                  {playersInTeam && playersInTeam.length === 5 ? (
+                    <span
+                      onClick={() => navigate(`/matches`)}
+                      className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+                    >
+                      Play a Match
+                    </span>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+        <div className=" grid grid-col-1 mx-10">
+          <div className="">
+            <div className="flex flex-row items-center">
+              <h2 className="text-white text-4xl bebas-neue-regular mt-10">
+                Roster
+              </h2>{" "}
+              {/* conditional render that should show add players to team button when length of team is less than 5 players */}
+              {/* {playersInTeam && playersInTeam.length < 5 && (
                     <span className="text-white p-2 mt-10 bg-accent/80 rounded-lg hover:bg-secondary/30 ml-auto shadow-2xl cursor-pointer">
                       Add Player
                     </span>
                   )} */}
-                </div>
-                <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full shadow-2xl">
-                  <thead className="text-left uppercase text-text">
-                    <tr>
-                      <th className="pl-7 py-4">Player</th>
-                      <th className="pl-7 py-4">Position</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {playersInTeam &&
-                      playersInTeam.map((player) => {
-                        return (
-                          // whitespace-nowrap
-                          <tr
-                            key={player.id}
-                            className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
-                          >
-                            {/* <td>
+            </div>
+            <table className="table-auto bg-background rounded-lg mb-5 mt-5 w-full shadow-2xl">
+              <thead className="text-left uppercase text-text">
+                <tr>
+                  <th className="pl-7 py-4">Player</th>
+                  <th className="pl-7 py-4">Position</th>
+                </tr>
+              </thead>
+              <tbody>
+                {playersInTeam &&
+                  playersInTeam.map((player) => {
+                    return (
+                      // whitespace-nowrap
+                      <tr
+                        key={player.id}
+                        className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
+                      >
+                        {/* <td>
                               <img
                                 src={player.photo}
                                 alt="player_photo's"
                                 className="w-12 h-12 rounded-lg"
                               />
                             </td> */}
-                            <td className="px-6 py-5 text-black/80 flex items-center">
-                              <span>
-                                {player.photo || isValidUrl(player.photo) ? (
-                                  <img
-                                    src={player.photo}
-                                    alt="player_profile_pic"
-                                    className="w-14 mr-4 rounded"
-                                  />
-                                ) : (
-                                  <img
-                                    src={placeHolder}
-                                    alt="player_profile_pic"
-                                    className="w-14 mr-4 rounded"
-                                  />
-                                )}
-                              </span>{" "}
-                              {player.first_name} {player.last_name}
-                            </td>
-                            <td className="px-6 py-5">
-                              {capitalizeFirstLetter(player.position)}
-                            </td>
-                            {teamData &&
-                            player.id !== teamData.captain_id &&
-                            userDetails.id === teamData.captain_id ? (
-                              <td>
-                                <button
-                                  className="py-5 hover:text-red-400"
-                                  onClick={() => handleDelete(player.id)}
-                                >
-                                  <X size={30} />
-                                </button>
-                              </td>
+                        <td className="px-6 py-5 text-black/80 flex items-center">
+                          <span>
+                            {player.photo || isValidUrl(player.photo) ? (
+                              <img
+                                src={player.photo}
+                                alt="player_profile_pic"
+                                className="w-14 mr-4 rounded"
+                              />
                             ) : (
-                              <>
-                                {/* this div is to fill the white space an x creates in form for captain's */}
-                                <div></div>
-                              </>
+                              <img
+                                src={placeHolder}
+                                alt="player_profile_pic"
+                                className="w-14 mr-4 rounded"
+                              />
                             )}
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-                {/* conditional render that should show add players to team button when length of team is less than 5 players */}
-                {playersInTeam && playersInTeam.length < 5 ? (
-                  <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/3 shadow-2xl">
-                    <div className="flex flex-row items-center">
-                      <span className="mr-5">
-                        <Users size={28} className="text-primary/50" />
-                      </span>
-                      <span className="font-semibold">Not Enough Players</span>
-                    </div>
-                    {/* <span className="ml-12">{currentSaying}</span> */}
-                  </div>
-                ) : (
-                  // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
-                  //   ***{currentSaying}***
-                  // </div>
-                  <>
-                    <div className="mb-28"></div>
-                  </>
-                )}
+                          </span>{" "}
+                          {player.first_name} {player.last_name}
+                        </td>
+                        <td className="px-6 py-5">
+                          {capitalizeFirstLetter(player.position)}
+                        </td>
+                        {teamData &&
+                        player.id !== teamData.captain_id &&
+                        userDetails.id === teamData.captain_id ? (
+                          <td>
+                            <button
+                              className="py-5 hover:text-red-400"
+                              onClick={() => handleDelete(player.id)}
+                            >
+                              <X size={30} />
+                            </button>
+                          </td>
+                        ) : (
+                          <>
+                            {/* this div is to fill the white space an x creates in form for captain's */}
+                            <div></div>
+                          </>
+                        )}
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+            {/* conditional render that should show add players to team button when length of team is less than 5 players */}
+            {playersInTeam && playersInTeam.length < 5 ? (
+              <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/3 shadow-2xl">
+                <div className="flex flex-row items-center">
+                  <span className="mr-5">
+                    <Users size={28} className="text-primary/50" />
+                  </span>
+                  <span className="font-semibold">Not Enough Players</span>
+                </div>
+                {/* <span className="ml-12">{currentSaying}</span> */}
               </div>
-            </div>
+            ) : (
+              // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
+              //   ***{currentSaying}***
+              // </div>
+              <>
+                <div className="mb-28"></div>
+              </>
+            )}
           </div>
+        </div>
+      </div>
     </div>
   );
 };

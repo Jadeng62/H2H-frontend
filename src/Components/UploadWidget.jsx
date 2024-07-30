@@ -43,7 +43,7 @@ const UploadWidget = ({ setCloudinaryURL, cloudinaryURL }) => {
           onClick={() => widgetRef.current.open()}
         >
           <div className="flex gap-2 items-center">
-            <p>Upload Profile Photo</p>
+            <p>Upload Image</p>
             <Image />
           </div>
         </button>
