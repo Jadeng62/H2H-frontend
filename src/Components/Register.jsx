@@ -254,7 +254,7 @@ function Register() {
             />
           </label>
         </div>
-        <button type="submit" className="register-btn">
+        <button type="submit" className="register-btn font-bold">
           Sign Up
         </button>
         <p className="register-p text-center pl-10 hover:text-blue-800">
