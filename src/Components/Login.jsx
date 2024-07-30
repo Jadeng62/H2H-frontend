@@ -86,25 +86,24 @@ function Login() {
             />
           </label>
           {/* <button type="submit" className="login-btn"> */}
-          <button type="submit" className="bg-accent  text-white px-10 py-4 rounded hover:bg-orange-600 hover:text-white form-button">
+          <button type="submit" className="bg-accent  text-white py-4 rounded hover:bg-orange-600 hover:text-white form-button font-bold mb-4">
             Login
           </button>
         </form>
       {/* </div> */}
 
-      <div className="flex w-full px-20 py-4">
+      <div className="flex flex-col w-full px-20">
         {/* mb-8 is temporary - remove after commenting sign in with google button */}
-        <button type="submit" className="bg-background  text-white px-8 py-4 rounded hover:bg-background/50 hover:text-white form-button w-full mb-8">
+        <button type="submit" className="bg-background  text-white py-4 rounded hover:bg-background/50 hover:text-white form-button font-bold mb-2">
           <Link to="/register">Register</Link>
         </button>
+        {/* <div className="">
+        <SignInWithGoogle />
+        </div> */}
       </div>
-      
-      {/* <div className="flex flex-col justify-center ">
-        <div className="pl-28 pb-10">
-          <SignInWithGoogle />
+      <div className="px-16">
+        <SignInWithGoogle />
         </div>
-      </div> */}
-
     </div>
   );
 }
