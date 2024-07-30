@@ -57,9 +57,7 @@ function Login() {
   };
 
   return (
-    <div className="register-container">
-    {/* <div className="login-container my-16 md:my-24 "> */}
-      {/* <div className="flex justify-center"> */}
+    <div className="register-container pb-14">
         <form onSubmit={handleSubmit}>
           <h3 className="login-h3 text-background ">Login</h3>
           <label htmlFor="email" className="login-label">
