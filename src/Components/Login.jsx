@@ -93,7 +93,6 @@ function Login() {
       {/* </div> */}
 
       <div className="flex flex-col w-full px-20">
-        {/* mb-8 is temporary - remove after commenting sign in with google button */}
         <button type="submit" className="bg-background  text-white py-4 rounded hover:bg-background/50 hover:text-white form-button font-bold mb-2">
           <Link to="/register">Register</Link>
         </button>
