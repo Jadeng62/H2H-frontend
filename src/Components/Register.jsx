@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import placeholder from "../assets/placeholder.png";
 
 import { auth } from "../helpers/firebase";
 import { register } from "../helpers/register";
 
 import "../Styles/register.css";
+import UploadWidget from "./UploadWidget";
 
 function Register() {
+  const [cloudinaryURL, setCloudinaryURL] = useState("");
   const [newUser, setNewUser] = useState({
     email: "",
     first_name: "",
@@ -53,13 +57,18 @@ function Register() {
     e.preventDefault();
 
     try {
-      const { email, password } = newUser;
+      const { email, password, photo } = newUser;
       // createUser in firebase
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
+      // Update the profile with photo URL
+      await updateProfile(userCredential.user, {
+        photoURL: cloudinaryURL ? cloudinaryURL : placeholder,
+      });
 
       // you need the JWT token to authenticate protected routes on the backend
       const token = await userCredential.user.getIdToken();
@@ -93,6 +102,7 @@ function Register() {
       });
     }
   };
+
   return (
     <div className="register-container">
       <form onSubmit={handleRegister}>
@@ -175,7 +185,7 @@ function Register() {
             className="register-input"
           />
         </label>
-
+        {/* 
         <label htmlFor="photo" className="register-label">
           Photo Url{" "}
           <input
@@ -187,7 +197,7 @@ function Register() {
             onChange={handleChange}
             className="register-input"
           />
-        </label>
+        </label> */}
 
         <div className="register-radio">
           <h4 className="register-h4">Select Your Team Position</h4>
@@ -210,7 +220,6 @@ function Register() {
               id="position2"
               name="position"
               value="shooting guard"
-              // checked={newUser.position === "Shooting Guard"}
               onChange={handleRadioChange}
               className="register-radio-input"
             />
@@ -223,7 +232,6 @@ function Register() {
               id="position3"
               name="position"
               value="small forward"
-              // checked={newUser.position === "Small Forward"}
               onChange={handleRadioChange}
               className="register-radio-input"
             />
@@ -236,7 +244,6 @@ function Register() {
               id="position4"
               name="position"
               value="power forward"
-              // checked={newUser.position === "Power Forward"}
               onChange={handleRadioChange}
               className="register-radio-input"
             />
@@ -254,11 +261,15 @@ function Register() {
             />
           </label>
         </div>
+        <UploadWidget
+          cloudinaryURL={cloudinaryURL}
+          setCloudinaryURL={setCloudinaryURL}
+        />
         <button type="submit" className="register-btn font-bold">
           Sign Up
         </button>
         <p className="register-p text-center pl-10 hover:text-blue-800">
-          Already registered? {" "}
+          Already registered?{" "}
           <Link to="/login">
             <span className="register-span hover:text-black">Login</span>
           </Link>
