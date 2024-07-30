@@ -52,6 +52,9 @@ function Login() {
     }
   };
 
+  const handleRegister = () => {
+    navigate("/register")
+  };
 
   return (
     <div className="register-container">
@@ -85,24 +88,20 @@ function Login() {
               required
             />
           </label>
-          {/* <button type="submit" className="login-btn"> */}
-          <button type="submit" className="bg-accent  text-white py-4 rounded hover:bg-orange-600 hover:text-white form-button font-bold mb-4">
-            Login
-          </button>
+         <div className="flex justify-center flex-col">
+            <button type="submit" className="bg-accent  text-white py-4 rounded hover:bg-orange-600 hover:text-white font-bold mb-4">
+              Login
+            </button>
+            <button
+            type="button"
+            className="bg-background text-white py-4 rounded hover:bg-background/50 hover:text-white font-bold mb-1"
+            onClick={handleRegister}
+            >
+              Register
+            </button>
+            <SignInWithGoogle />
+          </div>
         </form>
-      {/* </div> */}
-
-      <div className="flex flex-col w-full px-20">
-        <button type="submit" className="bg-background  text-white py-4 rounded hover:bg-background/50 hover:text-white form-button font-bold mb-2">
-          <Link to="/register">Register</Link>
-        </button>
-        {/* <div className="">
-        <SignInWithGoogle />
-        </div> */}
-      </div>
-      <div className="px-16">
-        <SignInWithGoogle />
-        </div>
     </div>
   );
 }
