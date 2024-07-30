@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
 import { CircleX } from "lucide-react";
-const TeamSearch = ({setNavDetails}) => {
+const TeamSearch = ({ setNavDetails }) => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
   const [filteredTeams, setFilteredTeams] = useState([]);
@@ -23,6 +23,16 @@ const TeamSearch = ({setNavDetails}) => {
   const handleChange = (event) => {
     event.preventDefault();
     setSearchInput(event.target.value);
+  };
+
+  const rosteredPlayerCount = (team) => {
+    let numberOfPlayers = 0;
+    if (team.point_guard_id !== null) numberOfPlayers++;
+    if (team.shooting_guard_id !== null) numberOfPlayers++;
+    if (team.small_forward_id !== null) numberOfPlayers++;
+    if (team.power_forward_id !== null) numberOfPlayers++;
+    if (team.center_id !== null) numberOfPlayers++;
+    return numberOfPlayers;
   };
 
   useEffect(() => {
@@ -118,16 +128,31 @@ const TeamSearch = ({setNavDetails}) => {
               setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
-          <div className=" overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
+          <div className="overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
-                  className="py-4 flex justify-evenly bg-secondary/30 items-center cursor-pointer hover:bg-secondary/50 rounded"
+                  className="py-4 grid grid-cols-3 bg-secondary/30 items-center cursor-pointer bebas-neue-regular text-text hover:bg-secondary/50 rounded"
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
-                  <p>{team.team_name}</p>
-                  <img src={placeHolder} className="h-12 rounded" alt="team" />
+                  <div className="flex justify-center">
+                    <p className="text-3xl">{team.team_name}</p>
+                  </div>
+                  <div className="flex justify-center">
+                    <img
+                      src={placeHolder}
+                      className="h-12 rounded"
+                      alt="team"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center text-2xl">
+                    <span className="text-primary">
+                      {rosteredPlayerCount(team)}
+                    </span>
+                    <span className="mx-1">/</span>
+                    <span className="text-accent">5</span>
+                  </div>
                 </div>
               ))
             ) : (

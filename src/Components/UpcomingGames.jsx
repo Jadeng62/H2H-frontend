@@ -56,7 +56,9 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
                   <td className="px-6 py-5">
                     {formattedTime(game.start_datetime)}
                   </td>
-                  <td className="px-6 py-5">{game.opponentTeamName}</td>
+                  <td className="px-6 py-5">
+                    {game.opponentTeamName ? game.opponentTeamName : "TBD"}
+                  </td>
                 </tr>
               ))}
             </tbody>
