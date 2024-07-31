@@ -23,26 +23,28 @@ const UploadWidget = ({ setCloudinaryURL, cloudinaryURL }) => {
     );
   }, []);
   return (
-    <div className="my-4 flex justify-center">
+    <div className="my-4 flex justify-center w-full text-center">
       {cloudinaryURL && (
         <button
           type="button"
-          className="bg-accent text-text p-4 font-bold"
+          className="bg-accent text-text w-full flex p-4 font-bold rounded-md hover:bg-orange-600"
           onClick={() => setCloudinaryURL("")}
         >
-          <div className="flex gap-1">
-            <p> Cancel Upload</p>
-            <X />
+          <div className="flex gap-2 items-center m-auto">
+            <p>Change Image</p>
+            {/* <X /> */}
+            <Image />
           </div>
         </button>
       )}
+      {/* need to figure out how to center text */}
       {!cloudinaryURL && (
         <button
           type="button"
-          className="bg-accent text-text p-4 font-bold"
+          className="bg-accent text-text p-4 w-full flex font-bold rounded-md hover:bg-orange-600"
           onClick={() => widgetRef.current.open()}
         >
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center m-auto">
             <p>Upload Image</p>
             <Image />
           </div>

@@ -196,7 +196,7 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
                         onChange={handleChange} />
                 </label> */}
         {/* <button onClick={handleSubmit} className='team-form-btn'>Create Team</button> */}
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex justify-center gap-2">
           <button
             className="team-form-btn"
             type="submit"
@@ -206,7 +206,7 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
           </button>
           <button
             onClick={handleCancel}
-            className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+            className="bg-background text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
           >
             Cancel
           </button>
