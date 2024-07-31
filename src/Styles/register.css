@@ -72,12 +72,10 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   align-content: flex-end;
-  /* justify-content: space-evenly; */
   align-items: left;
   text-align: left;
   background-color: #a7b7c1;
   border-radius: 12px;
-  /* margin: 8px; */
   margin-bottom: 24px;
   padding: 24px;
   font-family: monospace;
