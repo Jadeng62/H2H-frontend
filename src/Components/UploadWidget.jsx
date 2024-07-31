@@ -27,7 +27,7 @@ const UploadWidget = ({ setCloudinaryURL, cloudinaryURL }) => {
       {cloudinaryURL && (
         <button
           type="button"
-          className="bg-accent text-text w-full flex p-4 font-bold rounded-md hover:bg-orange-600"
+          className="bg-accent text-text w-full flex px-4 py-3 font-bold rounded-md hover:bg-orange-600"
           onClick={() => setCloudinaryURL("")}
         >
           <div className="flex gap-2 items-center m-auto">
@@ -39,7 +39,7 @@ const UploadWidget = ({ setCloudinaryURL, cloudinaryURL }) => {
       {!cloudinaryURL && (
         <button
           type="button"
-          className="bg-accent text-text p-4 w-full flex font-bold rounded-md hover:bg-orange-600"
+          className="bg-accent text-text px-4 py-3 w-full flex font-bold rounded-md hover:bg-orange-600"
           onClick={() => widgetRef.current.open()}
         >
           <div className="flex gap-2 items-center m-auto">

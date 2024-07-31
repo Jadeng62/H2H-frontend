@@ -255,10 +255,10 @@ function Register() {
         <button type="submit" className="register-btn font-bold">
           Sign Up
         </button>
-        <p className="register-p text-center pl-10 hover:text-blue-800">
+        <p className="p-8 text-center pl-10">
           Already registered?{" "}
           <Link to="/login">
-            <span className="register-span hover:text-black">Login</span>
+            <span className="register-span text-background hover:text-blue-800 hover:underline">Login</span>
           </Link>
         </p>
       </form>
