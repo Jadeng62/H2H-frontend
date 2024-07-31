@@ -150,6 +150,17 @@ const MatchForm = () => {
     navigate("/matches");
   };
 
+  // const generateTimeOptions = () => {
+  //   const options = [];
+  //   for (let hour = 0; hour < 24; hour++) {
+  //     for (let minute = 0; minute < 60; minute += 30) {
+  //       const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+  //       options.push(value);
+  //     }
+  //   }
+  //   return options;
+  // };
+
   return (
     <>
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
@@ -235,11 +246,26 @@ const MatchForm = () => {
               onChange={handleChange}
               className="match-form-input mb-5"
             />
+            {/* <label htmlFor="time">
+              Enter Time of Match
+              <select
+                id="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="match-form-input mb-5"
+              >
+                <option value="">Select a time</option>
+                  {generateTimeOptions().map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+                  ))}
+              </select>
+            </label>     */}
           </form>
           <div className="flex justify-center gap-2 flex-col lg:flex-row md:flex-row">
             <button
               onClick={handleSubmit}
-              // className="match-form-btn"
               className="m-auto bg-accent  text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background w-full"
             >
               Create Match
