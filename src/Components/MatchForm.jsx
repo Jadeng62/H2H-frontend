@@ -169,12 +169,8 @@ const MatchForm = () => {
       <div className="flex justify-center">
         <div
           className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2 match-form"
-          // className="match-form-container"
         >
           <form>
-            {/* <h1 className="match-form-h1 text-2xl md:text-3xl text-black">
-              Enter match information below
-            </h1> */}
             <div className="match-form-park-container">
               <label htmlFor="park" />
               Search for a Park{" "}
