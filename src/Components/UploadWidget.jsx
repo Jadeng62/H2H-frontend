@@ -32,12 +32,10 @@ const UploadWidget = ({ setCloudinaryURL, cloudinaryURL }) => {
         >
           <div className="flex gap-2 items-center m-auto">
             <p>Change Image</p>
-            {/* <X /> */}
             <Image />
           </div>
         </button>
       )}
-      {/* need to figure out how to center text */}
       {!cloudinaryURL && (
         <button
           type="button"

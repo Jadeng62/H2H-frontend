@@ -186,10 +186,9 @@ function Register() {
           />
         </label>
         {/* put radio btns on opposite side and left align */}
-        <div className="register-radio">
+        <div className="register-radio font-sans">
           <h4 className="register-h4">Select Your Team Position</h4>
-          <label htmlFor="position1" className="register-label">
-            Point Guard{" "}
+          <label htmlFor="position1" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position1"
@@ -198,10 +197,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Point Guard{" "}
           </label>
 
-          <label htmlFor="position2" className="register-label">
-            Shooting Guard{" "}
+          <label htmlFor="position2" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position2"
@@ -210,10 +209,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Shooting Guard{" "}
           </label>
 
-          <label htmlFor="position3" className="register-label">
-            Small Forward{" "}
+          <label htmlFor="position3" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position3"
@@ -222,10 +221,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Small Forward{" "}
           </label>
 
-          <label htmlFor="position4" className="register-label">
-            Power Forward{" "}
+          <label htmlFor="position4" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position4"
@@ -234,10 +233,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Power Forward{" "}
           </label>
 
-          <label htmlFor="position5" className="register-label">
-            Center{" "}
+          <label htmlFor="position5" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position5"
@@ -246,6 +245,7 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Center{" "}
           </label>
         </div>
         <UploadWidget
