@@ -38,7 +38,7 @@ body {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 12px;
+  border-radius: 6px;
 }
 
 .register-btn {
@@ -71,12 +71,11 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-content: flex-start;
-  /* justify-content: space-evenly; */
-  align-items: center;
+  align-content: flex-end;
+  align-items: left;
+  text-align: left;
   background-color: #a7b7c1;
   border-radius: 12px;
-  /* margin: 8px; */
   margin-bottom: 24px;
   padding: 24px;
   font-family: monospace;

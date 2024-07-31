@@ -133,31 +133,6 @@ function Register() {
             className="register-input"
           />
         </label>
-        <label htmlFor="username" className="register-label">
-          <div className="mb-1">Username </div>
-          <input
-            type="username"
-            placeholder="Enter username"
-            id="username"
-            name="username"
-            value={newUser.username}
-            onChange={handleChange}
-            required
-            className="register-input"
-          />
-        </label>
-        <label htmlFor="dob" className="register-label">
-          <div className="mb-1">Date of Birth </div>
-          <input
-            type="date"
-            id="dob"
-            name="dob"
-            value={newUser.dob}
-            onChange={handleChange}
-            required
-            className="register-input"
-          />
-        </label>
         <label htmlFor="email" className="register-label">
           <div className="mb-1">Email Address </div>
           <input
@@ -171,7 +146,19 @@ function Register() {
             className="register-input"
           />
         </label>
-
+        <label htmlFor="username" className="register-label">
+          <div className="mb-1">Username </div>
+          <input
+            type="username"
+            placeholder="Enter username"
+            id="username"
+            name="username"
+            value={newUser.username}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
         <label htmlFor="password" className="register-label">
           <div className="mb-1">Password </div>
           <input
@@ -185,24 +172,23 @@ function Register() {
             className="register-input"
           />
         </label>
-        {/* 
-        <label htmlFor="photo" className="register-label">
-          Photo Url{" "}
+        
+        <label htmlFor="dob" className="register-label">
+          <div className="mb-1">Date of Birth </div>
           <input
-            type="text"
-            id="photo"
-            name="photo"
-            placeholder="Enter img URL"
-            value={newUser.photo}
+            type="date"
+            id="dob"
+            name="dob"
+            value={newUser.dob}
             onChange={handleChange}
+            required
             className="register-input"
           />
-        </label> */}
-
-        <div className="register-radio">
+        </label>
+        {/* put radio btns on opposite side and left align */}
+        <div className="register-radio font-sans">
           <h4 className="register-h4">Select Your Team Position</h4>
-          <label htmlFor="position1" className="register-label">
-            Point Guard{" "}
+          <label htmlFor="position1" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position1"
@@ -211,10 +197,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Point Guard{" "}
           </label>
 
-          <label htmlFor="position2" className="register-label">
-            Shooting Guard{" "}
+          <label htmlFor="position2" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position2"
@@ -223,10 +209,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Shooting Guard{" "}
           </label>
 
-          <label htmlFor="position3" className="register-label">
-            Small Forward{" "}
+          <label htmlFor="position3" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position3"
@@ -235,10 +221,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Small Forward{" "}
           </label>
 
-          <label htmlFor="position4" className="register-label">
-            Power Forward{" "}
+          <label htmlFor="position4" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position4"
@@ -247,10 +233,10 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Power Forward{" "}
           </label>
 
-          <label htmlFor="position5" className="register-label">
-            Center{" "}
+          <label htmlFor="position5" className="register-label flex items-center gap-2">
             <input
               type="radio"
               id="position5"
@@ -259,6 +245,7 @@ function Register() {
               onChange={handleRadioChange}
               className="register-radio-input"
             />
+            Center{" "}
           </label>
         </div>
         <UploadWidget
@@ -268,10 +255,10 @@ function Register() {
         <button type="submit" className="register-btn font-bold">
           Sign Up
         </button>
-        <p className="register-p text-center pl-10 hover:text-blue-800">
+        <p className="p-8 text-center pl-10">
           Already registered?{" "}
           <Link to="/login">
-            <span className="register-span hover:text-black">Login</span>
+            <span className="register-span text-background hover:text-blue-800 hover:underline">Login</span>
           </Link>
         </p>
       </form>

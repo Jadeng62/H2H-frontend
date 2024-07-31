@@ -83,9 +83,9 @@ const TeamSearchDetails = ({
     <div className="">
       {selectedTeam ? (
         <div className="grid grid-cols-1 xl:grid-cols-2">
-          <div className="py-8 bg-secondary/10 rounded-l-lg md:x-10 ">
+          <div className="py-8 bg-secondary/10 rounded-l-lg md:px-10 ">
             {selectedTeam && (
-              <div className="flex flex-col gap-12">
+              <div className="flex flex-col gap-4">
                 <div className="flex justify-center">
                   <h1 className="text-4xl">{selectedTeam.team_name}</h1>
                 </div>
@@ -112,7 +112,7 @@ const TeamSearchDetails = ({
           </div>
           {/* This is the Team Roster */}
           <div className="py-8 bg-secondary/10 rounded-r-lg flex justify-center">
-            <table className="table-auto bg-background rounded-lg xl:mr-16">
+            <table className="table-auto bg-background rounded-lg xl:mr-16 mb-8">
               {teamRoster.length > 0 && (
                 <thead className="text-left uppercase">
                   <tr>

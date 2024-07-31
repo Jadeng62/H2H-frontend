@@ -1,0 +1,14 @@
+.thumb-container {
+  position: relative;
+}
+
+.thumb-container::after {
+  content: "";
+  padding-bottom: 100%;
+}
+.thumb {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
