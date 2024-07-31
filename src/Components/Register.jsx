@@ -133,31 +133,6 @@ function Register() {
             className="register-input"
           />
         </label>
-        <label htmlFor="username" className="register-label">
-          <div className="mb-1">Username </div>
-          <input
-            type="username"
-            placeholder="Enter username"
-            id="username"
-            name="username"
-            value={newUser.username}
-            onChange={handleChange}
-            required
-            className="register-input"
-          />
-        </label>
-        <label htmlFor="dob" className="register-label">
-          <div className="mb-1">Date of Birth </div>
-          <input
-            type="date"
-            id="dob"
-            name="dob"
-            value={newUser.dob}
-            onChange={handleChange}
-            required
-            className="register-input"
-          />
-        </label>
         <label htmlFor="email" className="register-label">
           <div className="mb-1">Email Address </div>
           <input
@@ -171,7 +146,19 @@ function Register() {
             className="register-input"
           />
         </label>
-
+        <label htmlFor="username" className="register-label">
+          <div className="mb-1">Username </div>
+          <input
+            type="username"
+            placeholder="Enter username"
+            id="username"
+            name="username"
+            value={newUser.username}
+            onChange={handleChange}
+            required
+            className="register-input"
+          />
+        </label>
         <label htmlFor="password" className="register-label">
           <div className="mb-1">Password </div>
           <input
@@ -185,20 +172,20 @@ function Register() {
             className="register-input"
           />
         </label>
-        {/* 
-        <label htmlFor="photo" className="register-label">
-          Photo Url{" "}
+        
+        <label htmlFor="dob" className="register-label">
+          <div className="mb-1">Date of Birth </div>
           <input
-            type="text"
-            id="photo"
-            name="photo"
-            placeholder="Enter img URL"
-            value={newUser.photo}
+            type="date"
+            id="dob"
+            name="dob"
+            value={newUser.dob}
             onChange={handleChange}
+            required
             className="register-input"
           />
-        </label> */}
-
+        </label>
+        {/* put radio btns on opposite side and left align */}
         <div className="register-radio">
           <h4 className="register-h4">Select Your Team Position</h4>
           <label htmlFor="position1" className="register-label">
