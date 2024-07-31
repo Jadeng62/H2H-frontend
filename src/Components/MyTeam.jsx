@@ -343,7 +343,7 @@ const MyTeam = () => {
             </h2>
             {teamData && teamData.matches_played > 0 ? (
               <>
-                <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                <div className="grid grid-cols-2 text-text text-2xl mx-10 mt-5">
                   <h3 className="flex justify-center">
                     <span className="  p-2 rounded-lg">Games Won</span>
                   </h3>
@@ -439,7 +439,7 @@ const MyTeam = () => {
                       // whitespace-nowrap
                       <tr
                         key={player.id}
-                        className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
+                        className="bg-secondary border-b font-medium text-gray-600/60 hover:bg-gray-100"
                       >
                         {/* <td>
                               <img
@@ -449,18 +449,18 @@ const MyTeam = () => {
                               />
                             </td> */}
                         <td className="px-6 py-5 text-black/80 flex items-center">
-                          <span>
+                          <span className="mr-4">
                             {player.photo || isValidUrl(player.photo) ? (
                               <img
                                 src={player.photo}
                                 alt="player_profile_pic"
-                                className="w-14 mr-4 rounded"
+                                className="w-14 rounded"
                               />
                             ) : (
                               <img
                                 src={placeHolder}
                                 alt="player_profile_pic"
-                                className="w-14 mr-4 rounded"
+                                className="w-14 rounded"
                               />
                             )}
                           </span>{" "}
@@ -504,15 +504,9 @@ const MyTeam = () => {
                   Make sure team roster is full to continue participating in
                   matches.
                 </span>
-                {/* <span className="ml-12">{currentSaying}</span> */}
               </div>
             ) : (
-              // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
-              //   ***{currentSaying}***
-              // </div>
-              <>
-                <div className="mb-28"></div>
-              </>
+              <></>
             )}
           </div>
         </div>
