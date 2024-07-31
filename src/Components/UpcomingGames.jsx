@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { formattedDate, formattedTime } from "../helpers/helper";
-import { Info } from "lucide-react";
+import { CircleCheck, Info } from "lucide-react";
 
 const UpcomingGames = ({ userDetails, upcomingGames }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full mb-10">
-      <div className="align-middle flex">
+    <div className="border-2 border-white bg-secondary/30 rounded-lg w-full h-full">
+      <div className="flex max-md:justify-center">
         <h1 className="text-4xl font-extrabold bebas-neue-regular p-4">
           Upcoming Matches
         </h1>
       </div>
       {userDetails && userDetails.user_team_id === null ? (
-        <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto w-full sm:mt-20">
+        <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto  w-full sm:mt-20">
           <h1 className="text-center text-xl font-bold">
             Join or Create a Team Now!
           </h1>
@@ -25,44 +25,75 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           </button>
         </div>
       ) : userDetails && upcomingGames.length > 0 ? (
-        <div className="px-4 pb-4 flex overflow-x-auto">
-          <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-text uppercase bg-accent">
-              <tr>
-                <th scope="col" className="px-6 py-4">
-                  Date
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Time
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Match Up
-                </th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {upcomingGames.map((game) => (
-                <tr
-                  className="bg-white border-b hover:bg-gray-100"
-                  onClick={() => navigate(`/matches/${game.id}`)}
-                  key={game.id}
-                >
+        <div className="grid grid-rows-2 grid-cols-1">
+          {/* <div className="row-span-2 px-4 pb-4 flex overflow-x-auto bebas-neue-regular max-h-80"> */}
+          <div className="row-span-1 relative overflow-x-auto overflow-y-auto px-4 pb-4 bebas-neue-regular max-h-72">
+            <table
+              className="text-left rtl:text-right text-gray-500 dark:text-gray-400"
+              style={{ width: "100%" }}
+            >
+              <thead className="text-text uppercase bg-accent">
+                <tr>
                   <th
-                    scope="row"
-                    className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
+                    scope="col"
+                    className="px-6 py-4 text-3xl max-md:text-lg max-md:px-3"
                   >
-                    {formattedDate(game.start_datetime)}
+                    Date
                   </th>
-                  <td className="px-6 py-5">
-                    {formattedTime(game.start_datetime)}
-                  </td>
-                  <td className="px-6 py-5">
-                    {game.opponentTeamName ? game.opponentTeamName : "TBD"}
-                  </td>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 text-3xl max-md:text-lg max-md:px-3"
+                  >
+                    Time
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 text-3xl max-md:text-lg max-md:px-3"
+                  >
+                    Match Up
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="overflow-y-auto">
+                {upcomingGames.map((game) => (
+                  <tr
+                    className="bg-white border-b text-2xl hover:bg-gray-100"
+                    onClick={() => navigate(`/matches/${game.id}`)}
+                    key={game.id}
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap max-md:text-lg max-md:px-3"
+                    >
+                      {formattedDate(game.start_datetime)}
+                    </th>
+                    <td className="px-6 py-5 max-md:text-lg max-md:px-3">
+                      {formattedTime(game.start_datetime)}
+                    </td>
+                    <td className="px-6 py-5 max-md:text-lg max-md:px-3">
+                      {game.opponentTeamName ? game.opponentTeamName : "TBD"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="row-span-1 bg-secondary/10 p-5 m-4 h-fit rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl max-md:mt-10">
+            <div className="flex flex-row items-center">
+              <span className="mr-5">
+                <CircleCheck size={28} className="text-primary/50" />
+              </span>
+              <span className="font-semibold">You're Team is All Set!</span>
+            </div>
+            <span className="ml-12">Click here to view matches!</span>
+
+            <span
+              onClick={() => navigate(`/matches`)}
+              className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+            >
+              Go to Matches
+            </span>
+          </div>
         </div>
       ) : (
         <>

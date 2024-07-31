@@ -66,10 +66,16 @@ function Profile() {
         <h2>My Profile</h2>
       </div>
       <div className="flex flex-col mt-10 mb-20 mx-10 sm:flex-row flex-grow gap-7">
-        <div className="flex justify-center w-full sm:w-1/3 sm:mb-0">
+        <div
+          className="flex justify-center w-full sm:w-1/3 sm:mb-0"
+          style={{ maxHeight: "565px" }}
+        >
           <PlayerCard userDetails={userDetails} userTeam={userTeam} />
         </div>
-        <div className="flex justify-center sm:w-2/3 flex-grow">
+        <div
+          className="flex justify-center sm:w-2/3"
+          style={{ maxHeight: "565px" }}
+        >
           <UpcomingGames
             upcomingGames={upcomingGames}
             userDetails={userDetails}
