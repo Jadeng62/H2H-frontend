@@ -493,13 +493,17 @@ const MyTeam = () => {
             </table>
             {/* conditional render that should show add players to team button when length of team is less than 5 players */}
             {playersInTeam && playersInTeam.length < 5 ? (
-              <div className=" py-7 px-5  rounded-lg text-text text-lg border-4 border-dashed border-secondary/3 shadow-2xl">
-                <div className="flex flex-row items-center">
+              <div className=" p-5 flex flex-col rounded-lg text-text text-lg border-4 bg-secondary/10 border-secondary/10 shadow-2xl">
+                <div className="flex flex-row items-center mb-2">
                   <span className="mr-5">
                     <Users size={28} className="text-primary/50" />
                   </span>
                   <span className="font-semibold">Not Enough Players</span>
                 </div>
+                <span className="ml-12">
+                  Make sure team roster is full to continue participating in
+                  matches.
+                </span>
                 {/* <span className="ml-12">{currentSaying}</span> */}
               </div>
             ) : (
