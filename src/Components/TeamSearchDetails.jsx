@@ -4,7 +4,6 @@ import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
 import { Info } from "lucide-react";
-import "../Styles/teamSearch.css"
 
 const TeamSearchDetails = ({
   selectedTeam,
@@ -84,9 +83,9 @@ const TeamSearchDetails = ({
     <div className="">
       {selectedTeam ? (
         <div className="grid grid-cols-1 xl:grid-cols-2">
-          <div className="py-6 bg-secondary/10 rounded-l-lg md:x-10 ">
+          <div className="py-8 bg-secondary/10 rounded-l-lg md:px-10 ">
             {selectedTeam && (
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-4">
                 <div className="flex justify-center">
                   <h1 className="text-4xl">{selectedTeam.team_name}</h1>
                 </div>
@@ -112,8 +111,8 @@ const TeamSearchDetails = ({
             )}
           </div>
           {/* This is the Team Roster */}
-          <div className="py-4 bg-secondary/10 rounded-r-lg flex justify-center">
-            <table className="table-auto bg-background rounded-lg xl:mr-16 mb-4">
+          <div className="py-8 bg-secondary/10 rounded-r-lg flex justify-center">
+            <table className="table-auto bg-background rounded-lg xl:mr-16 mb-8">
               {teamRoster.length > 0 && (
                 <thead className="text-left uppercase">
                   <tr>
@@ -130,10 +129,10 @@ const TeamSearchDetails = ({
                       className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100 max-md:flex-row"
                     >
                       <td className="px-6 py-5 text-black/80">
-                        <div className="thumb-container flex items-center m-auto">
+                        <div className="flex items-center m-auto">
                           <img
                             src={player.photo}
-                            className="thumb w-16 mr-7 rounded"
+                            className="w-16 mr-7 rounded"
                           />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
