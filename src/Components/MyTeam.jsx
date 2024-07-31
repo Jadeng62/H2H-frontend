@@ -36,6 +36,8 @@ const MyTeam = () => {
   const [playerData, setPlayerData] = useState(null);
   // modal usestates
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // state for array of all existing badges
+  const [existingBadges, setExistingBadges] = useState([]);
   // state for array of all badges a team has
   const [teamBadges, setTeamBadges] = useState([]);
 
@@ -75,6 +77,27 @@ const MyTeam = () => {
     const wLRatio = w / l;
     const flooredRatio = Math.floor(wLRatio * 10) / 10;
     return flooredRatio;
+  };
+
+  // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    //refetch team data after modal closes
+    if (userDetails && userDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTeamData(data);
+        })
+        .catch((error) => console.error("Error fetching team data:", error));
+    }
   };
 
   const handleDelete = (playerID) => {
@@ -204,30 +227,27 @@ const MyTeam = () => {
     }
   }, [selectedPlayer]);
 
+  useEffect(() => {
+    if (userDetails) {
+      fetch(`${URL}/api/badges`)
+        .then((res) => res.json())
+        .then((data) => {
+          setExistingBadges(data);
+          console.log("Badges Data:", existingBadges);
+          return fetch(`${URL}/api/badges/teams/${userDetails.user_team_id}`)
+            .then((res) => res.json())
+            .then((data) => {
+              setTeamBadges(data);
+              console.log("These are the current team Badges:", teamBadges);
+            });
+        })
+        .catch((error) => console.error("Error fetching badges data"));
+    }
+  }, [userDetails, teamBadges.length]);
+
   if (!userDetails || !teamData) {
     return null;
   }
-
-  // modal fx
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-  const closeModal = () => {
-    setIsModalOpen(false);
-    //refetch team data after modal closes
-    if (userDetails && userDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setTeamData(data);
-        })
-        .catch((error) => console.error("Error fetching team data:", error));
-    }
-  };
 
   return (
     <div className="min-h-screen">
@@ -393,85 +413,55 @@ const MyTeam = () => {
             <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
               Badges
             </h2>
-            <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 lg:grid-cols-3 pb-12 overflow-y-auto h-96 md:h-124 gap-8">
+            <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 lg:grid-cols-3 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
+              {existingBadges &&
+                existingBadges.length > 0 &&
+                existingBadges.map((badge) => {
+                  // Check if the team owns the badge
+                  const hasBadge = teamBadges.some(
+                    (teamBadge) => teamBadge.id === badge.id
+                  );
+                  const fillerBadge = {
+                    name: "???",
+                    description: "???",
+                    icon_url:
+                      "https://res.cloudinary.com/dvmczcg3f/image/upload/c_crop,ar_1:1/v1722370751/bricks_yqytdl.jpg",
+                  };
+                  // Use either the actual badge or the filler badge
+                  const badgeToDisplay = hasBadge ? badge : fillerBadge;
+
+                  return (
+                    <div className="flex flex-col items-center  mt-5">
+                      <div className="bg-background/80 py-1 px-2 rounded flex flex-row items-center border-2 border-amber-500/75 text-balance">
+                        {badgeToDisplay.name}
+                      </div>
+                      <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
+                        <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
+                          <div
+                            className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"
+                            style={{
+                              backgroundImage: `url('${badgeToDisplay.icon_url}')`,
+                              backgroundSize: "cover", // Adjust the image size as needed
+                              backgroundPosition: "center", // Center the image
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className="bg-background  py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded mx-3 border-2 border-secondary/5">
+                        {badgeToDisplay.description}
+                      </div>
+                    </div>
+                  );
+                })}
               <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
+                <div className="bg-background/80 py-1 px-2 rounded ">???</div>
+                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-secondary/50 shadow-2xl">
+                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-secondary/0 shadow-inner">
                     <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
                   </div>{" "}
                 </div>
                 <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  7/1/2024
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  7/12/2024
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
-                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
-                    <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-                  </div>{" "}
-                </div>
-                <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-                  Badge
+                  ???
                 </div>
               </div>
             </div>
