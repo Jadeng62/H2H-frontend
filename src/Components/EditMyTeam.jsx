@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getUserData } from "../helpers/getUserData";
 import { useNavigate } from "react-router-dom";
 import "../Styles/teamForm.css";
+import UploadWidget from "./UploadWidget";
 
 const EditMyTeam = ({ closeModal }) => {
   const [userDetails, setUserDetails] = useState(null);
@@ -74,6 +75,10 @@ const EditMyTeam = ({ closeModal }) => {
     fetchTeam();
   }, [userDetails]);
 
+  useEffect(() => {
+    setFormData({ ...formData, team_pic: cloudinaryURL });
+  }, [cloudinaryURL]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -132,7 +137,14 @@ const EditMyTeam = ({ closeModal }) => {
             onChange={handleChange}
           />
         </label>
-        <label htmlFor="team-pic" className="team-form-label">
+        <label htmlFor="team_pic" className="team-form-label">
+          Upload Team Picture:
+          <UploadWidget
+            cloudinaryURL={cloudinaryURL}
+            setCloudinaryURL={setCloudinaryURL}
+          />
+        </label>
+        {/* <label htmlFor="team-pic" className="team-form-label">
           Team Picture URL:
           <input
             id="team-pic"
@@ -143,7 +155,7 @@ const EditMyTeam = ({ closeModal }) => {
             className="team-form-input"
             onChange={handleChange}
           />
-        </label>
+        </label> */}
         {/* <label htmlFor='team-logo' className='team-form-label'>
                     Logo URL:
                     <input
@@ -155,18 +167,17 @@ const EditMyTeam = ({ closeModal }) => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label> */}
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex justify-center flex-col gap-4 font-bold">
           <button
-            className="bg-accent  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="submit"
             onClick={handleSubmit}
           >
             Edit Team
           </button>
-          {/* close modal*/}
           <button
             onClick={closeModal}
-            className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+            className="bg-background text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
           >
             Cancel
           </button>

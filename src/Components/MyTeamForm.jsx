@@ -51,10 +51,6 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!userDetails || !userDetails.user_team_id) {
-    //     console.error('User details or user team ID missing.');
-    //     return;
-    // }
 
     try {
       console.log("Creating team with form data:", formData);
@@ -154,35 +150,13 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
           />
         </label>
         <label htmlFor="team_pic" className="team-form-label">
-          Team Picture URL:
-          {/* <input
-            id="team_pic"
-            type="text"
-            name="team_pic"
-            required
-            value={team_pic}
-            placeholder="Enter Photo (optional)"
-            className="team-form-input"
-            onChange={handleChange}
-          /> */}
+          Upload Team Picture:
           <UploadWidget
             cloudinaryURL={cloudinaryURL}
             setCloudinaryURL={setCloudinaryURL}
           />
         </label>
-
-        {/* <label htmlFor='team_pic' className='team-form-label'>
-                    Team Picture URL:
-                    <input
-                        id='team_pic'
-                        type="text"
-                        name="team_pic"
-                        required
-                        value={team_pic}
-                        placeholder='Enter Photo (optional)'
-                        className='team-form-input'
-                        onChange={handleChange} />
-                </label>
+        {/* 
                 <label htmlFor='logo' className='team-form-label'>
                     Logo URL:
                     <input
@@ -195,10 +169,9 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
                         className='team-form-input'
                         onChange={handleChange} />
                 </label> */}
-        {/* <button onClick={handleSubmit} className='team-form-btn'>Create Team</button> */}
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center flex-col gap-4 font-bold">
           <button
-            className="team-form-btn"
+            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="submit"
             onClick={handleSubmit}
           >
@@ -206,7 +179,7 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
           </button>
           <button
             onClick={handleCancel}
-            className="bg-background text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+            className="bg-background text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
           >
             Cancel
           </button>
