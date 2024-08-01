@@ -178,8 +178,9 @@ const MatchDetails = ({ upcomingGames }) => {
 
   return (
     <div className="text-text">
-      <div className="grid grid-cols-3 max-sm:grid-cols-1">
-        <div>
+      <div className="grid grid-cols-3 max-lg:grid-cols-1 max-lg:grid-rows-auto">
+        {/* TEAM 1 STARTS HERE */}
+        <div className="">
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
@@ -254,18 +255,18 @@ const MatchDetails = ({ upcomingGames }) => {
             )}
           </div>
         </div>
-        <div className="">
-          <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
+        {/* MATCH DETAILS STARTS HERE */}
+        <div className="max-lg:row-span-1 max-lg:order-first">
+          <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular max-lg:hidden">
             Vs
           </h1>
-          <div className="flex justify-center">
+          <div className="">
             <div className="" style={{ marginTop: "15%" }}>
               <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
                 <thead className="text-left uppercase">
-                  <tr>
+                  <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
                     <br />
-                    {/* creator of match is the only one who can view pencil to edit */}
                     {match &&
                       userDetails &&
                       match.creator_id === userDetails.id && (
@@ -352,6 +353,7 @@ const MatchDetails = ({ upcomingGames }) => {
             </div>
           </div>
         </div>
+        {/* SECOND TEAM STARTS HERE */}
         <div className="">
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {secondTeamDetails ? secondTeamDetails.team_name : "TBD"}
