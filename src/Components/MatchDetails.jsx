@@ -266,19 +266,21 @@ const MatchDetails = ({ upcomingGames }) => {
                 <thead className="text-left uppercase">
                   <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
-                    <br />
+
                     {match &&
                       userDetails &&
                       match.creator_id === userDetails.id && (
-                        <span
-                          className=" flex justify-end pr-7"
-                          onClick={openModal}
-                        >
-                          <Pencil
-                            size={32}
-                            className="hover:text-black text-text cursor-pointer pb-4"
-                          />
-                        </span>
+                        <td>
+                          <span
+                            className=" flex justify-end pr-7"
+                            onClick={openModal}
+                          >
+                            <Pencil
+                              size={32}
+                              className="hover:text-black text-text cursor-pointer pb-4"
+                            />
+                          </span>
+                        </td>
                       )}
                     <Modal
                       isOpen={isModalOpen}
