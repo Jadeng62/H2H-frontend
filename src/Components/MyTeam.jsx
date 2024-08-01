@@ -4,6 +4,7 @@ import EditMyTeam from "./EditMyTeam.jsx";
 import Modal from "react-modal";
 import playersData from "../DummyData/myTeam.json";
 import placeHolder from "../assets/placeholder.png";
+import "../Styles/badges.css";
 import {
   X,
   Accessibility,
@@ -33,31 +34,12 @@ const MyTeam = () => {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   // state for updating players' team id
   const [playerData, setPlayerData] = useState(null);
-
-  // state for current saying
-  const [currentSaying, setCurrentSaying] = useState("");
   // modal usestates
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // array of sayings for when a user still needs a full team to play
-  const sayings = [
-    "The game requires a full team lineup; assemble your squad!",
-    "Complete your team roster before stepping onto the field of play.",
-    "Remember, a complete team is essential for game participation.",
-    "No substitutions for a full team; gather your players!",
-    "Team up! You need a full squad to hit the field.",
-    "Game on! Ensure your team is complete for match day.",
-    "Can't play solo; recruit your team for match participation.",
-    "Don't leave gaps on the roster; a full team is required.",
-    "Check your lineup; a complete team is necessary for gameplay.",
-    "There's no I and team. You need a full team to play in matches.",
-  ];
-
-  // function to cycle through sayings to encourage user to get a full team in order to play matches
-  const selectRandomSaying = () => {
-    const randomIndex = Math.floor(Math.random() * sayings.length);
-    setCurrentSaying(sayings[randomIndex]);
-  };
+  // state for array of all existing badges
+  const [existingBadges, setExistingBadges] = useState([]);
+  // state for array of all badges a team has
+  const [teamBadges, setTeamBadges] = useState([]);
 
   // Function to convert ISO 8601 date string to formatted date and time
   function dateToString(dateString) {
@@ -95,6 +77,27 @@ const MyTeam = () => {
     const wLRatio = w / l;
     const flooredRatio = Math.floor(wLRatio * 10) / 10;
     return flooredRatio;
+  };
+
+  // modal fx
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    //refetch team data after modal closes
+    if (userDetails && userDetails.user_team_id) {
+      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTeamData(data);
+        })
+        .catch((error) => console.error("Error fetching team data:", error));
+    }
   };
 
   const handleDelete = (playerID) => {
@@ -224,30 +227,45 @@ const MyTeam = () => {
     }
   }, [selectedPlayer]);
 
+  useEffect(() => {
+    if (userDetails) {
+      fetch(`${URL}/api/badges`)
+        .then((res) => res.json())
+        .then((data) => {
+          setExistingBadges(data);
+          console.log("Badges Data:", existingBadges);
+          return fetch(`${URL}/api/badges/teams/${userDetails.user_team_id}`)
+            .then((res) => res.json())
+            .then((data) => {
+              setTeamBadges(data);
+              console.log("These are the current team Badges:", teamBadges);
+            });
+        })
+        .catch((error) => console.error("Error fetching badges data"));
+    }
+  }, [userDetails, teamBadges.length]);
+
   if (!userDetails || !teamData) {
     return null;
   }
 
-  // modal fx
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  if (!userDetails || !teamData) {
+    return null;
+  }
 
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-  const closeModal = () => {
-    setIsModalOpen(false);
-    //refetch team data after modal closes
-    if (userDetails && userDetails.user_team_id) {
-      fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setTeamData(data);
-        })
-        .catch((error) => console.error("Error fetching team data:", error));
-    }
-  };
+//   // modal fx
+//   const openModal = () => {
+//     setIsModalOpen(true);
+//   };
+
+//   // const closeModal = () => {
+//   //   setIsModalOpen(false);
+//   // };
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//     //refetch team data after modal closes
+//     if (userDetails && userDetails.user_team_id) {
+//       fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
 
   return (
     <div className="min-h-screen">
@@ -280,6 +298,7 @@ const MyTeam = () => {
                   {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
 -Carlitos changed this since we can upload team photos now */}
                   {teamData.team_pic ? (
+
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
@@ -345,7 +364,7 @@ const MyTeam = () => {
             </h2>
             {teamData && teamData.matches_played > 0 ? (
               <>
-                <div className="grid grid-cols-2 text-text text-2xl mx-10">
+                <div className="grid grid-cols-2 text-text text-2xl mx-10 mt-5">
                   <h3 className="flex justify-center">
                     <span className="  p-2 rounded-lg">Games Won</span>
                   </h3>
@@ -389,7 +408,7 @@ const MyTeam = () => {
               </>
             ) : (
               <>
-                <div className="bg-secondary/10 p-5 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+                <div className="bg-secondary/10 p-5 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
                   <div className="flex flex-row items-center mb-2">
                     <span className="mr-5">
                       <Info size={28} className="text-primary/50" />
@@ -441,6 +460,7 @@ const MyTeam = () => {
                       // whitespace-nowrap
                       <tr
                         key={player.id}
+
                         className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                       >
                         {/* <td>
@@ -451,18 +471,18 @@ const MyTeam = () => {
                               />
                             </td> */}
                         <td className="px-6 py-5 text-black/80 flex items-center">
-                          <span>
+                          <span className="mr-4">
                             {player.photo || isValidUrl(player.photo) ? (
                               <img
                                 src={player.photo}
                                 alt="player_profile_pic"
-                                className="w-14 mr-4 rounded"
+                                className="w-14 rounded"
                               />
                             ) : (
                               <img
                                 src={placeHolder}
                                 alt="player_profile_pic"
-                                className="w-14 mr-4 rounded"
+                                className="w-14 rounded"
                               />
                             )}
                           </span>{" "}
@@ -495,25 +515,109 @@ const MyTeam = () => {
             </table>
             {/* conditional render that should show add players to team button when length of team is less than 5 players */}
             {playersInTeam && playersInTeam.length < 5 ? (
-              <div className=" py-7 px-5 mb-10 rounded-lg text-text text-lg border-4 border-dashed border-secondary/3 shadow-2xl">
-                <div className="flex flex-row items-center">
+              <div className=" p-5 flex flex-col rounded-lg text-text text-lg border-4 bg-secondary/10 border-secondary/10 shadow-2xl">
+                <div className="flex flex-row items-center mb-2">
                   <span className="mr-5">
                     <Users size={28} className="text-primary/50" />
                   </span>
                   <span className="font-semibold">Not Enough Players</span>
                 </div>
-                {/* <span className="ml-12">{currentSaying}</span> */}
+                <span className="ml-12">
+                  Make sure team roster is full to continue participating in
+                  matches.
+                </span>
               </div>
             ) : (
-              // <div className="text-primary p-2 mx-10 mb-10 mt-4 bg-background rounded-md flex justify-center">
-              //   ***{currentSaying}***
-              // </div>
-              <>
-                <div className="mb-28"></div>
-              </>
+              <></>
             )}
           </div>
         </div>
+      </div>
+      <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
+        Badges
+      </h2>
+      <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
+        {existingBadges &&
+          existingBadges.length > 0 &&
+          existingBadges.map((badge) => {
+            // Check if the team owns the badge
+            const hasBadge = teamBadges.some(
+              (teamBadge) => teamBadge.id === badge.id
+            );
+            const fillerBadge = {
+              name: "???",
+              description: "???",
+              icon_url:
+                "https://res.cloudinary.com/dvmczcg3f/image/upload/c_crop,ar_1:1/v1722370751/bricks_yqytdl.jpg",
+            };
+            // Use either the actual badge or the filler badge
+            const badgeToDisplay = hasBadge ? badge : fillerBadge;
+
+            return (
+              <div className="flex flex-col items-center  mt-5">
+                <div className="bg-background/80 py-1 px-2 rounded flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
+                  {badgeToDisplay.name}
+                </div>
+                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
+                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
+                    <div
+                      className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"
+                      style={{
+                        backgroundImage: `url('${badgeToDisplay.icon_url}')`,
+                        backgroundSize: "cover", // Adjust the image size as needed
+                        backgroundPosition: "center", // Center the image
+                      }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="bg-background  py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded mx-3 border-2 border-secondary/5">
+                  {badgeToDisplay.description}
+                </div>
+              </div>
+            );
+          })}
+        <div className="flex flex-col items-center justify-center">
+          <div className="bg-background/80 py-1 px-2 rounded ">???</div>
+          <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-secondary/50 shadow-2xl">
+            <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-secondary/0 shadow-inner">
+              <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
+            </div>{" "}
+          </div>
+          <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
+            ???
+          </div>
+        </div>
+      </div>
+      <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
+        Checking Existing Badges
+      </h2>
+      <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
+        {existingBadges &&
+          existingBadges.length > 0 &&
+          existingBadges.map((badge) => {
+            return (
+              <div className="flex flex-col items-center  mt-5">
+                <div className="bg-background/80 py-1 px-2 rounded flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
+                  {badge.name}
+                </div>
+                <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
+                  <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-amber-500/100 shadow-inner">
+                    <div
+                      className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"
+                      style={{
+                        backgroundImage: `url('${badge.icon_url}')`,
+                        backgroundSize: "cover", // Adjust the image size as needed
+                        backgroundPosition: "center", // Center the image
+                      }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="bg-background  py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded mx-3 border-2 border-secondary/5">
+                  {badge.description}
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
