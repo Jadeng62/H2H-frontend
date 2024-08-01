@@ -60,6 +60,7 @@ function Profile() {
     }
   }, [userDetails]);
 
+  // add button for captains who have full team where they can click to navigate to matches view so they can create a match
   return (
     <div className="text-text flex flex-col">
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">

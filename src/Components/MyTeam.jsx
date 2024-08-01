@@ -249,6 +249,24 @@ const MyTeam = () => {
     return null;
   }
 
+  if (!userDetails || !teamData) {
+    return null;
+  }
+
+//   // modal fx
+//   const openModal = () => {
+//     setIsModalOpen(true);
+//   };
+
+//   // const closeModal = () => {
+//   //   setIsModalOpen(false);
+//   // };
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//     //refetch team data after modal closes
+//     if (userDetails && userDetails.user_team_id) {
+//       fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+
   return (
     <div className="min-h-screen">
       {/* {console.log(isUserTeamCaptain)} */}
@@ -277,7 +295,10 @@ const MyTeam = () => {
                     size={96}
                     className="rounded-xl m-2 border-4 border-secondary bg-background text-primary"
                   /> */}
-                  {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
+                  {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
+-Carlitos changed this since we can upload team photos now */}
+                  {teamData.team_pic ? (
+
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
@@ -439,7 +460,8 @@ const MyTeam = () => {
                       // whitespace-nowrap
                       <tr
                         key={player.id}
-                        className="bg-secondary border-b font-medium text-gray-600/60 hover:bg-gray-100"
+
+                        className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                       >
                         {/* <td>
                               <img

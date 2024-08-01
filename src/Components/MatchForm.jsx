@@ -150,6 +150,17 @@ const MatchForm = () => {
     navigate("/matches");
   };
 
+  // const generateTimeOptions = () => {
+  //   const options = [];
+  //   for (let hour = 0; hour < 24; hour++) {
+  //     for (let minute = 0; minute < 60; minute += 30) {
+  //       const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+  //       options.push(value);
+  //     }
+  //   }
+  //   return options;
+  // };
+
   return (
     <>
       <h1 className="matches-h1 bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
@@ -157,13 +168,9 @@ const MatchForm = () => {
       </h1>
       <div className="flex justify-center">
         <div
-          className="bg-white m-10 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2 match-form"
-          // className="match-form-container"
+          className="bg-white m-24 rounded-xl p-7 sm:4/5 md:w-2/3 lg:w-1/2 match-form"
         >
           <form>
-            {/* <h1 className="match-form-h1 text-2xl md:text-3xl text-black">
-              Enter match information below
-            </h1> */}
             <div className="match-form-park-container">
               <label htmlFor="park" />
               Search for a Park{" "}
@@ -235,18 +242,33 @@ const MatchForm = () => {
               onChange={handleChange}
               className="match-form-input mb-5"
             />
+            {/* <label htmlFor="time">
+              Enter Time of Match
+              <select
+                id="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="match-form-input mb-5"
+              >
+                <option value="">Select a time</option>
+                  {generateTimeOptions().map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+                  ))}
+              </select>
+            </label>     */}
           </form>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex justify-center gap-2 flex-col lg:flex-row md:flex-row">
             <button
               onClick={handleSubmit}
-              // className="match-form-btn"
-              className="bg-accent  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+              className="m-auto bg-accent  text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background w-full"
             >
               Create Match
             </button>
             <button
               onClick={handleCancel}
-              className="bg-background  text-white px-8 py-4 rounded hover:bg-secondary hover:text-background"
+              className="bg-background text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background m-auto w-full"
             >
               Cancel
             </button>

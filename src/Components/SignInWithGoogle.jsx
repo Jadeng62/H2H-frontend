@@ -6,7 +6,7 @@ import { auth } from '../helpers/firebase'
 import { register } from '../helpers/register'
 import { fetchUser } from '../helpers/fetchUser'
 
-import googleBadge from '../assets/google.png'
+import googleBadge from '../assets/web_neutral_sq_ctn@1x.png'
 
 async function handleGoogleSignIn() {
   const provider = new GoogleAuthProvider()
@@ -48,9 +48,10 @@ function SignInWithGoogle() {
   }
 
   return (
-    <div style={{ cursor: 'pointer' }} onClick={googleLogin}>
-      <img src={googleBadge} width={'60%'} />
-    </div>
+    <button type='button' onClick={googleLogin} className='bg-slate-100 text-background rounded hover:shadow-xl font-bold mt-3 flex justify-center text-justify'>
+      <img src={googleBadge} 
+      />
+    </button>
   )
 }
 
