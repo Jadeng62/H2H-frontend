@@ -147,13 +147,12 @@ const Matches = () => {
       </div>
 
       <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 mb-10 mx-10">
-        <div className="flex gap-1 sm:gap-4 items-center md:flex-row text-nowrap">
-          <div>
-            <h1 className="text-xl font-bold hidden sm:block">
-              Match Options:
-            </h1>
+        {/* <div className="flex gap-1 sm:gap-4 items-center md:flex-row text-nowrap"> */}
+        <div className="flex flex-row gap-4 font-bold max-md:flex-col">
+          <div className="flex items-center max-md:flex max-md:justify-center">
+            <h1 className="text-xl">Match Options:</h1>
           </div>
-          <div>
+          <div className="max-md:flex max-md:justify-center">
             {userDetails &&
               userTeam &&
               userDetails.id === userTeam.captain_id &&
@@ -161,18 +160,18 @@ const Matches = () => {
               isTeamFull(userTeam) && (
                 <button
                   // className="matches-btn p-2 text-white"
-                  className="p-2 bg-accent rounded-lg  hover:text-white hover:bg-black hover:border-white border-2 border-accent"
+                  className="p-2 bg-accent rounded-lg  hover:text-white hover:bg-black hover:border-white border-2 border-accent max-md:w-full"
                   onClick={handleCreate}
                 >
                   Create Match
                 </button>
               )}
           </div>
-          <div className="">
+          <div className="max-md:flex max-md:justify-center">
             <select
               name="match-options"
               id="match-options"
-              className="py-3 rounded-lg bg-secondary/50 text-center text-white hover:bg-secondary/70"
+              className="py-3 rounded-lg bg-secondary/50 text-center text-white hover:bg-secondary/70 max-md:w-full"
               onChange={handleSelectChange}
             >
               <option>Match Type</option>
@@ -198,7 +197,7 @@ const Matches = () => {
             <div
               key={match.id}
               onClick={() => navigate(`/matches/${match.id}`)}
-              className="flex justify-center"
+              className="flex justify-center hover:cursor-pointer h-fit"
             >
               <Match match={match} />
             </div>
