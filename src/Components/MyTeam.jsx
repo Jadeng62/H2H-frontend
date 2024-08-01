@@ -253,19 +253,19 @@ const MyTeam = () => {
     return null;
   }
 
-//   // modal fx
-//   const openModal = () => {
-//     setIsModalOpen(true);
-//   };
+  //   // modal fx
+  //   const openModal = () => {
+  //     setIsModalOpen(true);
+  //   };
 
-//   // const closeModal = () => {
-//   //   setIsModalOpen(false);
-//   // };
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//     //refetch team data after modal closes
-//     if (userDetails && userDetails.user_team_id) {
-//       fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
+  //   // const closeModal = () => {
+  //   //   setIsModalOpen(false);
+  //   // };
+  //   const closeModal = () => {
+  //     setIsModalOpen(false);
+  //     //refetch team data after modal closes
+  //     if (userDetails && userDetails.user_team_id) {
+  //       fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
 
   return (
     <div className="min-h-screen">
@@ -297,8 +297,7 @@ const MyTeam = () => {
                   /> */}
                   {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
 -Carlitos changed this since we can upload team photos now */}
-                  {teamData.team_pic ? (
-
+                  {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
@@ -460,7 +459,6 @@ const MyTeam = () => {
                       // whitespace-nowrap
                       <tr
                         key={player.id}
-
                         className="bg-white border-b font-medium text-gray-600/60 hover:bg-gray-100"
                       >
                         {/* <td>
