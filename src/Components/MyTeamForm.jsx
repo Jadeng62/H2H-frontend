@@ -137,20 +137,20 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
       <form className="team-form bg-white">
         <h2 className="team-form-h2">Create Your Team</h2>
         <label htmlFor="team_name" className="team-form-label">
-          Team Name:
+          Team Name
           <input
             id="team_name"
             type="text"
             name="team_name"
             required
             value={team_name}
-            placeholder="Enter Team Name ..."
+            placeholder="Enter Team Name"
             className="team-form-input"
             onChange={handleChange}
           />
         </label>
         <label htmlFor="team_pic" className="team-form-label">
-          Upload Team Picture:
+          Upload Team Picture
           <UploadWidget
             cloudinaryURL={cloudinaryURL}
             setCloudinaryURL={setCloudinaryURL}
