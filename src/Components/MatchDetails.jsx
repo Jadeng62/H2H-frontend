@@ -204,7 +204,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img src={player.photo} className="w-16 mr-7 thumb" />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === firstTeamDetails.captain_id && (

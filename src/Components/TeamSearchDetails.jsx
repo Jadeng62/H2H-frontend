@@ -4,6 +4,7 @@ import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
 import { Info } from "lucide-react";
+import "../Styles/teamSearch.css";
 
 const TeamSearchDetails = ({
   selectedTeam,
@@ -132,7 +133,7 @@ const TeamSearchDetails = ({
                         <div className="flex items-center m-auto">
                           <img
                             src={player.photo}
-                            className="w-16 mr-7 rounded"
+                            className="thumb w-16 mr-7 rounded"
                           />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}

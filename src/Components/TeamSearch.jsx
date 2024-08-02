@@ -5,7 +5,7 @@ import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
-import { CircleX } from "lucide-react";
+import { Shield, CircleX } from "lucide-react";
 const TeamSearch = ({ setNavDetails }) => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -140,11 +140,25 @@ const TeamSearch = ({ setNavDetails }) => {
                     <p className="text-3xl">{team.team_name}</p>
                   </div>
                   <div className="flex justify-center">
-                    <img
+                    {/* conditional in case there's no team pic */}
+                    {/* <img
                       src={placeHolder}
                       className="h-12 rounded"
                       alt="team"
+                    /> */}
+                    {team.team_pic ? (
+                    <img
+                      src={team.team_pic}
+                      alt="team_pic"
+                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
                     />
+                  ) : (
+                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={48} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                    </div>
+                  )}
                   </div>
                   <div className="flex justify-center items-center text-2xl">
                     {rosteredPlayerCount(team) === 5 ? (
