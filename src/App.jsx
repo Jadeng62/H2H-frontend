@@ -23,6 +23,7 @@ import TeamSearch from "./Components/TeamSearch";
 import TeamByID from "./Components/TeamByID";
 import BBallCourt from "./Components/BBallCourt";
 import MatchForm from "./Components/MatchForm";
+import NotFound from "./Components/NotFound";
 
 function App() {
   const [user, setUser] = useState();
@@ -91,6 +92,7 @@ function App() {
               userDetails && <TeamSearch setNavDetails={setUserDetails} />
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <ToastContainer />

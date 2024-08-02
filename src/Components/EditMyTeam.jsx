@@ -135,6 +135,7 @@ const EditMyTeam = ({ closeModal }) => {
             placeholder="Enter Team Name ..."
             className="team-form-input"
             onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="team_pic" className="team-form-label">
@@ -144,36 +145,13 @@ const EditMyTeam = ({ closeModal }) => {
             setCloudinaryURL={setCloudinaryURL}
           />
         </label>
-        {/* <label htmlFor="team-pic" className="team-form-label">
-          Team Picture URL:
-          <input
-            id="team-pic"
-            type="text"
-            name="team_pic"
-            value={team_pic}
-            placeholder="Enter Photo (optional)"
-            className="team-form-input"
-            onChange={handleChange}
-          />
-        </label> */}
-        {/* <label htmlFor='team-logo' className='team-form-label'>
-                    Logo URL:
-                    <input
-                        id='team-logo'
-                        type="text"
-                        name="logo"
-                        value={logo}
-                        placeholder='Enter Team Logo ...'
-                        className='team-form-input'
-                        onChange={handleChange} />
-                </label> */}
         <div className="flex justify-center flex-col gap-4 font-bold">
           <button
             className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="submit"
             onClick={handleSubmit}
           >
-            Edit Team
+            Save Changes
           </button>
           <button
             onClick={closeModal}
