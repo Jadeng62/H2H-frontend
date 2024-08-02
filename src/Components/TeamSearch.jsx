@@ -41,16 +41,20 @@ const TeamSearch = ({ setNavDetails }) => {
         const response = await fetch(`${URL}/api/teams`);
         const data = await response.json();
 
-        if (userDetails && userDetails.user_team_id === null) {
-          setAllTeams(data);
-          setFilteredTeams(data);
-        } else if (userDetails && userDetails.user_team_id !== null) {
-          const teamsExcludingUsersTeam = data.filter(
-            (team) => team.id !== userDetails.user_team_id
-          );
-          setAllTeams(teamsExcludingUsersTeam);
-          setFilteredTeams(teamsExcludingUsersTeam);
-        }
+        setAllTeams(data);
+        setFilteredTeams(data);
+
+        // IF WE WANT TO EXCLUDE USERS TEAM FROM TEAM SEARCH
+        // if (userDetails && userDetails.user_team_id === null) {
+        //   setAllTeams(data);
+        //   setFilteredTeams(data);
+        // } else if (userDetails && userDetails.user_team_id !== null) {
+        //   const teamsExcludingUsersTeam = data.filter(
+        //     (team) => team.id !== userDetails.user_team_id
+        //   );
+        //   setAllTeams(teamsExcludingUsersTeam);
+        //   setFilteredTeams(teamsExcludingUsersTeam);
+        // }
       } catch (error) {
         console.error("Error fetching teams:", error);
       }
@@ -135,11 +139,19 @@ const TeamSearch = ({ setNavDetails }) => {
               setSearchInput={setSearchInput}
             />
           </div>
-          <div className="overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
+          <div
+            className="overflow-y-scroll space-y-2  lg:h-144 mt-7 "
+            style={{ scrollbarColor: "grey black" }}
+          >
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
                   className="py-4 grid grid-cols-3 bg-secondary/30 items-center cursor-pointer bebas-neue-regular text-text hover:bg-secondary/50 rounded"
+                  style={
+                    userDetails && userDetails.user_team_id === team.id
+                      ? { backgroundColor: "#f98269" }
+                      : {}
+                  }
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >

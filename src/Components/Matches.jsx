@@ -175,7 +175,7 @@ const Matches = () => {
               className="py-3 rounded-lg bg-secondary/50 text-center text-white hover:bg-secondary/70 max-md:w-full"
               onChange={handleSelectChange}
             >
-              <option>Match Type</option>
+              {/* <option>Match Type</option> */}
               <option value="all-matches" className="bg-black">
                 All Matches
               </option>
