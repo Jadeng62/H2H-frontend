@@ -88,7 +88,7 @@ const TeamSearchDetails = ({
             {selectedTeam && (
               <div className="flex flex-col gap-6">
                 <div className="flex justify-center">
-                  <h1 className="text-4xl">{selectedTeam.team_name}</h1>
+                  <h1 className="bebas-neue-regular font-extrabold text-4xl">{selectedTeam.team_name}</h1>
                 </div>
                 <div className="flex justify-center">
                   {/* Replace this with team logo or pic */}
@@ -116,7 +116,7 @@ const TeamSearchDetails = ({
                   {renderJoinButton() === true ? (
                     <button
                       onClick={handleJoinTeam}
-                      className="text-white text-xl py-3 px-4 bg-accent rounded-md lg:w-1/3 md:w-1/5 hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                      className="text-white text-xl py-3 px-4 bg-accent rounded-md lg:w-1/3 md:w-1/5 hover:bg-secondary/30 shadow-2xl cursor-pointer font-bold"
                     >
                       Join Team
                     </button>

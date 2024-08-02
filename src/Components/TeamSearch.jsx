@@ -136,7 +136,7 @@ const TeamSearch = ({ setNavDetails }) => {
                   onClick={() => setSelectedTeam(team)}
                 >
                   <div className="flex justify-center">
-                    <p className="text-3xl">{team.team_name}</p>
+                    <p className="xl:text-3xl md:text-2xl md:pl-6 pl-2 lg:pl-0 text-xl text-center">{team.team_name}</p>
                   </div>
                   <div className="flex justify-center">
                     {/* conditional in case there's no team pic */}
