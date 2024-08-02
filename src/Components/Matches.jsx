@@ -135,10 +135,11 @@ const Matches = () => {
                 <CircleAlert size={28} className="text-yellow-500" />
               </span>
               <div className="flex flex-col">
-                <span className="font-semibold">Become a Captain</span>
+                <span className="font-semibold">Match Creation</span>
                 <span>
-                  You need to form and captain a complete team in order to
-                  create a match.
+                  {/* You need to form and captain a complete team in order to
+                  create a match. */}
+                  You need to be a captain in order to create a match.
                 </span>
               </div>
             </div>

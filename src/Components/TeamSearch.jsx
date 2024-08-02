@@ -110,7 +110,7 @@ const TeamSearch = ({ setNavDetails }) => {
                 className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none hover:bg-text"
                 onChange={handleChange}
                 value={searchInput}
-                placeholder="Enter Team Name..."
+                placeholder="Enter Team Name"
               />
             </div>
             <div className="bg-accent border-l-4 border-black p-2 rounded-r-md h-12 w-12 flex items-center justify-center">
@@ -147,25 +147,25 @@ const TeamSearch = ({ setNavDetails }) => {
                     />
                   </div>
                   <div className="flex justify-center items-center text-2xl">
-                  {rosteredPlayerCount(team) === 5 ? (
-                    <>
-                      <span className="text-secondary">
-                        {rosteredPlayerCount(team)}
-                      </span>
-                      <span className="mx-1">/</span>
-                      <span className="text-secondary">5</span>
-                      <span className="text-red-500">&nbsp;&nbsp;Full</span>
-                    </>
+                    {rosteredPlayerCount(team) === 5 ? (
+                      <>
+                        <span className="text-secondary">
+                          {rosteredPlayerCount(team)}
+                        </span>
+                        <span className="mx-1">/</span>
+                        <span className="text-secondary">5</span>
+                        <span className="text-red-500">&nbsp;&nbsp;Full</span>
+                      </>
                     ) : (
-                    <>
-                      <span className="text-text">
-                        {rosteredPlayerCount(team)}
-                      </span>
-                      <span className="mx-1">/</span>
-                      <span className="text-primary">5</span>
-                      <span className="text-primary">&nbsp;&nbsp;Open</span>
-                    </>
-                  )}
+                      <>
+                        <span className="text-text">
+                          {rosteredPlayerCount(team)}
+                        </span>
+                        <span className="mx-1">/</span>
+                        <span className="text-secondary">5</span>
+                        <span className="text-primary">&nbsp;&nbsp;Open</span>
+                      </>
+                    )}
                   </div>
                 </div>
               ))

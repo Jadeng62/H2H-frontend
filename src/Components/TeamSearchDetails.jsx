@@ -12,7 +12,7 @@ const TeamSearchDetails = ({
   allTeams,
   setSelectedTeam,
   setSuccessMessage,
-  setNavDetails
+  setNavDetails,
 }) => {
   const [teamRoster, setTeamRoster] = useState([]);
   const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
@@ -160,9 +160,7 @@ const TeamSearchDetails = ({
             </span>
             <div className="flex flex-col">
               <span className="font-semibold">Select a Team</span>
-              <span>
-                To view their details and get all the insights you need!
-              </span>
+              <span>View their details and get all the insights you need!</span>
             </div>
           </div>
         </div>

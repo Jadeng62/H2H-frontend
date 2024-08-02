@@ -85,13 +85,13 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               </span>
               <span className="font-semibold">You're Team is All Set!</span>
             </div>
-            <span className="ml-12">Click here to view matches!</span>
+            <span className="ml-12">Click here to view match details.</span>
 
             <span
               onClick={() => navigate(`/matches`)}
               className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
             >
-              Go to Matches
+              See All Matches
             </span>
           </div>
         </div>

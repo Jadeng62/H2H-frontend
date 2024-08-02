@@ -37,7 +37,7 @@ const Match = ({ match }) => {
         }`}</h1> */}
         <h1 className="text-3xl">{`${
           team1.team_name ? team1.team_name : "TBD"
-        } V.S.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
+        } VS.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
       </div>
       <div className="flex justify-between">
         <div className="mr-6">
