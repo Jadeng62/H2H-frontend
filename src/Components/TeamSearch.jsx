@@ -13,7 +13,7 @@ const TeamSearch = ({ setNavDetails }) => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedTeam, setSelectedTeam] = useState();
   //
-  const [allTeamsActive, setAllTeamsActive] = useState(false);
+  const [allTeamsActive, setAllTeamsActive] = useState(true);
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
 
@@ -60,12 +60,18 @@ const TeamSearch = ({ setNavDetails }) => {
   }, [userDetails]);
 
   useEffect(() => {
-    const filtered = allTeams.filter((team) =>
-      team.team_name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-    setFilteredTeams(filtered);
-    setAllTeamsActive(false);
-    setJoinableTeamsActive(false);
+    if (searchInput.length > 0) {
+      const filtered = allTeams.filter((team) =>
+        team.team_name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setFilteredTeams(filtered);
+      setAllTeamsActive(false);
+      setJoinableTeamsActive(false);
+    }
+    if (searchInput.length === 0) {
+      setAllTeamsActive(true);
+      setFilteredTeams(allTeams);
+    }
   }, [searchInput, allTeams]);
 
   useEffect(() => {
@@ -126,6 +132,7 @@ const TeamSearch = ({ setNavDetails }) => {
               setAllTeamsActive={setAllTeamsActive}
               joinableTeamsActive={joinableTeamsActive}
               setJoinableTeamsActive={setJoinableTeamsActive}
+              setSearchInput={setSearchInput}
             />
           </div>
           <div className="overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
@@ -147,18 +154,18 @@ const TeamSearch = ({ setNavDetails }) => {
                       alt="team"
                     /> */}
                     {team.team_pic ? (
-                    <img
-                      src={team.team_pic}
-                      alt="team_pic"
-                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
-                    />
-                  ) : (
-                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
-                      <hr className="border-2 border-primary/60 w-1/4" />
-                      <Shield size={48} className="text-text/60" />
-                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
-                    </div>
-                  )}
+                      <img
+                        src={team.team_pic}
+                        alt="team_pic"
+                        className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
+                      />
+                    ) : (
+                      <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                        <hr className="border-2 border-primary/60 w-1/4" />
+                        <Shield size={48} className="text-text/60" />
+                        <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                      </div>
+                    )}
                   </div>
                   <div className="flex justify-center items-center text-2xl">
                     {rosteredPlayerCount(team) === 5 ? (
