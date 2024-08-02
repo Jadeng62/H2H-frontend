@@ -297,11 +297,11 @@ const MyTeam = () => {
                   /> */}
                   {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
 -Carlitos changed this since we can upload team photos now */}
-                  {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
+                  {teamData.team_pic ? (
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
-                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
+                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
                     />
                   ) : (
                     <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
@@ -474,7 +474,7 @@ const MyTeam = () => {
                               <img
                                 src={player.photo}
                                 alt="player_profile_pic"
-                                className="w-14 rounded"
+                                className="w-14 rounded thumb"
                               />
                             ) : (
                               <img
