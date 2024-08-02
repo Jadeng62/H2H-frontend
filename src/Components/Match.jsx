@@ -47,10 +47,10 @@ const Match = ({ match }) => {
               <img
                 src={team1.team_pic}
                 alt="team_pic"
-                className="w-44 md:w-52 rounded-lg thumb"
+                className="w-48 rounded-lg thumb"
               />
           ) : (
-            <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
               <hr className="border-2 border-primary/60 w-1/4" />
                 <Shield size={52} className="text-text/60" />
               <hr className="border-2 border-accent/60 w-1/4" />{" "}
@@ -63,10 +63,10 @@ const Match = ({ match }) => {
             <img
               src={team2.team_pic}
               alt="team_pic"
-              className="w-44 md:w-52 rounded-lg thumb"
+              className="w-48 rounded-lg thumb"
             />
           ) : (
-            <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
               <hr className="border-2 border-primary/60 w-1/4" />
                 <Shield size={52} className="text-text/60" />
               <hr className="border-2 border-accent/60 w-1/4" />{" "}
