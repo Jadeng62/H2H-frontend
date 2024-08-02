@@ -74,7 +74,7 @@ const Match = ({ match }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-center my-auto">
+      <div className="flex flex-col justify-center my-auto mt">
         <div className="text-center text-2xl bg-secondary/30 rounded-lg py-2 my-4">
           <h3>{match.park_name}</h3>
         </div>
