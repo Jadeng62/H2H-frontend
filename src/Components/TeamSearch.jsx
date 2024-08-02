@@ -12,7 +12,6 @@ const TeamSearch = ({ setNavDetails }) => {
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTeam, setSelectedTeam] = useState();
-  //
   const [allTeamsActive, setAllTeamsActive] = useState(false);
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -128,7 +127,7 @@ const TeamSearch = ({ setNavDetails }) => {
               setJoinableTeamsActive={setJoinableTeamsActive}
             />
           </div>
-          <div className="overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
+          <div className="overflow-y-scroll space-y-2  lg:h-136 mt-7 ">
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
@@ -137,7 +136,7 @@ const TeamSearch = ({ setNavDetails }) => {
                   onClick={() => setSelectedTeam(team)}
                 >
                   <div className="flex justify-center">
-                    <p className="text-3xl">{team.team_name}</p>
+                    <p className="xl:text-3xl md:text-2xl md:pl-6 pl-2 lg:pl-0 text-xl text-center">{team.team_name}</p>
                   </div>
                   <div className="flex justify-center">
                     {/* conditional in case there's no team pic */}
@@ -146,14 +145,14 @@ const TeamSearch = ({ setNavDetails }) => {
                       className="h-12 rounded"
                       alt="team"
                     /> */}
-                    {team.team_pic ? (
+                  {team.team_pic ? (
                     <img
                       src={team.team_pic}
                       alt="team_pic"
-                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
+                      className="w-24 h-24 md:w-24 md:h-24 border-secondary/5 border-2 rounded-md thumb"
                     />
                   ) : (
-                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={48} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />{" "}

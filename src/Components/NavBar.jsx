@@ -35,15 +35,14 @@ const NavBar = ({ userDetails, setUserDetails }) => {
 
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
-      <h1
+      {/* <h1
         className=" font-extrabold text-4xl hover:cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
-        {/* <span className="flex flex-row">
-          H <Zap className="mt-1" /> H
-        </span> */}
-      </h1>
+      </h1> */}
+      <img src="https://res.cloudinary.com/dwygxzqku/image/upload/v1722631715/H2H/h2h-logos/H2H-Logo_jnhf5q.png" className="h-20 rounded hover:cursor-pointer border-white" onClick={() => navigate("/")}/>
+      
       {userDetails && (
         <ul className="flex space-x-6 font-bold text-3xl justify-center items-center">
           <Link to="/matches">
@@ -104,13 +103,14 @@ const NavBar = ({ userDetails, setUserDetails }) => {
   );
 
   const SmallNavBar = ({ userDetails }) => (
-    <div className="flex justify-between items-center p-8 bg-accent text-text">
-      <h1
+    <div className="flex justify-between items-center p-6 bg-accent text-text">
+      {/* <h1
         className="font-extrabold text-4xl bebas-neue-regular cursor-pointer"
         onClick={() => navigate("/")}
       >
         H2H
-      </h1>
+      </h1> */}
+      <img src="https://res.cloudinary.com/dwygxzqku/image/upload/v1722631715/H2H/h2h-logos/H2H-Logo_jnhf5q.png" className="h-16 rounded hover:cursor-pointer border-white" onClick={() => navigate("/")}/>
       {userDetails && (
         <div>
           <svg
