@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { formattedDate, formattedTime } from "../helpers/helper";
+import { Shield } from "lucide-react";
 import placeHolder from "../assets/placeholder.png";
 
 import "../Styles/matches.css";
@@ -41,10 +42,36 @@ const Match = ({ match }) => {
       </div>
       <div className="flex justify-between">
         <div className="mr-6">
-          <img src={placeHolder} alt="" />
+          {/* <img src={placeHolder} alt="" /> */}
+          {team1.team_pic ? (
+              <img
+                src={team1.team_pic}
+                alt="team_pic"
+                className="w-44 md:w-52 rounded-lg thumb"
+              />
+          ) : (
+            <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+              <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            </div>
+          )}
         </div>
         <div>
-          <img src={placeHolder} alt="" />
+          {/* <img src={placeHolder} alt="" /> */}
+          {team2.team_pic ? (
+            <img
+              src={team2.team_pic}
+              alt="team_pic"
+              className="w-44 md:w-52 rounded-lg thumb"
+            />
+          ) : (
+            <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+              <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            </div>
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-center my-auto">
