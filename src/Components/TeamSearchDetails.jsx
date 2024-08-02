@@ -3,7 +3,7 @@ import { formatPositionSpelling } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
-import { Info } from "lucide-react";
+import { Info, Shield } from "lucide-react";
 import "../Styles/teamSearch.css";
 
 const TeamSearchDetails = ({
@@ -86,23 +86,37 @@ const TeamSearchDetails = ({
         <div className="grid grid-cols-1 xl:grid-cols-2">
           <div className="py-8 bg-secondary/10 rounded-l-lg md:px-10 ">
             {selectedTeam && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6">
                 <div className="flex justify-center">
                   <h1 className="text-4xl">{selectedTeam.team_name}</h1>
                 </div>
                 <div className="flex justify-center">
                   {/* Replace this with team logo or pic */}
-                  <img
+                  {/* <img
                     src={placeHolder}
                     alt=""
                     className="w-44 md:w-52 rounded-lg"
-                  />
+                  /> */}
+                  {selectedTeam.team_pic ? (
+                    <img
+                      src={selectedTeam.team_pic}
+                      alt="team_pic"
+                      // className="w-24 h-24 md:w-24 md:h-24 border-secondary/5 border-2 rounded thumb"
+                      className="w-44 md:w-52 rounded-lg thumb"
+                    />
+                  ) : (
+                    <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={52} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                    </div>
+                  )}
                 </div>
                 <div className="flex justify-center">
                   {renderJoinButton() === true ? (
                     <button
                       onClick={handleJoinTeam}
-                      className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                      className="text-white text-xl py-3 px-4 bg-accent rounded-md lg:w-1/3 md:w-1/5 hover:bg-secondary/30 shadow-2xl cursor-pointer"
                     >
                       Join Team
                     </button>
@@ -112,7 +126,7 @@ const TeamSearchDetails = ({
             )}
           </div>
           {/* This is the Team Roster */}
-          <div className="py-8 bg-secondary/10 rounded-r-lg flex justify-center">
+          <div className=" bg-secondary/10 rounded-r-lg flex justify-center">
             <table className="table-auto bg-background rounded-lg xl:mr-16 mb-8">
               {teamRoster.length > 0 && (
                 <thead className="text-left uppercase">
