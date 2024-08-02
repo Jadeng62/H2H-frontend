@@ -38,6 +38,90 @@ const TeamSearchDetails = ({
       : false;
   }
 
+  function renderLeaveButton() {
+    const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+    return selectedTeam[positionKeyWord] === userDetails.id ? true : false;
+  }
+
+  function handleLeaveTeam() {
+    const isPlayerCaptain = userDetails.id === selectedTeam.captain_id;
+    const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
+
+    // Updating team info if captain leaves their team, assigns new captain and updates captain_id
+    // if (isPlayerCaptain) {
+    //   const {
+    //     point_guard_id,
+    //     small_forward_id,
+    //     power_forward_id,
+    //     center_id,
+    //     shooting_guard_id,
+    //   } = selectedTeam;
+    //   const playerIDS = [
+    //     point_guard_id,
+    //     small_forward_id,
+    //     power_forward_id,
+    //     center_id,
+    //     shooting_guard_id,
+    //   ];
+    //   const validPlayers = playerIDS.filter(
+    //     (playerID) => playerID !== userDetails.id && playerID !== null
+    //   );
+    //   const randomIndex = Math.floor(Math.random() * validPlayers.length);
+    //   const newCaptainID = validPlayers[randomIndex];
+    //   const updatedTeamInfo = {
+    //     ...selectedTeam,
+    //     [positionKeyWord]: null,
+    //     captain_id: newCaptainID,
+    //   };
+    //   const teamOptions = {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(updatedTeamInfo),
+    //   };
+
+    //   fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setSelectedTeam(data);
+    //       console.log("Successfully Updated Team!!!", data);
+    //     })
+    //     .catch((error) => console.error("Team Didn't Update", error));
+    // }
+
+    // // Updating Team Info if a player leaves their team
+    // else {
+    //   const updatedTeamInfo = { ...selectedTeam, [positionKeyWord]: null };
+
+    //   const teamOptions = {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(updatedTeamInfo),
+    //   };
+    //   fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setSelectedTeam(data);
+    //       console.log("Successfully Updated Team!!!", data);
+    //     })
+    //     .catch((error) => console.error("Team Didn't Update", error));
+    // }
+    // // Updating User Info
+    // const updatedUserInfo = { ...userDetails, user_team_id: null };
+    // const options = {
+    //   method: "PUT",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(updatedUserInfo),
+    // };
+    // fetch(`${URL}/api/auth/user/${userDetails.id}`, options)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setUserDetails(data);
+    //     setNavDetails(data);
+    //     console.log("User Details Updated Successfully", data); // Logging the response data
+    //   })
+    //   .catch((error) => console.error("Updated User Details Failed", error));
+  }
+
   function handleJoinTeam() {
     // Assuming userDetails and selectedTeam are available in the scope
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
@@ -105,6 +189,14 @@ const TeamSearchDetails = ({
                       className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
                     >
                       Join Team
+                    </button>
+                  ) : null}
+                  {renderLeaveButton() === true ? (
+                    <button
+                      className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                      onClick={handleLeaveTeam}
+                    >
+                      Leave Team
                     </button>
                   ) : null}
                 </div>
