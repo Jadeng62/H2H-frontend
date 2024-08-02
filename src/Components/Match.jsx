@@ -40,7 +40,7 @@ const Match = ({ match }) => {
           team1.team_name ? team1.team_name : "TBD"
         } VS.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mx-2">
         <div className="mr-6">
           {/* <img src={placeHolder} alt="" /> */}
           {team1.team_pic ? (
