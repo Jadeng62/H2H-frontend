@@ -8,6 +8,7 @@ const FilteringTeams = ({
   setAllTeamsActive,
   joinableTeamsActive,
   setJoinableTeamsActive,
+  setSearchInput,
 }) => {
   const viewJoinableTeams = () => {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
@@ -36,6 +37,7 @@ const FilteringTeams = ({
             setFilteredTeams(allTeams);
             setAllTeamsActive(true);
             setJoinableTeamsActive(false);
+            setSearchInput("");
           }}
         >
           All Teams
