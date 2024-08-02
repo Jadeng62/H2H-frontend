@@ -301,10 +301,10 @@ const MyTeam = () => {
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
-                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded thumb"
+                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded-md thumb"
                     />
                   ) : (
-                    <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                    <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={72} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />{" "}
