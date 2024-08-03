@@ -17,12 +17,20 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           <h1 className="text-center text-xl font-bold">
             Join or Create a Team Now!
           </h1>
+          <div className="flex flex-col lg:flex-row gap-2">
           <button
-            className="mt-4 bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded"
+            className="mt-4 bg-primary hover:bg-accent text-black hover:text-white font-bold py-2 px-4 rounded"
             onClick={() => navigate("/createTeam")}
           >
-            +
+            Create Team
           </button>
+          <button
+            className="mt-4 bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded hover:text-white"
+            onClick={() => navigate("/teamSearch")}
+          >
+            Join Team
+          </button>
+          </div>
         </div>
       ) : userDetails && upcomingGames.length > 0 ? (
         <div className="grid grid-rows-2 grid-cols-1">
