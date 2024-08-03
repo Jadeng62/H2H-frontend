@@ -238,12 +238,12 @@ const MatchDetails = ({ upcomingGames }) => {
               </table>
             ) : (
               <div style={{ marginTop: "15%", marginBottom: "15%" }}>
-                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+                <div className="bg-secondary/10 p-5 m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 w-1/2">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
                     </span>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col ">
                       <span className="font-semibold">Slot Available</span>
                       <span>
                         This slot is currently available for a team to join and
@@ -255,7 +255,7 @@ const MatchDetails = ({ upcomingGames }) => {
                         match.team1_id !== userDetails.user_team_id &&
                         match.team2_id !== userDetails.user_team_id &&
                         isTeamFull(userTeam) && (
-                          <div className="mt-3">
+                          <div className="mt-3 flex">
                             <button
                               className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
                               onClick={() => handleJoinMatch("team1_id")}
@@ -435,7 +435,7 @@ const MatchDetails = ({ upcomingGames }) => {
               </table>
             ) : (
               <div style={{ marginTop: "15%", marginBottom: "15%" }}>
-                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+                <div className="bg-secondary/10 p-5 m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 w-1/2">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
