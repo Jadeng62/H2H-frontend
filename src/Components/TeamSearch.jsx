@@ -150,7 +150,9 @@ const TeamSearch = ({ setNavDetails }) => {
                   className="py-4 grid grid-cols-3 bg-secondary/30 items-center cursor-pointer bebas-neue-regular text-text hover:bg-secondary/50 rounded"
                   style={
                     userDetails && userDetails.user_team_id === team.id
-                      ? { backgroundColor: "#f98269" }
+                      // ? { backgroundColor: "#f98269" } // coral
+                      // ? { backgroundColor: "#dfff00" } // lime
+                      ? { border: "2px solid #dfff00" }
                       : {}
                   }
                   key={team.id}

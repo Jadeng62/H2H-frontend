@@ -195,7 +195,7 @@ const TeamSearchDetails = ({
                   ) : null}
                   {renderLeaveButton() === true ? (
                     <button
-                      className="text-white text-xl py-3 px-4 bg-accent rounded-lg hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                      className="bg-accent border-2 border-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                       onClick={handleLeaveTeam}
                     >
                       Leave Team
