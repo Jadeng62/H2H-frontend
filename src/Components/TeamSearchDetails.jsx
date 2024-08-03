@@ -147,7 +147,7 @@ const TeamSearchDetails = ({
                         <div className="flex items-center m-auto">
                           <img
                             src={player.photo}
-                            className="thumb w-16 mr-7 rounded"
+                            className="thumb w-16 mr-7 shadow-md shadow-gray-400 rounded"
                           />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
+import captainPic from "../assets/captain.webp";
 
 const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
@@ -474,17 +475,23 @@ const MyTeam = () => {
                               <img
                                 src={player.photo}
                                 alt="player_profile_pic"
-                                className="w-14 rounded thumb"
+                                className="w-14 rounded shadow-md shadow-gray-400 thumb"
                               />
                             ) : (
                               <img
                                 src={placeHolder}
                                 alt="player_profile_pic"
-                                className="w-14 rounded"
+                                className="w-14 rounded shadow-md shadow-gray-400"
                               />
                             )}
                           </span>{" "}
-                          {player.first_name} {player.last_name}
+                          {/* {player.first_name} {player.last_name} */}
+                          <div className="mr-7">
+                            {player.first_name} {player.last_name}{" "}
+                            {player.id === teamData.captain_id && (
+                              <img src={captainPic} alt="" className="w-8" />
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-5">
                           {capitalizeFirstLetter(player.position)}
