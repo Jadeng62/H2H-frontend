@@ -7,7 +7,7 @@ import {
   isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
-import { Pencil, Info } from "lucide-react";
+import { Pencil, Shield, Info } from "lucide-react";
 import Modal from "react-modal";
 import EditMatch from "./EditMatch";
 import { getUserData } from "../helpers/getUserData";
@@ -180,15 +180,31 @@ const MatchDetails = ({ upcomingGames }) => {
     <div className="text-text">
       <div className="grid grid-cols-3 max-lg:grid-cols-1 max-lg:grid-rows-auto">
         {/* TEAM 1 STARTS HERE */}
-        <div className="">
+        <div> {/* this div keeps the vs in check */}
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
+          {/* Team Pic 1 */}
+          <div className="flex justify-center pt-16">
+            {firstTeamDetails && firstTeamDetails.team_pic ? (
+                <img
+                   src={firstTeamDetails.team_pic}
+                   alt="team_pic"
+                   className="w-60 rounded-lg thumb"
+                />
+              ) : (
+                <div className="bg-secondary/5 w-44 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                  <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={52} className="text-text/60" />
+                  <hr className="border-2 border-accent/60 w-1/4" />
+                </div>
+              )}
+          </div>
           <div className="flex justify-center">
             {firstTeamRoster.length > 0 ? (
               <table
                 className="table-auto bg-background rounded-lg mx-10 w-fit"
-                style={{ marginTop: "15%", marginBottom: "15%" }}
+                style={{ marginTop: "6%", marginBottom: "6%" }}
               >
                 <thead className="text-left uppercase">
                   <tr>
@@ -204,7 +220,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7 thumb" />
+                          <img src={player.photo} className="w-16 mr-7 thumb shadow-md shadow-gray-500" />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === firstTeamDetails.captain_id && (
@@ -261,8 +277,8 @@ const MatchDetails = ({ upcomingGames }) => {
             Vs
           </h1>
           <div className="">
-            <div className="" style={{ marginTop: "15%" }}>
-              <table className="table-auto bg-accent rounded-lg m-auto mb-6">
+            <div className="" style={{ marginTop: "40%"}}>
+              <table className="table-auto bg-secondary/30 text-text rounded-lg m-auto mb-6">
                 <thead className="text-left uppercase">
                   <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
@@ -276,7 +292,7 @@ const MatchDetails = ({ upcomingGames }) => {
                         >
                           <Pencil
                             size={32}
-                            className="hover:text-black text-text cursor-pointer pb-4"
+                            className="hover:text-accent text-text cursor-pointer pb-2 mb-4"
                           />
                         </span>
                       )}
@@ -358,11 +374,28 @@ const MatchDetails = ({ upcomingGames }) => {
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {secondTeamDetails ? secondTeamDetails.team_name : "TBD"}
           </h1>
+
+          <div className="flex justify-center pt-16">
+                  {secondTeamDetails && secondTeamDetails.team_pic ? (
+                    <img
+                      src={secondTeamDetails.team_pic}
+                      alt="team_pic"
+                      className="w-60 rounded-lg thumb"
+                    />
+                  ) : (
+                    <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={52} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />
+                    </div>
+                  )}
+                </div>
+
           <div className="flex justify-center">
             {secondTeamRoster.length > 0 ? (
               <table
                 className="table-auto bg-background rounded-lg mx-10 w-fit"
-                style={{ marginTop: "15%", marginBottom: "15%" }}
+                style={{ marginTop: "6%", marginBottom: "6%" }}
               >
                 <thead className="text-left uppercase">
                   <tr>
@@ -378,7 +411,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img src={player.photo} className="w-16 mr-7 thumb shadow-md shadow-gray-500" />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === secondTeamDetails.captain_id && (
