@@ -365,7 +365,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     match.creator_id === userDetails.id && (
                       <button
                         style={{ marginBottom: "15%" }}
-                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
+                        className="bg-accent border-2 border-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                         onClick={handleDeleteMatch}
                       >
                         Delete Match
