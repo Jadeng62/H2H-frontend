@@ -193,9 +193,9 @@ const MatchDetails = ({ upcomingGames }) => {
                    className="w-60 rounded-lg thumb"
                 />
               ) : (
-                <div className="bg-secondary/5 w-44 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                   <hr className="border-2 border-primary/60 w-1/4" />
-                      <Shield size={52} className="text-text/60" />
+                      <Shield size={60} className="text-text/60" />
                   <hr className="border-2 border-accent/60 w-1/4" />
                 </div>
               )}
@@ -277,8 +277,14 @@ const MatchDetails = ({ upcomingGames }) => {
             Vs
           </h1>
           <div className="">
-            <div className="" style={{ marginTop: "40%"}}>
-              <table className="table-auto bg-secondary/30 text-text rounded-lg m-auto mb-6">
+
+
+
+{/* fix!!! */}
+
+
+            <div className="" style={{marginTop:"15%", marginBottom:"3%"}}>
+              <table className="table-auto bg-secondary/30 text-text rounded-lg m-auto mb-12">
                 <thead className="text-left uppercase">
                   <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
@@ -383,9 +389,9 @@ const MatchDetails = ({ upcomingGames }) => {
                       className="w-60 rounded-lg thumb"
                     />
                   ) : (
-                    <div className="bg-secondary/5 w-44 h-44 md:w-52 md:h-52 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                    <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
-                      <Shield size={52} className="text-text/60" />
+                      <Shield size={60} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />
                     </div>
                   )}
