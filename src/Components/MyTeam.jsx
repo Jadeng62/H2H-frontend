@@ -416,7 +416,7 @@ const MyTeam = () => {
                     <span className="font-semibold">Not Enough Data</span>
                   </div>
                   <span className="ml-12">
-                    To see your team stats, you have to play in more matches!
+                    To see your team stats play in more matches!
                   </span>
                   {playersInTeam && playersInTeam.length === 5 ? (
                     <span
