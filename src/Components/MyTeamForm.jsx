@@ -178,10 +178,19 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
             Create Team
           </button>
           <button
+            type="button"
             onClick={handleCancel}
             className="bg-background text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
           >
             Cancel
+          </button>
+          <p className="text-center">OR</p>
+          <button
+            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
+            type="button"
+            onClick={() => navigate("/teamSearch")}
+          >
+            Join Existing Team
           </button>
         </div>
       </form>
