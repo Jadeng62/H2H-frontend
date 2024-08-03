@@ -193,13 +193,12 @@ const MatchDetails = ({ upcomingGames }) => {
                    className="w-60 rounded-lg thumb"
                 />
               ) : (
-                firstTeamRoster.length > 0 (
+                firstTeamRoster.length > 0 &&
                 <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                   <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                   <hr className="border-2 border-accent/60 w-1/4" />
                 </div>
-                )
               )}
           </div>
           <div className="flex justify-center">
@@ -239,13 +238,13 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginTop: "6%", marginBottom: "6%" }}>
-                <div className="bg-secondary/10 p-10 lg:m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2">
+              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
+                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
                     </span>
-                    <div className="flex flex-col ">
+                    <div className="flex flex-col">
                       <span className="font-semibold">Slot Available</span>
                       <span>
                         This slot is currently available for a team to join and
@@ -257,7 +256,7 @@ const MatchDetails = ({ upcomingGames }) => {
                         match.team1_id !== userDetails.user_team_id &&
                         match.team2_id !== userDetails.user_team_id &&
                         isTeamFull(userTeam) && (
-                          <div className="mt-3 flex">
+                          <div className="mt-3">
                             <button
                               className="hover:bg-accent py-2 px-4 rounded-lg w-fit bg-primary/30"
                               onClick={() => handleJoinMatch("team1_id")}
@@ -391,18 +390,14 @@ const MatchDetails = ({ upcomingGames }) => {
                       className="w-60 rounded-lg thumb"
                     />
                   ) : (
-                  // if only a team joins this placeholder shield for team pic if team has no pic can render
-                  secondTeamRoster.length > 0 && (
+                    secondTeamRoster.length > 0 &&
                     <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />
-                    </div>
-                    )
+                    </div>                   
                   )}
-            </div>
-                  
-          </div>
+                </div>
 
           <div className="flex justify-center">
             {secondTeamRoster.length > 0 ? (
@@ -441,8 +436,8 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginBottom: "6%" }}>
-                <div className="bg-secondary/10 p-10 lg:m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2">
+              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
+                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
@@ -476,7 +471,7 @@ const MatchDetails = ({ upcomingGames }) => {
           </div>
         </div>
       </div>
-    // </div>
+    </div>
   );
 };
 
