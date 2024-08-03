@@ -436,8 +436,8 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
-                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+              <div style={{ marginBottom: "6%" }}>
+                <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2 m-auto">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
