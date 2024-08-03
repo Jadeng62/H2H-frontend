@@ -193,11 +193,13 @@ const MatchDetails = ({ upcomingGames }) => {
                    className="w-60 rounded-lg thumb"
                 />
               ) : (
+                firstTeamRoster.length > 0 (
                 <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                   <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                   <hr className="border-2 border-accent/60 w-1/4" />
                 </div>
+                )
               )}
           </div>
           <div className="flex justify-center">
@@ -237,9 +239,8 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
             ) : (
-              // redundant bc the creator of match will always be on the left and can't leave match only delete
-              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
-                <div className="bg-secondary/10 p-5 m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 w-1/2">
+              <div style={{ marginTop: "6%", marginBottom: "6%" }}>
+                <div className="bg-secondary/10 p-10 lg:m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
@@ -382,7 +383,7 @@ const MatchDetails = ({ upcomingGames }) => {
             {secondTeamDetails ? secondTeamDetails.team_name : "TBD"}
           </h1>
 
-          {/* <div className="flex justify-center pt-16">
+          <div className="flex justify-center pt-16">
                   {secondTeamDetails && secondTeamDetails.team_pic ? (
                     <img
                       src={secondTeamDetails.team_pic}
@@ -390,23 +391,18 @@ const MatchDetails = ({ upcomingGames }) => {
                       className="w-60 rounded-lg thumb"
                     />
                   ) : (
+                  // if only a team joins this placeholder shield for team pic if team has no pic can render
+                  secondTeamRoster.length > 0 && (
                     <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />
                     </div>
+                    )
                   )}
-                </div> */}
-                    <div className="flex justify-center pt-16">
-                  {secondTeamDetails && secondTeamDetails.team_pic &&
-                    <img
-                      src={secondTeamDetails.team_pic}
-                      alt="team_pic"
-                      className="w-60 rounded-lg thumb"
-                    />
-                    }
+            </div>
                   
-                </div>
+          </div>
 
           <div className="flex justify-center">
             {secondTeamRoster.length > 0 ? (
@@ -446,7 +442,7 @@ const MatchDetails = ({ upcomingGames }) => {
               </table>
             ) : (
               <div style={{ marginBottom: "6%" }}>
-                <div className="bg-secondary/10 p-10 m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 w-1/2">
+                <div className="bg-secondary/10 p-10 lg:m-auto rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />
@@ -480,7 +476,7 @@ const MatchDetails = ({ upcomingGames }) => {
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
