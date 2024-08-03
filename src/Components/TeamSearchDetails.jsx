@@ -188,7 +188,7 @@ const TeamSearchDetails = ({
                   {renderJoinButton() ? (
                     <button
                       onClick={handleJoinTeam}
-                      className="text-white text-xl py-3 px-4 bg-accent rounded-md lg:w-1/3 md:w-1/5 hover:bg-secondary/30 shadow-2xl cursor-pointer"
+                      className="bg-accent border-2 border-accent text-xl py-4 px-8 rounded-lg hover:bg-black hover:border-2 hover:border-primary font-bold hover:text-primary"
                     >
                       Join Team
                     </button>
