@@ -262,7 +262,7 @@ const MatchDetails = ({ upcomingGames }) => {
           </h1>
           <div className="">
             <div className="" style={{ marginTop: "15%" }}>
-              <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
+              <table className="table-auto bg-accent rounded-lg m-auto mb-6">
                 <thead className="text-left uppercase">
                   <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
@@ -329,7 +329,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     userDetails.id === secondTeamDetails.captain_id && (
                       <button
                         style={{ marginBottom: "15%" }}
-                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
+                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                         onClick={handleLeaveMatch}
                       >
                         Leave Match
@@ -342,7 +342,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     match.creator_id === userDetails.id && (
                       <button
                         style={{ marginBottom: "15%" }}
-                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
+                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                         onClick={handleDeleteMatch}
                       >
                         Delete Match
