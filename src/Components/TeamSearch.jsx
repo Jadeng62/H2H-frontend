@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
 import { Shield, CircleX } from "lucide-react";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
+
 const TeamSearch = ({ setNavDetails }) => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);

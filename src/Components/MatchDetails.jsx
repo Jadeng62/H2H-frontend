@@ -11,6 +11,7 @@ import { Pencil, Shield, Info } from "lucide-react";
 import Modal from "react-modal";
 import EditMatch from "./EditMatch";
 import { getUserData } from "../helpers/getUserData";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 
 const MatchDetails = ({ upcomingGames }) => {
   const [match, setMatch] = useState({});

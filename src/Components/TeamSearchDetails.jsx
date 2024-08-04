@@ -4,7 +4,7 @@ import captainPic from "../assets/captain.webp";
 import placeHolder from "../assets/placeholder.png";
 import { getUserData } from "../helpers/getUserData";
 import { Info, Shield } from "lucide-react";
-import "../Styles/teamSearch.css";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 
 const TeamSearchDetails = ({
   selectedTeam,

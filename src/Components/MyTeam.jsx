@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import playersData from "../DummyData/myTeam.json";
 import placeHolder from "../assets/placeholder.png";
 import "../Styles/badges.css";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 import {
   X,
   Accessibility,
