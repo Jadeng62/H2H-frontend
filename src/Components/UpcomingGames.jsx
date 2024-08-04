@@ -19,13 +19,13 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           </h1>
           <div className="flex flex-col lg:flex-row gap-2">
           <button
-            className="mt-4 bg-primary hover:bg-accent text-black hover:text-white font-bold py-2 px-4 rounded"
+            className="mt-4 bg-primary hover:bg-tertiary text-black hover:text-black text-lg font-bold py-3 px-6 rounded shadow-black/70 shadow-md"
             onClick={() => navigate("/createTeam")}
           >
             Create Team
           </button>
           <button
-            className="mt-4 bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded hover:text-white"
+            className="mt-4 bg-primary hover:bg-tertiary text-black font-bold py-3 px-6 rounded hover:text-black shadow-black/70 shadow-md text-lg"
             onClick={() => navigate("/teamSearch")}
           >
             Join Team
