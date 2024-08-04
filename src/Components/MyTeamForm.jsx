@@ -171,7 +171,7 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
                 </label> */}
         <div className="flex justify-center flex-col gap-4 font-bold">
           <button
-            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
+            className="bg-tertiary text-black px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="submit"
             onClick={handleSubmit}
           >
@@ -186,7 +186,7 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
           </button>
           <p className="text-center">OR</p>
           <button
-            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
+            className="bg-tertiary text-black px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="button"
             onClick={() => navigate("/teamSearch")}
           >
