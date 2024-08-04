@@ -574,19 +574,8 @@ const MyTeam = () => {
               </div>
             );
           })}
-        <div className="flex flex-col items-center justify-center">
-          <div className="bg-background/80 py-1 px-2 rounded ">???</div>
-          <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-secondary/50 shadow-2xl">
-            <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-secondary/0 shadow-inner">
-              <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-            </div>{" "}
-          </div>
-          <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-            ???
-          </div>
-        </div>
       </div>
-      <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
+      {/* <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
         Checking Existing Badges
       </h2>
       <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
@@ -616,7 +605,7 @@ const MyTeam = () => {
               </div>
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
