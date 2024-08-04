@@ -28,7 +28,6 @@ import NotFound from "./Components/NotFound";
 function App() {
   const [user, setUser] = useState();
   const [userDetails, setUserDetails] = useState(null);
-  // const [userTeam, setUserTeam] = useState("");
 
   const URL = import.meta.env.VITE_BASE_URL;
 
@@ -43,14 +42,6 @@ function App() {
     getUser();
   }, [user]);
 
-  // useEffect(() => {
-  //   if (userDetails && userDetails.user_team_id) {
-  //     fetch(`${URL}/api/teams/${userDetails.user_team_id}`)
-  //       .then((res) => res.json())
-  //       .then((data) => setUserTeam(data))
-  //       .catch((error) => console.error("Error fetching team data:", error));
-  //   }
-  // }, []);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -74,11 +65,11 @@ function App() {
           <Route path="/matches" element={<Matches />} />
           <Route path="/createMatch" element={<MatchForm />} />
           <Route path="/matches/:id" element={<MatchDetails />} />
+          {/* to view other teams - future feature */}
           <Route path="/team/:id" element={<TeamByID />} />
-          {/* <Route path="/myTeam" element={<MyTeam />} /> */}
           <Route path="/myTeam/:id" element={<MyTeam />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          {/* Following Routes for development only: */}
+          {/* bball route for development only: */}
           <Route path="/bballCourts" element={<BBallCourt />} />
           <Route
             path="/createTeam"

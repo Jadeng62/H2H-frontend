@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { formattedDate, formattedTime } from "../helpers/helper";
 import { Shield } from "lucide-react";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 import placeHolder from "../assets/placeholder.png";
-
-import "../Styles/matches.css";
 
 const Match = ({ match }) => {
   const [team1, setTeam1] = useState({});
