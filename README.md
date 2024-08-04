@@ -39,7 +39,7 @@ Experience the perfect blend of digital convenience and real-life sports excitem
 - **Routing**:
   - Configured with `react-router-dom`.
   - Protected routes and redirects based on authentication status.
-  
+
 - **Component Structure**:
   - Manages components for users, teams, badges, and match management.
   - Routes are defined in `App.jsx`.
@@ -91,17 +91,22 @@ Make sure you have the following installed:
 
 ## Setup Instructions
 
-1. **Clone the Repository**
+1. **Clone the Client-Side Repository**
    ```bash
    git clone https://github.com/Jadeng62/H2H-frontend.git
    ```
 
-2. **Install Dependencies**
+2. **Clone the Server-Side Repository**
+   ```bash
+   git clone https://github.com/Jadeng62/H2H-backend.git
+   ```
+
+3. **Install Dependencies**
    ```bash
    npm install
    ```
 
-3. **Configure Firebase**
+4. **Configure Firebase**
 
    - **Create a Firebase Project**:
      - Go to the [Firebase Console](https://console.firebase.google.com/).
@@ -123,7 +128,7 @@ Make sure you have the following installed:
        }
        ```
 
-4. **Set Up Environment Variables**
+5. **Set Up Environment Variables**
 
    Create a `.env` file in the root directory of your project with the following content, replacing placeholders with your Firebase configuration values:
    ```env
@@ -137,9 +142,10 @@ Make sure you have the following installed:
    VITE_BASE_URL=http://localhost:3003
    ```
 
-5. **Start the Development Server**
+6. **Start the Development Server for Client-Side and Server-Side Repositories**
    ```bash
    npm run dev
    ```
-   Open your browser and go to `http://localhost:3003` to see the app in action.
+   Open your browser and go to `http://localhost:3000` to see the app in action!
 
+---
