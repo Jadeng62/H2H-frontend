@@ -43,78 +43,78 @@ const TeamSearchDetails = ({
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
 
     // Updating team info if captain leaves their team, assigns new captain and updates captain_id
-    // if (isPlayerCaptain) {
-    //   const {
-    //     point_guard_id,
-    //     small_forward_id,
-    //     power_forward_id,
-    //     center_id,
-    //     shooting_guard_id,
-    //   } = selectedTeam;
-    //   const playerIDS = [
-    //     point_guard_id,
-    //     small_forward_id,
-    //     power_forward_id,
-    //     center_id,
-    //     shooting_guard_id,
-    //   ];
-    //   const validPlayers = playerIDS.filter(
-    //     (playerID) => playerID !== userDetails.id && playerID !== null
-    //   );
-    //   const randomIndex = Math.floor(Math.random() * validPlayers.length);
-    //   const newCaptainID = validPlayers[randomIndex];
-    //   const updatedTeamInfo = {
-    //     ...selectedTeam,
-    //     [positionKeyWord]: null,
-    //     captain_id: newCaptainID,
-    //   };
-    //   const teamOptions = {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(updatedTeamInfo),
-    //   };
+    if (isPlayerCaptain) {
+      const {
+        point_guard_id,
+        small_forward_id,
+        power_forward_id,
+        center_id,
+        shooting_guard_id,
+      } = selectedTeam;
+      const playerIDS = [
+        point_guard_id,
+        small_forward_id,
+        power_forward_id,
+        center_id,
+        shooting_guard_id,
+      ];
+      const validPlayers = playerIDS.filter(
+        (playerID) => playerID !== userDetails.id && playerID !== null
+      );
+      const randomIndex = Math.floor(Math.random() * validPlayers.length);
+      const newCaptainID = validPlayers[randomIndex];
+      const updatedTeamInfo = {
+        ...selectedTeam,
+        [positionKeyWord]: null,
+        captain_id: newCaptainID,
+      };
+      const teamOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedTeamInfo),
+      };
 
-    //   fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setSelectedTeam(data);
-    //       console.log("Successfully Updated Team!!!", data);
-    //     })
-    //     .catch((error) => console.error("Team Didn't Update", error));
-    // }
+      fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
+        .then((res) => res.json())
+        .then((data) => {
+          setSelectedTeam(data);
+          console.log("Successfully Updated Team!!!", data);
+        })
+        .catch((error) => console.error("Team Didn't Update", error));
+    }
 
-    // // Updating Team Info if a player leaves their team
-    // else {
-    //   const updatedTeamInfo = { ...selectedTeam, [positionKeyWord]: null };
+    // Updating Team Info if a player leaves their team
+    else {
+      const updatedTeamInfo = { ...selectedTeam, [positionKeyWord]: null };
 
-    //   const teamOptions = {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(updatedTeamInfo),
-    //   };
-    //   fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setSelectedTeam(data);
-    //       console.log("Successfully Updated Team!!!", data);
-    //     })
-    //     .catch((error) => console.error("Team Didn't Update", error));
-    // }
-    // // Updating User Info
-    // const updatedUserInfo = { ...userDetails, user_team_id: null };
-    // const options = {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(updatedUserInfo),
-    // };
-    // fetch(`${URL}/api/auth/user/${userDetails.id}`, options)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setUserDetails(data);
-    //     setNavDetails(data);
-    //     console.log("User Details Updated Successfully", data); // Logging the response data
-    //   })
-    //   .catch((error) => console.error("Updated User Details Failed", error));
+      const teamOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedTeamInfo),
+      };
+      fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
+        .then((res) => res.json())
+        .then((data) => {
+          setSelectedTeam(data);
+          console.log("Successfully Updated Team!!!", data);
+        })
+        .catch((error) => console.error("Team Didn't Update", error));
+    }
+    // Updating User Info
+    const updatedUserInfo = { ...userDetails, user_team_id: null };
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedUserInfo),
+    };
+    fetch(`${URL}/api/auth/user/${userDetails.id}`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserDetails(data);
+        setNavDetails(data);
+        console.log("User Details Updated Successfully", data); // Logging the response data
+      })
+      .catch((error) => console.error("Updated User Details Failed", error));
   }
 
   function handleJoinTeam() {
