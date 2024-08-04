@@ -46,50 +46,40 @@ Experience the perfect blend of digital convenience and real-life sports excitem
   - Image upload with drag-and-drop functionality using Cloudinary API.
   - Tailwind CSS for GUI.
 
+### Dependencies
+
+This project relies on a set of packages to function correctly. Here's a quick overview of the main ones:
+
+**Core Dependencies:**
+- **`@splinetool/react-spline`**: For integrating spline animations.
+- **`chart.js`**: To create interactive charts and graphs.
+- **`firebase`**: For authentication and backend services.
+- **`lucide-react`**: A library for beautiful icons.
+- **`react`** and **`react-dom`**: Essential for building and rendering your user interface.
+- **`react-chartjs-2`**: To integrate Chart.js with React.
+- **`react-modal`**: For displaying modal dialogs.
+- **`react-router-dom`**: Manages routing and navigation within your app.
+- **`react-toastify`**: To show toast notifications for user feedback.
+
+**Development Dependencies:**
+- **`@types/react`** and **`@types/react-dom`**: TypeScript type definitions for React.
+- **`@vitejs/plugin-react`**: Vite plugin for React support.
+- **`autoprefixer`** and **`postcss`**: Tools for automatically adding vendor prefixes to your CSS.
+- **`eslint`**, **`eslint-plugin-react`**, **`eslint-plugin-react-hooks`**, and **`eslint-plugin-react-refresh`**: Tools for linting and code quality checks.
+- **`tailwindcss`**: A utility-first CSS framework for building custom designs quickly.
+- **`vite`**: A fast build tool that helps with development and bundling.
+
 ## Project Setup
 
 This project showcases a client-side login system using Firebase, supporting both [email/password](https://firebase.google.com/docs/auth/web/password-auth) and [Google sign-in](https://firebase.google.com/docs/auth/web/google-signin) methods. It has been updated from the [original project by The Debug Arena](https://www.youtube.com/watch?v=7jOq6SXBF-k) and now uses [Vite](https://vitejs.dev/guide/) for development.
 
-### Dependencies
-
-**Dependencies**:
-```json
-"dependencies": {
-  "@splinetool/react-spline": "^4.0.0",
-  "@splinetool/runtime": "^1.8.9",
-  "chart.js": "^4.4.3",
-  "firebase": "^10.12.3",
-  "lucide-react": "^0.407.0",
-  "react": "^18.2.0",
-  "react-chartjs-2": "^5.2.0",
-  "react-dom": "^18.2.0",
-  "react-modal": "^3.16.1",
-  "react-router-dom": "^6.3.0",
-  "react-toastify": "^10.0.5",
-  "toastify": "^2.0.1"
-},
-"devDependencies": {
-  "@types/react": "^18.2.37",
-  "@types/react-dom": "^18.2.15",
-  "@vitejs/plugin-react": "^4.2.0",
-  "autoprefixer": "^10.4.19",
-  "eslint": "^8.53.0",
-  "eslint-plugin-react": "^7.33.2",
-  "eslint-plugin-react-hooks": "^4.6.0",
-  "eslint-plugin-react-refresh": "^0.4.4",
-  "postcss": "^8.4.39",
-  "tailwindcss": "^3.4.4",
-  "vite": "^5.0.0"
-}
-```
-
-## Prerequisites
+### Prerequisites
 
 Make sure you have the following installed:
 - Node.js (>=14.x)
 - npm
 
-## Setup Instructions
+### Setup Instructions
 
 1. **Clone the Client-Side Repository**
    ```bash
