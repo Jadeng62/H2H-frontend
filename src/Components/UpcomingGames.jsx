@@ -86,7 +86,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               </tbody>
             </table>
           </div>
-          <div className="row-span-1 bg-secondary/10 p-5 mx-4 h-fit rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+          <div className="row-span-1 bg-secondary/10 p-5 mx-4 my-auto h-fit rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl mb-2">
             <div className="flex flex-row items-center">
               <span className="mr-5">
                 <CircleCheck size={28} className="text-primary/50" />
