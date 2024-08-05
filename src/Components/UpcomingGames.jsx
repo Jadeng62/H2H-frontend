@@ -119,7 +119,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               +
             </button> */}
           </div>
-          <div className="bg-secondary/10 p-5 mt-10 mb-10 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+          <div className="bg-secondary/10 p-5 mt-10 md:mt-10 lg:mt-10 mb-10 mx-10 md:mx-2 lg:mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
             <div className="flex flex-row items-center mb-2">
               <span className="mr-5">
                 <Info size={28} className="text-primary/50" />
@@ -133,7 +133,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
 
             <span
               onClick={() => navigate(`/matches`)}
-              className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
+              className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer text-pretty"
             >
               Go to Matches
             </span>
