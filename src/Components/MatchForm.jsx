@@ -150,16 +150,25 @@ const MatchForm = () => {
     navigate("/matches");
   };
 
-  // const generateTimeOptions = () => {
-  //   const options = [];
-  //   for (let hour = 0; hour < 24; hour++) {
-  //     for (let minute = 0; minute < 60; minute += 30) {
-  //       const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-  //       options.push(value);
-  //     }
-  //   }
-  //   return options;
-  // };
+  // also do this to edit form
+  const handleTime = (e) => {
+    const { id, value } = e.target;
+    const newValue = id === "time" ? roundUpToNearest15Minutes(value) : value;
+    setFormData({ ...formData, [id]: newValue });
+  };
+
+  const roundUpToNearest15Minutes = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const totalMinutes = hours * 60 + minutes;
+    const roundedMinutes = Math.ceil(totalMinutes / 15) * 15;
+    const roundedHours = Math.floor(roundedMinutes / 60);
+    const finalMinutes = roundedMinutes % 60;
+    //two digits for minutes and hours
+    const formattedHours = String(roundedHours).padStart(2, '0');
+    const formattedMinutes = String(finalMinutes).padStart(2, '0');
+  
+    return `${formattedHours}:${formattedMinutes}`;
+  };
 
   return (
     <>
@@ -239,25 +248,9 @@ const MatchForm = () => {
               id="time"
               value={formData.time}
               type="time"
-              onChange={handleChange}
+              onChange={handleTime}
               className="match-form-input mb-5"
             />
-            {/* <label htmlFor="time">
-              Enter Time of Match
-              <select
-                id="time"
-                value={formData.time}
-                onChange={handleChange}
-                className="match-form-input mb-5"
-              >
-                <option value="">Select a time</option>
-                  {generateTimeOptions().map((time) => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-                  ))}
-              </select>
-            </label>     */}
           </form>
           <div className="flex justify-center gap-2 flex-col lg:flex-row md:flex-row">
             <button

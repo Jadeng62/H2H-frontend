@@ -166,6 +166,25 @@ const EditMatch = ({ setMatch, closeModal }) => {
     }
   };
 
+  const handleTime = (e) => {
+    const { id, value } = e.target;
+    const newValue = id === "time" ? roundUpToNearest15Minutes(value) : value;
+    setFormData({ ...formData, [id]: newValue });
+  };
+
+  const roundUpToNearest15Minutes = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const totalMinutes = hours * 60 + minutes;
+    const roundedMinutes = Math.ceil(totalMinutes / 15) * 15;
+    const roundedHours = Math.floor(roundedMinutes / 60);
+    const finalMinutes = roundedMinutes % 60;
+    //two digits for minutes and hours
+    const formattedHours = String(roundedHours).padStart(2, '0');
+    const formattedMinutes = String(finalMinutes).padStart(2, '0');
+  
+    return `${formattedHours}:${formattedMinutes}`;
+  };
+
   return (
     <>
       <h1 className="matches-h1 bg-white/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
@@ -242,7 +261,7 @@ const EditMatch = ({ setMatch, closeModal }) => {
             id="time"
             value={formData.time}
             type="time"
-            onChange={handleChange}
+            onChange={handleTime}
             className="match-form-input mb-5"
           />
         </form>
