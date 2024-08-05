@@ -12,9 +12,8 @@ const FilteringTeams = ({
 }) => {
   const [selectedPosition, setSelectedPosition] = useState('');
 
-    const viewJoinableTeams = () => {
+  const viewJoinableTeams = () => {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-
     const joinableTeams = allTeams.filter(
       (team) => team[positionKeyWord] === null
     );
@@ -22,6 +21,19 @@ const FilteringTeams = ({
     console.log(joinableTeams);
     setFilteredTeams(joinableTeams);
     setJoinableTeamsActive(true);
+    setAllTeamsActive(false);
+  };
+
+  const viewUserTeams = () => {
+    if (userDetails.user_team_id === null) return;
+
+    const userTeams = allTeams.filter(
+      (team) => team.id === userDetails.user_team_id
+    );
+
+    console.log(userTeams);
+    setFilteredTeams(userTeams);
+    setJoinableTeamsActive(false);
     setAllTeamsActive(false);
   };
 
@@ -63,30 +75,39 @@ const FilteringTeams = ({
         >
           All Teams
         </button>
-        {userDetails && userDetails.user_team_id === null && (
+        {userDetails && (
           <button
             className={`text-white text-lg py-3 px-3 ${
-              joinableTeamsActive ? "bg-accent border-accent" : "bg-secondary/30 border border-secondary/10"
+              !allTeamsActive && !joinableTeamsActive ? "bg-accent border-accent" : "bg-secondary/30 border border-secondary/10"
             } rounded-lg cursor-pointer`}
-            onClick={viewJoinableTeams}
+            onClick={viewUserTeams}
           >
-            Open Teams
+            My Team
           </button>
         )}
         {userDetails && userDetails.user_team_id === null && (
-          <select
-            className="text-lg py-4 px-3 rounded-lg bg-secondary/30 border-secondary/10 cursor-pointer flex items-center"
-            value={selectedPosition}
-            onChange={handlePositionChange}
-          >
-            <option value="">Open Teams By Position</option>
-            {/* <option value="All">View All Teams</option> */}
-            <option value="point_guard">Point Guard</option>
-            <option value="shooting_guard">Shooting Guard</option>
-            <option value="small_forward">Small Forward</option>
-            <option value="power_forward">Power Forward</option>
-            <option value="center">Center</option>
-          </select>
+          <>
+            <button
+              className={`text-white text-lg py-3 px-3 ${
+                joinableTeamsActive ? "bg-accent border-accent" : "bg-secondary/30 border border-secondary/10"
+              } rounded-lg cursor-pointer`}
+              onClick={viewJoinableTeams}
+            >
+              Open Teams
+            </button>
+            <select
+              className="text-lg py-4 px-3 rounded-lg bg-secondary/30 border-secondary/10 cursor-pointer flex items-center"
+              value={selectedPosition}
+              onChange={handlePositionChange}
+            >
+              <option value="">Open Teams By Position</option>
+              <option value="point_guard">Point Guard</option>
+              <option value="shooting_guard">Shooting Guard</option>
+              <option value="small_forward">Small Forward</option>
+              <option value="power_forward">Power Forward</option>
+              <option value="center">Center</option>
+            </select>
+          </>
         )}
       </div>
     </div>
