@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUserData } from "../helpers/getUserData";
-import { Check, Search } from "lucide-react";
+import { Check, DoorOpen, Search } from "lucide-react";
 import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
@@ -19,6 +19,7 @@ const TeamSearch = ({ setNavDetails }) => {
 
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
+  const [leaveMessage, setLeaveMessage] = useState(false);
 
   const URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -112,6 +113,22 @@ const TeamSearch = ({ setNavDetails }) => {
           </div>
         </div>
       )}
+      {leaveMessage && (
+        <div className="bg-secondary/30 p-5 mx-8 mt-8 rounded-lg text-white text-lg border-4 border-yellow-500 max-sm:mb-1">
+          <div className="flex">
+            <span className="mr-5">
+              <DoorOpen size={28} className="text-yellow-500" />
+            </span>
+            <div className="flex flex-col">
+              <span className="font-semibold">Goodbye!</span>
+              <span>
+                You have successfully left the team:
+                <strong>{` ${selectedTeam.team_name}`}</strong>.
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       {/* <h1 className="text-3xl mb-4">Team Search</h1> */}
 
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -142,9 +159,9 @@ const TeamSearch = ({ setNavDetails }) => {
               setSearchInput={setSearchInput}
             />
           </div>
-          <div 
-          className="overflow-y-scroll space-y-2  lg:h-136 mt-7 "
-          style={{ scrollbarColor: "grey black" }}
+          <div
+            className="overflow-y-scroll space-y-2  lg:h-136 mt-7 "
+            style={{ scrollbarColor: "grey black" }}
           >
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
@@ -152,16 +169,18 @@ const TeamSearch = ({ setNavDetails }) => {
                   className="py-4 grid grid-cols-3 bg-secondary/30 items-center cursor-pointer bebas-neue-regular text-text hover:bg-secondary/50 rounded"
                   style={
                     userDetails && userDetails.user_team_id === team.id
-                      // ? { backgroundColor: "#f98269" } // coral
-                      // ? { backgroundColor: "#dfff00" } // lime
-                      ? { border: "2px solid #dfff00" }
+                      ? // ? { backgroundColor: "#f98269" } // coral
+                        // ? { backgroundColor: "#dfff00" } // lime
+                        { border: "2px solid #dfff00" }
                       : {}
                   }
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
                   <div className="flex justify-center">
-                    <p className="xl:text-3xl md:text-2xl md:pl-6 pl-2 lg:pl-0 text-xl text-center">{team.team_name}</p>
+                    <p className="xl:text-3xl md:text-2xl md:pl-6 pl-2 lg:pl-0 text-xl text-center">
+                      {team.team_name}
+                    </p>
                   </div>
                   <div className="flex justify-center">
                     {/* conditional in case there's no team pic */}
@@ -170,19 +189,19 @@ const TeamSearch = ({ setNavDetails }) => {
                       className="h-12 rounded"
                       alt="team"
                     /> */}
-                  {team.team_pic ? (
-                    <img
-                      src={team.team_pic}
-                      alt="team_pic"
-                      className="w-24 h-24 md:w-24 md:h-24 border-secondary/5 border-2 rounded-md thumb"
-                    />
-                  ) : (
-                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
-                      <hr className="border-2 border-primary/60 w-1/4" />
-                      <Shield size={48} className="text-text/60" />
-                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
-                    </div>
-                  )}
+                    {team.team_pic ? (
+                      <img
+                        src={team.team_pic}
+                        alt="team_pic"
+                        className="w-24 h-24 md:w-24 md:h-24 border-secondary/5 border-2 rounded-md thumb"
+                      />
+                    ) : (
+                      <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
+                        <hr className="border-2 border-primary/60 w-1/4" />
+                        <Shield size={48} className="text-text/60" />
+                        <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                      </div>
+                    )}
                   </div>
                   <div className="flex justify-center items-center text-2xl">
                     {rosteredPlayerCount(team) === 5 ? (
@@ -234,6 +253,8 @@ const TeamSearch = ({ setNavDetails }) => {
             setSelectedTeam={setSelectedTeam}
             setSuccessMessage={setSuccessMessage}
             setNavDetails={setNavDetails}
+            setLeaveMessage={setLeaveMessage}
+            leaveMessage={leaveMessage}
           />
         </div>
       </div>

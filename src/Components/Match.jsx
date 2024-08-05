@@ -43,15 +43,15 @@ const Match = ({ match }) => {
         <div className="mr-6">
           {/* <img src={placeHolder} alt="" /> */}
           {team1.team_pic ? (
-              <img
-                src={team1.team_pic}
-                alt="team_pic"
-                className="w-48 rounded-lg thumb"
-              />
+            <img
+              src={team1.team_pic}
+              alt="team_pic"
+              className="w-48 rounded-lg thumb"
+            />
           ) : (
             <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
               <hr className="border-2 border-primary/60 w-1/4" />
-                <Shield size={52} className="text-text/60" />
+              <Shield size={52} className="text-text/60" />
               <hr className="border-2 border-accent/60 w-1/4" />{" "}
             </div>
           )}
@@ -67,13 +67,13 @@ const Match = ({ match }) => {
           ) : (
             <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
               <hr className="border-2 border-primary/60 w-1/4" />
-                <Shield size={52} className="text-text/60" />
+              <Shield size={52} className="text-text/60" />
               <hr className="border-2 border-accent/60 w-1/4" />{" "}
             </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-center my-auto mt">
+      <div className="flex flex-col justify-center">
         <div className="text-center text-2xl bg-secondary/30 rounded-lg py-2 my-4">
           <h3>{match.park_name}</h3>
         </div>

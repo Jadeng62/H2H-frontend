@@ -198,7 +198,7 @@ const Matches = () => {
             <div
               key={match.id}
               onClick={() => navigate(`/matches/${match.id}`)}
-              className="flex justify-center hover:cursor-pointer h-fit"
+              className="flex justify-center hover:cursor-pointer"
             >
               <Match match={match} />
             </div>

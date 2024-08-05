@@ -14,6 +14,8 @@ const TeamSearchDetails = ({
   setSelectedTeam,
   setSuccessMessage,
   setNavDetails,
+  leaveMessage,
+  setLeaveMessage,
 }) => {
   const [teamRoster, setTeamRoster] = useState([]);
   const [renderJoinableTeams, setRenderJoinableTeams] = useState(false);
@@ -30,7 +32,10 @@ const TeamSearchDetails = ({
 
   function renderJoinButton() {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-    return selectedTeam[positionKeyWord] === null && userDetails.user_team_id === null;
+    return (
+      selectedTeam[positionKeyWord] === null &&
+      userDetails.user_team_id === null
+    );
   }
 
   function renderLeaveButton() {
@@ -39,9 +44,12 @@ const TeamSearchDetails = ({
   }
 
   function handleLeaveTeam() {
+    setLeaveMessage(true);
+    setTimeout(() => {
+      setLeaveMessage(false);
+    }, 5000);
     const isPlayerCaptain = userDetails.id === selectedTeam.captain_id;
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
-
     // Updating team info if captain leaves their team, assigns new captain and updates captain_id
     if (isPlayerCaptain) {
       const {
@@ -73,7 +81,6 @@ const TeamSearchDetails = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTeamInfo),
       };
-
       fetch(`${URL}/api/teams/${selectedTeam.id}`, teamOptions)
         .then((res) => res.json())
         .then((data) => {
@@ -82,11 +89,9 @@ const TeamSearchDetails = ({
         })
         .catch((error) => console.error("Team Didn't Update", error));
     }
-
     // Updating Team Info if a player leaves their team
     else {
       const updatedTeamInfo = { ...selectedTeam, [positionKeyWord]: null };
-
       const teamOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -100,6 +105,63 @@ const TeamSearchDetails = ({
         })
         .catch((error) => console.error("Team Didn't Update", error));
     }
+
+    // I will have to check if there is a match for the exact date the captain leaves and switch the creator_id over to the new captain
+    fetch(`${URL}/api/matches/?team_id=${selectedTeam.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const currentDate = new Date();
+        const currentDateOnly = new Date(currentDate.toDateString());
+
+        const presentFutureMatches = data.filter((match) => {
+          const matchDate = new Date(match.start_datetime);
+          const matchDateOnly = new Date(matchDate.toDateString());
+          return currentDateOnly <= matchDateOnly;
+        });
+        if (presentFutureMatches.length > 0) {
+          for (const match of presentFutureMatches) {
+            const team =
+              match.team1_id === userDetails.user_team_id
+                ? "team1_id"
+                : "team2_id";
+            const opponent = team === "team1_id" ? "team2_id" : "team1_id";
+
+            if (match[opponent] !== null) {
+              fetch(`${URL}/api/teams/${match[opponent]}`)
+                .then((res) => res.json())
+                .then((data) => {
+                  const updatedMatchInfo = {
+                    ...match,
+                    creator_id: data.captain_id,
+                    [team]: null,
+                  };
+                  const options = {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedMatchInfo),
+                  };
+                  fetch(`${URL}/api/matches/${match.id}`, options)
+                    .then((res) => res.json())
+                    .then((data) =>
+                      console.log("Match Details Updated!", data)
+                    );
+                });
+              // const updatedMatchInfo = {...match, creator_id: }
+            }
+            // We'll just trash match if there's no two teams
+            else {
+              const options = {
+                method: "DELETE",
+              };
+              fetch(`${URL}/api/matches/${match.id}`, options)
+                .then((res) => res.json())
+                .then((data) =>
+                  console.log("Deleted Match Since Captain Left", data)
+                );
+            }
+          }
+        }
+      });
     // Updating User Info
     const updatedUserInfo = { ...userDetails, user_team_id: null };
     const options = {
@@ -154,7 +216,7 @@ const TeamSearchDetails = ({
     setSuccessMessage(true);
     setTimeout(() => {
       setSuccessMessage(false);
-    }, 3000);
+    }, 5000);
   }
 
   return (
@@ -212,10 +274,14 @@ const TeamSearchDetails = ({
                     <>
                       <div className="grid grid-cols-2 text-text text-2xl m-auto w-1/2 text-center">
                         <h3 className="flex justify-center">
-                          <span className="p-2 mr-20 rounded-lg text-2xl lg:text-lg">Games Won</span>
+                          <span className="p-2 mr-20 rounded-lg text-2xl lg:text-lg">
+                            Games Won
+                          </span>
                         </h3>
                         <h3 className="flex justify-center">
-                          <span className="p-2 ml-20 rounded-lg text-2xl lg:text-lg">Games Lost</span>
+                          <span className="p-2 ml-20 rounded-lg text-2xl lg:text-lg">
+                            Games Lost
+                          </span>
                         </h3>
                       </div>
                       <div className="bg-background shadow-2xl rounded-lg p-2 flex w-1/2 m-auto">
@@ -225,7 +291,9 @@ const TeamSearchDetails = ({
                               className="relative top-0 bottom-0 right-1 bg-primary py-1 shadow-xl"
                               style={{
                                 width: `${
-                                  (selectedTeam.team_wins / selectedTeam.matches_played) * 100
+                                  (selectedTeam.team_wins /
+                                    selectedTeam.matches_played) *
+                                  100
                                 }%`,
                               }}
                             >
@@ -238,7 +306,9 @@ const TeamSearchDetails = ({
                               className="relative top-0 bottom-0 left-1 bg-accent py-1 shadow-xl"
                               style={{
                                 width: `${
-                                  (selectedTeam.team_loss / selectedTeam.matches_played) * 100
+                                  (selectedTeam.team_loss /
+                                    selectedTeam.matches_played) *
+                                  100
                                 }%`,
                               }}
                             >
@@ -256,7 +326,9 @@ const TeamSearchDetails = ({
                         <span className="mr-5">
                           <Info size={28} className="text-primary/50" />
                         </span>
-                        <span className="font-semibold">Not Enough Matches Played</span>
+                        <span className="font-semibold">
+                          Not Enough Matches Played
+                        </span>
                       </div>
                       {/* <span className="ml-12">
                         To see this team's stats they'll have to play matches!
@@ -303,7 +375,11 @@ const TeamSearchDetails = ({
                         <div className="mr-7">
                           {player.first_name} {player.last_name}{" "}
                           {player.id === selectedTeam.captain_id && (
-                            <img src={captainPic} alt="Captain" className="w-8" />
+                            <img
+                              src={captainPic}
+                              alt="Captain"
+                              className="w-8"
+                            />
                           )}
                         </div>
                       </div>

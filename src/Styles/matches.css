@@ -37,8 +37,10 @@
 }
 
 .match-display-container {
-  height: 400px;
+  /* height: ; */
   width: 350px;
+  /* height: 400px; */
+  /* width: 350px; */
   background-color: #c7cccf;
   border-radius: 8px;
   display: flex;
