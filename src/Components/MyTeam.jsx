@@ -273,14 +273,14 @@ const MyTeam = () => {
     <div className="min-h-screen">
       {/* {console.log(isUserTeamCaptain)} */}
       <div
-        style={{
-          backgroundImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/t_crop/v1721837757/Head%202%20Head/basketball_courts_ezeu10.jpg')`,
-          // backgrounImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/v1721839263/Head%202%20Head/Screenshot_2024-07-24_at_12.40.56_PM_tzqtdj.png')`,
-          backgroundSize: "auto", // Adjust the image size as needed
-          backgroundPosition: "center", // Center the image
-        }}
+      // style={{
+      //   backgroundImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/t_crop/v1721837757/Head%202%20Head/basketball_courts_ezeu10.jpg')`,
+      //   // backgrounImage: `url('https://res.cloudinary.com/dvmczcg3f/image/upload/v1721839263/Head%202%20Head/Screenshot_2024-07-24_at_12.40.56_PM_tzqtdj.png')`,
+      //   backgroundSize: "auto", // Adjust the image size as needed
+      //   backgroundPosition: "center", // Center the image
+      // }}
       >
-        <h1 className="bg-background/70  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
+        <h1 className="bg-secondary/30  text-white pb-2 pt-5  text-6xl text-center bebas-neue-regular">
           My Team
         </h1>
       </div>
@@ -542,7 +542,7 @@ const MyTeam = () => {
       <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
         Badges
       </h2>
-      <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
+      <div className="bg-secondary/10 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
         {existingBadges &&
           existingBadges.length > 0 &&
           existingBadges.map((badge) => {
@@ -561,7 +561,7 @@ const MyTeam = () => {
 
             return (
               <div className="flex flex-col items-center  mt-5">
-                <div className="bg-background/80 py-1 px-2 rounded flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
+                <div className="bg-background/80 py-1 px-2 rounded max-w-24 md:max-w-fit flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
                   {badgeToDisplay.name}
                 </div>
                 <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
@@ -582,19 +582,8 @@ const MyTeam = () => {
               </div>
             );
           })}
-        <div className="flex flex-col items-center justify-center">
-          <div className="bg-background/80 py-1 px-2 rounded ">???</div>
-          <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-secondary/50 shadow-2xl">
-            <div className="hexagon-inner h-20 w-18 md:h-32 md:w-28 bg-secondonary/10 bg-secondary/0 shadow-inner">
-              <div className="bg-background/90 p-8 md:p-12 md:border-8 rounded-full absolute border-4 border-background"></div>
-            </div>{" "}
-          </div>
-          <div className="bg-background border-2 py-0.5 px-1 md:py-1 md:px-2 flex justify-center text-center rounded">
-            ???
-          </div>
-        </div>
       </div>
-      <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
+      {/* <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
         Checking Existing Badges
       </h2>
       <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
@@ -624,7 +613,7 @@ const MyTeam = () => {
               </div>
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
