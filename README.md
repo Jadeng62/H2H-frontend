@@ -1,4 +1,4 @@
-<h1 align="center">Head 2 Head</h1>
+<h1 align="center">Head 2 Head - Client Side</h1>
 <p align="center">
   <img src="https://res.cloudinary.com/dwygxzqku/image/upload/v1722631715/H2H/h2h-logos/H2H-Logo_jnhf5q.png" 
     alt="H2H Logo" 
