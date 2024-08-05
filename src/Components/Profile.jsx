@@ -66,15 +66,12 @@ function Profile() {
       <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
         <h2>My Profile</h2>
       </div>
-      <div className="flex flex-col mt-10 mb-20 mx-10 sm:flex-row gap-7">
-        <div
-          className="flex justify-center w-full sm:w-1/3 sm:mb-0"
-          style={{ maxHeight: "565px" }}
-        >
+      <div className="flex flex-col mt-10 mb-20 mx-10 md:flex-row gap-10 ">
+        <div className="flex w-full lg:w-1/3" style={{ maxHeight: "565px" }}>
           <PlayerCard userDetails={userDetails} userTeam={userTeam} />
         </div>
         <div
-          className="flex justify-center sm:w-2/3"
+          className="flex justify-center md:w-full lg:w-2/3"
           style={{ maxHeight: "565px" }}
         >
           <UpcomingGames

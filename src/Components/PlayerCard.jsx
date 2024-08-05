@@ -5,7 +5,7 @@ import profileBg from "../assets/profile-bg.jpeg";
 const PlayerCard = ({ userDetails, userTeam }) => {
   return (
     <div
-      className="grid grid-rows-6 border-4 w-full sm:w-80 bebas-neue-regular rounded-xl text-black"
+      className="grid grid-rows-6 border-4 w-full bebas-neue-regular rounded-xl text-black"
       style={{
         backgroundImage: `url(${profileBg})`,
         backgroundSize: "cover",

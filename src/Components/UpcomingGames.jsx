@@ -13,7 +13,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
         </h1>
       </div>
       {userDetails && userDetails.user_team_id === null ? (
-        <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto  w-full sm:mt-20">
+        <div className="inline-flex justify-center flex-col items-center bg-secondary/30 py-4 mx-auto w-full sm:mt-20">
           <h1 className="text-center text-xl font-bold">
             Join or Create a Team Now!
           </h1>
