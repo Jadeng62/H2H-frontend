@@ -4,6 +4,7 @@ import { getUserData } from "../helpers/getUserData";
 import placeholderImage from "../assets/placeholder.png";
 import UpcomingGames from "./UpcomingGames";
 import PlayerCard from "./PlayerCard";
+import GameModal from "./GameModal";
 
 function Profile() {
   const [userDetails, setUserDetails] = useState(null);
@@ -63,11 +64,18 @@ function Profile() {
   // add button for captains who have full team where they can click to navigate to matches view so they can create a match
   return (
     <div className="text-text flex flex-col">
-      <div className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
-        <h2>My Profile</h2>
+      <div className="flex justify-between items-center bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
+      <h2 className="hidden md:block mx-auto">My Player</h2>
+      <div className="ml-auto md:mr-8 md:ml-0 mx-auto">
+        <GameModal matches={upcomingGames} />
       </div>
-      <div className="flex flex-col mt-10 mb-20 mx-10 md:flex-row gap-10 ">
-        <div className="flex w-full lg:w-1/3" style={{ maxHeight: "565px" }}>
+    </div>
+
+      <div className="flex flex-col mt-10 mb-20 mx-10 sm:flex-row gap-7">
+        <div
+          className="flex justify-center w-full sm:w-1/3 sm:mb-0"
+          style={{ maxHeight: "565px" }}
+        >
           <PlayerCard userDetails={userDetails} userTeam={userTeam} />
         </div>
         <div

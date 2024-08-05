@@ -51,12 +51,13 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
+      {console.log(user)}
       <NavBar userDetails={userDetails} setUserDetails={setUserDetails} />
       <div className="flex-grow">
         <Routes>
           <Route
             path="/"
-            element={user ? <Navigate to="/profile" /> : <LandingPage />}
+            element={user && userDetails ? <Navigate to="/profile" /> : <LandingPage />}
           />
           <Route path="/test" element={user ? <Test /> : <Login />} />
           <Route path="/login" element={<Login />} />

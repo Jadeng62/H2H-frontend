@@ -1,3 +1,5 @@
+const URL = import.meta.env.VITE_BASE_URL
+
 export function formattedDate(iso) {
   const date = new Date(iso);
   const year = date.getUTCFullYear();
@@ -107,3 +109,24 @@ export function isTeamFull(team) {
 // );
 
 // console.log(formatPositionSpelling("forward"));
+
+
+export function getTeamByTeamID(teamID){
+  return fetch(`${URL}/api/teams/${teamID}`)
+  .then((res.json()))
+}
+
+export function getTeamByPlayerID(playerID){
+  return fetch(`${URL}/api/teams?player_id=${playerID}`)
+  .then((res)=> res.json())
+}
+
+export function getTeamPlayersByTeamID(teamID){
+  return fetch(`${URL}/api/teams/${teamID}/users`)
+  .then((res)=> res.json())
+}
+
+export function getMatchDataByMatchID(matchID){
+  return fetch(`${URL}/api/matches/${matchID}`)
+  .then((res)=> res.json())
+}

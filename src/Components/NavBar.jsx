@@ -23,16 +23,16 @@ const NavBar = ({ userDetails, setUserDetails }) => {
       toast.error(error.message, {
         position: "bottom-center",
       });
-
+      
       console.error("Error logging out:", error.message);
     }
   }
   const [toggleHamburger, setToggleHamburger] = useState(false);
-
+  
   const { width } = useWindowSize();
-
+  
   const navigate = useNavigate();
-
+ 
   const LargeNavBar = ({ userDetails }) => (
     <div className="flex justify-between items-center p-5 bg-accent text-text bebas-neue-regular">
       {/* <h1

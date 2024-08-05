@@ -1,0 +1,91 @@
+.modal-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .bell-container {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.bell-icon {
+    font-size: 24px;
+    color: white;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 140px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -70px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.bell-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: black;
+    animation: fadeIn 0.5s;
+}
+.glow{
+    animation: glow 1.5s infinite alternate;
+}
+
+.modal-content h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+  }
+  
+  .modal-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .modal-content li {
+    margin-bottom: 10px;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 5px white;
+    }
+    to {
+      box-shadow: 0 0 20px white;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
