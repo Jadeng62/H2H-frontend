@@ -49,10 +49,12 @@ const Match = ({ match }) => {
               className="w-48 rounded-lg thumb"
             />
           ) : (
-            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
-              <hr className="border-2 border-primary/60 w-1/4" />
-              <Shield size={52} className="text-text/60" />
-              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            <div className="m-1">
+              <div className="bg-secondary/5 w-32 h-32 flex justify-center items-center rounded-lg border-2 border-secondary/5 px-3 m-1">
+                <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+                <hr className="border-2 border-accent/60 w-1/4" />{" "}
+              </div>
             </div>
           )}
         </div>
@@ -65,10 +67,12 @@ const Match = ({ match }) => {
               className="w-48 rounded-lg thumb"
             />
           ) : (
-            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
-              <hr className="border-2 border-primary/60 w-1/4" />
-              <Shield size={52} className="text-text/60" />
-              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            <div className="m-1">
+              <div className="bg-secondary/5 w-32 h-32 flex justify-center items-center rounded-lg border-2 border-secondary/5 px-3 m-1">
+                <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+                <hr className="border-2 border-accent/60 w-1/4" />{" "}
+              </div>
             </div>
           )}
         </div>
