@@ -534,7 +534,7 @@ const MyTeam = () => {
       <h2 className="text-white text-4xl bebas-neue-regular ml-10 mt-10 ">
         Badges
       </h2>
-      <div className="bg-secondary/10 mt-5 mx-10 lg:mb-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
+      <div className="bg-secondary/10 mt-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 shadow-2xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pb-12 overflow-y-auto h-96 md:h-124 gap-8 relative">
         {existingBadges &&
           existingBadges.length > 0 &&
           existingBadges.map((badge) => {
