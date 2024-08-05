@@ -553,7 +553,7 @@ const MyTeam = () => {
 
             return (
               <div className="flex flex-col items-center  mt-5">
-                <div className="bg-background/80 py-1 px-2 rounded flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
+                <div className="bg-background/80 py-1 px-2 rounded max-w-24 md:max-w-fit flex flex-row items-center border-2 border-amber-500/75 text-balance text-center">
                   {badgeToDisplay.name}
                 </div>
                 <div className="hexagon w-20 h-24 md:w-32 md:h-36 bg-amber-500/100 shadow-2xl">
