@@ -195,7 +195,7 @@ const MatchDetails = ({ upcomingGames }) => {
                 />
               ) : (
                 firstTeamRoster.length > 0 &&
-                <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded-lg border-2 border-secondary/50 px-3">
                   <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                   <hr className="border-2 border-accent/60 w-1/4" />
@@ -296,12 +296,12 @@ const MatchDetails = ({ upcomingGames }) => {
                       match.creator_id === userDetails.id && (
                         <td>
                           <span
-                            className=" flex justify-end pr-7"
+                            className=" flex justify-end items-center pr-7"
                             onClick={openModal}
                           >
                             <Pencil
                               size={32}
-                            className="hover:text-accent text-text cursor-pointer pb-2 mb-4"
+                            className="hover:text-accent text-text cursor-pointer pt-2 mb-2"
                             />
                           </span>
                         </td>
@@ -395,7 +395,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     />
                   ) : (
                     secondTeamRoster.length > 0 &&
-                    <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                    <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded-lg border-2 border-secondary/50 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={60} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />
