@@ -18,24 +18,24 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
             Join or Create a Team Now!
           </h1>
           <div className="flex flex-col lg:flex-row gap-2">
-          <button
-            className="mt-4 bg-primary hover:bg-tertiary text-black hover:text-black text-lg font-bold py-3 px-6 rounded shadow-black/70 shadow-md"
-            onClick={() => navigate("/createTeam")}
-          >
-            Create Team
-          </button>
-          <button
-            className="mt-4 bg-primary hover:bg-tertiary text-black font-bold py-3 px-6 rounded hover:text-black shadow-black/70 shadow-md text-lg"
-            onClick={() => navigate("/teamSearch")}
-          >
-            Join Team
-          </button>
+            <button
+              className="mt-4 bg-primary hover:bg-tertiary text-black hover:text-black text-lg font-bold py-3 px-6 rounded shadow-black/70 shadow-md"
+              onClick={() => navigate("/createTeam")}
+            >
+              Create Team
+            </button>
+            <button
+              className="mt-4 bg-primary hover:bg-tertiary text-black font-bold py-3 px-6 rounded hover:text-black shadow-black/70 shadow-md text-lg"
+              onClick={() => navigate("/teamSearch")}
+            >
+              Join Team
+            </button>
           </div>
         </div>
       ) : userDetails && upcomingGames.length > 0 ? (
         <div className="grid grid-rows-2 grid-cols-1">
           {/* <div className="row-span-2 px-4 pb-4 flex overflow-x-auto bebas-neue-regular max-h-80"> */}
-          <div className="row-span-1 relative overflow-x-auto overflow-y-auto px-4 mb-4 bebas-neue-regular max-h-72">
+          <div className="row-span-1 relative overflow-x-auto overflow-y-auto px-4 mb-8 bebas-neue-regular max-h-72">
             <table
               className="text-left rtl:text-right text-gray-500 dark:text-gray-400"
               style={{ width: "100%" }}
@@ -86,7 +86,7 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               </tbody>
             </table>
           </div>
-          <div className="row-span-1 bg-secondary/10 p-5 mx-4 my-auto h-fit rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
+          <div className="row-span-1 bg-secondary/10 p-5 mx-4 h-fit rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col shadow-2xl">
             <div className="flex flex-row items-center">
               <span className="mr-5">
                 <CircleCheck size={28} className="text-primary/50" />
