@@ -8,6 +8,7 @@ const FilteringTeams = ({
   setAllTeamsActive,
   joinableTeamsActive,
   setJoinableTeamsActive,
+  setSearchInput,
 }) => {
   const viewJoinableTeams = () => {
     const positionKeyWord = `${userDetails.position.replace(" ", "_")}_id`;
@@ -25,7 +26,7 @@ const FilteringTeams = ({
   return (
     <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 flex flex-col md:flex-row md:items-center">
       <div className="flex flex-row items-center justify-center mb-4 md:mb-0 mx-5">
-        <span className="font-semibold">Filtering Options: </span>
+        <span className="font-semibold">Filter: </span>
       </div>
       <div className="flex flex-wrap gap-4 items-center justify-center">
         <button
@@ -36,6 +37,7 @@ const FilteringTeams = ({
             setFilteredTeams(allTeams);
             setAllTeamsActive(true);
             setJoinableTeamsActive(false);
+            setSearchInput("");
           }}
         >
           All Teams
@@ -47,7 +49,7 @@ const FilteringTeams = ({
             } rounded-lg cursor-pointer`}
             onClick={viewJoinableTeams}
           >
-            Joinable Teams
+            Open Teams
           </button>
         )}
       </div>

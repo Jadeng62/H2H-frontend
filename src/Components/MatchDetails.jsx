@@ -7,10 +7,11 @@ import {
   isTeamFull,
 } from "../helpers/helper";
 import captainPic from "../assets/captain.webp";
-import { Pencil, Info } from "lucide-react";
+import { Pencil, Shield, Info } from "lucide-react";
 import Modal from "react-modal";
 import EditMatch from "./EditMatch";
 import { getUserData } from "../helpers/getUserData";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 
 const MatchDetails = ({ upcomingGames }) => {
   const [match, setMatch] = useState({});
@@ -180,15 +181,32 @@ const MatchDetails = ({ upcomingGames }) => {
     <div className="text-text">
       <div className="grid grid-cols-3 max-lg:grid-cols-1 max-lg:grid-rows-auto">
         {/* TEAM 1 STARTS HERE */}
-        <div className="">
+        <div> {/* this div keeps the vs in check */}
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {firstTeamDetails ? firstTeamDetails.team_name : "TBD"}
           </h1>
+          {/* Team Pic 1 */}
+          <div className="flex justify-center pt-16">
+            {firstTeamDetails && firstTeamDetails.team_pic ? (
+                <img
+                   src={firstTeamDetails.team_pic}
+                   alt="team_pic"
+                   className="w-60 rounded-lg thumb"
+                />
+              ) : (
+                firstTeamRoster.length > 0 &&
+                <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                  <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={60} className="text-text/60" />
+                  <hr className="border-2 border-accent/60 w-1/4" />
+                </div>
+              )}
+          </div>
           <div className="flex justify-center">
             {firstTeamRoster.length > 0 ? (
               <table
                 className="table-auto bg-background rounded-lg mx-10 w-fit"
-                style={{ marginTop: "15%", marginBottom: "15%" }}
+                style={{ marginTop: "6%", marginBottom: "6%" }}
               >
                 <thead className="text-left uppercase">
                   <tr>
@@ -204,7 +222,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img src={player.photo} className="w-16 mr-7 thumb shadow-md shadow-gray-500" />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === firstTeamDetails.captain_id && (
@@ -261,8 +279,14 @@ const MatchDetails = ({ upcomingGames }) => {
             Vs
           </h1>
           <div className="">
-            <div className="" style={{ marginTop: "15%" }}>
-              <table className="table-auto bg-accent rounded-lg mx-10 mb-4">
+
+
+
+{/* fix!!! */}
+
+
+            <div className="" style={{marginTop:"15%", marginBottom:"3%"}}>
+              <table className="table-auto bg-secondary/30 text-text rounded-lg m-auto mb-12">
                 <thead className="text-left uppercase">
                   <tr className="">
                     <th className="pl-7 py-4">Match Details</th>
@@ -277,10 +301,11 @@ const MatchDetails = ({ upcomingGames }) => {
                           >
                             <Pencil
                               size={32}
-                              className="hover:text-black text-text cursor-pointer pb-4"
+                            className="hover:text-accent text-text cursor-pointer pb-2 mb-4"
                             />
                           </span>
                         </td>
+
                       )}
                     <Modal
                       isOpen={isModalOpen}
@@ -331,7 +356,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     userDetails.id === secondTeamDetails.captain_id && (
                       <button
                         style={{ marginBottom: "15%" }}
-                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
+                        className="bg-accent border-2 border-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                         onClick={handleLeaveMatch}
                       >
                         Leave Match
@@ -344,7 +369,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     match.creator_id === userDetails.id && (
                       <button
                         style={{ marginBottom: "15%" }}
-                        className="bg-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500"
+                        className="bg-accent border-2 border-accent text-xl py-4 px-8 rounded-lg hover:bg-white hover:border-2 hover:border-red-500 font-bold hover:text-red-500"
                         onClick={handleDeleteMatch}
                       >
                         Delete Match
@@ -360,11 +385,29 @@ const MatchDetails = ({ upcomingGames }) => {
           <h1 className="bg-secondary/30 text-white pb-2 pt-5 text-6xl text-center bebas-neue-regular">
             {secondTeamDetails ? secondTeamDetails.team_name : "TBD"}
           </h1>
+
+          <div className="flex justify-center pt-16">
+                  {secondTeamDetails && secondTeamDetails.team_pic ? (
+                    <img
+                      src={secondTeamDetails.team_pic}
+                      alt="team_pic"
+                      className="w-60 rounded-lg thumb"
+                    />
+                  ) : (
+                    secondTeamRoster.length > 0 &&
+                    <div className="bg-secondary/5 w-60 h-60 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={60} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />
+                    </div>                   
+                  )}
+                </div>
+
           <div className="flex justify-center">
             {secondTeamRoster.length > 0 ? (
               <table
                 className="table-auto bg-background rounded-lg mx-10 w-fit"
-                style={{ marginTop: "15%", marginBottom: "15%" }}
+                style={{ marginTop: "6%", marginBottom: "6%" }}
               >
                 <thead className="text-left uppercase">
                   <tr>
@@ -380,7 +423,7 @@ const MatchDetails = ({ upcomingGames }) => {
                     >
                       <td className="px-6 py-5 text-black/80">
                         <div className="flex items-center m-auto">
-                          <img src={player.photo} className="w-16 mr-7" />
+                          <img src={player.photo} className="w-16 mr-7 thumb shadow-md shadow-gray-500" />
                           <div className="mr-7">
                             {player.first_name} {player.last_name}{" "}
                             {player.id === secondTeamDetails.captain_id && (
@@ -397,8 +440,8 @@ const MatchDetails = ({ upcomingGames }) => {
                 </tbody>
               </table>
             ) : (
-              <div style={{ marginTop: "15%", marginBottom: "15%" }}>
-                <div className="bg-secondary/10 p-5 mx-10 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7">
+              <div style={{ marginBottom: "6%" }}>
+                <div className="bg-secondary/10 p-5 rounded-lg text-text text-lg border-4 border-secondary/10 max-sm:mb-7 lg:w-1/2 m-auto">
                   <div className="flex">
                     <span className="mr-5">
                       <Info size={28} className="text-green-500" />

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { formattedDate, formattedTime } from "../helpers/helper";
+import { Shield } from "lucide-react";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 import placeHolder from "../assets/placeholder.png";
-
-import "../Styles/matches.css";
 
 const Match = ({ match }) => {
   const [team1, setTeam1] = useState({});
@@ -37,17 +37,43 @@ const Match = ({ match }) => {
         }`}</h1> */}
         <h1 className="text-3xl">{`${
           team1.team_name ? team1.team_name : "TBD"
-        } V.S.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
+        } VS.  ${team2.team_name ? team2.team_name : "TBD"}`}</h1>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mx-2">
         <div className="mr-6">
-          <img src={placeHolder} alt="" />
+          {/* <img src={placeHolder} alt="" /> */}
+          {team1.team_pic ? (
+              <img
+                src={team1.team_pic}
+                alt="team_pic"
+                className="w-48 rounded-lg thumb"
+              />
+          ) : (
+            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+              <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            </div>
+          )}
         </div>
         <div>
-          <img src={placeHolder} alt="" />
+          {/* <img src={placeHolder} alt="" /> */}
+          {team2.team_pic ? (
+            <img
+              src={team2.team_pic}
+              alt="team_pic"
+              className="w-48 rounded-lg thumb"
+            />
+          ) : (
+            <div className="bg-secondary/5 w-48 h-48 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+              <hr className="border-2 border-primary/60 w-1/4" />
+                <Shield size={52} className="text-text/60" />
+              <hr className="border-2 border-accent/60 w-1/4" />{" "}
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex flex-col justify-center my-auto">
+      <div className="flex flex-col justify-center my-auto mt">
         <div className="text-center text-2xl bg-secondary/30 rounded-lg py-2 my-4">
           <h3>{match.park_name}</h3>
         </div>

@@ -75,6 +75,7 @@ export default {
         primary: "#7EFE22",
         secondary: "#C7CCCF",
         accent: "#FD6326",
+        tertiary: "#dfff00", // Lemon Pie ---> neon-yellow-green
       },
     },
   },

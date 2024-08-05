@@ -1,14 +1,4 @@
-.thumb-container {
-  position: relative;
-}
-
-.thumb-container::after {
-  content: "";
-  padding-bottom: 100%;
-}
 .thumb {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
+  object-fit: cover; /* Required to prevent the image from stretching, use the object-position property to adjust the visible area */
+  aspect-ratio: 1/1;
 }

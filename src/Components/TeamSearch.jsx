@@ -5,7 +5,9 @@ import placeHolder from "../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import TeamSearchDetails from "./TeamSearchDetails";
 import FilteringTeams from "./FilteringTeams";
-import { CircleX } from "lucide-react";
+import { Shield, CircleX } from "lucide-react";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
+
 const TeamSearch = ({ setNavDetails }) => {
   const [allTeams, setAllTeams] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -13,7 +15,8 @@ const TeamSearch = ({ setNavDetails }) => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedTeam, setSelectedTeam] = useState();
   //
-  const [allTeamsActive, setAllTeamsActive] = useState(false);
+  const [allTeamsActive, setAllTeamsActive] = useState(true);
+
   const [joinableTeamsActive, setJoinableTeamsActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
 
@@ -41,16 +44,20 @@ const TeamSearch = ({ setNavDetails }) => {
         const response = await fetch(`${URL}/api/teams`);
         const data = await response.json();
 
-        if (userDetails && userDetails.user_team_id === null) {
-          setAllTeams(data);
-          setFilteredTeams(data);
-        } else if (userDetails && userDetails.user_team_id !== null) {
-          const teamsExcludingUsersTeam = data.filter(
-            (team) => team.id !== userDetails.user_team_id
-          );
-          setAllTeams(teamsExcludingUsersTeam);
-          setFilteredTeams(teamsExcludingUsersTeam);
-        }
+        setAllTeams(data);
+        setFilteredTeams(data);
+
+        // IF WE WANT TO EXCLUDE USERS TEAM FROM TEAM SEARCH
+        // if (userDetails && userDetails.user_team_id === null) {
+        //   setAllTeams(data);
+        //   setFilteredTeams(data);
+        // } else if (userDetails && userDetails.user_team_id !== null) {
+        //   const teamsExcludingUsersTeam = data.filter(
+        //     (team) => team.id !== userDetails.user_team_id
+        //   );
+        //   setAllTeams(teamsExcludingUsersTeam);
+        //   setFilteredTeams(teamsExcludingUsersTeam);
+        // }
       } catch (error) {
         console.error("Error fetching teams:", error);
       }
@@ -60,12 +67,18 @@ const TeamSearch = ({ setNavDetails }) => {
   }, [userDetails]);
 
   useEffect(() => {
-    const filtered = allTeams.filter((team) =>
-      team.team_name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-    setFilteredTeams(filtered);
-    setAllTeamsActive(false);
-    setJoinableTeamsActive(false);
+    if (searchInput.length > 0) {
+      const filtered = allTeams.filter((team) =>
+        team.team_name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setFilteredTeams(filtered);
+      setAllTeamsActive(false);
+      setJoinableTeamsActive(false);
+    }
+    if (searchInput.length === 0) {
+      setAllTeamsActive(true);
+      setFilteredTeams(allTeams);
+    }
   }, [searchInput, allTeams]);
 
   useEffect(() => {
@@ -110,7 +123,7 @@ const TeamSearch = ({ setNavDetails }) => {
                 className="text-black p-2 rounded-l-md w-full h-12 focus:outline-none hover:bg-text"
                 onChange={handleChange}
                 value={searchInput}
-                placeholder="Enter Team Name..."
+                placeholder="Enter Team Name"
               />
             </div>
             <div className="bg-accent border-l-4 border-black p-2 rounded-r-md h-12 w-12 flex items-center justify-center">
@@ -126,46 +139,71 @@ const TeamSearch = ({ setNavDetails }) => {
               setAllTeamsActive={setAllTeamsActive}
               joinableTeamsActive={joinableTeamsActive}
               setJoinableTeamsActive={setJoinableTeamsActive}
+              setSearchInput={setSearchInput}
             />
           </div>
-          <div className="overflow-y-scroll space-y-2  lg:h-144 mt-7 ">
+          <div 
+          className="overflow-y-scroll space-y-2  lg:h-136 mt-7 "
+          style={{ scrollbarColor: "grey black" }}
+          >
             {filteredTeams.length > 0 ? (
               filteredTeams.map((team) => (
                 <div
                   className="py-4 grid grid-cols-3 bg-secondary/30 items-center cursor-pointer bebas-neue-regular text-text hover:bg-secondary/50 rounded"
+                  style={
+                    userDetails && userDetails.user_team_id === team.id
+                      // ? { backgroundColor: "#f98269" } // coral
+                      // ? { backgroundColor: "#dfff00" } // lime
+                      ? { border: "2px solid #dfff00" }
+                      : {}
+                  }
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
                   <div className="flex justify-center">
-                    <p className="text-3xl">{team.team_name}</p>
+                    <p className="xl:text-3xl md:text-2xl md:pl-6 pl-2 lg:pl-0 text-xl text-center">{team.team_name}</p>
                   </div>
                   <div className="flex justify-center">
-                    <img
+                    {/* conditional in case there's no team pic */}
+                    {/* <img
                       src={placeHolder}
                       className="h-12 rounded"
                       alt="team"
+                    /> */}
+                  {team.team_pic ? (
+                    <img
+                      src={team.team_pic}
+                      alt="team_pic"
+                      className="w-24 h-24 md:w-24 md:h-24 border-secondary/5 border-2 rounded-md thumb"
                     />
+                  ) : (
+                    <div className="bg-secondary/5 w-24 h-24 md:w-24 md:h-24 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
+                      <hr className="border-2 border-primary/60 w-1/4" />
+                      <Shield size={48} className="text-text/60" />
+                      <hr className="border-2 border-accent/60 w-1/4" />{" "}
+                    </div>
+                  )}
                   </div>
                   <div className="flex justify-center items-center text-2xl">
-                  {rosteredPlayerCount(team) === 5 ? (
-                    <>
-                      <span className="text-secondary">
-                        {rosteredPlayerCount(team)}
-                      </span>
-                      <span className="mx-1">/</span>
-                      <span className="text-secondary">5</span>
-                      <span className="text-red-500">&nbsp;&nbsp;Full</span>
-                    </>
+                    {rosteredPlayerCount(team) === 5 ? (
+                      <>
+                        <span className="text-secondary">
+                          {rosteredPlayerCount(team)}
+                        </span>
+                        <span className="mx-1">/</span>
+                        <span className="text-secondary">5</span>
+                        <span className="text-red-500">&nbsp;&nbsp;Full</span>
+                      </>
                     ) : (
-                    <>
-                      <span className="text-text">
-                        {rosteredPlayerCount(team)}
-                      </span>
-                      <span className="mx-1">/</span>
-                      <span className="text-primary">5</span>
-                      <span className="text-primary">&nbsp;&nbsp;Open</span>
-                    </>
-                  )}
+                      <>
+                        <span className="text-text">
+                          {rosteredPlayerCount(team)}
+                        </span>
+                        <span className="mx-1">/</span>
+                        <span className="text-secondary">5</span>
+                        <span className="text-primary">&nbsp;&nbsp;Open</span>
+                      </>
+                    )}
                   </div>
                 </div>
               ))

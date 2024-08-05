@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import playersData from "../DummyData/myTeam.json";
 import placeHolder from "../assets/placeholder.png";
 import "../Styles/badges.css";
+import "../Styles/teamSearch.css"; //contains css to 'crop' image
 import {
   X,
   Accessibility,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import MyTeamForm from "./MyTeamForm";
 import { getUserData } from "../helpers/getUserData.js";
+import captainPic from "../assets/captain.webp";
 
 const MyTeam = () => {
   const URL = import.meta.env.VITE_BASE_URL;
@@ -297,14 +299,14 @@ const MyTeam = () => {
                   /> */}
                   {/*                       {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
 -Carlitos changed this since we can upload team photos now */}
-                  {teamData.team_pic && isValidUrl(teamData.team_pic) ? (
+                  {teamData.team_pic ? (
                     <img
                       src={teamData.team_pic}
                       alt="team_pic"
-                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded"
+                      className="w-24 h-24 md:w-36 md:h-36 border-secondary/5 border-2 rounded-md thumb"
                     />
                   ) : (
-                    <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded border-2 border-secondary/5 px-3">
+                    <div className="bg-secondary/5 w-24 h-24 md:w-36 md:h-36 flex justify-center items-center rounded-md border-2 border-secondary/5 px-3">
                       <hr className="border-2 border-primary/60 w-1/4" />
                       <Shield size={72} className="text-text/60" />
                       <hr className="border-2 border-accent/60 w-1/4" />{" "}
@@ -415,7 +417,7 @@ const MyTeam = () => {
                     <span className="font-semibold">Not Enough Data</span>
                   </div>
                   <span className="ml-12">
-                    To see your team stats, you have to play in more matches!
+                    To see your team stats play in more matches!
                   </span>
                   {playersInTeam && playersInTeam.length === 5 ? (
                     <span
@@ -474,17 +476,23 @@ const MyTeam = () => {
                               <img
                                 src={player.photo}
                                 alt="player_profile_pic"
-                                className="w-14 rounded"
+                                className="w-14 rounded shadow-md shadow-gray-400 thumb"
                               />
                             ) : (
                               <img
                                 src={placeHolder}
                                 alt="player_profile_pic"
-                                className="w-14 rounded"
+                                className="w-14 rounded shadow-md shadow-gray-400"
                               />
                             )}
                           </span>{" "}
-                          {player.first_name} {player.last_name}
+                          {/* {player.first_name} {player.last_name} */}
+                          <div className="mr-7">
+                            {player.first_name} {player.last_name}{" "}
+                            {player.id === teamData.captain_id && (
+                              <img src={captainPic} alt="" className="w-8" />
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-5">
                           {capitalizeFirstLetter(player.position)}

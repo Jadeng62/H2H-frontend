@@ -137,20 +137,20 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
       <form className="team-form bg-white">
         <h2 className="team-form-h2">Create Your Team</h2>
         <label htmlFor="team_name" className="team-form-label">
-          Team Name:
+          Team Name
           <input
             id="team_name"
             type="text"
             name="team_name"
             required
             value={team_name}
-            placeholder="Enter Team Name ..."
+            placeholder="Enter Team Name"
             className="team-form-input"
             onChange={handleChange}
           />
         </label>
         <label htmlFor="team_pic" className="team-form-label">
-          Upload Team Picture:
+          Upload Team Picture
           <UploadWidget
             cloudinaryURL={cloudinaryURL}
             setCloudinaryURL={setCloudinaryURL}
@@ -171,17 +171,26 @@ const MyTeamForm = ({ isUserTeamCaptin, setIsUserCaptin, setNavDetails }) => {
                 </label> */}
         <div className="flex justify-center flex-col gap-4 font-bold">
           <button
-            className="bg-accent text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
+            className="bg-tertiary text-black px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
             type="submit"
             onClick={handleSubmit}
           >
             Create Team
           </button>
           <button
+            type="button"
             onClick={handleCancel}
             className="bg-background text-white px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
           >
             Cancel
+          </button>
+          <p className="text-center">OR</p>
+          <button
+            className="bg-tertiary text-black px-8 py-4 rounded-md hover:bg-secondary hover:text-background"
+            type="button"
+            onClick={() => navigate("/teamSearch")}
+          >
+            Join Existing Team
           </button>
         </div>
       </form>

@@ -17,12 +17,20 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
           <h1 className="text-center text-xl font-bold">
             Join or Create a Team Now!
           </h1>
+          <div className="flex flex-col lg:flex-row gap-2">
           <button
-            className="mt-4 bg-primary hover:bg-accent text-black font-bold py-2 px-4 rounded"
+            className="mt-4 bg-primary hover:bg-tertiary text-black hover:text-black text-lg font-bold py-3 px-6 rounded shadow-black/70 shadow-md"
             onClick={() => navigate("/createTeam")}
           >
-            +
+            Create Team
           </button>
+          <button
+            className="mt-4 bg-primary hover:bg-tertiary text-black font-bold py-3 px-6 rounded hover:text-black shadow-black/70 shadow-md text-lg"
+            onClick={() => navigate("/teamSearch")}
+          >
+            Join Team
+          </button>
+          </div>
         </div>
       ) : userDetails && upcomingGames.length > 0 ? (
         <div className="grid grid-rows-2 grid-cols-1">
@@ -85,13 +93,13 @@ const UpcomingGames = ({ userDetails, upcomingGames }) => {
               </span>
               <span className="font-semibold">You're Team is All Set!</span>
             </div>
-            <span className="ml-12">Click here to view matches!</span>
+            <span className="ml-12">Click here to view match details.</span>
 
             <span
               onClick={() => navigate(`/matches`)}
               className="bg-primary/50 mt-5 p-2 px-3 rounded-lg ml-12 mr-auto border-2 border-secondary/40 hover:border-primary/30 hover:bg-secondary/20 shadow-xl cursor-pointer"
             >
-              Go to Matches
+              See All Matches
             </span>
           </div>
         </div>

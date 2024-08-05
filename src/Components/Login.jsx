@@ -36,9 +36,10 @@ function Login() {
       localStorage.setItem("token", token);
 
       setLoginNewUser({ password: "", email: "" });
-      toast.success("User logged in Successfully", {
-        position: "top-center",
-      });
+      console.log("User logged in Successfully")
+      // toast.success("User logged in Successfully", {
+      //   position: "top-center",
+      // });
 
       // you do not have to create a login in the backend because firebase is handling it.
       // when you navigate to profile, you will see a fetch for the user.
