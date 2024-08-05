@@ -49,10 +49,11 @@ const FilteringTeams = ({
       <div className="flex flex-row items-center justify-center mb-4 md:mb-0 mx-5">
         <span className="font-semibold">Filter: </span>
       </div>
-      <div className="flex flex-col gap-4 items-center justify-center md:flex-row xl:w-1/2">
+      <div className="flex flex-col gap-4 items-center justify-center md:flex-row">
         <button
-          className={`text-white text-lg py-2 px-3 ${
-            allTeamsActive ? "bg-accent border-4 border-accent" : "bg-secondary/30 border-4 border-secondary/10"} rounded-lg cursor-pointer`}          
+          className={`text-white text-lg py-3 px-3 ${
+            allTeamsActive ? "bg-accent border-accent" : "bg-secondary/30 border border-secondary/10"
+            } rounded-lg cursor-pointer`}          
           onClick={() => {
             setFilteredTeams(allTeams);
             setAllTeamsActive(true);
@@ -64,21 +65,21 @@ const FilteringTeams = ({
         </button>
         {userDetails && userDetails.user_team_id === null && (
           <button
-            className={`text-white text-lg py-3 px-3  ${
+            className={`text-white text-lg py-3 px-3 ${
               joinableTeamsActive ? "bg-accent border-accent" : "bg-secondary/30 border border-secondary/10"
             } rounded-lg cursor-pointer`}
             onClick={viewJoinableTeams}
           >
-            All Open Teams
+            Open Teams
           </button>
         )}
         {userDetails && userDetails.user_team_id === null && (
           <select
-            className="text-lg py-4 px-3 rounded-lg bg-secondary/30 border-secondary/10 cursor-pointer"
+            className="text-lg py-4 px-3 rounded-lg bg-secondary/30 border-secondary/10 cursor-pointer flex items-center"
             value={selectedPosition}
             onChange={handlePositionChange}
           >
-            <option value="">Filter Open Teams By Position</option>
+            <option value="">Open Teams By Position</option>
             {/* <option value="All">View All Teams</option> */}
             <option value="point_guard">Point Guard</option>
             <option value="shooting_guard">Shooting Guard</option>
