@@ -8,11 +8,11 @@
 
 ## Live Demo
 
-Check out the live demo of the Head 2 Head app here: [Deployed App](http://your-deployed-app-url.com)
+Check out the live demo of the Head 2 Head app here: [Deployed App](https://head2head.netlify.app/)
 
 ## App Overview
 
-H2H is your ultimate app for finding teammates, creating matches, and elevating your basketball experience. Our platform simplifies the process of building teams and setting up games, helping you reconnect with the thrill of competitive sports. 
+H2H is your ultimate app for finding teammates, creating matches, and elevating your basketball experience. Our platform simplifies the process of building teams and setting up games, helping you reconnect with the thrill of competitive sports.
 
 - **Find Teammates**: Easily discover and connect with players who share your passion for basketball.
 - **Create Matches**: Set up and organize games with just a few clicks, ensuring smooth and efficient match scheduling.
@@ -25,18 +25,22 @@ Experience the perfect blend of digital convenience and real-life sports excitem
 ## Key Features
 
 - **Authentication**:
+
   - Email/Password sign-in
   - Google sign-in
 
 - **User Management**:
+
   - Authentication state handled in the `App.jsx` component.
   - Manage user data using the `getUserData` function.
 
 - **Frontend Components**:
+
   - Includes Login, Register, Profile, Matches, MyTeam, Leaderboard, and more.
   - Features conditional rendering and modals for user interactions.
 
 - **Routing**:
+
   - Configured with `react-router-dom`.
   - Protected routes and redirects based on authentication status.
 
@@ -51,6 +55,7 @@ Experience the perfect blend of digital convenience and real-life sports excitem
 This project relies on a set of packages to function correctly. Here's a quick overview of the main ones:
 
 **Core Dependencies:**
+
 - **`@splinetool/react-spline`**: For integrating spline animations.
 - **`chart.js`**: To create interactive charts and graphs.
 - **`firebase`**: For authentication and backend services.
@@ -62,6 +67,7 @@ This project relies on a set of packages to function correctly. Here's a quick o
 - **`react-toastify`**: To show toast notifications for user feedback.
 
 **Development Dependencies:**
+
 - **`@types/react`** and **`@types/react-dom`**: TypeScript type definitions for React.
 - **`@vitejs/plugin-react`**: Vite plugin for React support.
 - **`autoprefixer`** and **`postcss`**: Tools for automatically adding vendor prefixes to your CSS.
@@ -76,22 +82,26 @@ This project showcases a client-side login system using Firebase, supporting bot
 ### Prerequisites
 
 Make sure you have the following installed:
+
 - Node.js (>=14.x)
 - npm
 
 ### Setup Instructions
 
 1. **Clone the Client-Side Repository**
+
    ```bash
    git clone https://github.com/Jadeng62/H2H-frontend.git
    ```
 
 2. **Clone the Server-Side Repository**
+
    ```bash
    git clone https://github.com/Jadeng62/H2H-backend.git
    ```
 
 3. **Install Dependencies**
+
    ```bash
    npm install
    ```
@@ -99,10 +109,12 @@ Make sure you have the following installed:
 4. **Configure Firebase**
 
    - **Create a Firebase Project**:
+
      - Go to the [Firebase Console](https://console.firebase.google.com/).
      - Create a new Firebase project.
 
    - **Enable Authentication**:
+
      - Enable Email/Password and Google sign-in methods.
 
    - **Configure Firestore** (Optional):
@@ -121,6 +133,7 @@ Make sure you have the following installed:
 5. **Set Up Environment Variables**
 
    Create a `.env` file in the root directory of your project with the following content, replacing placeholders with your Firebase configuration values:
+
    ```env
    VITE_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
    VITE_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
